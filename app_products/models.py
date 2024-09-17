@@ -33,7 +33,23 @@ from app_reference_shared.models import (
     PublishingYear,
     SmartphoneVersion,
     WarrantyPeriod,
-    ModelName
+    ModelName,
+    PartNumber,
+    Weight,
+    Size,
+    ProductSet,
+    FrontCamerResolution,
+    BasicCamerResolution,
+    BatteryCapacity,
+    StandByPeriod,
+    WorkPeriod,
+    RecordMaxSpeed,
+    LifeSpan,
+    ScreenSize,
+    SellerCode,
+    MarketingColour,
+    ProcessorFrequency
+
 )
 from app_reference_smartphones.models import (
     Brand, 
@@ -50,24 +66,38 @@ from app_reference_smartphones.models import (
     CaseForm,
     EuroAsianCode,
     SimCardQnty
+    
 )
-
 
 class Smartphone (models.Model):
     created = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=160)
+
+    part_number = models.ForeignKey(PartNumber, on_delete=models.DO_NOTHING, null=True, blank=True)
+    size = models.ForeignKey(Size, on_delete=models.DO_NOTHING, null=True, blank=True)
+    weight = models.ForeignKey(Weight, on_delete=models.DO_NOTHING, null=True, blank=True)
+    product_set = models.ForeignKey(ProductSet, on_delete=models.DO_NOTHING, null=True, blank=True)
+    front_camera_resolution = models.ForeignKey(FrontCamerResolution, on_delete=models.DO_NOTHING, null=True, blank=True)
+    basic_camera_resolution = models.ForeignKey(BasicCamerResolution, on_delete=models.DO_NOTHING, null=True, blank=True)
+    battery_capacity = models.ForeignKey(BatteryCapacity, on_delete=models.DO_NOTHING, null=True, blank=True)
+    stand_by_period = models.ForeignKey(StandByPeriod, on_delete=models.DO_NOTHING, null=True, blank=True)
+    work_period = models.ForeignKey(WorkPeriod, on_delete=models.DO_NOTHING, null=True, blank=True)
+    life_span = models.ForeignKey(LifeSpan, on_delete=models.DO_NOTHING, null=True, blank=True)
+    record_max_speed = models.ForeignKey(RecordMaxSpeed, on_delete=models.DO_NOTHING, null=True, blank=True)
+    screen_size = models.ForeignKey(ScreenSize, on_delete=models.DO_NOTHING, null=True, blank=True)
+    seller_code = models.ForeignKey(SellerCode, on_delete=models.DO_NOTHING, null=True, blank=True)
+    processor_frequency = models.ForeignKey(ProcessorFrequency, on_delete=models.DO_NOTHING, null=True, blank=True)
+    marketing_colour = models.ForeignKey(MarketingColour, on_delete=models.DO_NOTHING, null=True, blank=True)
+    #========================CharFields
+    description = models.CharField(max_length=100, null=True, blank=True)
+    marketing_text = models.TextField(null=True, blank=True)
+    #======================dictionary_id > 0==================================================
     category_name = models.ForeignKey(OzonCategory, on_delete=models.DO_NOTHING, null=True)
     brand = models.ForeignKey(Brand, on_delete=models.DO_NOTHING, null=True)
-    part_number = models.CharField(max_length=15, null=True)
     type = models.ForeignKey(Type, on_delete=models.SET_NULL, null=True, blank=True)
     warranty_period = models.ForeignKey(WarrantyPeriod, on_delete=models.DO_NOTHING, null=True)
     model_name = models.ForeignKey(ModelName, on_delete=models.DO_NOTHING, null=True)
     hard_drive = models.ForeignKey(HardDrive, on_delete=models.SET_NULL, null=True)
-    description = models.CharField(max_length=100, null=True, blank=True)
-    marketing_text = models.TextField(null=True, blank=True)
-    size = models.CharField(max_length=50, null=True, blank=True)#Без упаковки; в мм; длина х ширина х высота; длина самая большая, высота - самая маленькая
-    weight = models.CharField(max_length=50, null=True, blank=True)#вес в г
-    product_set = models.CharField(max_length=100, null=True, blank=True)#перечислить, что входит в товар
     country_of_manufacture = models.ForeignKey(CountryOfManufacture, on_delete=models.SET_NULL, null=True, blank=True)
     matrix_type = models.ForeignKey(MatrixType, on_delete=models.SET_NULL, null=True, blank=True)
     sim_card_qnty = models.ForeignKey(SimCardQnty, on_delete=models.SET_NULL, null=True, blank=True)
@@ -76,32 +106,22 @@ class Smartphone (models.Model):
     bluetooth = models.ForeignKey(BluetoothType, on_delete=models.SET_NULL, null=True, blank=True)
     navigation = models.ForeignKey(NavigationType, on_delete=models.SET_NULL, null=True, blank=True)
     sensor = models.ForeignKey(Sensor, on_delete=models.SET_NULL, null=True, blank=True)
-    front_camera_resolution = models.CharField(max_length=25, null=True, blank=True)
-    basic_camera_resolution = models.CharField(max_length=25, null=True, blank=True)
-    battery_capacity = models.CharField(max_length=25, null=True, blank=True)
+    #sensor = models.ManyToManyField(Sensor, blank=True)
     sim_type = models.ForeignKey(SimType, on_delete=models.SET_NULL, null=True, blank=True)
-    standby_period = models.CharField(max_length=25, null=True, blank=True)
     wifi = models.ForeignKey(WifiType, on_delete=models.SET_NULL, null=True, blank=True)
     video_processor_brand = models.ForeignKey(VideoProcessorBrand, on_delete=models.SET_NULL, null=True, blank=True)
     screen_resolution = models.ForeignKey(ScreenResolution, on_delete=models.SET_NULL, null=True, blank=True)
     video_quality = models.ForeignKey(VideoQuality, on_delete=models.SET_NULL, null=True, blank=True)
     gadget_model = models.ForeignKey(GadgetModel, on_delete=models.SET_NULL, null=True, blank=True)
     protection_grade = models.ForeignKey(ProtectionGrade, on_delete=models.SET_NULL, null=True, blank=True)
-    work_period = models.CharField(max_length=25, null=True, blank=True)
-    record_max_speed = models.CharField(max_length=25, null=True, blank=True)
-    life_span = models.CharField(max_length=25, null=True, blank=True)
-    screen_size = models.CharField(max_length=25, null=True, blank=True)
-    seller_code = models.CharField(max_length=25, null=True, blank=True)
     gadget_serie = models.ForeignKey(GadgetSerie, on_delete=models.SET_NULL, null=True, blank=True)
     camera_function = models.ForeignKey(CameraFunction, on_delete=models.SET_NULL, null=True, blank=True)
     hazard_grade = models.ForeignKey(HazardGrade, on_delete=models.SET_NULL, null=True, blank=True)
     colour = models.ForeignKey(Colour, on_delete=models.SET_NULL, null=True, blank=True)
-    marketing_colour = models.CharField(max_length=50, null=True, blank=True)
     qnty_of_basic_cameras = models.ForeignKey(QntyOfBasicCamera, on_delete=models.SET_NULL, null=True, blank=True)
     processor = models.ForeignKey(Processor, on_delete=models.SET_NULL, null=True, blank=True)
     video_processor = models.ForeignKey(VideoProcessor, on_delete=models.SET_NULL, null=True, blank=True)
     processor_brand = models.ForeignKey(ProcessorBrand, on_delete=models.SET_NULL, null=True, blank=True)
-    processor_frequency = models.CharField(max_length=15, null=True, blank=True)
     processor_core_qnty = models.ForeignKey(ProcessorCoreQnty, on_delete=models.SET_NULL, null=True, blank=True)
     processor_model = models.ForeignKey(ProcessorModel, on_delete=models.SET_NULL, null=True, blank=True)
     wireless_interface = models.ForeignKey(WirelessInterface, on_delete=models.SET_NULL, null=True, blank=True)

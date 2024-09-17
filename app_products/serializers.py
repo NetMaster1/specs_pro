@@ -50,12 +50,13 @@ class SmartphoneSerializer(serializers.ModelSerializer):
     оперативная_память = serializers.SerializerMethodField('get_ram')
     год_анонсирования = serializers.SerializerMethodField('get_publishing_year')
     версия_смарфтона = serializers.SerializerMethodField('get_smartphone_version')
+    # катложный_номер = serializers.SerializerMethodField('get_part_number')
 
 
     class Meta:
         model = Smartphone
         fields = [
-        'name', 'part_number', 'warranty_period', 'тип', 'model_name', 'hard_drive', 'description', 
+        'name', 'каталожный_номер', 'warranty_period', 'тип', 'model_name', 'hard_drive', 'description', 
         'marketing_text', 'size', 'weight', 'product_set', 'страна_изготовления', 'тип_матрицы', 'количество_сим_карт', 'тип_карты_памяти',
         'bluetooth', 'navigation', 'sensor', 'front_camera_resolution', 'basic_camera_resolution', 'battery_capacity','sim_type',
         'standby_period', 'модуль_связи_WiFi', 'бренд_графического_процессора', 'разрешение_экрана', 'качество_видео', 'модель_устройства',
@@ -75,6 +76,15 @@ class SmartphoneSerializer(serializers.ModelSerializer):
             'dictionary_value_id': smartphone.model_name.digital_code, 
             'is_required': smartphone.model_name.is_required}
         return model_name
+    # def get_part_number(self, smartphone):
+    #     model_name={
+    #         'attribute_name': smartphone.model_name.attribute_name, 
+    #         'id': smartphone.model_name.attribute_id, 
+    #         'value': smartphone.model_name.name, 
+    #         'dictionary_value_id': smartphone.model_name.digital_code, 
+    #         'is_required': smartphone.model_name.is_required}
+    #     return model_name
+
     def get_warranty_period(self, smartphone):
         warranty_period={
             'attribute_name': smartphone.warranty_period.attribute_name, 
@@ -416,8 +426,7 @@ class SmartphoneSerializer(serializers.ModelSerializer):
             'attribute_name': smartphone.smartphone_version.attribute_name, 
             'attribute_id': smartphone.smartphone_version.attribute_id, 
             'dictionary_value_id': smartphone.smartphone_version.digital_code, 
-            'value': smartphone.smartphone_version.attribute_name,
-            'is_required': smartphone.smartphone_version.is_required}
+            'value': smartphone.smartphone_version.attribute_name}
         return smartphone_version
 
 # class SmartphoneCategorySerializer(serializers.HyperlinkedModelSerializer):

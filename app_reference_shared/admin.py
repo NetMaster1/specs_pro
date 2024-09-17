@@ -2,7 +2,9 @@ from django.contrib import admin
 from .models import (SmartphoneVersion, PublishingYear, RAM, ESimSupport, IOSVersion, Authentication, Stabilization, ChargingFunction, SpecialFeature, 
     Interface, AndroidVersion, OperationSystem, CaseMaterial, WirelessInterface, ProcessorModel, ProcessorBrand, VideoProcessor, 
     HazardGrade, CameraFunction, GadgetSerie, VideoProcessorBrand, OzonCategory, HardDrive, CountryOfManufacture, MatrixType, CardType, BluetoothType, 
-    NavigationType, Sensor, SimType, WifiType, WarrantyPeriod, ModelName, CommunicationStandard)
+    NavigationType, Sensor, SimType, WifiType, WarrantyPeriod, ModelName, CommunicationStandard, PartNumber, Size, Weight, ProductSet,
+    FrontCamerResolution, BasicCamerResolution, BatteryCapacity, StandByPeriod, WorkPeriod, RecordMaxSpeed, LifeSpan, ScreenSize, SellerCode,
+    MarketingColour, ProcessorFrequency)
 
 class OzonCategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'type_name', 'type_id', 'category_name', 'description_category_id', 'group_category_name', 'group_description_category_id')
@@ -11,6 +13,113 @@ class OzonCategoryAdmin(admin.ModelAdmin):
     list_per_page=100
     search_fields = ('type_name', )
 
+class PartNumberAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'name', 'digital_code', 'is_required')  
+    list_filter = ('name',)
+    ordering = ('name',)
+    list_per_page=100
+    search_fields = ('name', )
+
+class BasicCameraResolutionAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'name', 'digital_code', 'is_required')  
+    list_filter = ('name',)
+    ordering = ('name',)
+    list_per_page=100
+    search_fields = ('name', )
+
+class BatteryCapacityAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'name', 'digital_code', 'is_required')  
+    list_filter = ('name',)
+    ordering = ('name',)
+    list_per_page=100
+    search_fields = ('name', )
+
+class ProductSetAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'name', 'digital_code', 'is_required')  
+    list_filter = ('name',)
+    ordering = ('name',)
+    list_per_page=100
+    search_fields = ('name', )
+
+class FrontCameraResolutionAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'name', 'digital_code', 'is_required')  
+    list_filter = ('name',)
+    ordering = ('name',)
+    list_per_page=100
+    search_fields = ('name', )
+
+class WeightAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'name', 'digital_code', 'is_required')  
+    list_filter = ('name',)
+    ordering = ('name',)
+    list_per_page=100
+    search_fields = ('name', )
+
+class SizeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'name', 'digital_code', 'is_required')  
+    list_filter = ('name',)
+    ordering = ('name',)
+    list_per_page=100
+    search_fields = ('name', )
+
+class StandByPeriodAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'name', 'digital_code', 'is_required')  
+    list_filter = ('name',)
+    ordering = ('name',)
+    list_per_page=100
+    search_fields = ('name', )
+
+class WorkPeriodAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'name', 'digital_code', 'is_required')  
+    list_filter = ('name',)
+    ordering = ('name',)
+    list_per_page=100
+    search_fields = ('name', )
+
+class RecordMaxSpeedAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'name', 'digital_code', 'is_required')  
+    list_filter = ('name',)
+    ordering = ('name',)
+    list_per_page=100
+    search_fields = ('name', )
+
+class LifeSpanAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'name', 'digital_code', 'is_required')  
+    list_filter = ('name',)
+    ordering = ('name',)
+    list_per_page=100
+    search_fields = ('name', )
+
+class ScreenSizeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'name', 'digital_code', 'is_required')  
+    list_filter = ('name',)
+    ordering = ('name',)
+    list_per_page=100
+    search_fields = ('name', )
+
+class SellerCodeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'name', 'digital_code', 'is_required')  
+    list_filter = ('name',)
+    ordering = ('name',)
+    list_per_page=100
+    search_fields = ('name', )
+
+class MarketingColourAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'name', 'digital_code', 'is_required')  
+    list_filter = ('name',)
+    ordering = ('name',)
+    list_per_page=100
+    search_fields = ('name', )
+
+class ProcessorFrequencyAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'name', 'digital_code', 'is_required')  
+    list_filter = ('name',)
+    ordering = ('name',)
+    list_per_page=100
+    search_fields = ('name', )
+
+
+#======================================================
 class SmartphoneVersionAdmin(admin.ModelAdmin):
     list_display = ('id', 'attribute_name', 'attribute_id', 'name', 'digital_code', 'is_required')  
     list_filter = ('name',)
@@ -276,3 +385,17 @@ admin.site.register(SmartphoneVersion, SmartphoneVersionAdmin)
 admin.site.register(WarrantyPeriod, WarrantyPeriodAdmin)
 admin.site.register(ModelName, ModelNameAdmin)
 admin.site.register(CommunicationStandard, CommunicationStandardAdmin)
+admin.site.register(PartNumber, PartNumberAdmin)
+admin.site.register(Size, SizeAdmin)
+admin.site.register(ProductSet, ProductSetAdmin)
+admin.site.register(FrontCamerResolution, FrontCameraResolutionAdmin)
+admin.site.register(BasicCamerResolution, BasicCameraResolutionAdmin)
+admin.site.register(BatteryCapacity, BatteryCapacityAdmin)
+admin.site.register(StandByPeriod, StandByPeriodAdmin)
+admin.site.register(WorkPeriod, WorkPeriodAdmin)
+admin.site.register(RecordMaxSpeed, RecordMaxSpeedAdmin)
+admin.site.register(LifeSpan, LifeSpanAdmin)
+admin.site.register(ScreenSize, ScreenSizeAdmin)
+admin.site.register(SellerCode, SellerCodeAdmin)
+admin.site.register(MarketingColour, MarketingColourAdmin)
+admin.site.register(ProcessorFrequency, ProcessorFrequencyAdmin)
