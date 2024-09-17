@@ -113,7 +113,7 @@ class Smartphone (models.Model):
     microsd_slot = models.ForeignKey(MicroSDSlot, on_delete=models.SET_NULL, null=True, blank=True)
     special_feature = models.ForeignKey(SpecialFeature, on_delete=models.SET_NULL, null=True, blank=True)
     charging_function = models.ForeignKey(ChargingFunction, on_delete=models.SET_NULL, null=True, blank=True)
-    Stabilization = models.ForeignKey(Stabilization, on_delete=models.SET_NULL, null=True, blank=True)
+    stabilization = models.ForeignKey(Stabilization, on_delete=models.SET_NULL, null=True, blank=True)
     authentification = models.ForeignKey(Authentication, on_delete=models.SET_NULL, null=True, blank=True)
     case_form = models.ForeignKey(CaseForm, on_delete=models.SET_NULL, null=True, blank=True)
     ios_version = models.ForeignKey(IOSVersion, on_delete=models.SET_NULL, null=True, blank=True)

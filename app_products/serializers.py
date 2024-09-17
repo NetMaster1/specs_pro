@@ -9,7 +9,7 @@ class SmartphoneSerializer(serializers.ModelSerializer):
     warranty_period = serializers.SerializerMethodField('get_warranty_period')
     model_name = serializers.SerializerMethodField('get_model_name')
     тип = serializers.SerializerMethodField('get_type')
-    встроенная_память = serializers.SerializerMethodField('get_hard_drive')
+    hard_drive = serializers.SerializerMethodField('get_hard_drive')
     страна_изготовления = serializers.SerializerMethodField('get_country_of_manufacture')
     тип_матрицы = serializers.SerializerMethodField('get_matrix_type')
     количество_сим_карт = serializers.SerializerMethodField('get_sim_card_qnty')
@@ -55,7 +55,7 @@ class SmartphoneSerializer(serializers.ModelSerializer):
     class Meta:
         model = Smartphone
         fields = [
-        'name', 'part_number', 'warranty_period', 'тип', 'model_name', 'встроенная_память', 'description', 
+        'name', 'part_number', 'warranty_period', 'тип', 'model_name', 'hard_drive', 'description', 
         'marketing_text', 'size', 'weight', 'product_set', 'страна_изготовления', 'тип_матрицы', 'количество_сим_карт', 'тип_карты_памяти',
         'bluetooth', 'navigation', 'sensor', 'front_camera_resolution', 'basic_camera_resolution', 'battery_capacity','sim_type',
         'standby_period', 'модуль_связи_WiFi', 'бренд_графического_процессора', 'разрешение_экрана', 'качество_видео', 'модель_устройства',
@@ -68,112 +68,292 @@ class SmartphoneSerializer(serializers.ModelSerializer):
         #fields ='__all__'
 
     def get_model_name(self, smartphone):
-        model_name={'attribute_name': smartphone.model_name.attribute_name, 'id': smartphone.model_name.attribute_id, 'value': smartphone.model_name.name, 'dictionary_value_id': smartphone.model_name.digital_code, }
+        model_name={
+            'attribute_name': smartphone.model_name.attribute_name, 
+            'id': smartphone.model_name.attribute_id, 
+            'value': smartphone.model_name.name, 
+            'dictionary_value_id': smartphone.model_name.digital_code, 
+            'is_required': smartphone.model_name.is_required}
         return model_name
     def get_warranty_period(self, smartphone):
-        warranty_period={'attribute_name': smartphone.warranty_period.attribute_name, 'id': smartphone.warranty_period.attribute_id, 'value': smartphone.warranty_period.name, 'dictionary_value_id': smartphone.warranty_period.digital_code, }
+        warranty_period={
+            'attribute_name': smartphone.warranty_period.attribute_name, 
+            'id': smartphone.warranty_period.attribute_id, 
+            'value': smartphone.warranty_period.name, 
+            'dictionary_value_id': smartphone.warranty_period.digital_code, 
+            'is_required': smartphone.warranty_period.is_required}
         return warranty_period
     def get_type(self, smartphone):
-        type={'attribute_name': smartphone.type.attribute_name, 'id': smartphone.type.attribute_id, 'value': smartphone.type.name, 'dictionary_value_id': smartphone.type.digital_code, }
+        type={
+            'attribute_name': smartphone.type.attribute_name,
+            'id': smartphone.type.attribute_id,
+            'value': smartphone.type.name,
+            'dictionary_value_id': smartphone.type.digital_code,
+            'is_required': smartphone.type.is_required }
         return type
     def get_hard_drive(self, smartphone):
-        hard_drive={'attribute_name': smartphone.hard_drive.attribute_name, 'id': smartphone.hard_drive.attribute_id,'value': smartphone.hard_drive.name, 'dictionnary_value_id': smartphone.hard_drive.digital_code}
+        hard_drive={
+            'attribute_name': smartphone.hard_drive.attribute_name,
+            'id': smartphone.hard_drive.attribute_id,
+            'value': smartphone.hard_drive.name,
+            'dictionnary_value_id': smartphone.hard_drive.digital_code,
+            'is_required': smartphone.hard_drive.is_required}
         return hard_drive
     def get_country_of_manufacture(self, smartphone):
-        country_of_manufacture={'id': smartphone.country_of_manufacture.name, 'dictionary_value_id': smartphone.country_of_manufacture.digital_code, 'value': smartphone.country_of_manufacture.attribute_name}
+        country_of_manufacture={
+            'attribute_name': smartphone.country_of_manufacture.attribute_name,
+            'id': smartphone.country_of_manufacture.attribute_id, 
+            'dictionary_value_id': smartphone.country_of_manufacture.digital_code, 
+            'value': smartphone.country_of_manufacture.name, 
+            'is_required': smartphone.country_of_manufacture.is_required}
         return country_of_manufacture
     def get_matrix_type(self, smartphone):
-        matrix_type={'id': smartphone.matrix_type.name, 'dictionary_value_id': smartphone.matrix_type.digital_code, 'value': smartphone.matrix_type.attribute_name}
+        matrix_type={
+            'attribute_name': smartphone.matrix_type.attribute_name,
+            'id': smartphone.matrix_type.attribute_id, 
+            'dictionary_value_id': smartphone.matrix_type.digital_code, 
+            'value': smartphone.matrix_type.name, 
+            'is_required': smartphone.matrix_type.is_required}
         return matrix_type
     def get_sim_card_qnty(self, smartphone):
-        sim_card_qnty={'id': smartphone.sim_card_qnty.name, 'dictionary_value_id': smartphone.sim_card_qnty.digital_code, 'value': smartphone.sim_card_qnty.attribute_name}
+        sim_card_qnty={
+            'attribute_name': smartphone.sim_card_qnty.attribute_name, 
+            'id': smartphone.sim_card_qnty.attribute_id, 
+            'dictionary_value_id': smartphone.sim_card_qnty.digital_code, 
+            'value': smartphone.sim_card_qnty.name,
+            'is_required': smartphone.sim_card_qnty.is_required}
         return sim_card_qnty
     def get_card_type(self, smartphone):
-        card_type={'id': smartphone.card_type.name, 'dictionary_value_id': smartphone.card_type.digital_code, 'value': smartphone.card_type.attribute_name}
+        card_type={
+            'attribute_name': smartphone.card_type.name, 
+            'id': smartphone.card_type.attribute_id, 
+            'dictionary_value_id': smartphone.card_type.digital_code, 
+            'value': smartphone.card_type.name,
+            'is_required': smartphone.card_type.is_required}
         return card_type
     def get_bluetooth(self, smartphone):
-        bluetooth={'id': smartphone.bluetooth.name, 'dictionary_value_id': smartphone.bluetooth.digital_code, 'value': smartphone.bluetooth.attribute_name}
+        bluetooth={
+            'attribute_name': smartphone.bluetooth.attribute_name, 
+            'attribute_id': smartphone.bluetooth.attribute_id, 
+            'dictionary_value_id': smartphone.bluetooth.digital_code, 
+            'value': smartphone.bluetooth.attribute_name,
+            'is_required': smartphone.bluetooth.is_required}
         return bluetooth
     def get_navigation(self, smartphone):
-        navigation={'id': smartphone.navigation.name, 'dictionary_value_id': smartphone.navigation.digital_code, 'value': smartphone.navigation.attribute_name}
+        navigation={
+            'attribute_name': smartphone.navigation.attribute_name, 
+            'attribute_id': smartphone.navigation.attribute_id, 
+            'dictionary_value_id': smartphone.navigation.digital_code, 
+            'value': smartphone.navigation.name,
+            'is_required': smartphone.navigation.is_required}
         return navigation
     def get_sensor(self, smartphone):
-        sensor={'id': smartphone.sensor.name, 'dictionary_value_id': smartphone.sensor.digital_code, 'value': smartphone.sensor.attribute_name}
+        sensor={
+            'attribute_name': smartphone.sensor.attribute_name, 
+            'attribute_id': smartphone.sensor.attribute_id, 
+            'dictionary_value_id': smartphone.sensor.digital_code, 
+            'value': smartphone.sensor.name,
+            'is_required': smartphone.sensor.is_required}
         return sensor
     def get_sim_type(self, smartphone):
-        sim_type={'id': smartphone.sim_type.name, 'dictionary_value_id': smartphone.sim_type.digital_code, 'value': smartphone.sim_type.attribute_name}
+        sim_type={
+            'attribute_name': smartphone.sim_type.attribute_name, 
+            'attribute_id': smartphone.sim_type.attribute_name, 
+            'dictionary_value_id': smartphone.sim_type.digital_code, 
+            'value': smartphone.sim_type.name,
+            'is_required': smartphone.sim_type.is_required }
         return sim_type
     def get_wifi_type(self, smartphone):
-        wifi={'id': smartphone.wifi.name, 'dictionary_value_id': smartphone.wifi.digital_code, 'value': smartphone.wifi.attribute_name}
+        wifi={
+            'attribute_name': smartphone.wifi.attribute_name, 
+            'attribute_id': smartphone.wifi.attribute_id, 
+            'dictionary_value_id': smartphone.wifi.digital_code, 
+            'value': smartphone.wifi.name,
+            'is_required': smartphone.wifi.is_required}
         return wifi
     def get_video_processor_brand(self, smartphone):
-        video_processor_brand={'id': smartphone.video_processor_brand.name, 'dictionary_value_id': smartphone.video_processor_brand.digital_code, 'value': smartphone.video_processor_brand.attribute_name}
+        video_processor_brand={
+            'attribute_name': smartphone.video_processor_brand.attribute_name, 
+            'attribute_id': smartphone.video_processor_brand.attribute_id, 
+            'dictionary_value_id': smartphone.video_processor_brand.digital_code, 
+            'value': smartphone.video_processor_brand.name,
+            'is_required': smartphone.video_processor.is_required}
         return video_processor_brand
     def get_screen_resolution(self, smartphone):
-        screen_resolution={'id': smartphone.screen_resolution.name, 'dictionary_value_id': smartphone.screen_resolution.digital_code, 'value': smartphone.screen_resolution.attribute_name}
+        screen_resolution={
+            'attribute_name': smartphone.screen_resolution.attribute_name, 
+            'attribute_id': smartphone.screen_resolution.attribute_id, 
+            'dictionary_value_id': smartphone.screen_resolution.digital_code, 
+            'value': smartphone.screen_resolution.name,
+            'is_required': smartphone.screen_resolution.is_required}
         return screen_resolution
     def get_video_quality(self, smartphone):
-        video_quality={'id': smartphone.video_quality.name, 'dictionary_value_id': smartphone.video_quality.digital_code, 'value': smartphone.video_quality.attribute_name}
+        video_quality={
+            'attribute_name': smartphone.video_quality.attribute_name, 
+            'attribute_id': smartphone.video_quality.attribute_id, 
+            'dictionary_value_id': smartphone.video_quality.digital_code, 
+            'value': smartphone.video_quality.name,
+            'is_required': smartphone.video_quality.is_required}
         return video_quality
     def get_gadget_model(self, smartphone):
-        gadget_model={'id': smartphone.gadget_model.name, 'dictionary_value_id': smartphone.gadget_model.digital_code, 'value': smartphone.gadget_model.attribute_name}
+        gadget_model={
+            'attribute_name': smartphone.gadget_model.attribute_name, 
+            'attribute_id': smartphone.gadget_model.attribute_id, 
+            'dictionary_value_id': smartphone.gadget_model.digital_code, 
+            'value': smartphone.gadget_model.name,
+            'is_required': smartphone.gadget_model.is_required}
         return gadget_model
     def get_protection_grade(self, smartphone):
-        protection_grade={'id': smartphone.protection_grade.name, 'dictionary_value_id': smartphone.protection_grade.digital_code, 'value': smartphone.protection_grade.attribute_name}
+        protection_grade={
+            'attribute_name': smartphone.protection_grade.attribute_name, 
+            'attribute_id': smartphone.protection_grade.attribute_id, 
+            'dictionary_value_id': smartphone.protection_grade.digital_code, 
+            'value': smartphone.protection_grade.name,
+            'is_required': smartphone.protection_grade.is_required}
         return protection_grade
     def get_gadget_series(self, smartphone):
-        gadget_serie={'id': smartphone.gadget_serie.name, 'dictionary_value_id': smartphone.gadget_serie.digital_code, 'value': smartphone.gadget_serie.attribute_name}
+        gadget_serie={
+            'attribute_name': smartphone.gadget_serie.attribute_name, 
+            'attribute_id': smartphone.gadget_serie.attribute_id, 
+            'dictionary_value_id': smartphone.gadget_serie.digital_code, 
+            'value': smartphone.gadget_serie.attribute_name,
+            'is_required': smartphone.gadget_serie.is_required}
         return gadget_serie
     def get_camera_function(self, smartphone):
-        camera_function={'id': smartphone.camera_function.name, 'dictionary_value_id': smartphone.camera_function.digital_code, 'value': smartphone.camera_function.attribute_name}
+        camera_function={
+            'attribute_name': smartphone.camera_function.attribute_name, 
+            'attribute_id': smartphone.camera_function.attribute_id, 
+            'dictionary_value_id': smartphone.camera_function.digital_code, 
+            'value': smartphone.camera_function.attribute_name,
+            'is_required': smartphone.camera_function.is_required}
         return camera_function
     def get_hazard_grade(self, smartphone):
-        hazard_grade={'id': smartphone.hazard_grade.name, 'dictionary_value_id': smartphone.hazard_grade.digital_code, 'value': smartphone.hazard_grade.attribute_name}
+        hazard_grade={
+            'attribute_name': smartphone.hazard_grade.attribute_name, 
+            'attribute_id': smartphone.hazard_grade.attribute_id, 
+            'dictionary_value_id': smartphone.hazard_grade.digital_code, 
+            'value': smartphone.hazard_grade.attribute_name,
+            'is_required': smartphone.hazard_grade.is_required }
         return hazard_grade
     def get_colour(self, smartphone):
-        colour={'id': smartphone.colour.name, 'dictionary_value_id': smartphone.colour.digital_code, 'value': smartphone.colour.attribute_name}
+        colour={
+            'attribute_name': smartphone.colour.attribute_name, 
+            'attribute_id': smartphone.colour.attribute_id, 
+            'dictionary_value_id': smartphone.colour.digital_code, 
+            'value': smartphone.colour.name,
+            'is_required': smartphone.colour.is_required }
         return colour
     def get_qnty_of_basic_cameras(self, smartphone):
-        qnty_of_basic_cameras={'id': smartphone.qnty_of_basic_cameras.name, 'dictionary_value_id': smartphone.qnty_of_basic_cameras.digital_code, 'value': smartphone.qnty_of_basic_cameras.attribute_name}
+        qnty_of_basic_cameras={
+            'attribute_name': smartphone.qnty_of_basic_cameras.attribute_name, 
+            'attribute_id': smartphone.qnty_of_basic_cameras.attribute_id, 
+            'dictionary_value_id': smartphone.qnty_of_basic_cameras.digital_code, 
+            'value': smartphone.qnty_of_basic_cameras.name,
+            'is_required': smartphone.qnty_of_basic_cameras.is_required}
         return qnty_of_basic_cameras
     def get_processor(self, smartphone):
-        processor={'id': smartphone.processor.name, 'dictionary_value_id': smartphone.processor.digital_code, 'value': smartphone.processor.attribute_name}
+        processor={
+            'attribute_name': smartphone.processor.attribute_name, 
+            'attribute_id': smartphone.processor.attribute_id, 
+            'dictionary_value_id': smartphone.processor.digital_code, 
+            'value': smartphone.processor.name,
+            'is_required': smartphone.processor.is_required}
         return processor
     def get_video_processor(self, smartphone):
-        video_processor={'id': smartphone.video_processor.name, 'dictionary_value_id': smartphone.video_processor.digital_code, 'value': smartphone.video_processor.attribute_name}
+        video_processor={
+            'attribute_name': smartphone.video_processor.attribute_name, 
+            'attribute_id': smartphone.video_processor.name, 
+            'dictionary_value_id': smartphone.video_processor.digital_code, 
+            'value': smartphone.video_processor.name,
+            'is_required': smartphone.video_processor.is_required }
         return video_processor
     def get_processor_brand(self, smartphone):
-        processor_brand={'id': smartphone.processor_brand.name, 'dictionary_value_id': smartphone.processor_brand.digital_code, 'value': smartphone.processor_brand.attribute_name}
+        processor_brand={
+            'attribute_name': smartphone.processor_brand.attribute_name, 
+            'attribute_id': smartphone.processor_brand.attribute_id, 
+            'dictionary_value_id': smartphone.processor_brand.digital_code, 
+            'value': smartphone.processor_brand.name,
+            'is_required': smartphone.processor_brand.is_required}
         return processor_brand
     def get_processor_model(self, smartphone):
-        processor_model={'id': smartphone.processor_model.name, 'dictionary_value_id': smartphone.processor_model.digital_code, 'value': smartphone.processor_model.attribute_name}
+        processor_model={
+            'attribute_name': smartphone.processor_model.attribute_name, 
+            'attribute_id': smartphone.processor_model.attribute_id, 
+            'dictionary_value_id': smartphone.processor_model.digital_code, 
+            'value': smartphone.processor_model.name,
+            'is_required': smartphone.processor_model.is_required}
         return processor_model
     def get_wireless_interface(self, smartphone):
-        wireless_interface={'id': smartphone.wireless_interface.name, 'dictionary_value_id': smartphone.wireless_interface.digital_code, 'value': smartphone.wireless_interface.attribute_name}
+        wireless_interface={
+            'attribute_name': smartphone.wireless_interface.attribute_name, 
+            'attribute_id': smartphone.wireless_interface.attribute_id, 
+            'dictionary_value_id': smartphone.wireless_interface.digital_code, 
+            'value': smartphone.wireless_interface.name,
+            'is_required': smartphone.wireless_interface.is_required}
         return wireless_interface
     def get_case_material(self, smartphone):
-        case_material={'id': smartphone.case_material.name, 'dictionary_value_id': smartphone.case_material.digital_code, 'value': smartphone.case_material.attribute_name}
+        case_material={
+            'attribute_name': smartphone.case_material.attribute_name, 
+            'attribute_id': smartphone.case_material.attribute_id, 
+            'dictionary_value_id': smartphone.case_material.digital_code, 
+            'value': smartphone.case_material.name,
+            'is_required': smartphone.case_material.is_required}
         return case_material
     def get_operation_system(self, smartphone):
-        operation_system={'id': smartphone.operation_system.name, 'dictionary_value_id': smartphone.operation_system.digital_code, 'value': smartphone.operation_system.attribute_name}
+        operation_system={
+            'attribute_name': smartphone.operation_system.attribute_name, 
+            'attribute_id': smartphone.operation_system.attribute_id, 
+            'dictionary_value_id': smartphone.operation_system.digital_code, 
+            'value': smartphone.operation_system.name,
+            'is_required': smartphone.operation_system.is_required }
         return operation_system
     def get_android_version(self, smartphone):
-        android_version={'id': smartphone.android_version.name, 'dictionary_value_id': smartphone.android_version.digital_code, 'value': smartphone.android_version.attribute_name}
+        android_version={
+            'attribute_name': smartphone.android_version.attribute_name, 
+            'attribute_id': smartphone.android_version.attribute_id, 
+            'dictionary_value_id': smartphone.android_version.digital_code, 
+            'value': smartphone.android_version.name,
+            'is_required': smartphone.android_version.is_required }
         return android_version
     def get_interface(self, smartphone):
-        interface={'id': smartphone.interface.name, 'dictionary_value_id': smartphone.interface.digital_code, 'value': smartphone.interface.attribute_name}
+        interface={
+            'attribute_name': smartphone.interface.attribute_name, 
+            'attribute_id': smartphone.interface.attribute_id, 
+            'dictionary_value_id': smartphone.interface.digital_code, 
+            'value': smartphone.interface.name,
+            'is_required': smartphone.interface.is_required}
         return interface
     def get_microsd_slot(self, smartphone):
-        microsd_slot={'id': smartphone.microsd_slot.name, 'dictionary_value_id': smartphone.microsd_slot.digital_code, 'value': smartphone.microsd_slot.attribute_name}
+        microsd_slot={
+            'attribute_name': smartphone.microsd_slot.attribute_name, 
+            'attribute_id': smartphone.microsd_slot.attribute_id, 
+            'dictionary_value_id': smartphone.microsd_slot.digital_code, 
+            'value': smartphone.microsd_slot.attribute_name,
+            'is_required': smartphone.microsd_slot.is_required }
         return microsd_slot
     def get_special_feature(self, smartphone):
-        special_feature={'id': smartphone.special_feature.name, 'dictionary_value_id': smartphone.special_feature.digital_code, 'value': smartphone.special_feature.attribute_name}
+        special_feature={
+            'attribute_name': smartphone.special_feature.attribute_name, 
+            'attriubte_id': smartphone.special_feature.attribute_id, 
+            'dictionary_value_id': smartphone.special_feature.digital_code, 
+            'value': smartphone.special_feature.name,
+            'is_required': smartphone.special_feature.is_required}
         return special_feature
     def get_charging_function(self, smartphone):
-        charging_function={'id': smartphone.charging_function.name, 'dictionary_value_id': smartphone.charging_function.digital_code, 'value': smartphone.charging_function.attribute_name}
+        charging_function={
+            'attribute_name': smartphone.charging_function.attribute_name, 
+            'attribute_id': smartphone.charging_function.attribute_id, 
+            'dictionary_value_id': smartphone.charging_function.digital_code, 
+            'value': smartphone.charging_function.attribute_name,
+            'is_required': smartphone.charging_function.is_required}
         return charging_function
     def get_stabilization(self, smartphone):
-        Stabilization={'id': smartphone.Stabilization.name, 'dictionary_value_id': smartphone.Stabilization.digital_code, 'value': smartphone.Stabilization.attribute_name}
+        Stabilization={
+            'attribute_name': smartphone.Stabilization.attribute_name, 
+            'attribute_name': smartphone.Stabilization.attribute_id, 
+            'dictionary_value_id': smartphone.Stabilization.digital_code, 
+            'value': smartphone.Stabilization.name,
+            'is_required': smartphone.Stabilization.is_required}
         return Stabilization
     def get_authentification(self, smartphone):
         authentification={'id': smartphone.authentification.name, 'dictionary_value_id': smartphone.authentification.digital_code, 'value': smartphone.authentification.attribute_name}
