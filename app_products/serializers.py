@@ -348,36 +348,76 @@ class SmartphoneSerializer(serializers.ModelSerializer):
             'is_required': smartphone.charging_function.is_required}
         return charging_function
     def get_stabilization(self, smartphone):
-        Stabilization={
-            'attribute_name': smartphone.Stabilization.attribute_name, 
-            'attribute_name': smartphone.Stabilization.attribute_id, 
-            'dictionary_value_id': smartphone.Stabilization.digital_code, 
-            'value': smartphone.Stabilization.name,
-            'is_required': smartphone.Stabilization.is_required}
-        return Stabilization
+        stabilization={
+            'attribute_name': smartphone.stabilization.attribute_name, 
+            'attribute_id': smartphone.stabilization.attribute_id, 
+            'dictionary_value_id': smartphone.stabilization.digital_code, 
+            'value': smartphone.stabilization.name,
+            'is_required': smartphone.stabilization.is_required}
+        return stabilization
     def get_authentification(self, smartphone):
-        authentification={'id': smartphone.authentification.name, 'dictionary_value_id': smartphone.authentification.digital_code, 'value': smartphone.authentification.attribute_name}
+        authentification={
+            'attribute_name': smartphone.authentification.attribute_name, 
+            'attribute_id': smartphone.authentification.attribute_id, 
+            'dictionary_value_id': smartphone.authentification.digital_code, 
+            'value': smartphone.authentification.name,
+            'is_required': smartphone.authentification.is_required }
         return authentification
     def get_case_form(self, smartphone):
-        case_form={'id': smartphone.case_form.name, 'dictionary_value_id': smartphone.case_form.digital_code, 'value': smartphone.case_form.attribute_name}
+        case_form={
+            'attribute_name': smartphone.case_form.attribute_name, 
+            'attribute_id': smartphone.case_form.attribute_name, 
+            'dictionary_value_id': smartphone.case_form.digital_code, 
+            'value': smartphone.case_form.name,
+            'is_required': smartphone.case_form.is_required}
         return case_form
     def get_ios_version(self, smartphone):
-        ios_version={'id': smartphone.ios_version.name, 'dictionary_value_id': smartphone.ios_version.digital_code, 'value': smartphone.ios_version.attribute_name}
+        ios_version={
+            'attribute_name': smartphone.ios_version.attribute_name, 
+            'attribute_id': smartphone.ios_version.attribute_id, 
+            'dictionary_value_id': smartphone.ios_version.digital_code, 
+            'value': smartphone.ios_version.name,
+            'is_required': smartphone.ios_version.is_required}
         return ios_version
     def get_euro_asian_code(self, smartphone):
-        euro_asian_code={'id': smartphone.euro_asian_code.name, 'dictionary_value_id': smartphone.euro_asian_code.digital_code, 'value': smartphone.euro_asian_code.attribute_name}
+        euro_asian_code={
+            'attribute_name': smartphone.euro_asian_code.attribute_name, 
+            'attribute_id': smartphone.euro_asian_code.attribute_id, 
+            'dictionary_value_id': smartphone.euro_asian_code.digital_code, 
+            'value': smartphone.euro_asian_code.name,
+            'is_required': smartphone.euro_asian_code.is_required}
         return euro_asian_code
     def get_esim_support(self, smartphone):
-        esim_support={'id': smartphone.esim_support.name, 'dictionary_value_id': smartphone.esim_support.digital_code, 'value': smartphone.esim_support.attribute_name}
+        esim_support={
+            'attribute_name': smartphone.esim_support.attribute_name, 
+            'attribute_id': smartphone.esim_support.attribute_id, 
+            'dictionary_value_id': smartphone.esim_support.digital_code, 
+            'value': smartphone.esim_support.name,
+            'is_required': smartphone.esim_support.is_required}
         return esim_support
     def get_ram(self, smartphone):
-        ram={'id': smartphone.ram.name, 'dictionary_value_id': smartphone.ram.digital_code, 'value': smartphone.ram.attribute_name}
+        ram={
+            'attribute_name': smartphone.ram.attribute_name, 
+            'attribute_id': smartphone.ram.attribute_id, 
+            'dictionary_value_id': smartphone.ram.digital_code, 
+            'value': smartphone.ram.name,
+            'is_required': smartphone.ram.is_required}
         return ram
     def get_publishing_year(self, smartphone):
-        publishing_year={'id': smartphone.publishing_year.name, 'dictionary_value_id': smartphone.publishing_year.digital_code, 'value': smartphone.publishing_year.attribute_name}
+        publishing_year={
+            'attribute_name': smartphone.publishing_year.attribute_name, 
+            'attribure_id': smartphone.publishing_year.attribute_id, 
+            'dictionary_value_id': smartphone.publishing_year.digital_code, 
+            'value': smartphone.publishing_year.name,
+            'is_required': smartphone.publishing_year.is_required}
         return publishing_year
     def get_smartphone_version(self, smartphone):
-        smartphone_version={'id': smartphone.smartphone_version.name, 'dictionary_value_id': smartphone.smartphone_version.digital_code, 'value': smartphone.smartphone_version.attribute_name}
+        smartphone_version={
+            'attribute_name': smartphone.smartphone_version.attribute_name, 
+            'attribute_id': smartphone.smartphone_version.attribute_id, 
+            'dictionary_value_id': smartphone.smartphone_version.digital_code, 
+            'value': smartphone.smartphone_version.attribute_name,
+            'is_required': smartphone.smartphone_version.is_required}
         return smartphone_version
 
 # class SmartphoneCategorySerializer(serializers.HyperlinkedModelSerializer):
