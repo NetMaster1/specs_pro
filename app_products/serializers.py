@@ -16,7 +16,7 @@ class SmartphoneSerializer(serializers.ModelSerializer):
     тип_карты_памяти = serializers.SerializerMethodField('get_card_type')
     bluetooth = serializers.SerializerMethodField('get_bluetooth')
     navigation = serializers.SerializerMethodField('get_navigation')
-    sensor = serializers.SerializerMethodField('get_sensor')
+    #sensor = serializers.SerializerMethodField('get_sensor')
     sim_type = serializers.SerializerMethodField('get_sim_type')
     модуль_связи_WiFi = serializers.SerializerMethodField('get_wifi_type')
     бренд_графического_процессора = serializers.SerializerMethodField('get_video_processor_brand')
@@ -50,21 +50,36 @@ class SmartphoneSerializer(serializers.ModelSerializer):
     оперативная_память = serializers.SerializerMethodField('get_ram')
     год_анонсирования = serializers.SerializerMethodField('get_publishing_year')
     версия_смарфтона = serializers.SerializerMethodField('get_smartphone_version')
-    # катложный_номер = serializers.SerializerMethodField('get_part_number')
+#=============================dictionary_id > 0============================
+    каталожный_номер = serializers.SerializerMethodField('get_part_number')
+    размер = serializers.SerializerMethodField('get_size')
+    вес = serializers.SerializerMethodField('get_weight')
+    комплектация = serializers.SerializerMethodField('get_product_set')
+    front_camera_resolution = serializers.SerializerMethodField('get_front_camera_resolution')
+    basic_camera_resolution = serializers.SerializerMethodField('get_basic_camera_resolution')
+    battery_capacity = serializers.SerializerMethodField('get_battery_capacity')
+    standby_period = serializers.SerializerMethodField('get_standby_period')
+    work_period = serializers.SerializerMethodField('get_work_period')
+    life_span = serializers.SerializerMethodField('get_life_span')
+    record_max_speed = serializers.SerializerMethodField('get_record_max_speed')
+    screen_size = serializers.SerializerMethodField('get_screen_size')
+    seller_code = serializers.SerializerMethodField('get_seller_code')
+    processor_frequency = serializers.SerializerMethodField('get_processor_frequency')
+    marketing_colour = serializers.SerializerMethodField('get_marketing_colour')
 
 
     class Meta:
         model = Smartphone
         fields = [
-        'name', 'каталожный_номер', 'warranty_period', 'тип', 'model_name', 'hard_drive', 'description', 
-        'marketing_text', 'size', 'weight', 'product_set', 'страна_изготовления', 'тип_матрицы', 'количество_сим_карт', 'тип_карты_памяти',
+        'name', 'каталожный_номер', 'размер', 'вес', 'комплектация', 'warranty_period', 'тип', 'model_name', 'hard_drive', 'description', 
+        'marketing_text', 'страна_изготовления', 'тип_матрицы', 'количество_сим_карт', 'тип_карты_памяти',
         'bluetooth', 'navigation', 'sensor', 'front_camera_resolution', 'basic_camera_resolution', 'battery_capacity','sim_type',
         'standby_period', 'модуль_связи_WiFi', 'бренд_графического_процессора', 'разрешение_экрана', 'качество_видео', 'модель_устройства',
         'степень_защиты', 'work_period', 'record_max_speed', 'life_span', 'screen_size', 'seller_code', 'линейка_мобильных_устройств',
         'функции_камеры', 'класс_опасности', 'цвет', 'marketing_colour', 'количество_основных_камер', 'процессор', 'видеопроцессор',
         'бренд_процессора', 'processor_frequency', 'модель_процессора', 'беспроводные_интерфейсы', 'основной_материал_корпуса', 'операционная_система',
         'версия_андроид', 'интерфейсы', 'слот_для_карты_памяти', 'особенности', 'функции_зарядки', 'стабилизация', 'аутентификация', 'тип_корпуса',
-        'версия_iOS', 'ТН_ВЭД_коды_ЕАЭС', 'поддержка_eSim', 'оперативная_память', 'год_анонсирования', 'версия_смарфтона', 'EAN'
+        'версия_iOS', 'ТН_ВЭД_коды_ЕАЭС', 'поддержка_eSim', 'оперативная_память', 'год_анонсирования', 'версия_смарфтона'
         ]
         #fields ='__all__'
 
@@ -76,15 +91,129 @@ class SmartphoneSerializer(serializers.ModelSerializer):
             'dictionary_value_id': smartphone.model_name.digital_code, 
             'is_required': smartphone.model_name.is_required}
         return model_name
-    # def get_part_number(self, smartphone):
-    #     model_name={
-    #         'attribute_name': smartphone.model_name.attribute_name, 
-    #         'id': smartphone.model_name.attribute_id, 
-    #         'value': smartphone.model_name.name, 
-    #         'dictionary_value_id': smartphone.model_name.digital_code, 
-    #         'is_required': smartphone.model_name.is_required}
-    #     return model_name
+    def get_part_number(self, smartphone):
+        part_number={
+            'attribute_name': smartphone.part_number.attribute_name, 
+            'id': smartphone.part_number.attribute_id, 
+            'value': smartphone.part_number.name, 
+            'dictionary_value_id': smartphone.part_number.digital_code, 
+            'is_required': smartphone.part_number.is_required}
+        return part_number
+    def get_size(self, smartphone):
+        size={
+            'attribute_name': smartphone.size.attribute_name, 
+            'id': smartphone.size.attribute_id, 
+            'value': smartphone.size.name, 
+            'dictionary_value_id': smartphone.size.digital_code, 
+            'is_required': smartphone.size.is_required}
+        return size
+    def get_weight(self, smartphone):
+        weight={
+            'attribute_name': smartphone.weight.attribute_name, 
+            'id': smartphone.weight.attribute_id, 
+            'value': smartphone.weight.name, 
+            'dictionary_value_id': smartphone.weight.digital_code, 
+            'is_required': smartphone.weight.is_required}
+        return weight
+    def get_product_set(self, smartphone):
+        product_set={
+            'attribute_name': smartphone.product_set.attribute_name, 
+            'id': smartphone.product_set.attribute_id, 
+            'value': smartphone.product_set.name, 
+            'dictionary_value_id': smartphone.product_set.digital_code, 
+            'is_required': smartphone.product_set.is_required}
+        return product_set
+    def get_front_camera_resolution(self, smartphone):
+        front_camera_resolution={
+            'attribute_name': smartphone.front_camera_resolution.attribute_name, 
+            'id': smartphone.front_camera_resolution.attribute_id, 
+            'value': smartphone.front_camera_resolution.name, 
+            'dictionary_value_id': smartphone.front_camera_resolution.digital_code, 
+            'is_required': smartphone.front_camera_resolution.is_required}
+        return front_camera_resolution
+    def get_basic_camera_resolution(self, smartphone):
+        basic_camera_resolution={
+            'attribute_name': smartphone.basic_camera_resolution.attribute_name, 
+            'id': smartphone.basic_camera_resolution.attribute_id, 
+            'value': smartphone.basic_camera_resolution.name, 
+            'dictionary_value_id': smartphone.basic_camera_resolution.digital_code, 
+            'is_required': smartphone.basic_camera_resolution.is_required}
+        return basic_camera_resolution
+    def get_battery_capacity(self, smartphone):
+        battery_capacity={
+            'attribute_name': smartphone.battery_capacity.attribute_name, 
+            'id': smartphone.battery_capacity.attribute_id, 
+            'value': smartphone.battery_capacity.name, 
+            'dictionary_value_id': smartphone.battery_capacity.digital_code, 
+            'is_required': smartphone.battery_capacity.is_required}
+        return battery_capacity
+    def get_standby_period(self, smartphone):
+        standby_period={
+            'attribute_name': smartphone.standby_period.attribute_name, 
+            'id': smartphone.standby_period.attribute_id, 
+            'value': smartphone.standby_period.name, 
+            'dictionary_value_id': smartphone.standby_period.digital_code, 
+            'is_required': smartphone.standby_period.is_required}
+        return standby_period
+    def get_work_period(self, smartphone):
+        work_period={
+            'attribute_name': smartphone.work_period.attribute_name, 
+            'id': smartphone.work_period.attribute_id, 
+            'value': smartphone.work_period.name, 
+            'dictionary_value_id': smartphone.work_period.digital_code, 
+            'is_required': smartphone.work_period.is_required}
+        return work_period
+    def get_life_span(self, smartphone):
+        life_span={
+            'attribute_name': smartphone.life_span.attribute_name, 
+            'id': smartphone.life_span.attribute_id, 
+            'value': smartphone.life_span.name, 
+            'dictionary_value_id': smartphone.life_span.digital_code, 
+            'is_required': smartphone.life_span.is_required}
+        return life_span
+    def get_record_max_speed(self, smartphone):
+        record_max_speed={
+            'attribute_name': smartphone.record_max_speed.attribute_name, 
+            'id': smartphone.record_max_speed.attribute_id, 
+            'value': smartphone.record_max_speed.name, 
+            'dictionary_value_id': smartphone.record_max_speed.digital_code, 
+            'is_required': smartphone.record_max_speed.is_required}
+        return record_max_speed
+    def get_screen_size(self, smartphone):
+        screen_size={
+            'attribute_name': smartphone.screen_size.attribute_name, 
+            'id': smartphone.screen_size.attribute_id, 
+            'value': smartphone.screen_size.name, 
+            'dictionary_value_id': smartphone.screen_size.digital_code, 
+            'is_required': smartphone.screen_size.is_required}
+        return screen_size
+    def get_seller_code(self, smartphone):
+        seller_code={
+            'attribute_name': smartphone.seller_code.attribute_name, 
+            'id': smartphone.seller_code.attribute_id, 
+            'value': smartphone.seller_code.name, 
+            'dictionary_value_id': smartphone.seller_code.digital_code, 
+            'is_required': smartphone.seller_code.is_required}
+        return seller_code
+    def get_processor_frequency(self, smartphone):
+        processor_frequency={
+            'attribute_name': smartphone.processor_frequency.attribute_name, 
+            'id': smartphone.processor_frequency.attribute_id, 
+            'value': smartphone.processor_frequency.name, 
+            'dictionary_value_id': smartphone.processor_frequency.digital_code, 
+            'is_required': smartphone.processor_frequency.is_required}
+        return processor_frequency
+    def get_marketing_colour(self, smartphone):
+        marketing_colour={
+            'attribute_name': smartphone.marketing_colour.attribute_name, 
+            'id': smartphone.marketing_colour.attribute_id, 
+            'value': smartphone.marketing_colour.name, 
+            'dictionary_value_id': smartphone.marketing_colour.digital_code, 
+            'is_required': smartphone.marketing_colour.is_required}
+        return marketing_colour
+    
 
+#======================================dictionary_id > 0====================================
     def get_warranty_period(self, smartphone):
         warranty_period={
             'attribute_name': smartphone.warranty_period.attribute_name, 
@@ -157,14 +286,14 @@ class SmartphoneSerializer(serializers.ModelSerializer):
             'value': smartphone.navigation.name,
             'is_required': smartphone.navigation.is_required}
         return navigation
-    def get_sensor(self, smartphone):
-        sensor={
-            'attribute_name': smartphone.sensor.attribute_name, 
-            'attribute_id': smartphone.sensor.attribute_id, 
-            'dictionary_value_id': smartphone.sensor.digital_code, 
-            'value': smartphone.sensor.name,
-            'is_required': smartphone.sensor.is_required}
-        return sensor
+    # def get_sensor(self, smartphone):
+    #     sensor={
+    #         'attribute_name': smartphone.sensor.attribute_name, 
+    #         'attribute_id': smartphone.sensor.attribute_id, 
+    #         'dictionary_value_id': smartphone.sensor.digital_code, 
+    #         'value': smartphone.sensor.name,
+    #         'is_required': smartphone.sensor.is_required}
+    #     return sensor
     def get_sim_type(self, smartphone):
         sim_type={
             'attribute_name': smartphone.sim_type.attribute_name, 
