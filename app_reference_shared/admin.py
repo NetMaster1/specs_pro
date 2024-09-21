@@ -4,7 +4,7 @@ from .models import (SmartphoneVersion, PublishingYear, RAM, ESimSupport, IOSVer
     HazardGrade, CameraFunction, GadgetSerie, VideoProcessorBrand, OzonCategory, HardDrive, CountryOfManufacture, MatrixType, CardType, BluetoothType, 
     NavigationType, Sensor, SimType, WifiType, WarrantyPeriod, ModelName, CommunicationStandard, PartNumber, Size, Weight, ProductSet,
     FrontCamerResolution, BasicCamerResolution, BatteryCapacity, StandByPeriod, WorkPeriod, RecordMaxSpeed, LifeSpan, ScreenSize, SellerCode,
-    MarketingColour, ProcessorFrequency, Name, Description, KeyWord, MaxCardVolume)
+    MarketingColour, ProcessorFrequency, Name, Description, KeyWord, MaxCardVolume, Json)
 
 class OzonCategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'type_name', 'type_id', 'category_name', 'description_category_id', 'group_category_name', 'group_description_category_id')
@@ -379,6 +379,13 @@ class MaxCardVolumeAdmin(admin.ModelAdmin):
     list_per_page=100
     search_fields = ('value', )
 
+class JsonAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
 admin.site.register(VideoProcessorBrand, VideoProcessorBrandAdmin)
 admin.site.register(WifiType, WifiTypeAdmin)
 admin.site.register(SimType, SimTypeAdmin)
@@ -431,3 +438,5 @@ admin.site.register(Name, NameAdmin)
 admin.site.register(Description, DescriptionAdmin)
 admin.site.register(KeyWord, KeyWordAdmin)
 admin.site.register(MaxCardVolume, MaxCardVolumeAdmin)
+admin.site.register(Weight, WeightAdmin)
+admin.site.register(Json, JsonAdmin)

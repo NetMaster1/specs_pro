@@ -76,7 +76,7 @@ from app_reference_smartphones.models import (
 class Smartphone (models.Model):
     created = models.DateTimeField(auto_now=True)
     name = models.ForeignKey(Name, on_delete=models.DO_NOTHING, null=True, blank=True)
-    part_number = models.ForeignKey(PartNumber, on_delete=models.DO_NOTHING, null=True, blank=True)
+    part_number = models.ForeignKey(PartNumber, on_delete=models.DO_NOTHING, null=True)
     size = models.ForeignKey(Size, on_delete=models.DO_NOTHING, null=True, blank=True)
     weight = models.ForeignKey(Weight, on_delete=models.DO_NOTHING, null=True, blank=True)
     product_set = models.ForeignKey(ProductSet, on_delete=models.DO_NOTHING, null=True, blank=True)
@@ -96,7 +96,7 @@ class Smartphone (models.Model):
     #======================dictionary_id > 0==================================================
     category_name = models.ForeignKey(OzonCategory, on_delete=models.DO_NOTHING, null=True)
     brand = models.ForeignKey(Brand, on_delete=models.DO_NOTHING, null=True)
-    type = models.ForeignKey(Type, on_delete=models.SET_NULL, null=True, blank=True)
+    type = models.ForeignKey(Type, on_delete=models.SET_NULL, null=True)
     warranty_period = models.ForeignKey(WarrantyPeriod, on_delete=models.DO_NOTHING, null=True)
     model_name = models.ForeignKey(ModelName, on_delete=models.DO_NOTHING, null=True)
     hard_drive = models.ForeignKey(HardDrive, on_delete=models.SET_NULL, null=True)

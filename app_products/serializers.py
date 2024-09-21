@@ -5,15 +5,19 @@ from app_reference_shared.models import OzonCategory, ProcessorModel, Authentica
 class SmartphoneSerializer(serializers.ModelSerializer):
     #category_name = serializers.StringRelatedField(source='category')#outputs string repsresentation of foreign key instead of id
     #processor_key = serializers.StringRelatedField(many=True)#outputs string repsresentation of foreign key instead of id
-    attributes = serializers.SerializerMethodField('get_attributes')
+    items = serializers.SerializerMethodField('get_items')
+    #attributes = serializers.SerializerMethodField('get_attributes')
+   
+    #other_fields = serializers.SerializerMethodField('get_other_fields')
     class Meta:
         model = Smartphone
-        fields = ['attributes',]
+        #fields = ['attributes',]
+        fields = ['items',]
         #fields ='__all__'
         depth=1#this field is crucial for displaying ManyToMany Field in serializer
         #Для вывода полей с ForeignField можно использовать функции get_smth или можно просто использовать параметр "depth=1"
         #exclude=['sensor.id']
-    def get_attributes (self, smartphone):
+    def get_items (self, smartphone):
         attributes =[]
         #=================================================
         brand={
@@ -88,104 +92,128 @@ class SmartphoneSerializer(serializers.ModelSerializer):
         }
         attributes.append(hard_drive)
         #==================================================
-        name={
-        "complex_id": 0,
-        'id': smartphone.name.attribute_id,
-        "values": [{
-        # 'attribute_name': smartphone.name.attribute_name, 
-        'dictionary_value_id': smartphone.name.dictionary_value_id,
-        'value': smartphone.name.value,
-        # 'is_required': smartphone.name.is_required
-        }]
-        }
-        attributes.append(name)
-        #==================================================
-        description={
-        "complex_id": 0,
-        'id': smartphone.description.attribute_id,
-        "values": [{
-        # 'attribute_description': smartphone.description.attribute_description, 
-        'dictionary_value_id': smartphone.description.dictionary_value_id,
-        'value': smartphone.description.value,
-        # 'is_required': smartphone.description.is_required
-        }]
-        }
-        attributes.append(description)
-        #====================================================
-        size={
-        "complex_id": 0,
-        "id": smartphone.size.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.size.attribute_name, 
-        'dictionary_value_id': smartphone.size.dictionary_value_id, 
-        'value': smartphone.size.value, 
-        # 'is_required': smartphone.size.is_required
-        }]
-        }
-        attributes.append(size)
-        #====================================================
-        weight={
-        "complex_id": 0,
-        "id": smartphone.weight.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.weight.attribute_name, 
-        'dictionary_value_id': smartphone.weight.dictionary_value_id, 
-        'value': smartphone.weight.value, 
-        # 'is_required': smartphone.weight.is_required
-        }]
-        }
-        attributes.append(weight)
-        #====================================================
-        product_set={
-        "complex_id": 0,
-        "id": smartphone.product_set.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.product_set.attribute_name, 
-        'dictionary_value_id': smartphone.product_set.dictionary_value_id, 
-        'value': smartphone.product_set.value, 
-        # 'is_required': smartphone.product_set.is_required
-        }]
-        }
-        attributes.append(product_set)
-        #=====================================================
-        array=[]
-        dict={"complex_id":0}
-        for i in smartphone.country_of_manufacture.all():
-            a= i.dictionary_value_id
-            b= i.value
-            item={
-                'dictionary_value_id':a,
-                'value': b
+        try:
+            name={
+            "complex_id": 0,
+            'id': smartphone.name.attribute_id,
+            "values": [{
+            # 'attribute_name': smartphone.name.attribute_name, 
+            'dictionary_value_id': smartphone.name.dictionary_value_id,
+            'value': smartphone.name.value,
+            # 'is_required': smartphone.name.is_required
+            }]
             }
-            id=i.attribute_id
-            array.append(item)
-        dict['id']=id#добавляем ключ(id) и значение (id) в словарь dict
-        dict['values']=array
-        attributes.append(dict)
+            attributes.append(name)
+        except:
+            print('No name provided')
+        #==================================================
+        try:
+            description={
+            "complex_id": 0,
+            'id': smartphone.description.attribute_id,
+            "values": [{
+            # 'attribute_description': smartphone.description.attribute_description, 
+            'dictionary_value_id': smartphone.description.dictionary_value_id,
+            'value': smartphone.description.value,
+            # 'is_required': smartphone.description.is_required
+            }]
+            }
+            attributes.append(description)
+        except:
+            print('No description provided')
+        #====================================================
+        try:
+            size={
+            "complex_id": 0,
+            "id": smartphone.size.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.size.attribute_name, 
+            'dictionary_value_id': smartphone.size.dictionary_value_id, 
+            'value': smartphone.size.value, 
+            # 'is_required': smartphone.size.is_required
+            }]
+            }
+            attributes.append(size)
+        except:
+            print('No size provided')
+        #====================================================
+        try:
+            weight={
+                "complex_id": 0,
+                "id": smartphone.weight.attribute_id, 
+                "values": [{ 
+                    # 'attribute_name': smartphone.weight.attribute_name, 
+                'dictionary_value_id': smartphone.weight.dictionary_value_id, 
+                'value': smartphone.weight.value, 
+                # 'is_required': smartphone.weight.is_required
+                }]
+                }
+            attributes.append(weight)
+        except:
+            print('No weight provided')    
+        #====================================================
+        try:
+            product_set={
+            "complex_id": 0,
+            "id": smartphone.product_set.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.product_set.attribute_name, 
+            'dictionary_value_id': smartphone.product_set.dictionary_value_id, 
+            'value': smartphone.product_set.value, 
+            # 'is_required': smartphone.product_set.is_required
+            }]
+            }
+            attributes.append(product_set)
+        except:
+            print('No product set provided')
         #=====================================================
-        matrix_type={
-        "complex_id": 0,
-        "id": smartphone.matrix_type.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.matrix_type.attribute_name, 
-        'dictionary_value_id': smartphone.matrix_type.dictionary_value_id, 
-        'value': smartphone.matrix_type.value, 
-        # 'is_required': smartphone.matrix_type.is_required
-        }]
-        }
-        attributes.append(matrix_type)
+        try:
+            array=[]
+            dict={"complex_id":0}
+            for i in smartphone.country_of_manufacture.all():
+                a= i.dictionary_value_id
+                b= i.value
+                item={
+                    'dictionary_value_id':a,
+                    'value': b
+                }
+                id=i.attribute_id
+                array.append(item)
+            dict['id']=id#добавляем ключ(id) и значение (id) в словарь dict
+            dict['values']=array
+            attributes.append(dict)
+        except:
+            print ('No country of manufacture provided')
+        #=====================================================
+        try:
+            matrix_type={
+            "complex_id": 0,
+            "id": smartphone.matrix_type.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.matrix_type.attribute_name, 
+            'dictionary_value_id': smartphone.matrix_type.dictionary_value_id, 
+            'value': smartphone.matrix_type.value, 
+            # 'is_required': smartphone.matrix_type.is_required
+            }]
+            }
+            attributes.append(matrix_type)
+        except:
+            print('No matrix type provided')
         #======================================================
-        sim_card_qnty={
-        "complex_id": 0,
-        "id": smartphone.sim_card_qnty.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.sim_card_qnty.attribute_name, 
-        'dictionary_value_id': smartphone.sim_card_qnty.dictionary_value_id, 
-        'value': smartphone.sim_card_qnty.value, 
-        # 'is_required': smartphone.sim_card_qnty.is_required
-        }]
-        }
-        attributes.append(sim_card_qnty)
+        try:
+            sim_card_qnty={
+            "complex_id": 0,
+            "id": smartphone.sim_card_qnty.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.sim_card_qnty.attribute_name, 
+            'dictionary_value_id': smartphone.sim_card_qnty.dictionary_value_id, 
+            'value': smartphone.sim_card_qnty.value, 
+            # 'is_required': smartphone.sim_card_qnty.is_required
+            }]
+            }
+            attributes.append(sim_card_qnty)
+        except:
+            print('No sim card quanty provided')
         #======================================================
         array=[]
         dict={"complex_id":0}
@@ -867,8 +895,40 @@ class SmartphoneSerializer(serializers.ModelSerializer):
         }]
         }
         attributes.append(smartphone_version)
+        items=[{}]
+        items=[{"attributes" : attributes, 
+               "barcode": "",
+                "description_category_id": 15621050,
+                "new_description_category_id": 0,
+                "color_image": "",
+                "complex_attributes": [],
+                "currency_code": "RUB",
+                "depth": "",
+                "dimension_unit": "mm",
+                "height": "100",
+                "images": ['https://disk.yandex.ru/i/oegwL_TilSIPcA', 
+                    'https://disk.yandex.ru/i/T9d9q3GQjFQBAA', 
+                    'https://disk.yandex.ru/i/YCVg4Skuc5WTTA'
+                    ],
+                "images360": [],
+                "name": smartphone.name.value,
+                "offer_id": "143210608",
+                "old_price": "",
+                "pdf_list": [],
+                "price": "1000",
+                "primary_image": "",
+                "vat": "",
+                "weight": "",
+                "weight_unit": "g",
+                "width":""
+                 }]
+
+        # return attributes
+        return items
 
 
 
 
-        return attributes
+
+
+   

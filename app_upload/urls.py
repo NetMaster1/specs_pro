@@ -50,6 +50,7 @@ urlpatterns = [
     path ('upload_publishing_year', views.upload_publishing_year, name='upload_publishing_year'),
     path ('upload_smartphone_versions', views.upload_smartphone_versions, name='upload_smartphone_versions'),
     path ('upload_video_quality', views.upload_video_quality, name='upload_video_quality'),
+    path ('upload_json', views.upload_json, name='upload_json'),
 
     path ('upload_tv_brands', views.upload_tv_brands, name='tv_upload_brands'),
 

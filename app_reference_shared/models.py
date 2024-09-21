@@ -222,6 +222,18 @@ class MaxCardVolume (models.Model):
     is_collection = models.BooleanField(default=False)
     def __str__(self):
         return self.value
+    
+class Json (models.Model):
+    attribute_name = models.CharField(max_length=100, null=True, default="Rich-контент JSON")
+    attribute_id = models.CharField(max_length=50, null=True, default="11254")
+    value = models.TextField(blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+       
 
 #==========================dictionary_value_id > 0==========================================
 class SmartphoneVersion (models.Model):

@@ -49,7 +49,8 @@ from app_reference_shared.models import (
     Sensor, 
     SimType, 
     WifiType,
-    CommunicationStandard
+    CommunicationStandard,
+    Json
 )
 #from django.http import HttpResponse
 import requests
@@ -1678,6 +1679,37 @@ def upload_video_quality (request):
         )
     
     return render (request, 'products.html')
+
+def upload_json (request):
+    headers = {
+        "Client-Id": "867100",
+        "Api-Key": '6bbf7175-6585-4c35-8314-646f7253bef6'
+    }
+    task = {
+    "attribute_id": 11524,
+    "description_category_id": 15621050,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 95139
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        item= Json.objects.create(
+            value=i['value'],
+            dictionary_value_id=i['id'],
+            attribute_id='11254',
+            attribute_name='Rich-контент JSON',
+            is_required=False,
+            category_dependent=False
+        )
+    
+    return render (request, 'products.html')
+
+
 
 def upload_tv_brands(request):
     pass
