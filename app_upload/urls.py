@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [ 
     
     path ('upload_ozon_categories', views.upload_ozon_categories, name='upload_ozon_categories'),
+    path ('upload_all', views.upload_all, name='upload_all'),
     path ('upload_brands', views.upload_brands, name='upload_brands'),
     path ('upload_type', views.upload_type, name='upload_type'),
     path ('upload_hard_drive', views.upload_hard_drive, name='upload_hard_drive'),

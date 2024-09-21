@@ -48,7 +48,11 @@ from app_reference_shared.models import (
     ScreenSize,
     SellerCode,
     MarketingColour,
-    ProcessorFrequency
+    ProcessorFrequency,
+    Name,
+    Description,
+    KeyWord,
+    MaxCardVolume
 
 )
 from app_reference_smartphones.models import (
@@ -65,14 +69,13 @@ from app_reference_smartphones.models import (
     MicroSDSlot,
     CaseForm,
     EuroAsianCode,
-    SimCardQnty
+    SimCardQnty,
     
 )
 
 class Smartphone (models.Model):
     created = models.DateTimeField(auto_now=True)
-    name = models.CharField(max_length=160)
-
+    name = models.ForeignKey(Name, on_delete=models.DO_NOTHING, null=True, blank=True)
     part_number = models.ForeignKey(PartNumber, on_delete=models.DO_NOTHING, null=True, blank=True)
     size = models.ForeignKey(Size, on_delete=models.DO_NOTHING, null=True, blank=True)
     weight = models.ForeignKey(Weight, on_delete=models.DO_NOTHING, null=True, blank=True)
@@ -88,9 +91,8 @@ class Smartphone (models.Model):
     seller_code = models.ForeignKey(SellerCode, on_delete=models.DO_NOTHING, null=True, blank=True)
     processor_frequency = models.ForeignKey(ProcessorFrequency, on_delete=models.DO_NOTHING, null=True, blank=True)
     marketing_colour = models.ForeignKey(MarketingColour, on_delete=models.DO_NOTHING, null=True, blank=True)
-    #========================CharFields
-    description = models.CharField(max_length=100, null=True, blank=True)
-    marketing_text = models.TextField(null=True, blank=True)
+    description = models.ForeignKey(Description, on_delete=models.DO_NOTHING, null=True, blank=True)
+    key_word = models.ForeignKey(KeyWord, on_delete=models.DO_NOTHING, null=True, blank=True)
     #======================dictionary_id > 0==================================================
     category_name = models.ForeignKey(OzonCategory, on_delete=models.DO_NOTHING, null=True)
     brand = models.ForeignKey(Brand, on_delete=models.DO_NOTHING, null=True)
@@ -98,43 +100,44 @@ class Smartphone (models.Model):
     warranty_period = models.ForeignKey(WarrantyPeriod, on_delete=models.DO_NOTHING, null=True)
     model_name = models.ForeignKey(ModelName, on_delete=models.DO_NOTHING, null=True)
     hard_drive = models.ForeignKey(HardDrive, on_delete=models.SET_NULL, null=True)
-    country_of_manufacture = models.ForeignKey(CountryOfManufacture, on_delete=models.SET_NULL, null=True, blank=True)
+    country_of_manufacture = models.ManyToManyField(CountryOfManufacture, blank=True)
     matrix_type = models.ForeignKey(MatrixType, on_delete=models.SET_NULL, null=True, blank=True)
     sim_card_qnty = models.ForeignKey(SimCardQnty, on_delete=models.SET_NULL, null=True, blank=True)
-    card_type = models.ForeignKey(CardType, on_delete=models.SET_NULL, null=True, blank=True)
-    card_max_volume = models.CharField(max_length=15, null=True, blank=True)#записывается только целое число
+    card_type = models.ManyToManyField(CardType, blank=True)
+    max_card_volume = models.ForeignKey(MaxCardVolume, on_delete=models.SET_NULL, null=True, blank=True)#записывается только целое число
     bluetooth = models.ForeignKey(BluetoothType, on_delete=models.SET_NULL, null=True, blank=True)
-    navigation = models.ForeignKey(NavigationType, on_delete=models.SET_NULL, null=True, blank=True)
-    sensor = models.ForeignKey(Sensor, on_delete=models.SET_NULL, null=True, blank=True)
-    #sensor = models.ManyToManyField(Sensor, blank=True)
-    sim_type = models.ForeignKey(SimType, on_delete=models.SET_NULL, null=True, blank=True)
-    wifi = models.ForeignKey(WifiType, on_delete=models.SET_NULL, null=True, blank=True)
+    navigation = models.ManyToManyField(NavigationType, blank=True)
+    sensor = models.ManyToManyField(Sensor, blank=True)
+    sim_type = models.ManyToManyField(SimType, blank=True)
+    wifi = models.ManyToManyField(WifiType, blank=True)
     video_processor_brand = models.ForeignKey(VideoProcessorBrand, on_delete=models.SET_NULL, null=True, blank=True)
     screen_resolution = models.ForeignKey(ScreenResolution, on_delete=models.SET_NULL, null=True, blank=True)
     video_quality = models.ForeignKey(VideoQuality, on_delete=models.SET_NULL, null=True, blank=True)
-    gadget_model = models.ForeignKey(GadgetModel, on_delete=models.SET_NULL, null=True, blank=True)
-    protection_grade = models.ForeignKey(ProtectionGrade, on_delete=models.SET_NULL, null=True, blank=True)
+    #gadget_model = models.ForeignKey(GadgetModel, on_delete=models.SET_NULL, null=True, blank=True)
+    gadget_model = models.ManyToManyField(GadgetModel, blank=True)
+    protection_grade = models.ManyToManyField(ProtectionGrade, blank=True)
+    #protection_grade = models.ForeignKey(ProtectionGrade, on_delete=models.SET_NULL, null=True, blank=True)
     gadget_serie = models.ForeignKey(GadgetSerie, on_delete=models.SET_NULL, null=True, blank=True)
-    camera_function = models.ForeignKey(CameraFunction, on_delete=models.SET_NULL, null=True, blank=True)
+    camera_function = models.ManyToManyField(CameraFunction, blank=True)
     hazard_grade = models.ForeignKey(HazardGrade, on_delete=models.SET_NULL, null=True, blank=True)
-    colour = models.ForeignKey(Colour, on_delete=models.SET_NULL, null=True, blank=True)
+    colour = models.ManyToManyField(Colour, blank=True)
     qnty_of_basic_cameras = models.ForeignKey(QntyOfBasicCamera, on_delete=models.SET_NULL, null=True, blank=True)
     processor = models.ForeignKey(Processor, on_delete=models.SET_NULL, null=True, blank=True)
     video_processor = models.ForeignKey(VideoProcessor, on_delete=models.SET_NULL, null=True, blank=True)
     processor_brand = models.ForeignKey(ProcessorBrand, on_delete=models.SET_NULL, null=True, blank=True)
     processor_core_qnty = models.ForeignKey(ProcessorCoreQnty, on_delete=models.SET_NULL, null=True, blank=True)
     processor_model = models.ForeignKey(ProcessorModel, on_delete=models.SET_NULL, null=True, blank=True)
-    wireless_interface = models.ForeignKey(WirelessInterface, on_delete=models.SET_NULL, null=True, blank=True)
-    case_material = models.ForeignKey(CaseMaterial, on_delete=models.SET_NULL, null=True, blank=True)
+    wireless_interface = models.ManyToManyField(WirelessInterface, blank=True)
+    case_material = models.ManyToManyField(CaseMaterial, blank=True)
     operation_system = models.ForeignKey(OperationSystem, on_delete=models.SET_NULL, null=True, blank=True)
     android_version = models.ForeignKey(AndroidVersion, on_delete=models.SET_NULL, null=True, blank=True)
-    interface = models.ForeignKey(Interface, on_delete=models.SET_NULL, null=True, blank=True)
-    comms_standard = models.ForeignKey(CommunicationStandard, on_delete=models.SET_NULL, null=True)
+    interface = models.ManyToManyField(Interface, blank=True)
+    comms_standard = models.ManyToManyField(CommunicationStandard, blank=True)
     microsd_slot = models.ForeignKey(MicroSDSlot, on_delete=models.SET_NULL, null=True, blank=True)
-    special_feature = models.ForeignKey(SpecialFeature, on_delete=models.SET_NULL, null=True, blank=True)
-    charging_function = models.ForeignKey(ChargingFunction, on_delete=models.SET_NULL, null=True, blank=True)
-    stabilization = models.ForeignKey(Stabilization, on_delete=models.SET_NULL, null=True, blank=True)
-    authentification = models.ForeignKey(Authentication, on_delete=models.SET_NULL, null=True, blank=True)
+    special_feature = models.ManyToManyField(SpecialFeature, blank=True)
+    charging_function = models.ManyToManyField(ChargingFunction, blank=True)
+    stabilization = models.ManyToManyField(Stabilization, blank=True)
+    authentification = models.ManyToManyField(Authentication, blank=True)
     case_form = models.ForeignKey(CaseForm, on_delete=models.SET_NULL, null=True, blank=True)
     ios_version = models.ForeignKey(IOSVersion, on_delete=models.SET_NULL, null=True, blank=True)
     euro_asian_code = models.ForeignKey(EuroAsianCode, on_delete=models.SET_NULL, null=True, blank=True)

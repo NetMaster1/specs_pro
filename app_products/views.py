@@ -8,6 +8,7 @@ from .serializers import SmartphoneSerializer
 class ProductView(viewsets.ModelViewSet):
     queryset = Smartphone.objects.all()
     serializer_class = SmartphoneSerializer
+    #serializer_class = SmartphoneSerializer(many=True)
     http_method_names= ['get']#allowed methods
 
 
