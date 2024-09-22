@@ -918,7 +918,7 @@ class SmartphoneSerializer(serializers.ModelSerializer):
                 "price": "1000",
                 "primary_image": "",
                 "vat": "",
-                "weight": "",
+                "weight": smartphone.weight.value,
                 "weight_unit": "g",
                 "width":""
                  }]

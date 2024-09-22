@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'app_upload',
     'app_products',
     'app_reference_shared',
-    'app_reference_smartphones'
+    'app_reference_smartphones',
+    'app_create',
 ]
 
 MIDDLEWARE = [

@@ -23,6 +23,7 @@ urlpatterns = [
     path('app_upload', include('app_upload.urls')),
     path('app_smartphones', include('app_reference_smartphones.urls')),
     path('app_duplicate', include('app_duplicate.urls')),
+    path('app_create', include('app_create.urls')),
 
 
 ]
