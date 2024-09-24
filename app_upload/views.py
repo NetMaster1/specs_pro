@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import request
 from rest_framework import viewsets
 from app_reference_smartphones.models import (
-    Brand, 
+    BrandSmartphone, 
     EuroAsianCode, 
     CaseForm, MicroSDSlot, 
     ProcessorCoreQnty, 
@@ -13,7 +13,7 @@ from app_reference_smartphones.models import (
     GadgetModel, 
     VideoQuality,
     ScreenResolution, 
-    Type,
+    TypeSmartphone,
     SimCardQnty
 )
 #from app_tv.models import TV_Brand
@@ -22,7 +22,7 @@ from app_reference_shared.models import (
     CardType, 
     SmartphoneVersion, 
     PublishingYear, 
-    RAM, 
+    RamSmartphone, 
     ESimSupport, 
     IOSVersion, 
     Authentication, 
@@ -31,7 +31,7 @@ from app_reference_shared.models import (
     SpecialFeature, 
     Interface, 
     AndroidVersion,
-    OperationSystem, 
+    OSMobile, 
     CaseMaterial, 
     WirelessInterface, 
     ProcessorModel, 
@@ -115,7 +115,7 @@ def upload_all(request):
     json=response.json()
     array=json['result']
     for i in array:
-        item= Brand.objects.create(
+        item= BrandSmartphone.objects.create(
             value=i['value'],
             dictionary_value_id=i['id'],
             attribute_id='85',
@@ -188,9 +188,9 @@ def upload_brands(request):
     array=json['result']
     for i in array:
         try:
-            item=Brand.objects.get(dictionary_value_id=i['id'])
-        except Brand.DoesNotExist:
-            item= Brand.objects.create(
+            item=BrandSmartphone.objects.get(dictionary_value_id=i['id'])
+        except BrandSmartphone.DoesNotExist:
+            item= BrandSmartphone.objects.create(
                 value=i['value'],
                 dictionary_value_id=i['id'],
                 attribute_id='85',
@@ -219,9 +219,9 @@ def upload_type (request):
     array=json['result']
     for i in array:
         try:
-            item=Type.objects.get(dictionary_value_id=i['id'])
-        except Type.DoesNotExist:
-            type= Type.objects.create(
+            item=TypeSmartphone.objects.get(dictionary_value_id=i['id'])
+        except TypeSmartphone.DoesNotExist:
+            type= TypeSmartphone.objects.create(
                 value=i['value'],
                 dictionary_value_id=i['id'],
                 attribute_id='8229',
@@ -1109,10 +1109,10 @@ def upload_operation_systems (request):
     array=json['result']
     for i in array:
         try:
-            item=OperationSystem.objects.get(dictionary_value_id=i['id'])
+            item=OSMobile.objects.get(dictionary_value_id=i['id'])
 
-        except OperationSystem.DoesNotExist:
-            item= OperationSystem.objects.create(
+        except OSMobile.DoesNotExist:
+            item= OSMobile.objects.create(
                 value=i['value'],
                 dictionary_value_id=i['id'],
                 attribute_id='10889',
@@ -1571,10 +1571,10 @@ def upload_ram (request):
     array=json['result']
     for i in array:
         try:
-            item=RAM.objects.get(dictionary_value_id=i['id'])
+            item=RamSmartphone.objects.get(dictionary_value_id=i['id'])
 
-        except RAM.DoesNotExist:
-            item= RAM.objects.create(
+        except RamSmartphone.DoesNotExist:
+            item= RamSmartphone.objects.create(
                 value=i['value'],
                 dictionary_value_id=i['id'],
                 attribute_id='22803',
@@ -1802,7 +1802,7 @@ def delete_tables (request):
     tables=CaseMaterial.objects.all()
     for i in tables:
         i.delete()
-    tables=OperationSystem.objects.all()
+    tables=OSMobile.objects.all()
     for i in tables:
         i.delete()
     tables=AndroidVersion.objects.all()

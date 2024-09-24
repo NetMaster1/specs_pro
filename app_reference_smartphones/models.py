@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 
-class Brand (models.Model):
+class BrandSmartphone (models.Model):
     attribute_name = models.CharField(max_length=50, null=True)
     attribute_id = models.CharField(max_length=50, null=True)
     value = models.CharField(max_length=100, blank=True)
@@ -26,7 +26,7 @@ class SmartphoneModel (models.Model):
     def __str__(self):
         return self.value
 
-class Type (models.Model):
+class TypeSmartphone (models.Model):
     attribute_name = models.CharField(max_length=50, null=True)
     attribute_id = models.CharField(max_length=50, null=True)
     value = models.CharField(max_length=100, blank=True)

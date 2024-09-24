@@ -1,7 +1,8 @@
 from django.contrib import admin
-from .models import SimCardQnty,Brand, EuroAsianCode, CaseForm, MicroSDSlot, ProcessorCoreQnty, Processor, QntyOfBasicCamera, Colour, ProtectionGrade, GadgetModel, VideoQuality, ScreenResolution, SmartphoneModel, Type
+from .models import (SimCardQnty,BrandSmartphone, EuroAsianCode, CaseForm, MicroSDSlot, ProcessorCoreQnty, Processor, QntyOfBasicCamera, 
+Colour, ProtectionGrade, GadgetModel, VideoQuality, ScreenResolution, SmartphoneModel, TypeSmartphone)
 
-class BrandAdmin(admin.ModelAdmin):
+class BrandSmartphoneAdmin(admin.ModelAdmin):
     list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required', 'category_dependent')
     list_filter = ('value',)
     ordering = ('value',)
@@ -15,7 +16,7 @@ class SmartphoneModelAdmin(admin.ModelAdmin):
     list_per_page=100
     search_fields = ('value', )
     
-class TypeAdmin(admin.ModelAdmin):
+class TypeSmartphoneAdmin(admin.ModelAdmin):
     list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required', 'category_dependent')
     list_filter = ('value',)
     ordering = ('value',)
@@ -108,8 +109,8 @@ class SimCardQntyAdmin(admin.ModelAdmin):
 
 # Register your models here.
 admin.site.register(SmartphoneModel, SmartphoneModelAdmin)
-admin.site.register(Brand, BrandAdmin)
-admin.site.register(Type, TypeAdmin)
+admin.site.register(BrandSmartphone, BrandSmartphoneAdmin)
+admin.site.register(TypeSmartphone, TypeSmartphoneAdmin)
 admin.site.register(ScreenResolution, ScreenResolutionAdmin)
 admin.site.register(VideoQuality, VideoQualityAdmin)
 admin.site.register(GadgetModel, GadgetModelAdmin)

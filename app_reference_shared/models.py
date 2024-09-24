@@ -237,10 +237,10 @@ class Json (models.Model):
 
 #==========================dictionary_value_id > 0==========================================
 class SmartphoneVersion (models.Model):
-    attribute_name = models.CharField(max_length=50, null=True)
-    attribute_id = models.CharField(max_length=50, null=True)
-    value = models.CharField(max_length=100, blank=True)
-    dictionary_value_id = models.CharField(max_length=20, default=0)
+    attribute_name = models.CharField(max_length=50, null=True, default='Версия смартфона')
+    attribute_id = models.CharField(max_length=50, null=True, default='22975')
+    value = models.CharField(max_length=100, null=True, default='Ростест (ЕАС)')
+    dictionary_value_id = models.CharField(max_length=20, null=True, default='971992309')
     is_required = models.BooleanField(default=False)
     category_dependent = models.BooleanField(default=False)
     is_collection = models.BooleanField(default=False)
@@ -259,9 +259,9 @@ class ModelName (models.Model):
         return self.value
     
 class WarrantyPeriod (models.Model):
-    attribute_name = models.CharField(max_length=50, null=True)
-    attribute_id = models.CharField(max_length=50, null=True)
-    value = models.CharField(max_length=100, blank=True)
+    attribute_name = models.CharField(max_length=50, null=True, default="Гарантийный срок")
+    attribute_id = models.CharField(max_length=50, null=True, default="9048")
+    value = models.CharField(max_length=100, null=True, default="1 год с момента покупки")
     dictionary_value_id = models.CharField(max_length=20, default=0)
     is_required = models.BooleanField(default=False)
     category_dependent = models.BooleanField(default=False)
@@ -280,7 +280,7 @@ class PublishingYear (models.Model):
     def __str__(self):
         return self.value
 
-class RAM (models.Model):
+class RamSmartphone (models.Model):
     attribute_name = models.CharField(max_length=50, null=True)
     attribute_id = models.CharField(max_length=50, null=True)
     value = models.CharField(max_length=100, blank=True)
@@ -393,7 +393,7 @@ class AndroidVersion (models.Model):
     def __str__(self):
         return self.value
 
-class OperationSystem (models.Model):
+class OSMobile (models.Model):
     attribute_name = models.CharField(max_length=50, null=True)
     attribute_id = models.CharField(max_length=50, null=True)
     value = models.CharField(max_length=100, blank=True)

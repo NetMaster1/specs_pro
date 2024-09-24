@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import (SmartphoneVersion, PublishingYear, RAM, ESimSupport, IOSVersion, Authentication, Stabilization, ChargingFunction, SpecialFeature, 
-    Interface, AndroidVersion, OperationSystem, CaseMaterial, WirelessInterface, ProcessorModel, ProcessorBrand, VideoProcessor, 
+from .models import (SmartphoneVersion, PublishingYear, RamSmartphone, ESimSupport, IOSVersion, Authentication, Stabilization, ChargingFunction, SpecialFeature, 
+    Interface, AndroidVersion, OSMobile, CaseMaterial, WirelessInterface, ProcessorModel, ProcessorBrand, VideoProcessor, 
     HazardGrade, CameraFunction, GadgetSerie, VideoProcessorBrand, OzonCategory, HardDrive, CountryOfManufacture, MatrixType, CardType, BluetoothType, 
     NavigationType, Sensor, SimType, WifiType, WarrantyPeriod, ModelName, CommunicationStandard, PartNumber, Size, Weight, ProductSet,
     FrontCamerResolution, BasicCamerResolution, BatteryCapacity, StandByPeriod, WorkPeriod, RecordMaxSpeed, LifeSpan, ScreenSize, SellerCode,
@@ -141,7 +141,7 @@ class PublishingYearAdmin(admin.ModelAdmin):
     list_per_page=100
     search_fields = ('value', )
 
-class RAMAdmin(admin.ModelAdmin):
+class RAMSmartphoneAdmin(admin.ModelAdmin):
     list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
     list_filter = ('value',)
     ordering = ('value',)
@@ -211,7 +211,7 @@ class AndroidVersionAdmin(admin.ModelAdmin):
     list_per_page=100
     search_fields = ('value', )
 
-class OperationSystemAdmin(admin.ModelAdmin):
+class OSMobileAdmin(admin.ModelAdmin):
     list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
     list_filter = ('value',)
     ordering = ('value',)
@@ -405,7 +405,7 @@ admin.site.register(ProcessorBrand, ProcessorBrandAdmin)
 admin.site.register(ProcessorModel, ProcessorModelAdmin)
 admin.site.register(WirelessInterface, WirelessInterfaceAdmin)
 admin.site.register(CaseMaterial, CaseMaterialAdmin)
-admin.site.register(OperationSystem, OperationSystemAdmin)
+admin.site.register(OSMobile, OSMobileAdmin)
 admin.site.register(AndroidVersion, AndroidVersionAdmin)
 admin.site.register(Interface, InterfaceAdmin)
 admin.site.register(SpecialFeature, SpecialFeatureAdmin)
@@ -414,7 +414,7 @@ admin.site.register(Stabilization, StabilizationAdmin)
 admin.site.register(Authentication, AuthenticationAdmin)
 admin.site.register(IOSVersion, IOSVersionAdmin)
 admin.site.register(ESimSupport, ESimSupportAdmin)
-admin.site.register(RAM, RAMAdmin)
+admin.site.register(RamSmartphone, RAMSmartphoneAdmin)
 admin.site.register(PublishingYear, PublishingYearAdmin)
 admin.site.register(SmartphoneVersion, SmartphoneVersionAdmin)
 admin.site.register(WarrantyPeriod, WarrantyPeriodAdmin)
