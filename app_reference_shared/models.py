@@ -246,10 +246,11 @@ class SmartphoneVersion (models.Model):
     is_collection = models.BooleanField(default=False)
     def __str__(self):
         return self.value
-    
+
+#used to unite different items in one card   
 class ModelName (models.Model):
-    attribute_name = models.CharField(max_length=50, null=True)
-    attribute_id = models.CharField(max_length=50, null=True)
+    attribute_name = models.CharField(max_length=50, null=True, default="Название модели (для объединения в одну карточку)")
+    attribute_id = models.CharField(max_length=50, null=True, default='9048')
     value = models.CharField(max_length=100, blank=True)
     dictionary_value_id = models.CharField(max_length=20, default=0)
     is_required = models.BooleanField(default=False)
@@ -258,6 +259,31 @@ class ModelName (models.Model):
     def __str__(self):
         return self.value
     
+class CardTitleModelName (models.Model):
+    attribute_name = models.CharField(max_length=50, null=True, default="Название модели для шаблона наименования")
+    attribute_id = models.CharField(max_length=50, null=True, default='12141')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+
+#used to create card title   
+# class ModelName (models.Model):
+#     attribute_name = models.CharField(max_length=50, null=True, default="Название модели для шаблона наименования")
+#     attribute_id = models.CharField(max_length=50, null=True, default='12141')
+#     value = models.CharField(max_length=100, blank=True)
+#     dictionary_value_id = models.CharField(max_length=20, default=0)
+#     is_required = models.BooleanField(default=False)
+#     category_dependent = models.BooleanField(default=False)
+#     is_collection = models.BooleanField(default=False)
+#     def __str__(self):
+#         return self.value
+
+
+
 class WarrantyPeriod (models.Model):
     attribute_name = models.CharField(max_length=50, null=True, default="Гарантийный срок")
     attribute_id = models.CharField(max_length=50, null=True, default="9048")

@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import (SmartphoneVersion, PublishingYear, RamSmartphone, ESimSupport, IOSVersion, Authentication, Stabilization, ChargingFunction, SpecialFeature, 
     Interface, AndroidVersion, OSMobile, CaseMaterial, WirelessInterface, ProcessorModel, ProcessorBrand, VideoProcessor, 
     HazardGrade, CameraFunction, GadgetSerie, VideoProcessorBrand, OzonCategory, HardDrive, CountryOfManufacture, MatrixType, CardType, BluetoothType, 
-    NavigationType, Sensor, SimType, WifiType, WarrantyPeriod, ModelName, CommunicationStandard, PartNumber, Size, Weight, ProductSet,
+    NavigationType, Sensor, SimType, WifiType, WarrantyPeriod, ModelName, CardTitleModelName, CommunicationStandard, PartNumber, Size, Weight, ProductSet,
     FrontCamerResolution, BasicCamerResolution, BatteryCapacity, StandByPeriod, WorkPeriod, RecordMaxSpeed, LifeSpan, ScreenSize, SellerCode,
     MarketingColour, ProcessorFrequency, Name, Description, KeyWord, MaxCardVolume, Json)
 
@@ -358,6 +358,20 @@ class ModelNameAdmin(admin.ModelAdmin):
     list_per_page=100
     search_fields = ('value', )
 
+class CardTitleModelNameAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+# class ModelNameAdmin(admin.ModelAdmin):
+#     list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+#     list_filter = ('value',)
+#     ordering = ('value',)
+#     list_per_page=100
+#     search_fields = ('value', )
+
 class DescriptionAdmin(admin.ModelAdmin):
     list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
     list_filter = ('value',)
@@ -419,6 +433,7 @@ admin.site.register(PublishingYear, PublishingYearAdmin)
 admin.site.register(SmartphoneVersion, SmartphoneVersionAdmin)
 admin.site.register(WarrantyPeriod, WarrantyPeriodAdmin)
 admin.site.register(ModelName, ModelNameAdmin)
+admin.site.register(CardTitleModelName, CardTitleModelNameAdmin)
 admin.site.register(CommunicationStandard, CommunicationStandardAdmin)
 admin.site.register(PartNumber, PartNumberAdmin)
 admin.site.register(Size, SizeAdmin)

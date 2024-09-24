@@ -20,17 +20,17 @@ class SmartphoneSerializer(serializers.ModelSerializer):
     def get_items (self, smartphone):
         attributes =[]
         #=================================================
-        brand={
-        "complex_id": 0,
-        'id': smartphone.brand.attribute_id,
-        "values": [{
-        # 'attribute_name': smartphone.brand.attribute_name, 
-        'dictionary_value_id': smartphone.brand.dictionary_value_id,
-        'value': smartphone.brand.value,
-        # 'is_required': smartphone.brand.is_required
-        }]
-        }
-        attributes.append(brand)
+        # brand={
+        # "complex_id": 0,
+        # 'id': smartphone.brand.attribute_id,
+        # "values": [{
+        # # 'attribute_name': smartphone.brand.attribute_name, 
+        # 'dictionary_value_id': smartphone.brand.dictionary_value_id,
+        # 'value': smartphone.brand.value,
+        # # 'is_required': smartphone.brand.is_required
+        # }]
+        # }
+        # attributes.append(brand)
         #=================================================
         part_number={
         "complex_id": 0,
@@ -79,6 +79,21 @@ class SmartphoneSerializer(serializers.ModelSerializer):
         }]
         }
         attributes.append(model_name)
+        #================================================
+        try:
+            card_title_model_name={
+            "complex_id": 0,
+            'id': smartphone.card_title_model_name.attribute_id,
+            "values": [{
+            # 'attribute_name': smartphone.card_title_model_name.attribute_name, 
+            'dictionary_value_id': smartphone.card_title_model_name.dictionary_value_id,
+            'value': smartphone.card_title_model_name.value,
+            # 'is_required': smartphone.card_title_model_name.is_required
+            }]
+            }
+            attributes.append(card_title_model_name)
+        except:
+            print('No data provided')
         #================================================
         hard_drive={
         "complex_id": 0,
@@ -493,17 +508,17 @@ class SmartphoneSerializer(serializers.ModelSerializer):
         }
         attributes.append(screen_size)
         #========================================================
-        seller_code={
-        "complex_id": 0,
-        "id": smartphone.seller_code.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.seller_code.attribute_name, 
-        'dictionary_value_id': smartphone.seller_code.dictionary_value_id, 
-        'value': smartphone.seller_code.value, 
-        # 'is_required': smartphone.seller_code.is_required
-        }]
-        }
-        attributes.append(seller_code)
+        # seller_code={
+        # "complex_id": 0,
+        # "id": smartphone.seller_code.attribute_id, 
+        # "values": [{ 
+        #     # 'attribute_name': smartphone.seller_code.attribute_name, 
+        # 'dictionary_value_id': smartphone.seller_code.dictionary_value_id, 
+        # 'value': smartphone.seller_code.value, 
+        # # 'is_required': smartphone.seller_code.is_required
+        # }]
+        # }
+        # attributes.append(seller_code)
         #========================================================
         gadget_serie={
         "complex_id": 0,

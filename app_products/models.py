@@ -34,6 +34,7 @@ from app_reference_shared.models import (
     SmartphoneVersion,
     WarrantyPeriod,
     ModelName,
+    CardTitleModelName,
     PartNumber,
     Weight,
     Size,
@@ -74,13 +75,23 @@ from app_reference_smartphones.models import (
 )
 
 class Smartphone (models.Model):
+    #Дополнительное поле. Не входит в attributes for smartphone. Использую просто для связи с таблицей категории.
     category_name = models.ForeignKey(OzonCategory, on_delete=models.DO_NOTHING, null=True)
     #В справочнике Ozon отсутствуют такие бренды как, Xiaomi, Redmi, Honor, Honor, Poco
     #Есть такие бренды как, Samsung
     #brand = models.ForeignKey(BrandSmartphone, on_delete=models.DO_NOTHING, null=True)
     #=================================================================
     created = models.DateTimeField(auto_now=True)
-    name = models.ForeignKey(Name, on_delete=models.DO_NOTHING, null=True, blank=True)
+    #Название пишется по принципу:\nТип + Бренд + Модель (серия + пояснение) + Артикул производителя + , 
+    #(запятая) + Атрибут\nНазвание не пишется большими буквами (не используем caps lock).\n
+    #Перед атрибутом ставится запятая. Если атрибутов несколько, они так же разделяются запятыми.\n
+    # Если какой-то составной части названия нет - пропускаем её.\nАтрибутом может быть: цвет, вес, объём, 
+    # количество штук в упаковке и т.д.\nЦвет пишется с маленькой буквы, в мужском роде, единственном числе.\n
+    # Слово цвет в названии не пишем.\nТочка в конце не ставится.\nНикаких знаков препинания, кроме запятой, не используем.\n
+    # Кавычки используем только для названий на русском языке.\nПримеры корректных названий:\nСмартфон Apple iPhone XS MT572RU/A, 
+    # space black \nКеды Dr. Martens Киноклассика, бело-черные, размер 43\nСтиральный порошок Ariel Магия белого с мерной ложкой, 
+    # 15 кг\nСоус Heinz Xtreme Tabasco суперострый, 10 мл\nИгрушка для животных Четыре лапы \"Бегающая мышка\" БММ, белый
+    name = models.ForeignKey(Name, on_delete=models.DO_NOTHING, null=True, blank=True)#4180
     comms_standard = models.ManyToManyField(CommunicationStandard, blank=True)
     sim_type = models.ManyToManyField(SimType, blank=True)
     esim_support = models.ForeignKey(ESimSupport, on_delete=models.SET_NULL, null=True, blank=True)
@@ -97,7 +108,6 @@ class Smartphone (models.Model):
     product_set = models.ForeignKey(ProductSet, on_delete=models.DO_NOTHING, null=True, blank=True)
     publishing_year = models.ForeignKey(PublishingYear, on_delete=models.SET_NULL, null=True, blank=True)
     country_of_manufacture = models.ManyToManyField(CountryOfManufacture, blank=True)
-
     warranty_period = models.ForeignKey(WarrantyPeriod, on_delete=models.DO_NOTHING, null=True)
     life_span = models.ForeignKey(LifeSpan, on_delete=models.DO_NOTHING, null=True, blank=True)
     sim_card_qnty = models.ForeignKey(SimCardQnty, on_delete=models.SET_NULL, null=True, blank=True)
@@ -160,12 +170,25 @@ class Smartphone (models.Model):
     #=========================================================================
     #EAС (Ростест)
     smartphone_version = models.ForeignKey(SmartphoneVersion, on_delete=models.SET_NULL, null=True, blank=True)
+   
+    #=====================MODEL NAMES=====================================
+    #Выберите одно значение из выпадающего списка
+    gadget_model = models.ManyToManyField(GadgetModel, blank=True)#5219
     #(для объединения в одну карточку)
     #Укажите название модели товара. Не указывайте в этом поле тип и бренд.
+    #Заполните данное поле любым одинаковым значением у товаров, которые хотите объединить. 
+    #И по разному, чтобы разъединить. Объединение через данный атрибут произойдет только если товары имеют одинаковый Тип и Бренд
     model_name = models.ForeignKey(ModelName, on_delete=models.DO_NOTHING, null=True)#9048
-    gadget_model = models.ManyToManyField(GadgetModel, blank=True)#5219
+    #Только краткое название модели, без типа, бренда и характеристик товара. Будет использовано в шаблонизаторе 
+    #для составления названия карточки для сайта.
+    card_title_model_name = models.ForeignKey(CardTitleModelName, on_delete=models.DO_NOTHING, null=True)#11241
+    #===========================================================================================
+    #Выберите наиболее подходящий тип товара. По типам товары распределяются по категориям на сайте Ozon. 
+    #Если тип указан неправильно, товар попадет в неверную категорию. Чтобы правильно указать тип, найдите
+    #на сайте Ozon товары, похожие на ваш, и посмотрите, какой тип у них указан. 8229; is_required,
     type = models.ForeignKey(TypeSmartphone, on_delete=models.SET_NULL, null=True)
-    gadget_serie = models.ForeignKey(GadgetSerie, on_delete=models.SET_NULL, null=True, blank=True)
+    #линейка мобильный устройств
+    gadget_serie = models.ForeignKey(GadgetSerie, on_delete=models.SET_NULL, null=True, blank=True)#9225
     #=====================================================================================
     #Каталожный номер изделия или детали. Is_required=True. Можно использовать EAN
     #Не можем использовать IMEI телефона, так как они разные у одного SKU
@@ -174,7 +197,6 @@ class Smartphone (models.Model):
     # Не является EAN/серийным номером/штрихкодом, не равен названию модели товара - 
     # для этих параметров есть отдельные атрибуты. Артикул выводится в карточке товара на сайте 
     # и может использоваться при автоматическом формировании названия товара.
-    #=============================================================================
     #seller_code = models.ForeignKey(SellerCode, on_delete=models.DO_NOTHING, null=True, blank=True)
     hazard_grade = models.ForeignKey(HazardGrade, on_delete=models.SET_NULL, null=True, blank=True)
     protection_grade = models.ManyToManyField(ProtectionGrade, blank=True)
