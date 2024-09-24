@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <form action="{% url 'duplicate' %}" method="POST">
+        {% csrf_token %}
+
+        <input type="text" class='form-control' id="name_1" name="name_1" maxlength='100' required placeholder="Model Name" autofocus>
+    
+        <input type="text" class='form-control' id="name_2" name="name_2" maxlength='100' required placeholder="Model Name" autofocus>
+    
+        <input type="submit" value="Применить" class="btn btn-sm btn-block btn-outline-dark">
+            
+    </form>
+
+</body>
+</html>
+  

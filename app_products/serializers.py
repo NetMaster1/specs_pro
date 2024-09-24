@@ -6,12 +6,10 @@ class SmartphoneSerializer(serializers.ModelSerializer):
     #category_name = serializers.StringRelatedField(source='category')#outputs string repsresentation of foreign key instead of id
     #processor_key = serializers.StringRelatedField(many=True)#outputs string repsresentation of foreign key instead of id
     items = serializers.SerializerMethodField('get_items')
-    #attributes = serializers.SerializerMethodField('get_attributes')
    
     #other_fields = serializers.SerializerMethodField('get_other_fields')
     class Meta:
         model = Smartphone
-        #fields = ['attributes',]
         fields = ['items',]
         #fields ='__all__'
         depth=1#this field is crucial for displaying ManyToMany Field in serializer
@@ -921,13 +919,13 @@ class SmartphoneSerializer(serializers.ModelSerializer):
                 "depth": "",
                 "dimension_unit": "mm",
                 "height": "100",
-                "images": ['https://disk.yandex.ru/i/oegwL_TilSIPcA', 
-                    'https://disk.yandex.ru/i/T9d9q3GQjFQBAA', 
-                    'https://disk.yandex.ru/i/YCVg4Skuc5WTTA'
-                    ],
+                "images":   [ smartphone.image_1, 
+                                smartphone.image_2,
+                                smartphone.image_3
+                            ],
                 "images360": [],
                 "name": smartphone.name.value,
-                "offer_id": "143210608",
+                "offer_id": smartphone.part_number.value,
                 "old_price": "",
                 "pdf_list": [],
                 "price": "1000",

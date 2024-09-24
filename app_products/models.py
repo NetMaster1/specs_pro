@@ -202,7 +202,15 @@ class Smartphone (models.Model):
     protection_grade = models.ManyToManyField(ProtectionGrade, blank=True)
     #euro_asian_code = models.ForeignKey(EuroAsianCode, on_delete=models.SET_NULL, null=True, blank=True)
     #======================dictionary_id > 0==================================================
+    image_1 = models.URLField(blank=True)
+    image_2 = models.URLField(blank=True)
+    image_3 = models.URLField(blank=True)
+    image_4 = models.URLField(blank=True)
+    image_5 = models.URLField(blank=True)
+
+   
     
+
     class Meta:
         # ordering = ('created',)  # sorting by date
         verbose_name = 'smartphone'

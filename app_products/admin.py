@@ -10,7 +10,7 @@ from . models import Smartphone
 
 
 class SmartphoneAdmin(admin.ModelAdmin):
-    list_display = ('id','category_name')  
+    list_display = ('id', 'name',)  
     #list_filter = ('name',)
     #list_editable= ('processor', 'authentification', )
     #search_fields = ('imei', )
