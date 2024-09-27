@@ -93,17 +93,20 @@ class SmartphoneSerializer(serializers.ModelSerializer):
         except:
             print('No data provided')
         #================================================
-        hard_drive={
-        "complex_id": 0,
-        'id': smartphone.hard_drive.attribute_id,
-        "values": [{
-        # 'attribute_name': smartphone.hard_drive.attribute_name, 
-        'dictionary_value_id': smartphone.hard_drive.dictionary_value_id,
-        'value': smartphone.hard_drive.value,
-        # 'is_required': smartphone.hard_drive.is_required
-        }]
-        }
-        attributes.append(hard_drive)
+        try:
+            hard_drive={
+            "complex_id": 0,
+            'id': smartphone.hard_drive.attribute_id,
+            "values": [{
+            # 'attribute_name': smartphone.hard_drive.attribute_name, 
+            'dictionary_value_id': smartphone.hard_drive.dictionary_value_id,
+            'value': smartphone.hard_drive.value,
+            # 'is_required': smartphone.hard_drive.is_required
+            }]
+            }
+            attributes.append(hard_drive)
+        except:
+            print('No data provided')
         #==================================================
         try:
             name={
@@ -228,283 +231,346 @@ class SmartphoneSerializer(serializers.ModelSerializer):
         except:
             print('No sim card quanty provided')
         #======================================================
-        array=[]
-        dict={"complex_id":0}
-        for i in smartphone.card_type.all():
-            a= i.dictionary_value_id
-            b= i.value
-            item={
-                'dictionary_value_id':a,
-                'value': b
-            }
-            id=i.attribute_id
-            array.append(item)
-        dict['id']=id#добавляем ключ(id) и значение (id) в словарь dict
-        dict['values']=array
-        attributes.append(dict)
+        try:
+            array=[]
+            dict={"complex_id":0}
+            for i in smartphone.card_type.all():
+                a= i.dictionary_value_id
+                b= i.value
+                item={
+                    'dictionary_value_id':a,
+                    'value': b
+                }
+                id=i.attribute_id
+                array.append(item)
+            dict['id']=id#добавляем ключ(id) и значение (id) в словарь dict
+            dict['values']=array
+            attributes.append(dict)
+        except:
+            print('no card_type provided')
         #=====================================================
-        max_card_volume={
-        "complex_id": 0,
-        "id": smartphone.max_card_volume.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.max_card_volume.attribute_name, 
-        'dictionary_value_id': smartphone.max_card_volume.dictionary_value_id, 
-        'value': smartphone.max_card_volume.value, 
-        # 'is_required': smartphone.max_card_volume.is_required
-        }]
-        }
-        attributes.append(max_card_volume)
+        try:
+            max_card_volume={
+            "complex_id": 0,
+            "id": smartphone.max_card_volume.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.max_card_volume.attribute_name, 
+            'dictionary_value_id': smartphone.max_card_volume.dictionary_value_id, 
+            'value': smartphone.max_card_volume.value, 
+            # 'is_required': smartphone.max_card_volume.is_required
+            }]
+            }
+            attributes.append(max_card_volume)
+        except:
+            print('No data provided')
         #=====================================================
-        bluetooth={
-        "complex_id": 0,
-        "id": smartphone.bluetooth.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.bluetooth.attribute_name, 
-        'dictionary_value_id': smartphone.bluetooth.dictionary_value_id, 
-        'value': smartphone.bluetooth.value, 
-        # 'is_required': smartphone.bluetooth.is_required
-        }]
-        }
-        attributes.append(bluetooth)
+        try:
+            bluetooth={
+            "complex_id": 0,
+            "id": smartphone.bluetooth.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.bluetooth.attribute_name, 
+            'dictionary_value_id': smartphone.bluetooth.dictionary_value_id, 
+            'value': smartphone.bluetooth.value, 
+            # 'is_required': smartphone.bluetooth.is_required
+            }]
+            }
+            attributes.append(bluetooth)
+        except:
+            print('No data provided')
         #=====================================================
-        array=[]
-        dict={"complex_id":0}
-        for i in smartphone.navigation.all():
-            a= i.dictionary_value_id
-            b= i.value
-            item={
-                'dictionary_value_id':a,
-                'value': b
+        try:
+            array=[]
+            dict={"complex_id":0}
+            for i in smartphone.navigation.all():
+                a= i.dictionary_value_id
+                b= i.value
+                item={
+                    'dictionary_value_id':a,
+                    'value': b
+                }
+                id=i.attribute_id
+                array.append(item)
+            dict['id']=id#добавляем ключ(id) и значение (id) в словарь dict
+            dict['values']=array
+            attributes.append(dict)
+        except:
+            print('No data provided')
+        #========================================================
+        try:
+            array=[]
+            dict={"complex_id":0}
+                    
+            for i in smartphone.sensor.all():
+                a= i.dictionary_value_id
+                b= i.value
+                item={
+                    'dictionary_value_id':a,
+                    'value': b
+                }
+                id=i.attribute_id
+                array.append(item)
+            dict['id']=id
+            dict['values']=array
+            attributes.append(dict)
+        except:
+            print('No data provided')
+        #==========================================================
+        try:
+            front_camera_resolution={
+            "complex_id": 0,
+            "id": smartphone.front_camera_resolution.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.front_camera_resolution.attribute_name, 
+            'dictionary_value_id': smartphone.front_camera_resolution.dictionary_value_id, 
+            'value': smartphone.front_camera_resolution.value, 
+            # 'is_required': smartphone.front_camera_resolution.is_required
+            }]
             }
-            id=i.attribute_id
-            array.append(item)
-        dict['id']=id#добавляем ключ(id) и значение (id) в словарь dict
-        dict['values']=array
-        attributes.append(dict)
-        #========================================================
-        array=[]
-        dict={"complex_id":0}
-                
-        for i in smartphone.sensor.all():
-            a= i.dictionary_value_id
-            b= i.value
-            item={
-                'dictionary_value_id':a,
-                'value': b
+            attributes.append(front_camera_resolution)
+        except:
+            print('No data provided')
+        #==========================================================
+        try:
+            basic_camera_resolution={
+            "complex_id": 0,
+            "id": smartphone.basic_camera_resolution.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.basic_camera_resolution.attribute_name, 
+            'dictionary_value_id': smartphone.basic_camera_resolution.dictionary_value_id, 
+            'value': smartphone.basic_camera_resolution.value, 
+            # 'is_required': smartphone.basic_camera_resolution.is_required
+            }]
             }
-            id=i.attribute_id
-            array.append(item)
-        dict['id']=id
-        dict['values']=array
-        attributes.append(dict)
+            attributes.append(basic_camera_resolution)
+        except:
+            print('No data provided')
         #==========================================================
-        front_camera_resolution={
-        "complex_id": 0,
-        "id": smartphone.front_camera_resolution.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.front_camera_resolution.attribute_name, 
-        'dictionary_value_id': smartphone.front_camera_resolution.dictionary_value_id, 
-        'value': smartphone.front_camera_resolution.value, 
-        # 'is_required': smartphone.front_camera_resolution.is_required
-        }]
-        }
-        attributes.append(front_camera_resolution)
-        #==========================================================
-        basic_camera_resolution={
-        "complex_id": 0,
-        "id": smartphone.basic_camera_resolution.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.basic_camera_resolution.attribute_name, 
-        'dictionary_value_id': smartphone.basic_camera_resolution.dictionary_value_id, 
-        'value': smartphone.basic_camera_resolution.value, 
-        # 'is_required': smartphone.basic_camera_resolution.is_required
-        }]
-        }
-        attributes.append(basic_camera_resolution)
-        #==========================================================
-        battery_capacity={
-        "complex_id": 0,
-        "id": smartphone.battery_capacity.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.battery_capacity.attribute_name, 
-        'dictionary_value_id': smartphone.battery_capacity.dictionary_value_id, 
-        'value': smartphone.battery_capacity.value, 
-        # 'is_required': smartphone.battery_capacity.is_required
-        }]
-        }
-        attributes.append(battery_capacity)
-        #========================================================
-        array=[]
-        dict={"complex_id":0}
-                
-        for i in smartphone.sim_type.all():
-            a= i.dictionary_value_id
-            b= i.value
-            item={
-                'dictionary_value_id':a,
-                'value': b
+        try:
+            battery_capacity={
+            "complex_id": 0,
+            "id": smartphone.battery_capacity.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.battery_capacity.attribute_name, 
+            'dictionary_value_id': smartphone.battery_capacity.dictionary_value_id, 
+            'value': smartphone.battery_capacity.value, 
+            # 'is_required': smartphone.battery_capacity.is_required
+            }]
             }
-            id=i.attribute_id
-            array.append(item)
-        dict['id']=id
-        dict['values']=array
-        attributes.append(dict)
-        #==========================================================
-        battery_capacity={
-        "complex_id": 0,
-        "id": smartphone.battery_capacity.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.battery_capacity.attribute_name, 
-        'dictionary_value_id': smartphone.battery_capacity.dictionary_value_id, 
-        'value': smartphone.battery_capacity.value, 
-        # 'is_required': smartphone.battery_capacity.is_required
-        }]
-        }
-        attributes.append(battery_capacity)
-        #==========================================================
-        standby_period={
-        "complex_id": 0,
-        "id": smartphone.standby_period.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.standby_period.attribute_name, 
-        'dictionary_value_id': smartphone.standby_period.dictionary_value_id, 
-        'value': smartphone.standby_period.value, 
-        # 'is_required': smartphone.standby_period.is_required
-        }]
-        }
-        attributes.append(standby_period)
+            attributes.append(battery_capacity)
+        except:
+            print('No data provided')
         #========================================================
-        array=[]
-        dict={"complex_id":0}
-                
-        for i in smartphone.wifi.all():
-            a= i.dictionary_value_id
-            b= i.value
-            item={
-                'dictionary_value_id':a,
-                'value': b
+        try:
+            array=[]
+            dict={"complex_id":0}
+                    
+            for i in smartphone.sim_type.all():
+                a= i.dictionary_value_id
+                b= i.value
+                item={
+                    'dictionary_value_id':a,
+                    'value': b
+                }
+                id=i.attribute_id
+                array.append(item)
+            dict['id']=id
+            dict['values']=array
+            attributes.append(dict)
+        except:
+            print('No data provided')
+        #==========================================================
+        try:
+            battery_capacity={
+            "complex_id": 0,
+            "id": smartphone.battery_capacity.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.battery_capacity.attribute_name, 
+            'dictionary_value_id': smartphone.battery_capacity.dictionary_value_id, 
+            'value': smartphone.battery_capacity.value, 
+            # 'is_required': smartphone.battery_capacity.is_required
+            }]
             }
-            id=i.attribute_id
-            array.append(item)
-        dict['id']=id
-        dict['values']=array
-        attributes.append(dict)
+            attributes.append(battery_capacity)
+        except:
+            print('No data provided')
         #==========================================================
-        video_processor_brand={
-        "complex_id": 0,
-        "id": smartphone.video_processor_brand.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.video_processor_brand.attribute_name, 
-        'dictionary_value_id': smartphone.video_processor_brand.dictionary_value_id, 
-        'value': smartphone.video_processor_brand.value, 
-        # 'is_required': smartphone.video_processor_brand.is_required
-        }]
-        }
-        attributes.append(video_processor_brand)
-        #========================================================
-        screen_resolution={
-        "complex_id": 0,
-        "id": smartphone.screen_resolution.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.screen_resolution.attribute_name, 
-        'dictionary_value_id': smartphone.screen_resolution.dictionary_value_id, 
-        'value': smartphone.screen_resolution.value, 
-        # 'is_required': smartphone.screen_resolution.is_required
-        }]
-        }
-        attributes.append(screen_resolution)
-        #========================================================
-        video_quality={
-        "complex_id": 0,
-        "id": smartphone.video_quality.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.video_quality.attribute_name, 
-        'dictionary_value_id': smartphone.video_quality.dictionary_value_id, 
-        'value': smartphone.video_quality.value, 
-        # 'is_required': smartphone.video_quality.is_required
-        }]
-        }
-        attributes.append(video_quality)
-        #========================================================
-        array=[]
-        dict={"complex_id":0}
-                
-        for i in smartphone.gadget_model.all():
-            a= i.dictionary_value_id
-            b= i.value
-            item={
-                'dictionary_value_id':a,
-                'value': b
+        try:
+            standby_period={
+            "complex_id": 0,
+            "id": smartphone.standby_period.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.standby_period.attribute_name, 
+            'dictionary_value_id': smartphone.standby_period.dictionary_value_id, 
+            'value': smartphone.standby_period.value, 
+            # 'is_required': smartphone.standby_period.is_required
+            }]
             }
-            id=i.attribute_id
-            array.append(item)
-        dict['id']=id
-        dict['values']=array
-        attributes.append(dict)
+            attributes.append(standby_period)
+        except:
+            print('No data provided')
+        #========================================================
+        try:
+            array=[]
+            dict={"complex_id":0}
+                    
+            for i in smartphone.wifi.all():
+                a= i.dictionary_value_id
+                b= i.value
+                item={
+                    'dictionary_value_id':a,
+                    'value': b
+                }
+                id=i.attribute_id
+                array.append(item)
+            dict['id']=id
+            dict['values']=array
+            attributes.append(dict)
+        except:
+            print('No data provided')
         #==========================================================
-        array=[]
-        dict={"complex_id":0}
-        for i in smartphone.protection_grade.all():
-            a= i.dictionary_value_id
-            b= i.value
-            item={
-                'dictionary_value_id':a,
-                'value': b
+        try:
+            video_processor_brand={
+            "complex_id": 0,
+            "id": smartphone.video_processor_brand.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.video_processor_brand.attribute_name, 
+            'dictionary_value_id': smartphone.video_processor_brand.dictionary_value_id, 
+            'value': smartphone.video_processor_brand.value, 
+            # 'is_required': smartphone.video_processor_brand.is_required
+            }]
             }
-            id=i.attribute_id
-            array.append(item)
-        dict['id']=id
-        dict['values']=array
-        attributes.append(dict)
+            attributes.append(video_processor_brand)
+        except:
+            print('No data provided')
+        #========================================================
+        try:
+            screen_resolution={
+            "complex_id": 0,
+            "id": smartphone.screen_resolution.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.screen_resolution.attribute_name, 
+            'dictionary_value_id': smartphone.screen_resolution.dictionary_value_id, 
+            'value': smartphone.screen_resolution.value, 
+            # 'is_required': smartphone.screen_resolution.is_required
+            }]
+            }
+            attributes.append(screen_resolution)
+        except:
+            print('No data provided')
+        #========================================================
+        try:
+            video_quality={
+            "complex_id": 0,
+            "id": smartphone.video_quality.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.video_quality.attribute_name, 
+            'dictionary_value_id': smartphone.video_quality.dictionary_value_id, 
+            'value': smartphone.video_quality.value, 
+            # 'is_required': smartphone.video_quality.is_required
+            }]
+            }
+            attributes.append(video_quality)
+        except:
+            print('No data provided')
+        #========================================================
+        try:
+            array=[]
+            dict={"complex_id":0}
+                    
+            for i in smartphone.gadget_model.all():
+                a= i.dictionary_value_id
+                b= i.value
+                item={
+                    'dictionary_value_id':a,
+                    'value': b
+                }
+                id=i.attribute_id
+                array.append(item)
+            dict['id']=id
+            dict['values']=array
+            attributes.append(dict)
+        except:
+            print('No data provided')
         #==========================================================
-        work_period={
-        "complex_id": 0,
-        "id": smartphone.work_period.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.work_period.attribute_name, 
-        'dictionary_value_id': smartphone.work_period.dictionary_value_id, 
-        'value': smartphone.work_period.value, 
-        # 'is_required': smartphone.work_period.is_required
-        }]
-        }
-        attributes.append(work_period)
+        try:
+            array=[]
+            dict={"complex_id":0}
+            for i in smartphone.protection_grade.all():
+                a= i.dictionary_value_id
+                b= i.value
+                item={
+                    'dictionary_value_id':a,
+                    'value': b
+                }
+                id=i.attribute_id
+                array.append(item)
+            dict['id']=id
+            dict['values']=array
+            attributes.append(dict)
+        except:
+            print('No data provided')
+        #==========================================================
+        try:
+            work_period={
+            "complex_id": 0,
+            "id": smartphone.work_period.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.work_period.attribute_name, 
+            'dictionary_value_id': smartphone.work_period.dictionary_value_id, 
+            'value': smartphone.work_period.value, 
+            # 'is_required': smartphone.work_period.is_required
+            }]
+            }
+            attributes.append(work_period)
+        except:
+            print('No data provided')
         #========================================================
-        record_max_speed={
-        "complex_id": 0,
-        "id": smartphone.record_max_speed.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.record_max_speed.attribute_name, 
-        'dictionary_value_id': smartphone.record_max_speed.dictionary_value_id, 
-        'value': smartphone.record_max_speed.value, 
-        # 'is_required': smartphone.record_max_speed.is_required
-        }]
-        }
-        attributes.append(record_max_speed)
+        try:
+            record_max_speed={
+            "complex_id": 0,
+            "id": smartphone.record_max_speed.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.record_max_speed.attribute_name, 
+            'dictionary_value_id': smartphone.record_max_speed.dictionary_value_id, 
+            'value': smartphone.record_max_speed.value, 
+            # 'is_required': smartphone.record_max_speed.is_required
+            }]
+            }
+            attributes.append(record_max_speed)
+        except:
+            print('No data provided')
         #========================================================
-        life_span={
-        "complex_id": 0,
-        "id": smartphone.life_span.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.life_span.attribute_name, 
-        'dictionary_value_id': smartphone.life_span.dictionary_value_id, 
-        'value': smartphone.life_span.value, 
-        # 'is_required': smartphone.life_span.is_required
-        }]
-        }
-        attributes.append(life_span)
+        try:
+            life_span={
+            "complex_id": 0,
+            "id": smartphone.life_span.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.life_span.attribute_name, 
+            'dictionary_value_id': smartphone.life_span.dictionary_value_id, 
+            'value': smartphone.life_span.value, 
+            # 'is_required': smartphone.life_span.is_required
+            }]
+            }
+            attributes.append(life_span)
+        except:
+            print('No data provided')
         #========================================================
         #========================================================
-        screen_size={
-        "complex_id": 0,
-        "id": smartphone.screen_size.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.screen_size.attribute_name, 
-        'dictionary_value_id': smartphone.screen_size.dictionary_value_id, 
-        'value': smartphone.screen_size.value, 
-        # 'is_required': smartphone.screen_size.is_required
-        }]
-        }
-        attributes.append(screen_size)
+        try:
+            screen_size={
+            "complex_id": 0,
+            "id": smartphone.screen_size.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.screen_size.attribute_name, 
+            'dictionary_value_id': smartphone.screen_size.dictionary_value_id, 
+            'value': smartphone.screen_size.value, 
+            # 'is_required': smartphone.screen_size.is_required
+            }]
+            }
+            attributes.append(screen_size)
+        except:
+            print('No data provided')
         #========================================================
         # seller_code={
         # "complex_id": 0,
@@ -518,197 +584,242 @@ class SmartphoneSerializer(serializers.ModelSerializer):
         # }
         # attributes.append(seller_code)
         #========================================================
-        gadget_serie={
-        "complex_id": 0,
-        "id": smartphone.gadget_serie.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.gadget_serie.attribute_name, 
-        'dictionary_value_id': smartphone.gadget_serie.dictionary_value_id, 
-        'value': smartphone.gadget_serie.value, 
-        # 'is_required': smartphone.gadget_serie.is_required
-        }]
-        }
-        attributes.append(gadget_serie)
+        try:
+            gadget_serie={
+            "complex_id": 0,
+            "id": smartphone.gadget_serie.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.gadget_serie.attribute_name, 
+            'dictionary_value_id': smartphone.gadget_serie.dictionary_value_id, 
+            'value': smartphone.gadget_serie.value, 
+            # 'is_required': smartphone.gadget_serie.is_required
+            }]
+            }
+            attributes.append(gadget_serie)
+        except:
+            print('No data provided')
         #========================================================
-        array=[]
-        dict={"complex_id":0}
-        for i in smartphone.camera_function.all():
-            a= i.dictionary_value_id
-            b= i.value
-            item={
-                'dictionary_value_id':a,
-                'value': b
-            }
-            id=i.attribute_id
-            array.append(item)
-        dict['id']=id
-        dict['values']=array
-        attributes.append(dict)
+        try:
+            array=[]
+            dict={"complex_id":0}
+            for i in smartphone.camera_function.all():
+                a= i.dictionary_value_id
+                b= i.value
+                item={
+                    'dictionary_value_id':a,
+                    'value': b
+                }
+                id=i.attribute_id
+                array.append(item)
+            dict['id']=id
+            dict['values']=array
+            attributes.append(dict)
+        except:
+            print('No data provided')
         #==========================================================
-        hazard_grade={
-        "complex_id": 0,
-        "id": smartphone.hazard_grade.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.hazard_grade.attribute_name, 
-        'dictionary_value_id': smartphone.hazard_grade.dictionary_value_id, 
-        'value': smartphone.hazard_grade.value, 
-        # 'is_required': smartphone.hazard_grade.is_required
-        }]
-        }
-        attributes.append(hazard_grade)
+        try:
+            hazard_grade={
+            "complex_id": 0,
+            "id": smartphone.hazard_grade.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.hazard_grade.attribute_name, 
+            'dictionary_value_id': smartphone.hazard_grade.dictionary_value_id, 
+            'value': smartphone.hazard_grade.value, 
+            # 'is_required': smartphone.hazard_grade.is_required
+            }]
+            }
+            attributes.append(hazard_grade)
+        except:
+            print('No data provided')
         #========================================================
-        array=[]
-        dict={"complex_id":0}
-        for i in smartphone.colour.all():
-            a= i.dictionary_value_id
-            b= i.value
-            item={
-                'dictionary_value_id':a,
-                'value': b
+        try:
+            array=[]
+            dict={"complex_id":0}
+            for i in smartphone.colour.all():
+                a= i.dictionary_value_id
+                b= i.value
+                item={
+                    'dictionary_value_id':a,
+                    'value': b
+                }
+                id=i.attribute_id
+                array.append(item)
+            dict['id']=id
+            dict['values']=array
+            attributes.append(dict)
+        except:
+            print('No data provided')
+        #==========================================================
+        try:
+            marketing_colour={
+            "complex_id": 0,
+            "id": smartphone.marketing_colour.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.marketing_colour.attribute_name, 
+            'dictionary_value_id': smartphone.marketing_colour.dictionary_value_id, 
+            'value': smartphone.marketing_colour.value, 
+            # 'is_required': smartphone.marketing_colour.is_required
+            }]
             }
-            id=i.attribute_id
-            array.append(item)
-        dict['id']=id
-        dict['values']=array
-        attributes.append(dict)
+            attributes.append(marketing_colour)
+        except:
+            print('No data provided')
         #==========================================================
-        marketing_colour={
-        "complex_id": 0,
-        "id": smartphone.marketing_colour.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.marketing_colour.attribute_name, 
-        'dictionary_value_id': smartphone.marketing_colour.dictionary_value_id, 
-        'value': smartphone.marketing_colour.value, 
-        # 'is_required': smartphone.marketing_colour.is_required
-        }]
-        }
-        attributes.append(marketing_colour)
+        try:
+            qnty_of_basic_cameras={
+            "complex_id": 0,
+            "id": smartphone.qnty_of_basic_cameras.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.qnty_of_basic_cameras.attribute_name, 
+            'dictionary_value_id': smartphone.qnty_of_basic_cameras.dictionary_value_id, 
+            'value': smartphone.qnty_of_basic_cameras.value, 
+            # 'is_required': smartphone.qnty_of_basic_cameras.is_required
+            }]
+            }
+            attributes.append(qnty_of_basic_cameras)
+        except:
+            print('No data provided')
         #==========================================================
-        qnty_of_basic_cameras={
-        "complex_id": 0,
-        "id": smartphone.qnty_of_basic_cameras.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.qnty_of_basic_cameras.attribute_name, 
-        'dictionary_value_id': smartphone.qnty_of_basic_cameras.dictionary_value_id, 
-        'value': smartphone.qnty_of_basic_cameras.value, 
-        # 'is_required': smartphone.qnty_of_basic_cameras.is_required
-        }]
-        }
-        attributes.append(qnty_of_basic_cameras)
-        #==========================================================
-        processor={
-        "complex_id": 0,
-        "id": smartphone.processor.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.processor.attribute_name, 
-        'dictionary_value_id': smartphone.processor.dictionary_value_id, 
-        'value': smartphone.processor.value, 
-        # 'is_required': smartphone.processor.is_required
-        }]
-        }
-        attributes.append(processor)
+        try:
+            processor={
+            "complex_id": 0,
+            "id": smartphone.processor.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.processor.attribute_name, 
+            'dictionary_value_id': smartphone.processor.dictionary_value_id, 
+            'value': smartphone.processor.value, 
+            # 'is_required': smartphone.processor.is_required
+            }]
+            }
+            attributes.append(processor)
+        except:
+            print('No data provided')
         #===========================================================
-        video_processor={
-        "complex_id": 0,
-        "id": smartphone.video_processor.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.video_processor.attribute_name, 
-        'dictionary_value_id': smartphone.video_processor.dictionary_value_id, 
-        'value': smartphone.video_processor.value, 
-        # 'is_required': smartphone.video_processor.is_required
-        }]
-        }
-        attributes.append(video_processor)
+        try:
+            video_processor={
+            "complex_id": 0,
+            "id": smartphone.video_processor.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.video_processor.attribute_name, 
+            'dictionary_value_id': smartphone.video_processor.dictionary_value_id, 
+            'value': smartphone.video_processor.value, 
+            # 'is_required': smartphone.video_processor.is_required
+            }]
+            }
+            attributes.append(video_processor)
+        except:
+            print('No data provided')
         #===========================================================
-        processor_brand={
-        "complex_id": 0,
-        "id": smartphone.processor_brand.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.processor_brand.attribute_name, 
-        'dictionary_value_id': smartphone.processor_brand.dictionary_value_id, 
-        'value': smartphone.processor_brand.value, 
-        # 'is_required': smartphone.processor_brand.is_required
-        }]
-        }
-        attributes.append(processor_brand)
+        try:
+            processor_brand={
+            "complex_id": 0,
+            "id": smartphone.processor_brand.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.processor_brand.attribute_name, 
+            'dictionary_value_id': smartphone.processor_brand.dictionary_value_id, 
+            'value': smartphone.processor_brand.value, 
+            # 'is_required': smartphone.processor_brand.is_required
+            }]
+            }
+            attributes.append(processor_brand)
+        except:
+            print('No data provided')
         #===========================================================
-        processor_frequency={
-        "complex_id": 0,
-        "id": smartphone.processor_frequency.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.processor_frequency.attribute_name, 
-        'dictionary_value_id': smartphone.processor_frequency.dictionary_value_id, 
-        'value': smartphone.processor_frequency.value, 
-        # 'is_required': smartphone.processor_frequency.is_required
-        }]
-        }
-        attributes.append(processor_frequency)
+        try:
+            processor_frequency={
+            "complex_id": 0,
+            "id": smartphone.processor_frequency.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.processor_frequency.attribute_name, 
+            'dictionary_value_id': smartphone.processor_frequency.dictionary_value_id, 
+            'value': smartphone.processor_frequency.value, 
+            # 'is_required': smartphone.processor_frequency.is_required
+            }]
+            }
+            attributes.append(processor_frequency)
+        except:
+            print('No data provided')
         #===========================================================
-        processor_core_qnty={
-        "complex_id": 0,
-        "id": smartphone.processor_core_qnty.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.processor_core_qnty.attribute_name, 
-        'dictionary_value_id': smartphone.processor_core_qnty.dictionary_value_id, 
-        'value': smartphone.processor_core_qnty.value, 
-        # 'is_required': smartphone.processor_core_qnty.is_required
-        }]
-        }
-        attributes.append(processor_core_qnty)
+        try:
+            processor_core_qnty={
+            "complex_id": 0,
+            "id": smartphone.processor_core_qnty.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.processor_core_qnty.attribute_name, 
+            'dictionary_value_id': smartphone.processor_core_qnty.dictionary_value_id, 
+            'value': smartphone.processor_core_qnty.value, 
+            # 'is_required': smartphone.processor_core_qnty.is_required
+            }]
+            }
+            attributes.append(processor_core_qnty)
+        except:
+            print('No data provided')
         #===========================================================
-        processor_model={
-        "complex_id": 0,
-        "id": smartphone.processor_model.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.processor_model.attribute_name, 
-        'dictionary_value_id': smartphone.processor_model.dictionary_value_id, 
-        'value': smartphone.processor_model.value, 
-        # 'is_required': smartphone.processor_model.is_required
-        }]
-        }
-        attributes.append(processor_model)
+        try:
+            processor_model={
+            "complex_id": 0,
+            "id": smartphone.processor_model.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.processor_model.attribute_name, 
+            'dictionary_value_id': smartphone.processor_model.dictionary_value_id, 
+            'value': smartphone.processor_model.value, 
+            # 'is_required': smartphone.processor_model.is_required
+            }]
+            }
+            attributes.append(processor_model)
+        except:
+            print('No data provided')
         #========================================================
-        array=[]
-        dict={"complex_id":0}
-        for i in smartphone.wireless_interface.all():
-            a= i.dictionary_value_id
-            b= i.value
-            item={
-                'dictionary_value_id':a,
-                'value': b
-            }
-            id=i.attribute_id
-            array.append(item)
-        dict['id']=id
-        dict['values']=array
-        attributes.append(dict)
+        try:
+            array=[]
+            dict={"complex_id":0}
+            for i in smartphone.wireless_interface.all():
+                a= i.dictionary_value_id
+                b= i.value
+                item={
+                    'dictionary_value_id':a,
+                    'value': b
+                }
+                id=i.attribute_id
+                array.append(item)
+            dict['id']=id
+            dict['values']=array
+            attributes.append(dict)
+        except:
+            print('No data provided')
         #==========================================================
-        array=[]
-        dict={"complex_id":0}
-        for i in smartphone.case_material.all():
-            a= i.dictionary_value_id
-            b= i.value
-            item={
-                'dictionary_value_id':a,
-                'value': b
-            }
-            id=i.attribute_id
-            array.append(item)
-        dict['id']=id
-        dict['values']=array
-        attributes.append(dict)
+        try:
+            array=[]
+            dict={"complex_id":0}
+            for i in smartphone.case_material.all():
+                a= i.dictionary_value_id
+                b= i.value
+                item={
+                    'dictionary_value_id':a,
+                    'value': b
+                }
+                id=i.attribute_id
+                array.append(item)
+            dict['id']=id
+            dict['values']=array
+            attributes.append(dict)
+        except:
+            print('No data provided')
         #==========================================================
-        operation_system={
-        "complex_id": 0,
-        "id": smartphone.operation_system.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.operation_system.attribute_name, 
-        'dictionary_value_id': smartphone.operation_system.dictionary_value_id, 
-        'value': smartphone.operation_system.value, 
-        # 'is_required': smartphone.operation_system.is_required
-        }]
-        }
-        attributes.append(operation_system)
+        try:
+            operation_system={
+            "complex_id": 0,
+            "id": smartphone.operation_system.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.operation_system.attribute_name, 
+            'dictionary_value_id': smartphone.operation_system.dictionary_value_id, 
+            'value': smartphone.operation_system.value, 
+            # 'is_required': smartphone.operation_system.is_required
+            }]
+            }
+            attributes.append(operation_system)
+        except:
+            print('No data provided')
         if smartphone.operation_system.value=='iOS':
             ios_version={
             "complex_id": 0,
@@ -735,179 +846,219 @@ class SmartphoneSerializer(serializers.ModelSerializer):
             attributes.append(android_version)
         
         #========================================================
-        array=[]
-        dict={"complex_id":0}
-        for i in smartphone.interface.all():
-            a= i.dictionary_value_id
-            b= i.value
-            item={
-                'dictionary_value_id':a,
-                'value': b
-            }
-            id=i.attribute_id
-            array.append(item)
-        dict['id']=id
-        dict['values']=array
-        attributes.append(dict)
+        try:
+            array=[]
+            dict={"complex_id":0}
+            for i in smartphone.interface.all():
+                a= i.dictionary_value_id
+                b= i.value
+                item={
+                    'dictionary_value_id':a,
+                    'value': b
+                }
+                id=i.attribute_id
+                array.append(item)
+            dict['id']=id
+            dict['values']=array
+            attributes.append(dict)
+        except:
+            print('No data provided')
         #==========================================================
-        array=[]
-        dict={"complex_id":0}
-        for i in smartphone.comms_standard.all():
-            a= i.dictionary_value_id
-            b= i.value
-            item={
-                'dictionary_value_id':a,
-                'value': b
-            }
-            id=i.attribute_id
-            array.append(item)
-        dict['id']=id
-        dict['values']=array
-        attributes.append(dict)
+        try:
+            array=[]
+            dict={"complex_id":0}
+            for i in smartphone.comms_standard.all():
+                a= i.dictionary_value_id
+                b= i.value
+                item={
+                    'dictionary_value_id':a,
+                    'value': b
+                }
+                id=i.attribute_id
+                array.append(item)
+            dict['id']=id
+            dict['values']=array
+            attributes.append(dict)
+        except:
+            print('No data provided')
         #==========================================================
-        microsd_slot={
-        "complex_id": 0,
-        "id": smartphone.microsd_slot.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.microsd_slot.attribute_name, 
-        'dictionary_value_id': smartphone.microsd_slot.dictionary_value_id, 
-        'value': smartphone.microsd_slot.value, 
-        # 'is_required': smartphone.microsd_slot.is_required
-        }]
-        }
-        attributes.append(microsd_slot)
+        try:
+            microsd_slot={
+            "complex_id": 0,
+            "id": smartphone.microsd_slot.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.microsd_slot.attribute_name, 
+            'dictionary_value_id': smartphone.microsd_slot.dictionary_value_id, 
+            'value': smartphone.microsd_slot.value, 
+            # 'is_required': smartphone.microsd_slot.is_required
+            }]
+            }
+            attributes.append(microsd_slot)
+        except:
+            print('No data provided')
         #========================================================
-        array=[]
-        dict={"complex_id":0}
-        for i in smartphone.special_feature.all():
-            a= i.dictionary_value_id
-            b= i.value
-            item={
-                'dictionary_value_id':a,
-                'value': b
+        try:
+            array=[]
+            dict={"complex_id":0}
+            for i in smartphone.special_feature.all():
+                a= i.dictionary_value_id
+                b= i.value
+                item={
+                    'dictionary_value_id':a,
+                    'value': b
+                }
+                id=i.attribute_id
+                array.append(item)
+            dict['id']=id
+            dict['values']=array
+            attributes.append(dict)
+        except:
+            print('No data provided')
+        #==========================================================
+        try:
+            array=[]
+            dict={"complex_id":0}
+            for i in smartphone.charging_function.all():
+                a= i.dictionary_value_id
+                b= i.value
+                item={
+                    'dictionary_value_id':a,
+                    'value': b
+                }
+                id=i.attribute_id
+                array.append(item)
+            dict['id']=id
+            dict['values']=array
+            attributes.append(dict)
+        except:
+            print('No data provided')
+        #==========================================================
+        try:
+            array=[]
+            dict={"complex_id":0}
+            for i in smartphone.stabilization.all():
+                a= i.dictionary_value_id
+                b= i.value
+                item={
+                    'dictionary_value_id':a,
+                    'value': b
+                }
+                id=i.attribute_id
+                array.append(item)
+            dict['id']=id
+            dict['values']=array
+            attributes.append(dict)
+        except:
+            print('No data provided')
+        #==========================================================
+        try:
+            array=[]
+            dict={"complex_id":0}
+            for i in smartphone.authentification.all():
+                a= i.dictionary_value_id
+                b= i.value
+                item={
+                    'dictionary_value_id':a,
+                    'value': b
+                }
+                id=i.attribute_id
+                array.append(item)
+            dict['id']=id
+            dict['values']=array
+            attributes.append(dict)
+        except:
+            print('No data provided')
+        #==========================================================
+        try:
+            case_form={
+            "complex_id": 0,
+            "id": smartphone.case_form.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.case_form.attribute_name, 
+            'dictionary_value_id': smartphone.case_form.dictionary_value_id, 
+            'value': smartphone.case_form.value, 
+            # 'is_required': smartphone.case_form.is_required
+            }]
             }
-            id=i.attribute_id
-            array.append(item)
-        dict['id']=id
-        dict['values']=array
-        attributes.append(dict)
+            attributes.append(case_form)
+        except:
+            print('No data provided')
         #==========================================================
-        array=[]
-        dict={"complex_id":0}
-        for i in smartphone.charging_function.all():
-            a= i.dictionary_value_id
-            b= i.value
-            item={
-                'dictionary_value_id':a,
-                'value': b
+        try:
+            esim_support={
+            "complex_id": 0,
+            "id": smartphone.esim_support.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.esim_support.attribute_name, 
+            'dictionary_value_id': smartphone.esim_support.dictionary_value_id, 
+            'value': smartphone.esim_support.value, 
+            # 'is_required': smartphone.esim_support.is_required
+            }]
             }
-            id=i.attribute_id
-            array.append(item)
-        dict['id']=id
-        dict['values']=array
-        attributes.append(dict)
+            attributes.append(esim_support)
+        except:
+            print('No data provided')
         #==========================================================
-        array=[]
-        dict={"complex_id":0}
-        for i in smartphone.stabilization.all():
-            a= i.dictionary_value_id
-            b= i.value
-            item={
-                'dictionary_value_id':a,
-                'value': b
+        try:
+            key_word={
+            "complex_id": 0,
+            "id": smartphone.key_word.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.key_word.attribute_name, 
+            'dictionary_value_id': smartphone.key_word.dictionary_value_id, 
+            'value': smartphone.key_word.value, 
+            # 'is_required': smartphone.key_word.is_required
+            }]
             }
-            id=i.attribute_id
-            array.append(item)
-        dict['id']=id
-        dict['values']=array
-        attributes.append(dict)
+            attributes.append(key_word)
+        except:
+            print('No data provided')
         #==========================================================
-        array=[]
-        dict={"complex_id":0}
-        for i in smartphone.authentification.all():
-            a= i.dictionary_value_id
-            b= i.value
-            item={
-                'dictionary_value_id':a,
-                'value': b
+        try:
+            ram={
+            "complex_id": 0,
+            "id": smartphone.ram.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.ram.attribute_name, 
+            'dictionary_value_id': smartphone.ram.dictionary_value_id, 
+            'value': smartphone.ram.value, 
+            # 'is_required': smartphone.ram.is_required
+            }]
             }
-            id=i.attribute_id
-            array.append(item)
-        dict['id']=id
-        dict['values']=array
-        attributes.append(dict)
+            attributes.append(ram)
+        except:
+            print('No data provided')
         #==========================================================
-        case_form={
-        "complex_id": 0,
-        "id": smartphone.case_form.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.case_form.attribute_name, 
-        'dictionary_value_id': smartphone.case_form.dictionary_value_id, 
-        'value': smartphone.case_form.value, 
-        # 'is_required': smartphone.case_form.is_required
-        }]
-        }
-        attributes.append(case_form)
+        try:
+            publishing_year={
+            "complex_id": 0,
+            "id": smartphone.publishing_year.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.publishing_year.attribute_name, 
+            'dictionary_value_id': smartphone.publishing_year.dictionary_value_id, 
+            'value': smartphone.publishing_year.value, 
+            # 'is_required': smartphone.publishing_year.is_required
+            }]
+            }
+            attributes.append(publishing_year)
+        except:
+            print('No data provided')
         #==========================================================
-        esim_support={
-        "complex_id": 0,
-        "id": smartphone.esim_support.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.esim_support.attribute_name, 
-        'dictionary_value_id': smartphone.esim_support.dictionary_value_id, 
-        'value': smartphone.esim_support.value, 
-        # 'is_required': smartphone.esim_support.is_required
-        }]
-        }
-        attributes.append(esim_support)
-        #==========================================================
-        key_word={
-        "complex_id": 0,
-        "id": smartphone.key_word.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.key_word.attribute_name, 
-        'dictionary_value_id': smartphone.key_word.dictionary_value_id, 
-        'value': smartphone.key_word.value, 
-        # 'is_required': smartphone.key_word.is_required
-        }]
-        }
-        attributes.append(key_word)
-        #==========================================================
-        ram={
-        "complex_id": 0,
-        "id": smartphone.ram.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.ram.attribute_name, 
-        'dictionary_value_id': smartphone.ram.dictionary_value_id, 
-        'value': smartphone.ram.value, 
-        # 'is_required': smartphone.ram.is_required
-        }]
-        }
-        attributes.append(ram)
-        #==========================================================
-        publishing_year={
-        "complex_id": 0,
-        "id": smartphone.publishing_year.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.publishing_year.attribute_name, 
-        'dictionary_value_id': smartphone.publishing_year.dictionary_value_id, 
-        'value': smartphone.publishing_year.value, 
-        # 'is_required': smartphone.publishing_year.is_required
-        }]
-        }
-        attributes.append(publishing_year)
-        #==========================================================
-        smartphone_version={
-        "complex_id": 0,
-        "id": smartphone.smartphone_version.attribute_id, 
-        "values": [{ 
-            # 'attribute_name': smartphone.smartphone_version.attribute_name, 
-        'dictionary_value_id': smartphone.smartphone_version.dictionary_value_id, 
-        'value': smartphone.smartphone_version.value, 
-        # 'is_required': smartphone.smartphone_version.is_required
-        }]
-        }
-        attributes.append(smartphone_version)
+        try:
+            smartphone_version={
+            "complex_id": 0,
+            "id": smartphone.smartphone_version.attribute_id, 
+            "values": [{ 
+                # 'attribute_name': smartphone.smartphone_version.attribute_name, 
+            'dictionary_value_id': smartphone.smartphone_version.dictionary_value_id, 
+            'value': smartphone.smartphone_version.value, 
+            # 'is_required': smartphone.smartphone_version.is_required
+            }]
+            }
+            attributes.append(smartphone_version)
+        except:
+            print('No data provided')
+        #=====================================
         items=[{}]
         items=[{"attributes" : attributes, 
                "barcode": "",

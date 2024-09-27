@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'app_reference_shared',
     'app_reference_smartphones',
     'app_create',
+    'app_monitor_reference',
 ]
 
 MIDDLEWARE = [

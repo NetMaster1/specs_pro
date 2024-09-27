@@ -269,6 +269,281 @@ class CardTitleModelName (models.Model):
     is_collection = models.BooleanField(default=False)
     def __str__(self):
         return self.value
+    
+class LightningType (models.Model):
+    attribute_name = models.CharField(max_length=50, null=True, default="Тип подсветки")
+    attribute_id = models.CharField(max_length=50, null=True, default='4457')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=True)
+    def __str__(self):
+        return self.value
+    
+class ScreenCoating (models.Model):
+    attribute_name = models.CharField(max_length=50, default="Покрытие экрана")
+    attribute_id = models.CharField(max_length=50, default='4458')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class HDMIPorts (models.Model):
+    attribute_name = models.CharField(max_length=50, default="Число портов HDMI")
+    attribute_id = models.CharField(max_length=50, default='4474')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class Adjustment (models.Model):
+    attribute_name = models.CharField(max_length=50, default="Регулировки")
+    attribute_id = models.CharField(max_length=50, default='5482')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=True)
+    def __str__(self):
+        return self.value
+    
+class PixelSize (models.Model):
+    attribute_name = models.CharField(max_length=50, default="Размер пикселя, мм")
+    attribute_id = models.CharField(max_length=50, default='5559')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class Ratio (models.Model):
+    attribute_name = models.CharField(max_length=50, default="Соотношение сторон")
+    attribute_id = models.CharField(max_length=50, default='5568')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class MaxScreenFrequency (models.Model):
+    attribute_name = models.CharField(max_length=50, default="Макс. частота обнровления, Гц")
+    attribute_id = models.CharField(max_length=50, default='5570')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class Brightness (models.Model):
+    attribute_name = models.CharField(max_length=50, default="Яркость, кд/м2")
+    attribute_id = models.CharField(max_length=50, default='5571')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class Contrast (models.Model):
+    attribute_name = models.CharField(max_length=50, default="Контрастность")
+    attribute_id = models.CharField(max_length=50, default='5572')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class DynamicContrast (models.Model):
+    attribute_name = models.CharField(max_length=50, default="Динамическая контрастность")
+    attribute_id = models.CharField(max_length=50, default='5573')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class LookAngle (models.Model):
+    attribute_name = models.CharField(max_length=50, default="Углы обзораб (Г/В)")
+    attribute_id = models.CharField(max_length=50, default='5574')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class HorizontalFrequency (models.Model):
+    attribute_name = models.CharField(max_length=50, default="Частота горизонтальной развертки, кГц")
+    attribute_id = models.CharField(max_length=50, default='5575')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class VerticalFrequency (models.Model):
+    attribute_name = models.CharField(max_length=50, default="Частота вертикальной развертки, Гц")
+    attribute_id = models.CharField(max_length=50, default='5576')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class WebCamera (models.Model):
+    attribute_name = models.CharField(max_length=50, default="Записываются характеристики web-камеры")
+    attribute_id = models.CharField(max_length=50, default='5579')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class StandAdjustment (models.Model):
+    attribute_name = models.CharField(max_length=50, default="Уровни регулировки подставки")
+    attribute_id = models.CharField(max_length=50, default='5582')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class PowerCapacity (models.Model):
+    attribute_name = models.CharField(max_length=50, default="Потребляемая мощность")
+    attribute_id = models.CharField(max_length=50, default='5583')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class VESAFixture (models.Model):
+    attribute_name = models.CharField(max_length=50, default="Стандарт крепления VESA")
+    attribute_id = models.CharField(max_length=50, default='5758')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=True)
+    def __str__(self):
+        return self.value
+    
+class PixelPerInch (models.Model):
+    attribute_name = models.CharField(max_length=50, default="Плотность пикселей, ppi")
+    attribute_id = models.CharField(max_length=50, default='5758')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class MonitorInstallation (models.Model):
+    attribute_name = models.CharField(max_length=50, default="Установка монитора")
+    attribute_id = models.CharField(max_length=50, default='10758')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class DesignFeature (models.Model):
+    attribute_name = models.CharField(max_length=50, default="Конструктивные особенности")
+    attribute_id = models.CharField(max_length=50, default='10759')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=True)
+    def __str__(self):
+        return self.value
+    
+class ResponseTime (models.Model):
+    attribute_name = models.CharField(max_length=50, default="Время отклика")
+    attribute_id = models.CharField(max_length=50, default='10761')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class MonitorMatrix (models.Model):
+    attribute_name = models.CharField(max_length=50, default="Матрица монитора")
+    attribute_id = models.CharField(max_length=50, default='11510')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class MonitorApplication (models.Model):
+    attribute_name = models.CharField(max_length=50, default="Назначение монитора")
+    attribute_id = models.CharField(max_length=50, default='11511')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=True)
+    def __str__(self):
+        return self.value
+    
+class MonitorConnector (models.Model):
+    attribute_name = models.CharField(max_length=50, default="Разъёмы монитора")
+    attribute_id = models.CharField(max_length=50, default='11515')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+        
+class HDRStandard (models.Model):
+    attribute_name = models.CharField(max_length=50, default="Стандарты HDR")
+    attribute_id = models.CharField(max_length=50, default='21031')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=True)
+    def __str__(self):
+        return self.value
 
 #used to create card title   
 # class ModelName (models.Model):
