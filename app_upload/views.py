@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import request
 from rest_framework import viewsets
+import time
 from app_reference_smartphones.models import (
     BrandSmartphone, 
     EuroAsianCode, 
@@ -1744,7 +1745,6 @@ def upload_json (request):
     return render (request, 'products.html')
 
 
-
 def upload_tv_brands(request):
     pass
 
@@ -2097,31 +2097,6 @@ def upload_monitor(request):
             )
     #===============================================================================
     task = {
-    "attribute_id": 4474,
-    "description_category_id": 17028926,
-    "language": "DEFAULT",
-    "last_value_id": 0,
-    "limit": 5000,
-    "type_id": 91494
-    }
-    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
-    status_code=response.status_code
-    json=response.json()
-    array=json['result']
-    for i in array:
-        try:
-            item=HDMIPorts.objects.get(dictionary_value_id=i['id'])
-        except HDMIPorts.DoesNotExist:
-            item= HDMIPorts.objects.create(
-                value=i['value'],
-                dictionary_value_id=i['id'],
-                attribute_id='4474',
-                attribute_name='Число портов HDMI',
-                is_required=False,
-                category_dependent=False
-            )
-    #===============================================================================
-    task = {
     "attribute_id": 5482,
     "description_category_id": 17028926,
     "language": "DEFAULT",
@@ -2142,31 +2117,6 @@ def upload_monitor(request):
                 dictionary_value_id=i['id'],
                 attribute_id='5482',
                 attribute_name='Регулировки',
-                is_required=False,
-                category_dependent=False
-            )
-    #===============================================================================
-    task = {
-    "attribute_id": 5559,
-    "description_category_id": 17028926,
-    "language": "DEFAULT",
-    "last_value_id": 0,
-    "limit": 5000,
-    "type_id": 91494
-    }
-    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
-    status_code=response.status_code
-    json=response.json()
-    array=json['result']
-    for i in array:
-        try:
-            item=PixelSize.objects.get(dictionary_value_id=i['id'])
-        except PixelSize.DoesNotExist:
-            item= PixelSize.objects.create(
-                value=i['value'],
-                dictionary_value_id=i['id'],
-                attribute_id='5559',
-                attribute_name='Размер пикселя, мм',
                 is_required=False,
                 category_dependent=False
             )
@@ -2197,106 +2147,6 @@ def upload_monitor(request):
             )
     #===============================================================================
     task = {
-    "attribute_id": 5570,
-    "description_category_id": 17028926,
-    "language": "DEFAULT",
-    "last_value_id": 0,
-    "limit": 5000,
-    "type_id": 91494
-    }
-    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
-    status_code=response.status_code
-    json=response.json()
-    array=json['result']
-    for i in array:
-        try:
-            item=MaxScreenFrequency.objects.get(dictionary_value_id=i['id'])
-        except MaxScreenFrequency.DoesNotExist:
-            item= MaxScreenFrequency.objects.create(
-                value=i['value'],
-                dictionary_value_id=i['id'],
-                attribute_id='5570',
-                attribute_name='Макс. частота обновления, Гц',
-                is_required=False,
-                category_dependent=False
-            )
-    #===============================================================================
-    task = {
-    "attribute_id": 5571,
-    "description_category_id": 17028926,
-    "language": "DEFAULT",
-    "last_value_id": 0,
-    "limit": 5000,
-    "type_id": 91494
-    }
-    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
-    status_code=response.status_code
-    json=response.json()
-    array=json['result']
-    for i in array:
-        try:
-            item=Brightness.objects.get(dictionary_value_id=i['id'])
-        except Brightness.DoesNotExist:
-            item= Brightness.objects.create(
-                value=i['value'],
-                dictionary_value_id=i['id'],
-                attribute_id='5571',
-                attribute_name='Яркостьб кд/м2',
-                is_required=False,
-                category_dependent=False
-            )
-    #===============================================================================
-    task = {
-    "attribute_id": 5572,
-    "description_category_id": 17028926,
-    "language": "DEFAULT",
-    "last_value_id": 0,
-    "limit": 5000,
-    "type_id": 91494
-    }
-    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
-    status_code=response.status_code
-    json=response.json()
-    array=json['result']
-    for i in array:
-        try:
-            item=Contrast.objects.get(dictionary_value_id=i['id'])
-        except Contrast.DoesNotExist:
-            item= Contrast.objects.create(
-                value=i['value'],
-                dictionary_value_id=i['id'],
-                attribute_id='5572',
-                attribute_name='Контрастность',
-                is_required=False,
-                category_dependent=False
-            )
-    #===============================================================================
-    task = {
-    "attribute_id": 5573,
-    "description_category_id": 17028926,
-    "language": "DEFAULT",
-    "last_value_id": 0,
-    "limit": 5000,
-    "type_id": 91494
-    }
-    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
-    status_code=response.status_code
-    json=response.json()
-    array=json['result']
-    for i in array:
-        try:
-            item=DynamicContrast.objects.get(dictionary_value_id=i['id'])
-        except DynamicContrast.DoesNotExist:
-            item= DynamicContrast.objects.create(
-                value=i['value'],
-                dictionary_value_id=i['id'],
-                attribute_id='5573',
-                attribute_name='Динамическая контрастность',
-                is_required=False,
-                category_dependent=False
-            )
-    #===============================================================================
-    task = {
     "attribute_id": 5574,
     "description_category_id": 17028926,
     "language": "DEFAULT",
@@ -2320,7 +2170,181 @@ def upload_monitor(request):
                 is_required=False,
                 category_dependent=False
             )
-
+    #===============================================================================
+    task = {
+    "attribute_id": 5758,
+    "description_category_id": 17028926,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91494
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=VESAFixture.objects.get(dictionary_value_id=i['id'])
+        except VESAFixture.DoesNotExist:
+            item= VESAFixture.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='5758',
+                attribute_name='Стандарт крепления VESA',
+                is_required=False,
+                category_dependent=False
+            )
+    #===============================================================================
+    task = {
+    "attribute_id": 10758,
+    "description_category_id": 17028926,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91494
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=MonitorInstallation.objects.get(dictionary_value_id=i['id'])
+        except MonitorInstallation.DoesNotExist:
+            item= MonitorInstallation.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='10758',
+                attribute_name='Установка монитора',
+                is_required=False,
+                category_dependent=False
+            )
+    #===============================================================================
+    task = {
+    "attribute_id": 10759,
+    "description_category_id": 17028926,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91494
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=DesignFeature.objects.get(dictionary_value_id=i['id'])
+        except DesignFeature.DoesNotExist:
+            item= DesignFeature.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='10759',
+                attribute_name='Конструктивные особенности',
+                is_required=False,
+                category_dependent=False
+            )
+    #===============================================================================
+    task = {
+    "attribute_id": 11510,
+    "description_category_id": 17028926,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91494
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=MonitorMatrix.objects.get(dictionary_value_id=i['id'])
+        except MonitorMatrix.DoesNotExist:
+            item= MonitorMatrix.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='11510',
+                attribute_name='Матрица монитора',
+                is_required=False,
+                category_dependent=False
+            )
+    #===============================================================================
+    task = {
+    "attribute_id": 11511,
+    "description_category_id": 17028926,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91494
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=MonitorApplication.objects.get(dictionary_value_id=i['id'])
+        except MonitorApplication.DoesNotExist:
+            item= MonitorApplication.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='11511',
+                attribute_name='Назначение монитора',
+                is_required=False,
+                category_dependent=False
+            )
+    #===============================================================================
+    task = {
+    "attribute_id": 11515,
+    "description_category_id": 17028926,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91494
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=MonitorConnector.objects.get(dictionary_value_id=i['id'])
+        except MonitorConnector.DoesNotExist:
+            item= MonitorConnector.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='11515',
+                attribute_name='Разъёмы монитора',
+                is_required=False,
+                category_dependent=False
+            )
+    #===============================================================================
+    task = {
+    "attribute_id": 21031,
+    "description_category_id": 17028926,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91494
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=HDRStandard.objects.get(dictionary_value_id=i['id'])
+        except HDRStandard.DoesNotExist:
+            item= HDRStandard.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='21031',
+                attribute_name='Стандарты HDR',
+                is_required=False,
+                category_dependent=False
+            )
 
 
     return render (request, 'products.html')
