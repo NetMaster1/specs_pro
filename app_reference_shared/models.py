@@ -269,7 +269,7 @@ class CardTitleModelName (models.Model):
     is_collection = models.BooleanField(default=False)
     def __str__(self):
         return self.value
-    
+#==================================Monitor Section============================ 
 class LightningType (models.Model):
     attribute_name = models.CharField(max_length=50, null=True, default="Тип подсветки")
     attribute_id = models.CharField(max_length=50, null=True, default='4457')
@@ -544,6 +544,7 @@ class HDRStandard (models.Model):
     is_collection = models.BooleanField(default=True)
     def __str__(self):
         return self.value
+#======================================End of Monitor Section====================================
 
 #used to create card title   
 # class ModelName (models.Model):

@@ -204,7 +204,6 @@ class Smartphone (models.Model):
     #=========================================================================
     #EAС (Ростест)
     smartphone_version = models.ForeignKey(SmartphoneVersion, on_delete=models.SET_NULL, null=True, blank=True)
-   
     #=====================MODEL NAMES=====================================
     #Выберите одно значение из выпадающего списка
     gadget_model = models.ManyToManyField(GadgetModel, blank=True)#5219
@@ -250,6 +249,13 @@ class Smartphone (models.Model):
 
 
 class Monitor (models.Model):
+    #Дополнительное поле. Не входит в attributes for smartphone. Использую просто для связи с таблицей категории.
+    category_name = models.ForeignKey(OzonCategory, on_delete=models.DO_NOTHING, null=True)
+    created = models.DateTimeField(auto_now=True)
+    #В справочнике Ozon отсутствуют такие бренды как, Xiaomi, Redmi, Honor, Honor, Poco
+    #Есть такие бренды как, Samsung
+    #brand = models.ForeignKey(BrandSmartphone, on_delete=models.DO_NOTHING, null=True)
+    #=================================================================
     #Каталожный номер изделия или детали. Is_required=True. Можно использовать EAN
     #Не можем использовать IMEI телефона, так как они разные у одного SKU
     part_number = models.ForeignKey(PartNumber, on_delete=models.DO_NOTHING, null=True)
@@ -320,78 +326,8 @@ class Monitor (models.Model):
     card_title_model_name = models.ForeignKey(CardTitleModelName, on_delete=models.DO_NOTHING, null=True)#11241
     hdr_standard = models.ManyToManyField(HDRStandard, blank=True)
     key_word = models.ForeignKey(KeyWord, on_delete=models.DO_NOTHING, null=True, blank=True)
-
-
-    #Дополнительное поле. Не входит в attributes for smartphone. Использую просто для связи с таблицей категории.
-    category_name = models.ForeignKey(OzonCategory, on_delete=models.DO_NOTHING, null=True)
-    #В справочнике Ozon отсутствуют такие бренды как, Xiaomi, Redmi, Honor, Honor, Poco
-    #Есть такие бренды как, Samsung
-    #brand = models.ForeignKey(BrandSmartphone, on_delete=models.DO_NOTHING, null=True)
-    #=================================================================
-    created = models.DateTimeField(auto_now=True)
-    
-    
-    #Записывается только число. Десятичные цифры
-    
-    qnty_of_basic_cameras = models.ForeignKey(QntyOfBasicCamera, on_delete=models.SET_NULL, null=True, blank=True)
-    #===============================================================
-    
-    publishing_year = models.ForeignKey(PublishingYear, on_delete=models.SET_NULL, null=True, blank=True)
-    #Записывается только число. Десятичные цифры
-    standby_period = models.ForeignKey(StandByPeriod, on_delete=models.DO_NOTHING, null=True, blank=True)
-    #Записывается только число. Десятичные цифры
-    work_period = models.ForeignKey(WorkPeriod, on_delete=models.DO_NOTHING, null=True, blank=True)
-    #==================================================================
-    matrix_type = models.ForeignKey(MatrixType, on_delete=models.SET_NULL, null=True, blank=True)
-    screen_resolution = models.ForeignKey(ScreenResolution, on_delete=models.SET_NULL, null=True, blank=True)
-    #==================================================================
-    camera_function = models.ManyToManyField(CameraFunction, blank=True)
-    stabilization = models.ManyToManyField(Stabilization, blank=True)
-    #Записывается только число. Десятичные цифры
-    basic_camera_resolution = models.ForeignKey(BasicCamerResolution, on_delete=models.DO_NOTHING, null=True, blank=True)
-    #Записывается только число. Десятичные цифры
-    front_camera_resolution = models.ForeignKey(FrontCamerResolution, on_delete=models.DO_NOTHING, null=True, blank=True)
-    #Записывается только число. Десятичные цифры. Измеряется в кадр/сек
-    record_max_speed = models.ForeignKey(RecordMaxSpeed, on_delete=models.DO_NOTHING, null=True, blank=True)
-    video_quality = models.ForeignKey(VideoQuality, on_delete=models.SET_NULL, null=True, blank=True)
-    #==================================================================
-    wifi = models.ManyToManyField(WifiType, blank=True)
-    bluetooth = models.ForeignKey(BluetoothType, on_delete=models.SET_NULL, null=True, blank=True)
-    wireless_interface = models.ManyToManyField(WirelessInterface, blank=True)
-    interface = models.ManyToManyField(Interface, blank=True)
-    #===================================================================
-    sensor = models.ManyToManyField(Sensor, blank=True)
-    navigation = models.ManyToManyField(NavigationType, blank=True)
-    authentification = models.ManyToManyField(Authentication, blank=True)
-    #====================================================================
-    case_form = models.ForeignKey(CaseForm, on_delete=models.SET_NULL, null=True, blank=True)
-    case_material = models.ManyToManyField(CaseMaterial, blank=True)
-    
-    
-    
-    
-    #=====================================================================
-    marketing_colour = models.ForeignKey(MarketingColour, on_delete=models.DO_NOTHING, null=True, blank=True)
-    
-    
-    #=========================================================================
-    #EAС (Ростест)
-    smartphone_version = models.ForeignKey(SmartphoneVersion, on_delete=models.SET_NULL, null=True, blank=True)
-   
-    #=====================MODEL NAMES=====================================
-    #Выберите одно значение из выпадающего списка
-    gadget_model = models.ManyToManyField(GadgetModel, blank=True)#5219
-    
-    
-    #===========================================================================================
-    
     #линейка мобильный устройств
     gadget_serie = models.ForeignKey(GadgetSerie, on_delete=models.SET_NULL, null=True, blank=True)#9225
-    #=====================================================================================
-    
-    hazard_grade = models.ForeignKey(HazardGrade, on_delete=models.SET_NULL, null=True, blank=True)
-    protection_grade = models.ManyToManyField(ProtectionGrade, blank=True)
-    #euro_asian_code = models.ForeignKey(EuroAsianCode, on_delete=models.SET_NULL, null=True, blank=True)
     #======================dictionary_id > 0==================================================
     image_1 = models.URLField(blank=True)
     image_2 = models.URLField(blank=True)
@@ -402,5 +338,5 @@ class Monitor (models.Model):
    
     class Meta:
         # ordering = ('created',)  # sorting by date
-        verbose_name = 'smartphone'
-        verbose_name_plural = 'smartphones'
+        verbose_name = 'monitor'
+        verbose_name_plural = 'monitors'

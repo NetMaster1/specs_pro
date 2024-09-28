@@ -4,7 +4,11 @@ from .models import (SmartphoneVersion, PublishingYear, RamSmartphone, ESimSuppo
     HazardGrade, CameraFunction, GadgetSerie, VideoProcessorBrand, OzonCategory, HardDrive, CountryOfManufacture, MatrixType, CardType, BluetoothType, 
     NavigationType, Sensor, SimType, WifiType, WarrantyPeriod, ModelName, CardTitleModelName, CommunicationStandard, PartNumber, Size, Weight, ProductSet,
     FrontCamerResolution, BasicCamerResolution, BatteryCapacity, StandByPeriod, WorkPeriod, RecordMaxSpeed, LifeSpan, ScreenSize, SellerCode,
-    MarketingColour, ProcessorFrequency, Name, Description, KeyWord, MaxCardVolume, Json)
+    MarketingColour, ProcessorFrequency, Name, Description, KeyWord, MaxCardVolume, Json, LightningType, ScreenCoating, HDMIPorts, Adjustment,
+    PixelSize, Ratio, MaxScreenFrequency, Brightness, Contrast, DynamicContrast, LookAngle, HorizontalFrequency, VerticalFrequency, WebCamera,
+    StandAdjustment, PowerCapacity, VESAFixture, PixelPerInch, MonitorInstallation, DesignFeature, ResponseTime, MonitorMatrix, MonitorApplication,
+    MonitorConnector, HDRStandard
+    )
 
 class OzonCategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'type_name', 'type_id', 'category_name', 'description_category_id', 'group_category_name', 'group_description_category_id')
@@ -365,13 +369,6 @@ class CardTitleModelNameAdmin(admin.ModelAdmin):
     list_per_page=100
     search_fields = ('value', )
 
-# class ModelNameAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
-#     list_filter = ('value',)
-#     ordering = ('value',)
-#     list_per_page=100
-#     search_fields = ('value', )
-
 class DescriptionAdmin(admin.ModelAdmin):
     list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
     list_filter = ('value',)
@@ -394,6 +391,181 @@ class MaxCardVolumeAdmin(admin.ModelAdmin):
     search_fields = ('value', )
 
 class JsonAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class LightningTypeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class ScreenCoatingAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class HDMIPortsAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class AdjustmentAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class PixelSizeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class RatioAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class MaxScreenFrequencyAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class BrightnessAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class ContrastAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class DynamicContrastAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class LookAngleAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class HorizontalFrequencyAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class VerticalFrequencyAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class WebCameraAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class StandAdjustmentAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class PowerCapacityAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class VESAFixtureAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class PixelPerInchAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class MonitorInstallationAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class DesignFeatureAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class ResponseTimeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class MonitorMatrixAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class MonitorApplicationAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class MonitorConnectorAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class HDRStandardAdmin(admin.ModelAdmin):
     list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
     list_filter = ('value',)
     ordering = ('value',)
@@ -455,3 +627,28 @@ admin.site.register(KeyWord, KeyWordAdmin)
 admin.site.register(MaxCardVolume, MaxCardVolumeAdmin)
 admin.site.register(Weight, WeightAdmin)
 admin.site.register(Json, JsonAdmin)
+admin.site.register(LightningType, LightningTypeAdmin)
+admin.site.register(ScreenCoating, ScreenCoatingAdmin)
+admin.site.register(HDMIPorts, HDMIPortsAdmin)
+admin.site.register(Adjustment, AdjustmentAdmin)
+admin.site.register(PixelSize, PixelSizeAdmin)
+admin.site.register(Ratio, RatioAdmin)
+admin.site.register(MaxScreenFrequency, MaxScreenFrequencyAdmin)
+admin.site.register(Brightness, BrightnessAdmin)
+admin.site.register(Contrast, ContrastAdmin)
+admin.site.register(DynamicContrast, DynamicContrastAdmin)
+admin.site.register(LookAngle, LookAngleAdmin)
+admin.site.register(HorizontalFrequency, HorizontalFrequencyAdmin)
+admin.site.register(VerticalFrequency, VerticalFrequencyAdmin)
+admin.site.register(WebCamera, WebCameraAdmin)
+admin.site.register(StandAdjustment, StandAdjustmentAdmin)
+admin.site.register(PowerCapacity, PowerCapacityAdmin)
+admin.site.register(VESAFixture, VESAFixtureAdmin)
+admin.site.register(PixelPerInch, PixelPerInchAdmin)
+admin.site.register(MonitorInstallation, MonitorInstallationAdmin)
+admin.site.register(DesignFeature, DesignFeatureAdmin)
+admin.site.register(ResponseTime, ResponseTimeAdmin)
+admin.site.register(MonitorMatrix, MonitorMatrixAdmin)
+admin.site.register(MonitorApplication, MonitorApplicationAdmin)
+admin.site.register(MonitorConnector, MonitorConnectorAdmin)
+admin.site.register(HDRStandard, HDRStandardAdmin)

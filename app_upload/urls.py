@@ -60,4 +60,10 @@ urlpatterns = [
 
     
     #path ('upload_smartphone_model', views.upload_smartphone_model, name='upload_smartphone_model')
+
+    #==================================monitor section===========================================
+    path ('upload_monitor', views.upload_monitor, name='upload_monitor'),
+   
+
+
 ]
