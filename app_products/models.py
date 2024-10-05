@@ -319,7 +319,7 @@ class Monitor (models.Model):
     response_time = models.ForeignKey(ResponseTime, on_delete=models.DO_NOTHING, null=True, blank=True)
     monitor_matrix = models.ForeignKey(MonitorMatrix, on_delete=models.DO_NOTHING, null=True, blank=True)
     monitor_application = models.ManyToManyField(MonitorApplication, blank=True)
-    monitor_connector = models.ForeignKey(MonitorConnector, on_delete=models.DO_NOTHING, null=True, blank=True)
+    monitor_connector = models.ManyToManyField(MonitorConnector, blank=True)
     hdr = models.ForeignKey(HDR, on_delete=models.DO_NOTHING, null=True, blank=True)
     #Только краткое название модели, без типа, бренда и характеристик товара. Будет использовано в шаблонизаторе 
     #для составления названия карточки для сайта.
