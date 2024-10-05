@@ -11,7 +11,8 @@ from app_monitor_reference.models import (BrandMonitor, ColourMonitor,Resolution
 from app_reference_shared.models import (LightningType, Size, MonitorConnector, ScreenSize, WarrantyPeriod, ScreenCoating, HDMIPorts,
     Adjustment, PixelSize, Ratio, MaxScreenFrequency, Brightness, Contrast, DynamicContrast, LookAngle, HorizontalFrequency, 
     VerticalFrequency, WebCamera, StandAdjustment, PowerCapacity, SpecialFeature, DesignFeature, VESAFixture, PixelPerInch, MonitorInstallation,
-    ResponseTime, MonitorMatrix, MonitorApplication, HDRStandard, Description, ProductSet, CountryOfManufacture, WorkPeriod, Weight, KeyWord
+    ResponseTime, MonitorMatrix, MonitorApplication, HDRStandard, Description, ProductSet, CountryOfManufacture, WorkPeriod, Weight, KeyWord,
+    PartNumber,
     )
 import datetime
 import re
@@ -289,7 +290,7 @@ def ozon_test(request):
         "Матрица монитора" : "IPS",
         "Макс. частота обновления, Гц" : "75",
         "Назначение монитора" : "Для дома и офиса",
-        # Особенности : AMD FreeSync
+        "Особенности" : "AMD FreeSync",
         "Потребляемая мощность, Вт" : "25",
         "Изогнутый экран" : "Нет",
         "Яркость, кд/м2" : "250",
@@ -302,7 +303,7 @@ def ozon_test(request):
         "Технология HDR" : "Да",
         "Число портов HDMI" : "1",
         "Разъёмы монитора" : "VGA (D-SUB), HDMI, DisplayPort, DVI",
-        # Установка монитора : На подставку, Крепление на стену
+        "Установка монитора" : "На подставку, Крепление на стену",
         "Стандарт крепления VESA" : "100x100 мм",
         "Регулировки" : "Наклон",
         "Размеры, мм" :"612.1 x 463.3 x 217.4",
@@ -321,9 +322,6 @@ def ozon_test(request):
     type_monitor=TypeMonitor.objects.get(value=specs['Тип'])
 
     item=Monitor.objects.create(
-        #name='No name',
-        # brand=specs['Бренд'],
-        #part_number=,
         resolution=resolution,
         type=type_monitor,
     )
@@ -332,7 +330,7 @@ def ozon_test(request):
         brand_monitor=BrandMonitor.objects.get(value=specs['Бренд'])
         item.brand_monitor=brand_monitor
     except:
-        print('No usb data provided')
+        print('No brand data provided')
     try:
         usb_port=USBPort.objects.get(value=specs['Количество USB портов'])
         item.usb_port=usb_port
@@ -384,7 +382,7 @@ def ozon_test(request):
     #==========================is_collection=========================================
     try:
         string=specs['Цвет товара']
-        string=string.replace(" ", "")#deleting all spaces
+        string=string.replace(", ", ",")#deleting spaces after comma
         array=string.split(',')#transforming the string into a list
         for i in array:
             if ColourMonitor.objects.filter(value=i).exists():
@@ -394,7 +392,7 @@ def ozon_test(request):
         print('No colour_monitor data provided')
     try:
         string=specs['Разъёмы монитора']
-        string=string.replace(" ", "")#deleting all spaces
+        string=string.replace(", ", ",")#deleting spaces after comma
         array=string.split(',')#transforming the string into a list
         for i in array:
             if MonitorConnector.objects.filter(value=i).exists():
@@ -404,7 +402,7 @@ def ozon_test(request):
         print('No monitor connectors data provided')
     try:
         string=specs['Регулировки']
-        string=string.replace(" ", "")#deleting all spaces
+        string=string.replace(", ", ",")#deleting spaces after comma
         array=string.split(',')#transforming the string into a list
         for i in array:
             if Adjustment.objects.filter(value=i).exists():
@@ -414,7 +412,7 @@ def ozon_test(request):
         print('No adjustments data provided')
     try:
         string=specs['Конструктивные особенности']
-        string=string.replace(" ", "")#deleting all spaces
+        string=string.replace(", ", ",")#deleting spaces after comma
         array=string.split(',')#transforming the string into a list
         for i in array:
             if DesignFeature.objects.filter(value=i).exists():
@@ -424,7 +422,7 @@ def ozon_test(request):
         print('No design_feature data provided')
     try:
         string=specs['Стандарт крепления VESA']
-        string=string.replace(" ", "")#deleting all spaces
+        string=string.replace(", ", ",")#deleting spaces after comma
         array=string.split(',')#transforming the string into a list
         for i in array:
             if VESAFixture.objects.filter(value=i).exists():
@@ -434,7 +432,7 @@ def ozon_test(request):
         print('No vesa_fixture data provided')
     try:
         string=specs['Установка монитора']
-        string=string.replace(" ", "")#deleting all spaces
+        string=string.replace(", ", ",")#deleting spaces after comma
         array=string.split(',')#transforming the string into a list
         for i in array:
             if MonitorInstallation.objects.filter(value=i).exists():
@@ -444,7 +442,7 @@ def ozon_test(request):
         print('No monitor_installation data provided')
     try:
         string=specs['Назначение монитора']
-        string=string.replace(" ", "")#deleting all spaces
+        string=string.replace(", ", ",")#deleting spaces after comma
         array=string.split(',')#transforming the string into a list
         for i in array:
             if MonitorApplication.objects.filter(value=i).exists():
@@ -454,7 +452,7 @@ def ozon_test(request):
         print('No monitor_application data provided')
     try:
         string=specs['Cтандарты HDR']
-        string=string.replace(" ", "")#deleting all spaces
+        string=string.replace(", ", ",")#deleting spaces after comma
         array=string.split(',')#transforming the string into a list
         for i in array:
             if HDRStandard.objects.filter(value=i).exists():
@@ -464,17 +462,7 @@ def ozon_test(request):
         print('No hdr_standard data provided')
     try:
         string=specs['Страна-изготовитель']
-        string=string.replace(" ", "")#deleting all spaces
-        array=string.split(',')#transforming the string into a list
-        for i in array:
-            if CountryOfManufacture.objects.filter(value=i).exists():
-                country_of_manufacture=CountryOfManufacture.objects.get(value=i)
-                item.country_of_manufacture.add(country_of_manufacture)
-    except:
-        print('No country_of_manufacture data provided')
-    try:
-        string=specs['Страна-изготовитель']
-        string=string.replace(" ", "")#deleting all spaces
+        string=string.replace(", ", ",")#deleting spaces after comma
         array=string.split(',')#transforming the string into a list
         for i in array:
             if CountryOfManufacture.objects.filter(value=i).exists():
@@ -484,7 +472,7 @@ def ozon_test(request):
         print('No country_of_manufacture data provided')
     try:
         string=specs['Тип подсветки']
-        string=string.replace(" ", "")#deleting all spaces
+        string=string.replace(", ", ",")#deleting spaces after comma
         array=string.split(',')#transforming the string into a list
         for i in array:
             if LightningType.objects.filter(value=i).exists():
@@ -494,7 +482,7 @@ def ozon_test(request):
         print('No lighting_type data provided')
     try:
         string=specs['Особенности']
-        string=string.replace(" ", "")#deleting all spaces
+        string=string.replace(", ", ",")#deleting spaces after comma
         array=string.split(',')#transforming the string into a list
         for i in array:
             if SpecialFeature.objects.filter(value=i).exists():
@@ -525,10 +513,10 @@ def ozon_test(request):
             )
         item.pixel_size=pixel_size
     except:
-        print('no warranty period data provided')
+        print('no pixel size data provided')
     try:
         if WarrantyPeriod.objects.filter(value=specs['Гарантийный срок']).exists():
-            warranty_period=WarrantyPeriod.objects.get(value=specs['Гарантийный срок'])
+            warranty_period=WarrantyPeriod.objects.get(value=specs['Гарантийный срок']) 
         else:
             warranty_period=WarrantyPeriod.objects.create(
                 value=str(specs['Гарантийный срок'])
@@ -657,16 +645,6 @@ def ozon_test(request):
     except:
         print('no response_time data provided')
     try:
-        if ResponseTime.objects.filter(value=specs['Время отклика, мс']).exists():
-            response_time=ResponseTime.objects.get(value=specs['Время отклика, мс'])
-        else:
-            response_time=ResponseTime.objects.create(
-                value=str(specs['Время отклика, мс'])
-            )
-        item.response_time=response_time
-    except:
-        print('no response_time data provided')
-    try:
         if Description.objects.filter(value=specs['Аннотация']).exists():
             description=Description.objects.get(value=specs['Аннотация'])
         else:
@@ -708,7 +686,7 @@ def ozon_test(request):
         print('no work_period data provided')
     try:
         if Weight.objects.filter(value=specs['Вес, кг']).exists():
-            wweightork_period=Weight.objects.get(value=specs['Вес, кг'])
+            weight=Weight.objects.get(value=specs['Вес, кг'])
         else:
             weight=Weight.objects.create(
                 value=str(specs['Вес, кг'])
@@ -726,6 +704,16 @@ def ozon_test(request):
         item.key_word=key_word
     except:
         print('no key_word data provided')
+    try:
+        if PartNumber.objects.filter(value=specs['Партномер']).exists():
+            part_number=PartNumber.objects.get(value=specs['Партномер'])
+        else:
+            part_number=PartNumber.objects.create(
+                value=str(specs['Партномер'])
+            )
+        item.part_number=part_number
+    except:
+        print('no part_number data provided')
 
 
 
