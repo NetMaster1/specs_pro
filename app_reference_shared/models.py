@@ -652,10 +652,10 @@ class ChargingFunction (models.Model):
         return self.value
 
 class SpecialFeature (models.Model):
-    attribute_name = models.CharField(max_length=50, null=True)
-    attribute_id = models.CharField(max_length=50, null=True)
+    attribute_name = models.CharField(max_length=50, null=True,default="Особенности" )
+    attribute_id = models.CharField(max_length=50, null=True,default="5584" )
     value = models.CharField(max_length=100, blank=True)
-    dictionary_value_id = models.CharField(max_length=20, default=0)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
     is_required = models.BooleanField(default=False)
     category_dependent = models.BooleanField(default=False)
     is_collection = models.BooleanField(default=True)

@@ -5,10 +5,13 @@ import requests
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 from app_products.models import Smartphone, Monitor
-from app_monitor_reference.models import (Resolution, TypeMonitor, USBPort, BuiltinSpeaker, CurvedDispaly, HDR)
-from app_reference_shared.models import (LightningType, MonitorConnector, ScreenSize, WarrantyPeriod, ScreenCoating, HDMIPorts,
+from app_monitor_reference.models import (BrandMonitor, ColourMonitor,Resolution, TypeMonitor, USBPort, BuiltinSpeaker, CurvedDispaly, HDR,
+    EuroAsianCodeMonitor                                      
+    )
+from app_reference_shared.models import (LightningType, Size, MonitorConnector, ScreenSize, WarrantyPeriod, ScreenCoating, HDMIPorts,
     Adjustment, PixelSize, Ratio, MaxScreenFrequency, Brightness, Contrast, DynamicContrast, LookAngle, HorizontalFrequency, 
-    VerticalFrequency, WebCamera, StandAdjustment, PowerCapacity
+    VerticalFrequency, WebCamera, StandAdjustment, PowerCapacity, SpecialFeature, DesignFeature, VESAFixture, PixelPerInch, MonitorInstallation,
+    ResponseTime, MonitorMatrix, MonitorApplication, HDRStandard, Description, ProductSet, CountryOfManufacture, WorkPeriod, Weight, KeyWord
     )
 import datetime
 import re
@@ -283,32 +286,32 @@ def ozon_test(request):
         "Тип" : "Монитор",
         "Диагональ экрана, дюймы" : "27",
         "Разрешение" : "1920x1080 Full HD",
-        # Матрица монитора : IPS
+        "Матрица монитора" : "IPS",
         "Макс. частота обновления, Гц" : "75",
-        # Назначение монитора : Для дома и офиса
+        "Назначение монитора" : "Для дома и офиса",
         # Особенности : AMD FreeSync
-        # Потребляемая мощность, Вт : 25
+        "Потребляемая мощность, Вт" : "25",
         "Изогнутый экран" : "Нет",
         "Яркость, кд/м2" : "250",
         "Контрастность" : "1000:1",
         "Соотношение сторон" : "16:9",
         "Покрытие экрана" : "Матовое",
-        # Время отклика, мс : 5
+        "Время отклика, мс" : "5",
         "Динамическая контрастность" : "DCR",
         "Углы обзора (Г/В)" : "178°/178°",
         "Технология HDR" : "Да",
         "Число портов HDMI" : "1",
         "Разъёмы монитора" : "VGA (D-SUB), HDMI, DisplayPort, DVI",
         # Установка монитора : На подставку, Крепление на стену
-        # Стандарт крепления VESA : 100x100 мм
+        "Стандарт крепления VESA" : "100x100 мм",
         "Регулировки" : "Наклон",
         "Размеры, мм" :"612.1 x 463.3 x 217.4",
         "Вес, кг" : "3.80",
         "Web-камера" : "Нет",
         "Встроенные динамики" : "Нет",
         # Артикул : 1646295308
-        # Бренд : Samsung
-        # Цвет : Черный
+        "Бренд" : "Samsung",
+        "Цвет" : "Черный",
         "Страна-изготовитель" : "Китай",
         "Гарантийный срок" : "1 год"
     }
@@ -325,6 +328,11 @@ def ozon_test(request):
         type=type_monitor,
     )
     #===============attributes with dictionary_id >0=========================
+    try:
+        brand_monitor=BrandMonitor.objects.get(value=specs['Бренд'])
+        item.brand_monitor=brand_monitor
+    except:
+        print('No usb data provided')
     try:
         usb_port=USBPort.objects.get(value=specs['Количество USB портов'])
         item.usb_port=usb_port
@@ -360,10 +368,30 @@ def ozon_test(request):
         item.look_angle=look_angle
     except:
         print('No look_angle data provided')
+    try:
+        monitor_matrix=MonitorMatrix.objects.get(value=specs['Матрица монитора'])
+        item.monitor_matrix=monitor_matrix
+    except:
+        print('No monitor_matrix data provided')
+    try:
+        euro_asian_code_monitor=EuroAsianCodeMonitor.objects.get(value=specs['ТН ВЭД коды ЕАЭС'])
+        item.euro_asian_code_monitor=euro_asian_code_monitor
+    except:
+        print('No euro_asian_code_monitor data provided')
 
 
 
     #==========================is_collection=========================================
+    try:
+        string=specs['Цвет товара']
+        string=string.replace(" ", "")#deleting all spaces
+        array=string.split(',')#transforming the string into a list
+        for i in array:
+            if ColourMonitor.objects.filter(value=i).exists():
+                colour_monitor=ColourMonitor.objects.get(value=i)
+                item.colour_monitor.add(colour_monitor)
+    except:
+        print('No colour_monitor data provided')
     try:
         string=specs['Разъёмы монитора']
         string=string.replace(" ", "")#deleting all spaces
@@ -384,6 +412,96 @@ def ozon_test(request):
                 item.adjustments.add(adjustments)
     except:
         print('No adjustments data provided')
+    try:
+        string=specs['Конструктивные особенности']
+        string=string.replace(" ", "")#deleting all spaces
+        array=string.split(',')#transforming the string into a list
+        for i in array:
+            if DesignFeature.objects.filter(value=i).exists():
+                design_feature=DesignFeature.objects.get(value=i)
+                item.design_feature.add(design_feature)
+    except:
+        print('No design_feature data provided')
+    try:
+        string=specs['Стандарт крепления VESA']
+        string=string.replace(" ", "")#deleting all spaces
+        array=string.split(',')#transforming the string into a list
+        for i in array:
+            if VESAFixture.objects.filter(value=i).exists():
+                vesa_fixture=VESAFixture.objects.get(value=i)
+                item.vesa_fixture.add(vesa_fixture)
+    except:
+        print('No vesa_fixture data provided')
+    try:
+        string=specs['Установка монитора']
+        string=string.replace(" ", "")#deleting all spaces
+        array=string.split(',')#transforming the string into a list
+        for i in array:
+            if MonitorInstallation.objects.filter(value=i).exists():
+                monitor_installation=MonitorInstallation.objects.get(value=i)
+                item.monitor_installation.add(monitor_installation)
+    except:
+        print('No monitor_installation data provided')
+    try:
+        string=specs['Назначение монитора']
+        string=string.replace(" ", "")#deleting all spaces
+        array=string.split(',')#transforming the string into a list
+        for i in array:
+            if MonitorApplication.objects.filter(value=i).exists():
+                monitor_application=MonitorApplication.objects.get(value=i)
+                item.monitor_application.add(monitor_application)
+    except:
+        print('No monitor_application data provided')
+    try:
+        string=specs['Cтандарты HDR']
+        string=string.replace(" ", "")#deleting all spaces
+        array=string.split(',')#transforming the string into a list
+        for i in array:
+            if HDRStandard.objects.filter(value=i).exists():
+                hdr_standard=HDRStandard.objects.get(value=i)
+                item.hdr_standard.add(hdr_standard)
+    except:
+        print('No hdr_standard data provided')
+    try:
+        string=specs['Страна-изготовитель']
+        string=string.replace(" ", "")#deleting all spaces
+        array=string.split(',')#transforming the string into a list
+        for i in array:
+            if CountryOfManufacture.objects.filter(value=i).exists():
+                country_of_manufacture=CountryOfManufacture.objects.get(value=i)
+                item.country_of_manufacture.add(country_of_manufacture)
+    except:
+        print('No country_of_manufacture data provided')
+    try:
+        string=specs['Страна-изготовитель']
+        string=string.replace(" ", "")#deleting all spaces
+        array=string.split(',')#transforming the string into a list
+        for i in array:
+            if CountryOfManufacture.objects.filter(value=i).exists():
+                country_of_manufacture=CountryOfManufacture.objects.get(value=i)
+                item.country_of_manufacture.add(country_of_manufacture)
+    except:
+        print('No country_of_manufacture data provided')
+    try:
+        string=specs['Тип подсветки']
+        string=string.replace(" ", "")#deleting all spaces
+        array=string.split(',')#transforming the string into a list
+        for i in array:
+            if LightningType.objects.filter(value=i).exists():
+                lighting_type=LightningType.objects.get(value=i)
+                item.lighting_type.add(lighting_type)
+    except:
+        print('No lighting_type data provided')
+    try:
+        string=specs['Особенности']
+        string=string.replace(" ", "")#deleting all spaces
+        array=string.split(',')#transforming the string into a list
+        for i in array:
+            if SpecialFeature.objects.filter(value=i).exists():
+                special_feature=SpecialFeature.objects.get(value=i)
+                item.special_feature.add(special_feature)
+    except:
+        print('No special_feature data provided')
     
 
     #======================Model with dictionary_id=0=========================
@@ -396,7 +514,7 @@ def ozon_test(request):
             )
         item.screen_size=screen_size
     except:
-        print('no screen size data provided')
+        print('no screen_size data provided')
 
     try:
         if PixelSize.objects.filter(value=specs['Размер пикселя, мм']).exists():
@@ -479,6 +597,16 @@ def ozon_test(request):
     except:
         print('no vertical frequency data provided')
     try:
+        if HorizontalFrequency.objects.filter(value=specs['Частота горизонтальной развертки, кГц']).exists():
+            horizontal_frequency=HorizontalFrequency.objects.get(value=specs['Частота горизонтальной развертки, кГц'])
+        else:
+            horizontal_frequency=HorizontalFrequency.objects.create(
+                value=str(specs['Частота горизонтальной развертки, кГц'])
+            )
+        item.horizontal_frequency=horizontal_frequency
+    except:
+        print('no horizontal_frequency data provided')
+    try:
         if WebCamera.objects.filter(value=specs['Web-камера']).exists():
             web_camera=WebCamera.objects.get(value=specs['Web-камера'])
         else:
@@ -508,6 +636,96 @@ def ozon_test(request):
         item.power_capacity=power_capacity
     except:
         print('no power_capacity data provided')
+    try:
+        if PixelPerInch.objects.filter(value=specs['Плотность пикселей, ppi']).exists():
+            pixel_per_inch=PixelPerInch.objects.get(value=specs['Плотность пикселей, ppi'])
+        else:
+            pixel_per_inch=PixelPerInch.objects.create(
+                value=str(specs['Плотность пикселей, ppi'])
+            )
+        item.pixel_per_inch=pixel_per_inch
+    except:
+        print('no pixel_per_inch data provided')
+    try:
+        if ResponseTime.objects.filter(value=specs['Время отклика, мс']).exists():
+            response_time=ResponseTime.objects.get(value=specs['Время отклика, мс'])
+        else:
+            response_time=ResponseTime.objects.create(
+                value=str(specs['Время отклика, мс'])
+            )
+        item.response_time=response_time
+    except:
+        print('no response_time data provided')
+    try:
+        if ResponseTime.objects.filter(value=specs['Время отклика, мс']).exists():
+            response_time=ResponseTime.objects.get(value=specs['Время отклика, мс'])
+        else:
+            response_time=ResponseTime.objects.create(
+                value=str(specs['Время отклика, мс'])
+            )
+        item.response_time=response_time
+    except:
+        print('no response_time data provided')
+    try:
+        if Description.objects.filter(value=specs['Аннотация']).exists():
+            description=Description.objects.get(value=specs['Аннотация'])
+        else:
+            description=Description.objects.create(
+                value=str(specs['Аннотация'])
+            )
+        item.description=description
+    except:
+        print('no description data provided')
+    try:
+        if Size.objects.filter(value=specs['Размеры, мм']).exists():
+            size=Size.objects.get(value=specs['Размеры, мм'])
+        else:
+            size=Size.objects.create(
+                value=str(specs['Размеры, мм'])
+            )
+        item.size=size
+    except:
+        print('no size data provided')
+    try:
+        if ProductSet.objects.filter(value=specs['Комплектация']).exists():
+            product_set=ProductSet.objects.get(value=specs['Комплектация'])
+        else:
+            product_set=ProductSet.objects.create(
+                value=str(specs['Комплектация'])
+            )
+        item.product_set=product_set
+    except:
+        print('no product_set data provided')
+    try:
+        if WorkPeriod.objects.filter(value=specs['Срок службы, лет']).exists():
+            work_period=WorkPeriod.objects.get(value=specs['Срок службы, лет'])
+        else:
+            work_period=WorkPeriod.objects.create(
+                value=str(specs['Срок службы, лет'])
+            )
+        item.work_period=work_period
+    except:
+        print('no work_period data provided')
+    try:
+        if Weight.objects.filter(value=specs['Вес, кг']).exists():
+            wweightork_period=Weight.objects.get(value=specs['Вес, кг'])
+        else:
+            weight=Weight.objects.create(
+                value=str(specs['Вес, кг'])
+            )
+        item.weight=weight
+    except:
+        print('no weight data provided')
+    try:
+        if KeyWord.objects.filter(value=specs['Ключевые слова']).exists():
+            key_word=KeyWord.objects.get(value=specs['Ключевые слова'])
+        else:
+            key_word=KeyWord.objects.create(
+                value=str(specs['Ключевые слова'])
+            )
+        item.key_word=key_word
+    except:
+        print('no key_word data provided')
 
 
 

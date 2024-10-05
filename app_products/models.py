@@ -106,6 +106,9 @@ from app_monitor_reference.models import(
     BuiltinSpeaker,
     CurvedDispaly,
     HDR,
+    BrandMonitor,
+    ColourMonitor,
+    EuroAsianCodeMonitor,
 )
 
 class Smartphone (models.Model):
@@ -233,7 +236,7 @@ class Smartphone (models.Model):
     #seller_code = models.ForeignKey(SellerCode, on_delete=models.DO_NOTHING, null=True, blank=True)
     hazard_grade = models.ForeignKey(HazardGrade, on_delete=models.SET_NULL, null=True, blank=True)
     protection_grade = models.ManyToManyField(ProtectionGrade, blank=True)
-    #euro_asian_code = models.ForeignKey(EuroAsianCode, on_delete=models.SET_NULL, null=True, blank=True)
+    euro_asian_code_monitor = models.ForeignKey(EuroAsianCodeMonitor, on_delete=models.SET_NULL, null=True, blank=True)
     #======================dictionary_id > 0==================================================
     image_1 = models.URLField(blank=True)
     image_2 = models.URLField(blank=True)
@@ -254,7 +257,7 @@ class Monitor (models.Model):
     created = models.DateTimeField(auto_now=True)
     #В справочнике Ozon отсутствуют такие бренды как, Xiaomi, Redmi, Honor, Honor, Poco
     #Есть такие бренды как, Samsung
-    #brand = models.ForeignKey(BrandSmartphone, on_delete=models.DO_NOTHING, null=True)
+    brand_monitor = models.ForeignKey(BrandMonitor, on_delete=models.DO_NOTHING, null=True)
     #=================================================================
     #Каталожный номер изделия или детали. Is_required=True. Можно использовать EAN
     #Не можем использовать IMEI телефона, так как они разные у одного SKU
@@ -312,7 +315,7 @@ class Monitor (models.Model):
     #Вес товара без упаковки (нетто) в граммах в расчете на 1 SKU. Допустимо указывать только цифры
     weight = models.ForeignKey(Weight, on_delete=models.DO_NOTHING, null=True, blank=True)
     pixel_per_inch = models.ForeignKey(PixelPerInch, on_delete=models.DO_NOTHING, null=True, blank=True)
-    colour = models.ManyToManyField(Colour, blank=True)
+    colour_monitor = models.ManyToManyField(ColourMonitor, blank=True)
     monitor_installation = models.ForeignKey(MonitorInstallation, on_delete=models.DO_NOTHING, null=True, blank=True)
     design_feature = models.ManyToManyField(DesignFeature, blank=True)
     curved_display = models.ForeignKey(CurvedDispaly, on_delete=models.DO_NOTHING, null=True, blank=True)
