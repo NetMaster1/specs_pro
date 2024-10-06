@@ -79,7 +79,8 @@ def create_from_ozon(request):
 #driver = webdriver.Firefox(options=firefox_options)
     driver = webdriver.Chrome()
         
-    url="https://www.ozon.ru/product/samsung-27-monitor-essential-monitor-ls27c310eaixci-chernyy-1646295308/features/"
+    #url="https://www.ozon.ru/product/samsung-27-monitor-essential-monitor-ls27c310eaixci-chernyy-1646295308/features/"
+    url="https://www.ozon.ru/product/hartens-27-monitor-1920x1080-full-hd-black-1618662763/features/"
 
     driver.get(url)
     #драйвер заходит на сайт со своими cookies. А сервер присваивает браузеру свои cookies, чтобы отличить его от бота.
@@ -96,11 +97,11 @@ def create_from_ozon(request):
         },
         {
             "name": "__Secure-access-token",
-            "value": "6.0.MwudC4fbSCyxur6S0n5d1w.72.ASjnH5UXPWLofC7PXmy_lCziU03bfgbMgRPP0e6KEXkD_ZZAYKLJEvFr1glPVyMLUg..20240930182832.dCFi1y-Fv6ZlXW1d28HZlnNYwu6i-7tWC2tfezFp3QM.18041c92bf9a9dab5"
+            "value": "6.0.MwudC4fbSCyxur6S0n5d1w.72.ASjnH5UXPWLofC7PXmy_lCziU03bfgbMgRPP0e6KEXkD_ZZAYKLJEvFr1glPVyMLUg..20241006094133.rRmYwP9swyojNhBNwVlgdzOQil1f4QYs9p4uO6tXu4A.1c4842a1fef265339"
         },
         {
             "name": "__Secure-ETC",
-            "value": "2d883e033d1135bfcd331698d5ff6d86",
+            "value": "123b9d32ba83f8578c9b01168e62fb9f",
             "domain": ".ozon.ru" 
         },
         {
@@ -110,7 +111,7 @@ def create_from_ozon(request):
         },
         {
             "name": "__Secure-refresh-token",
-            "value": "6.0.MwudC4fbSCyxur6S0n5d1w.72.ASjnH5UXPWLofC7PXmy_lCziU03bfgbMgRPP0e6KEXkD_ZZAYKLJEvFr1glPVyMLUg..20240930182832.h-dKwiXsCqDPyVJb89xxDf1jnW2M4-u5RdzfOEu7ujg.16b3f9e3aba1e3a23",
+            "value": "6.0.MwudC4fbSCyxur6S0n5d1w.72.ASjnH5UXPWLofC7PXmy_lCziU03bfgbMgRPP0e6KEXkD_ZZAYKLJEvFr1glPVyMLUg..20241006094133.Mf4O5RYN1lZxytjGRHEZSlCocAIGKI28-KrRR8OOOq8.145286da3eec0b29e",
             "domain": ".ozon.ru" 
         },
         {
@@ -184,103 +185,38 @@ def create_from_ozon(request):
 #     source_text=driver.page_source<h
      
     specs={}
-    #item = driver.find_element(By.TAG_NAME, "h1")
-    item_keys = driver.find_elements(By.CLASS_NAME,"x2k_27")
-    item_values = driver.find_elements(By.CLASS_NAME,"xk2_27")
+    #по-видимому Озон периодически меняет название классов для характеристик
+    heading = driver.find_element(By.CLASS_NAME,"s8m_27")
+    item_keys = driver.find_elements(By.CLASS_NAME,"kx6_27")
+    item_values = driver.find_elements(By.CLASS_NAME,"x5k_27")
 
+    
+    
     for i, j in zip (item_keys, item_values):
         # a=str(i.text)
         # b=str(j.text)
         specs[i.text]=j.text
-    for keys, values in specs.items():
-            print(keys + ' : ' + values)
 
+    type_brand_string=[
+        specs['Тип'],
+        specs['Бренд'],
+    ]
+    type_brand_string=' '.join(type_brand_string)
+    string=[
+        type_brand_string,
+        specs['Диагональ экрана, дюймы'],
+        str(specs['Цвет']).lower()
+        ]
+    name_string=', '.join(string)
+
+    specs['Название']=name_string
+    for keys, values in specs.items():
+        print(keys + ' : ' + values)
+       
     driver.quit()
 
-    try:
-        resolution=Resolution.objects.get(value=specs['Разрешение'])
-    except Resolution.DoesNotExist:
-        resolution='No data provided'
-    try:
-        type_monitor=TypeMonitor.objects.get(value=specs['Тип'])
-    except TypeMonitor.DoesNotExist:
-        type_monitor='No data provided'
-    try:
-        usb_port=USBPort.objects.get(value=specs['Количество USB портов'])
-    except USBPort.DoesNotExist:
-        usb_port='No data provided'
-    try:
-        builtin_speaker=BuiltinSpeaker.objects.get(value=specs['Встроенные динамики'])
-    except BuiltinSpeaker.DoesNotExist:
-        builtin_speaker='No data provided'
-    try:
-        curved_display=CurvedDispaly.objects.get(value=specs['Изогнутый экран'])
-    except CurvedDispaly.DoesNotExist:
-        curved_display='No data provided'
-    try:
-        hdr=HDR.objects.get(value=specs['Технология HDR'])
-    except HDR.DoesNotExist:
-        hdr='No data provided'
-    try:
-        warranty_period=WarrantyPeriod.objects.get(value=specs['Гарантийный срок'])
-    except WarrantyPeriod.DoesNotExist:
-        warranty_period='No data provided'
+    return render (request, 'products.html')
 
-
-    # for i in product.comms_standard.all():
-    #             new_product.comms_standard.add(i)
-
-    item=Monitor.objects.create(
-        # name=specs['Название'],
-        # brand=specs['Бренд'],
-        #part_number=,
-        resolution=resolution,
-        type=type_monitor,
-        usb_port=usb_port,
-        builtin_speaker=builtin_speaker,
-        curved_display=curved_display,
-        hdr=hdr,
-        warranty_period=warranty_period,
-        #lightning_type=lightning_type,
-
-
-    )
-
-
-#print(specs)
-##soup=BeautifulSoup(source_text, "html.parser")
-#item = soup.find('tag', id = 'paginatorContent')
-# item = soup.find('ms3_27 tsHeadline550Medium')
-# print(item.text)
-#print(soup.body.prettify())
-#print(soup.json())
-
-
-    # titles=soup.find_all("a", {"class":"tile-hover-target i4s is5"})
-    # prices=soup.find_all("span", {"class":"c3122-a1 tsHeadline500Medium c3122-b9"})
-
-    # for i, j in zip (titles, prices):
-    #     list=[]
-    #     # print("================== ")
-    #     # print(i.text + ' Цена: '+ j.text)
-    #     # print(j.text.replace(" ",""))
-    #     #print(j.text)
-    #     list.append(tday)
-    #     list.append('Озон')
-    #     list.append(i.text)
-    #     list.append(j.text)
-
-    #     captured_data.append(list)
-
-# #ozon_response=requests.get(url)
-# ozon_response=requests.get(url=url, headers=headers)
-# print(ozon_response.status_code)
-# soup=BeautifulSoup(ozon_response.content, 'html.parser')
-# print(soup.prettify())
-
-# df=pd.DataFrame(captured_data)
-# print(df)
-#df.to_excel('ozon_parse.xlsx')
 
 def ozon_test(request):
     specs={
