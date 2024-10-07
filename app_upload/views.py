@@ -84,7 +84,10 @@ from app_monitor_reference.models import (
     USBPort,
     BuiltinSpeaker,
     CurvedDispaly,
-    HDR
+    HDR,
+    BrandMonitor,
+    EuroAsianCodeMonitor,
+    ColourMonitor
 )
 
 #from django.http import HttpResponse
@@ -2345,6 +2348,82 @@ def upload_monitor(request):
                 is_required=False,
                 category_dependent=False
             )
+    #===============================================================================
+    task = {
+    "attribute_id": 85,
+    "description_category_id": 17028926,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91494
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=BrandMonitor.objects.get(dictionary_value_id=i['id'])
+        except BrandMonitor.DoesNotExist:
+            item= BrandMonitor.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='85',
+                attribute_name='Бренд',
+                is_required=True,
+                category_dependent=True
+            )
+    #===============================================================================
+    task = {
+    "attribute_id": 22232,
+    "description_category_id": 17028926,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91494
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=EuroAsianCodeMonitor.objects.get(dictionary_value_id=i['id'])
+        except EuroAsianCodeMonitor.DoesNotExist:
+            item= EuroAsianCodeMonitor.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='222232',
+                attribute_name='ТН ВЭД коды ЕАЭС',
+                is_required=True,
+                category_dependent=True
+            )
+    #===============================================================================
+    task = {
+    "attribute_id": 10096,
+    "description_category_id": 17028926,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91494
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=ColourMonitor.objects.get(dictionary_value_id=i['id'])
+        except ColourMonitor.DoesNotExist:
+            item= ColourMonitor.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='10096',
+                attribute_name='Цвет товара',
+                is_required=False,
+                category_dependent=True
+            )
+    
 
 
     return render (request, 'products.html')

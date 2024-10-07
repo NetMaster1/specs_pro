@@ -102,7 +102,7 @@ class ColourMonitor (models.Model):
 class EuroAsianCodeMonitor (models.Model):
     attribute_name = models.CharField(max_length=50, default='ТН ВЭД коды ЕАЭС')
     attribute_id = models.CharField(max_length=50, default='22232')
-    value = models.CharField(max_length=100, blank=True)
+    value = models.TextField(blank=True)
     dictionary_value_id = models.CharField(max_length=20, default=0)
     is_required = models.BooleanField(default=False)
     category_dependent = models.BooleanField(default=True)
