@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import request
 import time
 import requests
+import bs4
+from html.parser import HTMLParser
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 from app_products.models import Smartphone, Monitor
@@ -19,12 +21,21 @@ import re
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from selenium.webdriver.common.action_chains import ActionChains
+
+import undetected_chromedriver as uc
 
 #эти импорты нужны нам для организации механизма ожидания формирования страницы
 #для последующего получения html из нее
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
+def scroll_down(driver, deep):
+    for _ in range(deep):
+        driver.execute_script('window.scrollBy(0, 500)')
+        time.sleep(0.1)
+
 
 def create_smartphone(request):
     headers={'User-Agent': UserAgent().chrome}
@@ -63,6 +74,331 @@ def create_smartphone(request):
     #     print(keys + ' : ' + values)
 
 
+def selenium_search(request):
+    driver = webdriver.Chrome()
+    url="https://www.ozon.ru/category/monitory-15738/samsung-24565087/?category_was_predicted=true&deny_category_prediction=true&from_global=true&rsdiagonalstr=27.000%3B27.000&text=монитор"
+    #url="https://www.ozon.ru/product/samsung-27-monitor-essential-monitor-ls27c310eaixci-chernyy-1646295308/features/"
+    driver.get(url)
+    #драйвер заходит на сайт со своими cookies. А сервер присваивает браузеру свои cookies, чтобы отличить его от бота.
+    #Соответственно заходим на сайт в браузере. Смотрим cookies (Хранилище>Куки). Обычно их 12 на ozon. Удаляем текущие cookie драйвера.
+    #Присваиваем драйверу cookies браузера.
+    #заходим драйвером еще раз (для этого ничего делать не надо, драйвер сам изменится)
+    driver.delete_all_cookies
+    cookies = [
+        {
+            "name": "__Secure-ab-group",
+            "value": "72",
+            "domain": ".ozon.ru" 
+        },
+        {
+            "name": "__Secure-access-token",
+            "value": "6.0.MwudC4fbSCyxur6S0n5d1w.72.ASjnH5UXPWLofC7PXmy_lCziU03bfgbMgRPP0e6KEXkD_ZZAYKLJEvFr1glPVyMLUg..20241006094133.rRmYwP9swyojNhBNwVlgdzOQil1f4QYs9p4uO6tXu4A.1c4842a1fef265339"
+        },
+        {
+            "name": "__Secure-ETC",
+            "value": "123b9d32ba83f8578c9b01168e62fb9f",
+            "domain": ".ozon.ru" 
+        },
+        {
+            "name": "__Secure-ext_xcid",
+            "value": "3f6546900374dcf91a0ac97122c8cb06",
+            "domain": ".ozon.ru" 
+        },
+        {
+            "name": "__Secure-refresh-token",
+            "value": "6.0.MwudC4fbSCyxur6S0n5d1w.72.ASjnH5UXPWLofC7PXmy_lCziU03bfgbMgRPP0e6KEXkD_ZZAYKLJEvFr1glPVyMLUg..20241006094133.Mf4O5RYN1lZxytjGRHEZSlCocAIGKI28-KrRR8OOOq8.145286da3eec0b29e",
+            "domain": ".ozon.ru" 
+        },
+        {
+            "name": "__Secure-user-id",
+            "value": "0",
+            "domain": ".ozon.ru" 
+        },
+        {
+            "name": "abt_data",
+            "value": "7.-5gn7M_xyh7eg7S29jtqs8FzXYAEH6-Apt8m9A-ufn2kMNF91HMg1VJU_BKmwnGXgHW2TXF8Q-kwbl3qUkOpstCsmiqQVlD5nJjc8FiGwlNb_DuRLG4GjikCCM9XjeXSZAHusPSNaKsZUvolxEoBEBUWeVNhd0DxrWVXa-fsZqgClXu_dc1nEkCJc5KezRJ2HPhRM1rBACNO8tfeZgyRdPNvUYSHKPd50dZtpUiryQ-d4M-yixOhGAG4-Tqhqkohb1rpzLBHKEwIZ4wkQGEpxFplNyi7D9f-tCZjWYkgRt6vlVDCelYYCybXeNdVpIGL4LrNwheRqOlK3WcoCz9CZMvotUQ69-MRQt4gcBTj0J2C8WbYONcuh4L6oHLxWx9HeKVfyse1y-HDEkRfx3uas7Fm1Uukvt9ErhlJryID8TchmLEfF0VIc5DghyVR58mRXNGsQ1FLAD4wgi7X9H5UR07_71e40-x8Bc_0",
+            "domain": ".ozon.ru" 
+        },
+        {
+            "name": "ADDRESSBOOKBAR_WEB_CLARIFICATION",
+            "value": "1727608766",
+            "domain": ".ozon.ru" 
+        },
+        {
+            "name": "feedbacklds",
+            "value": "[199]",
+            "domain": ".ozon.ru" 
+        },
+        {
+            "name": "is_cookies_accepted",
+            "value": "1",
+            "domain": "www.ozon.ru" 
+        },
+        {
+            "name": "guest",
+            "value": "true",
+            "domain": "www.ozon.ru" 
+        },
+        {
+            "name": "rfuid",
+            "value": "NjkyNDcyNDUyLDEyNC4wNDM0NzUyNzUxNjA3NCwxMDQ0MjEyNTc2LC0xLC0xMTI5MzU3NTU4LFczc2libUZ0WlNJNklsQkVSaUJXYVdWM1pYSWlMQ0prWlhOamNtbHdkR2x2YmlJNklsQnZjblJoWW14bElFUnZZM1Z0Wlc1MElFWnZjbTFoZENJc0ltMXBiV1ZVZVhCbGN5STZXM3NpZEhsd1pTSTZJbUZ3Y0d4cFkyRjBhVzl1TDNCa1ppSXNJbk4xWm1acGVHVnpJam9pY0dSbUluMHNleUowZVhCbElqb2lkR1Y0ZEM5d1pHWWlMQ0p6ZFdabWFYaGxjeUk2SW5Ca1ppSjlYWDBzZXlKdVlXMWxJam9pUTJoeWIyMWxJRkJFUmlCV2FXVjNaWElpTENKa1pYTmpjbWx3ZEdsdmJpSTZJbEJ2Y25SaFlteGxJRVJ2WTNWdFpXNTBJRVp2Y20xaGRDSXNJbTFwYldWVWVYQmxjeUk2VzNzaWRIbHdaU0k2SW1Gd2NHeHBZMkYwYVc5dUwzQmtaaUlzSW5OMVptWnBlR1Z6SWpvaWNHUm1JbjBzZXlKMGVYQmxJam9pZEdWNGRDOXdaR1lpTENKemRXWm1hWGhsY3lJNkluQmtaaUo5WFgwc2V5SnVZVzFsSWpvaVEyaHliMjFwZFcwZ1VFUkdJRlpwWlhkbGNpSXNJbVJsYzJOeWFYQjBhVzl1SWpvaVVHOXlkR0ZpYkdVZ1JHOWpkVzFsYm5RZ1JtOXliV0YwSWl3aWJXbHRaVlI1Y0dWeklqcGJleUowZVhCbElqb2lZWEJ3YkdsallYUnBiMjR2Y0dSbUlpd2ljM1ZtWm1sNFpYTWlPaUp3WkdZaWZTeDdJblI1Y0dVaU9pSjBaWGgwTDNCa1ppSXNJbk4xWm1acGVHVnpJam9pY0dSbUluMWRmU3g3SW01aGJXVWlPaUpOYVdOeWIzTnZablFnUldSblpTQlFSRVlnVm1sbGQyVnlJaXdpWkdWelkzSnBjSFJwYjI0aU9pSlFiM0owWVdKc1pTQkViMk4xYldWdWRDQkdiM0p0WVhRaUxDSnRhVzFsVkhsd1pYTWlPbHQ3SW5SNWNHVWlPaUpoY0hCc2FXTmhkR2x2Ymk5d1pHWWlMQ0p6ZFdabWFYaGxjeUk2SW5Ca1ppSjlMSHNpZEhsd1pTSTZJblJsZUhRdmNHUm1JaXdpYzNWbVptbDRaWE1pT2lKd1pHWWlmVjE5TEhzaWJtRnRaU0k2SWxkbFlrdHBkQ0JpZFdsc2RDMXBiaUJRUkVZaUxDSmtaWE5qY21sd2RHbHZiaUk2SWxCdmNuUmhZbXhsSUVSdlkzVnRaVzUwSUVadmNtMWhkQ0lzSW0xcGJXVlVlWEJsY3lJNlczc2lkSGx3WlNJNkltRndjR3hwWTJGMGFXOXVMM0JrWmlJc0luTjFabVpwZUdWeklqb2ljR1JtSW4wc2V5SjBlWEJsSWpvaWRHVjRkQzl3WkdZaUxDSnpkV1ptYVhobGN5STZJbkJrWmlKOVhYMWQsV3lKeWRTMVNWU0pkLDAsMSwwLDI0LDE0Mjc1LDgsMjI3MTI2NTIwLDAsMSwwLC00OTEyNzU1MjMsUjI5dloyeGxJRWx1WXk0Z1RtVjBjMk5oY0dVZ1IyVmphMjhnVjJsdU16SWdOUzR3SUNoWGFXNWtiM2R6SUU1VUlERXdMakE3SUZkcGJqWTBPeUI0TmpRcElFRndjR3hsVjJWaVMybDBMelV6Tnk0ek5pQW9TMGhVVFV3c0lHeHBhMlVnUjJWamEyOHBJRU5vY205dFpTOHhNamt1TUM0d0xqQWdVMkZtWVhKcEx6VXpOeTR6TmlBeU1EQXpNREV3TnlCTmIzcHBiR3hoLGV5SmphSEp2YldVaU9uc2lZWEJ3SWpwN0ltbHpTVzV6ZEdGc2JHVmtJanBtWVd4elpTd2lTVzV6ZEdGc2JGTjBZWFJsSWpwN0lrUkpVMEZDVEVWRUlqb2laR2x6WVdKc1pXUWlMQ0pKVGxOVVFVeE1SVVFpT2lKcGJuTjBZV3hzWldRaUxDSk9UMVJmU1U1VFZFRk1URVZFSWpvaWJtOTBYMmx1YzNSaGJHeGxaQ0o5TENKU2RXNXVhVzVuVTNSaGRHVWlPbnNpUTBGT1RrOVVYMUpWVGlJNkltTmhibTV2ZEY5eWRXNGlMQ0pTUlVGRVdWOVVUMTlTVlU0aU9pSnlaV0ZrZVY5MGIxOXlkVzRpTENKU1ZVNU9TVTVISWpvaWNuVnVibWx1WnlKOWZYMTksNjUsLTEyODU1NTEzLDEsMSwtMSwxNjk5OTU0ODg3LDE2OTk5NTQ4ODcsMzM2MDA3OTMzLDEy=",
+            "domain": ".ozon.ru" 
+        },
+        {
+            "name": "xcid",
+            "value": "9e1c92a0daffe531242b1315d16efe45",
+            "domain": ".ozon.ru" 
+        },  
+    ]
+    for cookie in cookies:
+        driver.add_cookie(cookies[0])
+        driver.add_cookie(cookies[1])
+        driver.add_cookie(cookies[2])
+        driver.add_cookie(cookies[3])
+        driver.add_cookie(cookies[4])
+        driver.add_cookie(cookies[5])
+        driver.add_cookie(cookies[6])
+        driver.add_cookie(cookies[7])
+        driver.add_cookie(cookies[8])
+        driver.add_cookie(cookies[9])
+        driver.add_cookie(cookies[10])
+        driver.add_cookie(cookies[11])
+        driver.add_cookie(cookies[12])
+    driver.get(url)
+    scroll_down(driver, 100)
+    time.sleep(1)
+    driver.refresh()
+    driver.execute_script("return document.documentElement.outerHTML")
+    #driver.execute_script("return document.documentElement.innerHTML")
+
+
+    #driver = uc.Chrome(headless=True,use_subprocess=False)
+    #html= driver.page_source
+    #item=driver.find_element(By.CSS_SELECTOR, 'body')
+   
+
+    item=driver.find_element(By.CLASS_NAME, 'j9y_23')
+    #attrs = driver.execute_script('var items = {}; for (index = 0; index < arguments[0].attributes.length; ++index) { items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value }; return items;', item)
+    #r3j_23_jr4_23 = item.find_elements(By.CSS_SELECTOR, "*")
+    r3j_23_jr4_23 = item.find_elements(By.XPATH, "div")
+    
+    for i in r3j_23_jr4_23:
+        j4r_23=i.find_element(By.XPATH, "div[2]")
+        j4r_23=j4r_23.find_element(By.XPATH, "div[1]")
+        target=j4r_23.find_element(By.XPATH, "a")
+        actions = ActionChains(driver)
+        actions.move_to_element(target).perform()
+        target.click()
+    #     rj5_23=j4r_23.find_element(By.XPATH, "div")
+    #     target=rj5_23.find_element(By.XPATH, "div")
+        #target=rj5_23.find_element(By.TAG_NAME, "span")
+
+        # print('========================================')
+        # print(target.text)
+        # print('========================================')
+  
+
+      
+   
+
+
+    #item=driver.find_element(By.CLASS_NAME, 'r3j_23 jr4_23 tile-link-hovered')
+    #item=driver.find_element(By.CLASS_NAME, 'r3j_23 jr4_23')
+    #item=driver.find_element(By.CLASS_NAME, 'tsBody500Medium')
+    #item=driver.find_element(By.TAG_NAME, 'span.tsBody500Medium')
+  
+    #print(html)
+    
+
+    #print(item.text)
+
+  
+    #soup=bs4(result, 'html.parser')
+        # soup = BeautifulSoup(driver.page_source, "html.parser")
+        # print(soup)
+    #items=driver.find_elements(By.TAG_NAME, 'a')
+    
+    # for i in items:
+    #     print(i.text)
+    #     driver.get(url)
+    #     print(i.text)
+    #     i.click()
+    #     driver.quit()
+
+
+    # actions = ActionChains(driver)
+    # #Actions actions = new Actions(driver);
+    # actions.move_to_element(item).click().perform()
+    # time.sleep(3)
+    # item=driver.find_element(By.CLASS_NAME, 'tile-hover-target jp_23')
+    # item.click()
+    # #driver.get(url)
+    # driver.delete_all_cookies
+    # cookies = [
+    #     {
+    #         "name": "__Secure-ab-group",
+    #         "value": "72",
+    #         "domain": ".ozon.ru" 
+    #     },
+    #     {
+    #         "name": "__Secure-access-token",
+    #         "value": "6.0.MwudC4fbSCyxur6S0n5d1w.72.ASjnH5UXPWLofC7PXmy_lCziU03bfgbMgRPP0e6KEXkD_ZZAYKLJEvFr1glPVyMLUg..20241006094133.rRmYwP9swyojNhBNwVlgdzOQil1f4QYs9p4uO6tXu4A.1c4842a1fef265339"
+    #     },
+    #     {
+    #         "name": "__Secure-ETC",
+    #         "value": "123b9d32ba83f8578c9b01168e62fb9f",
+    #         "domain": ".ozon.ru" 
+    #     },
+    #     {
+    #         "name": "__Secure-ext_xcid",
+    #         "value": "3f6546900374dcf91a0ac97122c8cb06",
+    #         "domain": ".ozon.ru" 
+    #     },
+    #     {
+    #         "name": "__Secure-refresh-token",
+    #         "value": "6.0.MwudC4fbSCyxur6S0n5d1w.72.ASjnH5UXPWLofC7PXmy_lCziU03bfgbMgRPP0e6KEXkD_ZZAYKLJEvFr1glPVyMLUg..20241006094133.Mf4O5RYN1lZxytjGRHEZSlCocAIGKI28-KrRR8OOOq8.145286da3eec0b29e",
+    #         "domain": ".ozon.ru" 
+    #     },
+    #     {
+    #         "name": "__Secure-user-id",
+    #         "value": "0",
+    #         "domain": ".ozon.ru" 
+    #     },
+    #     {
+    #         "name": "abt_data",
+    #         "value": "7.-5gn7M_xyh7eg7S29jtqs8FzXYAEH6-Apt8m9A-ufn2kMNF91HMg1VJU_BKmwnGXgHW2TXF8Q-kwbl3qUkOpstCsmiqQVlD5nJjc8FiGwlNb_DuRLG4GjikCCM9XjeXSZAHusPSNaKsZUvolxEoBEBUWeVNhd0DxrWVXa-fsZqgClXu_dc1nEkCJc5KezRJ2HPhRM1rBACNO8tfeZgyRdPNvUYSHKPd50dZtpUiryQ-d4M-yixOhGAG4-Tqhqkohb1rpzLBHKEwIZ4wkQGEpxFplNyi7D9f-tCZjWYkgRt6vlVDCelYYCybXeNdVpIGL4LrNwheRqOlK3WcoCz9CZMvotUQ69-MRQt4gcBTj0J2C8WbYONcuh4L6oHLxWx9HeKVfyse1y-HDEkRfx3uas7Fm1Uukvt9ErhlJryID8TchmLEfF0VIc5DghyVR58mRXNGsQ1FLAD4wgi7X9H5UR07_71e40-x8Bc_0",
+    #         "domain": ".ozon.ru" 
+    #     },
+    #     {
+    #         "name": "ADDRESSBOOKBAR_WEB_CLARIFICATION",
+    #         "value": "1727608766",
+    #         "domain": ".ozon.ru" 
+    #     },
+    #     {
+    #         "name": "feedbacklds",
+    #         "value": "[199]",
+    #         "domain": ".ozon.ru" 
+    #     },
+    #     {
+    #         "name": "is_cookies_accepted",
+    #         "value": "1",
+    #         "domain": "www.ozon.ru" 
+    #     },
+    #     {
+    #         "name": "guest",
+    #         "value": "true",
+    #         "domain": "www.ozon.ru" 
+    #     },
+    #     {
+    #         "name": "rfuid",
+    #         "value": "NjkyNDcyNDUyLDEyNC4wNDM0NzUyNzUxNjA3NCwxMDQ0MjEyNTc2LC0xLC0xMTI5MzU3NTU4LFczc2libUZ0WlNJNklsQkVSaUJXYVdWM1pYSWlMQ0prWlhOamNtbHdkR2x2YmlJNklsQnZjblJoWW14bElFUnZZM1Z0Wlc1MElFWnZjbTFoZENJc0ltMXBiV1ZVZVhCbGN5STZXM3NpZEhsd1pTSTZJbUZ3Y0d4cFkyRjBhVzl1TDNCa1ppSXNJbk4xWm1acGVHVnpJam9pY0dSbUluMHNleUowZVhCbElqb2lkR1Y0ZEM5d1pHWWlMQ0p6ZFdabWFYaGxjeUk2SW5Ca1ppSjlYWDBzZXlKdVlXMWxJam9pUTJoeWIyMWxJRkJFUmlCV2FXVjNaWElpTENKa1pYTmpjbWx3ZEdsdmJpSTZJbEJ2Y25SaFlteGxJRVJ2WTNWdFpXNTBJRVp2Y20xaGRDSXNJbTFwYldWVWVYQmxjeUk2VzNzaWRIbHdaU0k2SW1Gd2NHeHBZMkYwYVc5dUwzQmtaaUlzSW5OMVptWnBlR1Z6SWpvaWNHUm1JbjBzZXlKMGVYQmxJam9pZEdWNGRDOXdaR1lpTENKemRXWm1hWGhsY3lJNkluQmtaaUo5WFgwc2V5SnVZVzFsSWpvaVEyaHliMjFwZFcwZ1VFUkdJRlpwWlhkbGNpSXNJbVJsYzJOeWFYQjBhVzl1SWpvaVVHOXlkR0ZpYkdVZ1JHOWpkVzFsYm5RZ1JtOXliV0YwSWl3aWJXbHRaVlI1Y0dWeklqcGJleUowZVhCbElqb2lZWEJ3YkdsallYUnBiMjR2Y0dSbUlpd2ljM1ZtWm1sNFpYTWlPaUp3WkdZaWZTeDdJblI1Y0dVaU9pSjBaWGgwTDNCa1ppSXNJbk4xWm1acGVHVnpJam9pY0dSbUluMWRmU3g3SW01aGJXVWlPaUpOYVdOeWIzTnZablFnUldSblpTQlFSRVlnVm1sbGQyVnlJaXdpWkdWelkzSnBjSFJwYjI0aU9pSlFiM0owWVdKc1pTQkViMk4xYldWdWRDQkdiM0p0WVhRaUxDSnRhVzFsVkhsd1pYTWlPbHQ3SW5SNWNHVWlPaUpoY0hCc2FXTmhkR2x2Ymk5d1pHWWlMQ0p6ZFdabWFYaGxjeUk2SW5Ca1ppSjlMSHNpZEhsd1pTSTZJblJsZUhRdmNHUm1JaXdpYzNWbVptbDRaWE1pT2lKd1pHWWlmVjE5TEhzaWJtRnRaU0k2SWxkbFlrdHBkQ0JpZFdsc2RDMXBiaUJRUkVZaUxDSmtaWE5qY21sd2RHbHZiaUk2SWxCdmNuUmhZbXhsSUVSdlkzVnRaVzUwSUVadmNtMWhkQ0lzSW0xcGJXVlVlWEJsY3lJNlczc2lkSGx3WlNJNkltRndjR3hwWTJGMGFXOXVMM0JrWmlJc0luTjFabVpwZUdWeklqb2ljR1JtSW4wc2V5SjBlWEJsSWpvaWRHVjRkQzl3WkdZaUxDSnpkV1ptYVhobGN5STZJbkJrWmlKOVhYMWQsV3lKeWRTMVNWU0pkLDAsMSwwLDI0LDE0Mjc1LDgsMjI3MTI2NTIwLDAsMSwwLC00OTEyNzU1MjMsUjI5dloyeGxJRWx1WXk0Z1RtVjBjMk5oY0dVZ1IyVmphMjhnVjJsdU16SWdOUzR3SUNoWGFXNWtiM2R6SUU1VUlERXdMakE3SUZkcGJqWTBPeUI0TmpRcElFRndjR3hsVjJWaVMybDBMelV6Tnk0ek5pQW9TMGhVVFV3c0lHeHBhMlVnUjJWamEyOHBJRU5vY205dFpTOHhNamt1TUM0d0xqQWdVMkZtWVhKcEx6VXpOeTR6TmlBeU1EQXpNREV3TnlCTmIzcHBiR3hoLGV5SmphSEp2YldVaU9uc2lZWEJ3SWpwN0ltbHpTVzV6ZEdGc2JHVmtJanBtWVd4elpTd2lTVzV6ZEdGc2JGTjBZWFJsSWpwN0lrUkpVMEZDVEVWRUlqb2laR2x6WVdKc1pXUWlMQ0pKVGxOVVFVeE1SVVFpT2lKcGJuTjBZV3hzWldRaUxDSk9UMVJmU1U1VFZFRk1URVZFSWpvaWJtOTBYMmx1YzNSaGJHeGxaQ0o5TENKU2RXNXVhVzVuVTNSaGRHVWlPbnNpUTBGT1RrOVVYMUpWVGlJNkltTmhibTV2ZEY5eWRXNGlMQ0pTUlVGRVdWOVVUMTlTVlU0aU9pSnlaV0ZrZVY5MGIxOXlkVzRpTENKU1ZVNU9TVTVISWpvaWNuVnVibWx1WnlKOWZYMTksNjUsLTEyODU1NTEzLDEsMSwtMSwxNjk5OTU0ODg3LDE2OTk5NTQ4ODcsMzM2MDA3OTMzLDEy=",
+    #         "domain": ".ozon.ru" 
+    #     },
+    #     {
+    #         "name": "xcid",
+    #         "value": "9e1c92a0daffe531242b1315d16efe45",
+    #         "domain": ".ozon.ru" 
+    #     },  
+    # ]
+    # for cookie in cookies:
+    #     driver.add_cookie(cookies[0])
+    #     driver.add_cookie(cookies[1])
+    #     driver.add_cookie(cookies[2])
+    #     driver.add_cookie(cookies[3])
+    #     driver.add_cookie(cookies[4])
+    #     driver.add_cookie(cookies[5])
+    #     driver.add_cookie(cookies[6])
+    #     driver.add_cookie(cookies[7])
+    #     driver.add_cookie(cookies[8])
+    #     driver.add_cookie(cookies[9])
+    #     driver.add_cookie(cookies[10])
+    #     driver.add_cookie(cookies[11])
+    #     driver.add_cookie(cookies[12])
+   
+
+    #soup=bs4(result.content, 'html.parser')
+    #items_body=soup.find('div', id ='paginatorContent')
+    #Self.driver.implicitly_wait(30) 
+    #item = driver.find_element(By.CLASS_NAME,"tile-hover-target o9j_23")
+    #item = driver.find_element(By.TAG_NAME,"a")
+  
+    #driver.switch_to.window(driver.window_handles[0])
+    #item = driver.find_element(By.CLASS_NAME,"tile-hover-target o9j_23")
+    #item = driver.find_element(By.CLASS_NAME,"j5r_23")
+    # item = driver.find_element(By.CLASS_NAME,"j9y_23")
+    # print('+++++++++++++++++++++++++++++++++=')
+    # print(item.text)
+
+    #item = driver.find_element(By.CLASS_NAME,"rj3_23 r3j_23 tile-link-hovered")
+    #item = driver.find_element(By.CSS_SELECTOR,"a.tile-hover-target o9j_23")
+    #item = driver.find_element(By.CSS_SELECTOR,"span.tsBody500Medium")
+    #item=item.find_element(By.XPATH, '//a[contains(@href,"href")]')
+    #item=item.find_element(By.TAG_NAME('h_ref'))
+    # for item in items:
+    #     actions = ActionChains(driver)
+    #     actions.move_to_element(item).perform()
+    #item.click()
+    # for cookie in cookies:
+    #     driver.add_cookie(cookies[0])
+    #     driver.add_cookie(cookies[1])
+    #     driver.add_cookie(cookies[2])
+    #     driver.add_cookie(cookies[3])
+    #     driver.add_cookie(cookies[4])
+    #     driver.add_cookie(cookies[5])
+    #     driver.add_cookie(cookies[6])
+    #     driver.add_cookie(cookies[7])
+    #     driver.add_cookie(cookies[8])
+    #     driver.add_cookie(cookies[9])
+    #     driver.add_cookie(cookies[10])
+    #     driver.add_cookie(cookies[11])
+    #     driver.add_cookie(cookies[12])
+    
+    # driver.implicitly_wait(10)
+    # print('===================================')
+    # print(item.text)
+    # print('hover done')
+    # driver.implicitly_wait(3)
+        # hover_item = driver.find_element(By.CLASS_NAME,"tile-hover-target jp_23")
+        # #hover_items = driver.find_elements(By.CSS_SELECTOR,"a.tile-hover-target jp_23")
+        # print('=====================================')
+        # print(hover_item)
+
+
+    # for i in hover_items:
+    #     i.click()
+    #     print('=========================================')
+    #     print(i)
+    #     driver.implicitly_wait(5)
+    #     item = driver.find_element(By.CLASS_NAME,"x4k_27")
+    #     driver.implicitly_wait(5)
+
+# print(item.text)
+# item.move_to_element()
+
+# for element in items:
+#     item =element.get_attribute("href")
+    # hover_item.click()
+    # #actions.click(hover_item).perform()
+    # print('===================================')
+    # print('hover_item.text')
+
+#item = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "tile-hover-target o9j_23")))
+#item = driver.find_element(By.TAG_NAME,"a")
+#item.click()
+# for i in items:
+#     i.click()
+#     print(i)
+    #driver.implicitly_wait(5)
+    # item = driver.find_element(By.CLASS_NAME,"x4k_27")
+    # #item = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "x4k_27")))
+    # #item.click()
+    # print('+++++++++++++++++++++++++++++++++')
+    # print('ok')
+    # time.sleep()
+
+
+
+
 def create_from_ozon(request):
 #используем selenium или wbbrowser по следующей причине:
 #Ozon получает requests через сервер cloudflare, где происходит проверка на способность выполнить скрипт js
@@ -77,8 +413,10 @@ def create_from_ozon(request):
 #firefox_options.add_argument("--headless=new")
 #firefox_options.add_argument("-headless") запускает драйвер в невидимом режиме
 #driver = webdriver.Firefox(options=firefox_options)
-    
+    url="https://www.ozon.ru/category/monitory-15738/samsung-24565087/?category_was_predicted=true&deny_category_prediction=true&from_global=true&rsdiagonalstr=27.000%3B27.000&text=монитор"
         
+
+
     urls_array = [
         "https://www.ozon.ru/product/samsung-27-monitor-2560x1440-2k-black-1601075081/features/",
         "https://www.ozon.ru/product/samsung-27-monitor-s27dg502ei-chernyy-1627043278/features/",
