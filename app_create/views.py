@@ -645,7 +645,6 @@ def specs (request):
     
     return render (request, 'products.html')
 
-    
 
 def selenium_search(request):
     driver = webdriver.Chrome()
@@ -765,11 +764,10 @@ def selenium_search(request):
     #r3j_23_jr4_23 = item.find_elements(By.CSS_SELECTOR, "*")
     #r3j_23_jr4_23 = item.find_elements(By.XPATH, "div")
     items = item.find_elements(By.XPATH, "*")
-    for i in items:
-        n+=1
-        print (str(n) + '===============================')
-        print(i.text)
-        print('========================')
+    # for i in items:
+    #     n+=1
+    #     print ('#' + str(n) + '===============================')
+    #     print(i.text)
     
     for i in items:
         j4r_23=i.find_element(By.XPATH, "div[2]")
@@ -805,6 +803,19 @@ def selenium_search(request):
         item_values=driver.find_elements(By.CLASS_NAME, 'ky1_27')
         heading = driver.find_element(By.CLASS_NAME,"tm3_27")
         specs={}
+        #========================product_set attribute is missing at some pages========================
+        try:
+            product_set = driver.find_elements(By.CLASS_NAME, 'uk6_27')
+            product_set = product_set[5]
+            if 'Комплектация' in product_set.text:
+                string=product_set.text
+                string=string.replace('Комплектация', '')
+                specs['Комплектация']=string
+                print(string)   
+        except:
+            print('No product_set data provided')
+        
+        
         #вычленяем название модели из названия товара
         #input_string='Samsung 27" Монитор ViewFinity S8 LS27B800PXIXCI, черный'
         input_string=heading.text
@@ -814,7 +825,7 @@ def selenium_search(request):
         string=str(string[0])
         specs['Название модели (для объединения в одну карточку)']=string
         
-        
+        print('======================================')
         for i, j in zip (item_keys, item_values):
                 specs[i.text]=j.text
         for keys, values in specs.items():
