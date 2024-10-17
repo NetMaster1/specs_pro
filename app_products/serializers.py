@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import  Smartphone
+from .models import  Smartphone, Monitor
 from app_reference_shared.models import OzonCategory, ProcessorModel, Authentication
 
 class SmartphoneSerializer(serializers.ModelSerializer):
@@ -1091,7 +1091,410 @@ class SmartphoneSerializer(serializers.ModelSerializer):
         return items
 
 
+class MonitorSerializer(serializers.ModelSerializer):
+    items = serializers.SerializerMethodField('get_items')
 
+    class Meta:
+        model = Monitor
+        fields = ['items',]
+
+    def get_items (self, monitor):
+        attributes =[]
+        warranty_period={
+        "complex_id": 0,
+        'id': monitor.warranty_period.attribute_id,
+        "values": [{
+        # 'attribute_name': monitor.warranty_period.attribute_name, 
+        'dictionary_value_id': monitor.warranty_period.dictionary_value_id,
+        'value': monitor.warranty_period.value,
+        # 'is_required': monitor.warranty_period.is_required
+        }]
+        }
+        attributes.append(warranty_period)
+        #=================================================
+        type={
+        "complex_id": 0,
+        'id': monitor.type.attribute_id,
+        "values": [{
+        # 'attribute_name': monitor.type.attribute_name, 
+        'dictionary_value_id': monitor.type.dictionary_value_id,
+        'value': monitor.type.value,
+        # 'is_required': monitor.type.is_required
+        }]
+        }
+        attributes.append(type)
+        #===============================================================
+        model_name={
+        "complex_id": 0,
+        'id': monitor.model_name.attribute_id,
+        "values": [{
+        # 'attribute_name': monitor.model_name.attribute_name, 
+        'dictionary_value_id': monitor.model_name.dictionary_value_id,
+        'value': monitor.model_name.value,
+        # 'is_required': monitor.model_name.is_required
+        }]
+        }
+        attributes.append(model_name)
+        #===============================================================
+        resolution={
+        "complex_id": 0,
+        'id': monitor.resolution.attribute_id,
+        "values": [{
+        # 'attribute_name': monitor.resolution.attribute_name, 
+        'dictionary_value_id': monitor.resolution.dictionary_value_id,
+        'value': monitor.resolution.value,
+        # 'is_required': monitor.resolution.is_required
+        }]
+        }
+        attributes.append(resolution)
+
+
+
+        #================================================
+        try:
+            product_set={
+            "complex_id": 0,
+            'id': monitor.product_set.attribute_id,
+            "values": [{
+            # 'attribute_name': monitor.product_set.attribute_name, 
+            'dictionary_value_id': monitor.product_set.dictionary_value_id,
+            'value': monitor.product_set.value,
+            # 'is_required': monitor.product_set.is_required
+            }]
+            }
+            attributes.append(product_set)
+        except:
+            print('No product_set data  provided')
+        #================================================
+        try:
+            name={
+            "complex_id": 0,
+            'id': monitor.name.attribute_id,
+            "values": [{
+            # 'attribute_name': monitor.name.attribute_name, 
+            'dictionary_value_id': monitor.name.dictionary_value_id,
+            'value': monitor.name.value,
+            # 'is_required': monitor.name.is_required
+            }]
+            }
+            attributes.append(name)
+        except:
+            print('No name data  provided')
+        #================================================
+        try:
+            country_of_manufacture={
+            "complex_id": 0,
+            'id': monitor.country_of_manufacture.attribute_id,
+            "values": [{
+            # 'attribute_country_of_manufacture': monitor.country_of_manufacture.attribute_country_of_manufacture, 
+            'dictionary_value_id': monitor.country_of_manufacture.dictionary_value_id,
+            'value': monitor.country_of_manufacture.value,
+            # 'is_required': monitor.country_of_manufacture.is_required
+            }]
+            }
+            attributes.append(country_of_manufacture)
+        except:
+            print('No country_of_manufacture data  provided')
+        #================================================
+        try:
+            screen_coating={
+            "complex_id": 0,
+            'id': monitor.screen_coating.attribute_id,
+            "values": [{
+            # 'attribute_screen_coating': monitor.screen_coating.attribute_screen_coating, 
+            'dictionary_value_id': monitor.screen_coating.dictionary_value_id,
+            'value': monitor.screen_coating.value,
+            # 'is_required': monitor.screen_coating.is_required
+            }]
+            }
+            attributes.append(screen_coating)
+        except:
+            print('No screen_coating data  provided')
+        #================================================
+        try:
+            hdmi_ports={
+            "complex_id": 0,
+            'id': monitor.hdmi_ports.attribute_id,
+            "values": [{
+            # 'attribute_screen_coating': monitor.hdmi_ports.attribute_screen_coating, 
+            'dictionary_value_id': monitor.hdmi_ports.dictionary_value_id,
+            'value': monitor.hdmi_ports.value,
+            # 'is_required': monitor.hdmi_ports.is_required
+            }]
+            }
+            attributes.append(hdmi_ports)
+        except:
+            print('No hdmi_ports data  provided')
+        #================================================
+        try:
+            hdmi_ports={
+            "complex_id": 0,
+            'id': monitor.hdmi_ports.attribute_id,
+            "values": [{
+            # 'attribute_screen_coating': monitor.hdmi_ports.attribute_screen_coating, 
+            'dictionary_value_id': monitor.hdmi_ports.dictionary_value_id,
+            'value': monitor.hdmi_ports.value,
+            # 'is_required': monitor.hdmi_ports.is_required
+            }]
+            }
+            attributes.append(hdmi_ports)
+        except:
+            print('No hdmi_ports data  provided')
+        #================================================
+        try:
+            pixel_size={
+            "complex_id": 0,
+            'id': monitor.pixel_size.attribute_id,
+            "values": [{
+            # 'attribute_screen_coating': monitor.pixel_size.attribute_screen_coating, 
+            'dictionary_value_id': monitor.pixel_size.dictionary_value_id,
+            'value': monitor.pixel_size.value,
+            # 'is_required': monitor.pixel_size.is_required
+            }]
+            }
+            attributes.append(pixel_size)
+        except:
+            print('No pixel_size data  provided')
+        #================================================
+        try:
+            ratio={
+            "complex_id": 0,
+            'id': monitor.ratio.attribute_id,
+            "values": [{
+            # 'attribute_screen_coating': monitor.ratio.attribute_screen_coating, 
+            'dictionary_value_id': monitor.ratio.dictionary_value_id,
+            'value': monitor.ratio.value,
+            # 'is_required': monitor.ratio.is_required
+            }]
+            }
+            attributes.append(ratio)
+        except:
+            print('No ratio data  provided')
+        #================================================
+        try:
+            max_screen_frq={
+            "complex_id": 0,
+            'id': monitor.max_screen_frq.attribute_id,
+            "values": [{
+            # 'attribute_screen_coating': monitor.max_screen_frq.attribute_screen_coating, 
+            'dictionary_value_id': monitor.max_screen_frq.dictionary_value_id,
+            'value': monitor.max_screen_frq.value,
+            # 'is_required': monitor.max_screen_frq.is_required
+            }]
+            }
+            attributes.append(max_screen_frq)
+        except:
+            print('No max_screen_frq data  provided')
+        #================================================
+        try:
+            brightness={
+            "complex_id": 0,
+            'id': monitor.brightness.attribute_id,
+            "values": [{
+            # 'attribute_screen_coating': monitor.brightness.attribute_screen_coating, 
+            'dictionary_value_id': monitor.brightness.dictionary_value_id,
+            'value': monitor.brightness.value,
+            # 'is_required': monitor.brightness.is_required
+            }]
+            }
+            attributes.append(brightness)
+        except:
+            print('No brightness data  provided')
+        #================================================
+        try:
+            contrast={
+            "complex_id": 0,
+            'id': monitor.contrast.attribute_id,
+            "values": [{
+            # 'attribute_screen_coating': monitor.contrast.attribute_screen_coating, 
+            'dictionary_value_id': monitor.contrast.dictionary_value_id,
+            'value': monitor.contrast.value,
+            # 'is_required': monitor.contrast.is_required
+            }]
+            }
+            attributes.append(contrast)
+        except:
+            print('No contrast data  provided')
+        #================================================
+        try:
+            dynamic_contrast={
+            "complex_id": 0,
+            'id': monitor.dynamic_contrast.attribute_id,
+            "values": [{
+            # 'attribute_screen_coating': monitor.dynamic_contrast.attribute_screen_coating, 
+            'dictionary_value_id': monitor.dynamic_contrast.dictionary_value_id,
+            'value': monitor.dynamic_contrast.value,
+            # 'is_required': monitor.dynamic_contrast.is_required
+            }]
+            }
+            attributes.append(dynamic_contrast)
+        except:
+            print('No dynamic_contrast data  provided')
+        #================================================
+        try:
+            look_angle={
+            "complex_id": 0,
+            'id': monitor.look_angle.attribute_id,
+            "values": [{
+            # 'attribute_screen_coating': monitor.look_angle.attribute_screen_coating, 
+            'dictionary_value_id': monitor.look_angle.dictionary_value_id,
+            'value': monitor.look_angle.value,
+            # 'is_required': monitor.look_angle.is_required
+            }]
+            }
+            attributes.append(look_angle)
+        except:
+            print('No look_angle data  provided')
+        #================================================
+        try:
+            horizontal_frequency={
+            "complex_id": 0,
+            'id': monitor.horizontal_frequency.attribute_id,
+            "values": [{
+            # 'attribute_screen_coating': monitor.horizontal_frequency.attribute_screen_coating, 
+            'dictionary_value_id': monitor.horizontal_frequency.dictionary_value_id,
+            'value': monitor.horizontal_frequency.value,
+            # 'is_required': monitor.horizontal_frequency.is_required
+            }]
+            }
+            attributes.append(horizontal_frequency)
+        except:
+            print('No horizontal_frequency data  provided')
+        #================================================
+        try:
+            vertical_frequency={
+            "complex_id": 0,
+            'id': monitor.vertical_frequency.attribute_id,
+            "values": [{
+            # 'attribute_screen_coating': monitor.vertical_frequency.attribute_screen_coating, 
+            'dictionary_value_id': monitor.vertical_frequency.dictionary_value_id,
+            'value': monitor.vertical_frequency.value,
+            # 'is_required': monitor.vertical_frequency.is_required
+            }]
+            }
+            attributes.append(vertical_frequency)
+        except:
+            print('No vertical_frequency data  provided')
+        #================================================
+        try:
+            web_camera={
+            "complex_id": 0,
+            'id': monitor.web_camera.attribute_id,
+            "values": [{
+            # 'attribute_screen_coating': monitor.web_camera.attribute_screen_coating, 
+            'dictionary_value_id': monitor.web_camera.dictionary_value_id,
+            'value': monitor.web_camera.value,
+            # 'is_required': monitor.web_camera.is_required
+            }]
+            }
+            attributes.append(web_camera)
+        except:
+            print('No web_camera data  provided')
+        #================================================
+        try:
+            stand_adjustment={
+            "complex_id": 0,
+            'id': monitor.stand_adjustment.attribute_id,
+            "values": [{
+            # 'attribute_screen_coating': monitor.stand_adjustment.attribute_screen_coating, 
+            'dictionary_value_id': monitor.stand_adjustment.dictionary_value_id,
+            'value': monitor.stand_adjustment.value,
+            # 'is_required': monitor.stand_adjustment.is_required
+            }]
+            }
+            attributes.append(stand_adjustment)
+        except:
+            print('No stand_adjustment data  provided')
+        #================================================
+        try:
+            power_capacity={
+            "complex_id": 0,
+            'id': monitor.power_capacity.attribute_id,
+            "values": [{
+            # 'attribute_screen_coating': monitor.power_capacity.attribute_screen_coating, 
+            'dictionary_value_id': monitor.power_capacity.dictionary_value_id,
+            'value': monitor.power_capacity.value,
+            # 'is_required': monitor.power_capacity.is_required
+            }]
+            }
+            attributes.append(power_capacity)
+        except:
+            print('No power_capacity data  provided')
+
+
+
+        #===============================Many To Many Fields======================
+        try:
+            array=[]
+            dict={"complex_id":0}
+            for i in monitor.country_of_manufacture.all():
+                a= i.dictionary_value_id
+                b= i.value
+                item={
+                    'dictionary_value_id':a,
+                    'value': b
+                }
+                id=i.attribute_id
+                array.append(item)
+            dict['id']=id#добавляем ключ(id) и значение (id) в словарь dict
+            dict['values']=array
+            attributes.append(dict)
+        except:
+            print ('No country_of_manufacture provided')
+        #=====================================================
+        try:
+            array=[]
+            dict={"complex_id":0}
+            for i in monitor.lighting_type.all():
+                a= i.dictionary_value_id
+                b= i.value
+                item={
+                    'dictionary_value_id':a,
+                    'value': b
+                }
+                id=i.attribute_id
+                array.append(item)
+            dict['id']=id#добавляем ключ(id) и значение (id) в словарь dict
+            dict['values']=array
+            attributes.append(dict)
+        except:
+            print ('No lighting_type provided')
+        #=====================================================
+        try:
+            array=[]
+            dict={"complex_id":0}
+            for i in monitor.adjustments.all():
+                a= i.dictionary_value_id
+                b= i.value
+                item={
+                    'dictionary_value_id':a,
+                    'value': b
+                }
+                id=i.attribute_id
+                array.append(item)
+            dict['id']=id#добавляем ключ(id) и значение (id) в словарь dict
+            dict['values']=array
+            attributes.append(dict)
+        except:
+            print ('No adjustment data provided')
+        #=====================================================
+        try:
+            array=[]
+            dict={"complex_id":0}
+            for i in monitor.special_feature.all():
+                a= i.dictionary_value_id
+                b= i.value
+                item={
+                    'dictionary_value_id':a,
+                    'value': b
+                }
+                id=i.attribute_id
+                array.append(item)
+            dict['id']=id#добавляем ключ(id) и значение (id) в словарь dict
+            dict['values']=array
+            attributes.append(dict)
+        except:
+            print ('No special_feature provided')
 
 
 
