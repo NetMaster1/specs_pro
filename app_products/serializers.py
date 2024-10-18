@@ -556,7 +556,6 @@ class SmartphoneSerializer(serializers.ModelSerializer):
         except:
             print('No data provided')
         #========================================================
-        #========================================================
         try:
             screen_size={
             "complex_id": 0,
@@ -1420,6 +1419,143 @@ class MonitorSerializer(serializers.ModelSerializer):
             attributes.append(power_capacity)
         except:
             print('No power_capacity data  provided')
+        #================================================
+        try:
+            usb_port={
+            "complex_id": 0,
+            'id': monitor.usb_port.attribute_id,
+            "values": [{
+            # 'attribute_screen_coating': monitor.usb_port.attribute_screen_coating, 
+            'dictionary_value_id': monitor.usb_port.dictionary_value_id,
+            'value': monitor.usb_port.value,
+            # 'is_required': monitor.usb_port.is_required
+            }]
+            }
+            attributes.append(usb_port)
+        except:
+            print('No usb_port data  provided')
+        #================================================
+        try:
+            life_span={
+            "complex_id": 0,
+            'id': monitor.life_span.attribute_id,
+            "values": [{
+            # 'attribute_screen_coating': monitor.life_span.attribute_screen_coating, 
+            'dictionary_value_id': monitor.life_span.dictionary_value_id,
+            'value': monitor.life_span.value,
+            # 'is_required': monitor.life_span.is_required
+            }]
+            }
+            attributes.append(life_span)
+        except:
+            print('No life_span data  provided')
+        #================================================
+        try:
+            builtin_speaker={
+            "complex_id": 0,
+            'id': monitor.builtin_speaker.attribute_id,
+            "values": [{
+            # 'attribute_screen_coating': monitor.builtin_speaker.attribute_screen_coating, 
+            'dictionary_value_id': monitor.builtin_speaker.dictionary_value_id,
+            'value': monitor.builtin_speaker.value,
+            # 'is_required': monitor.builtin_speaker.is_required
+            }]
+            }
+            attributes.append(builtin_speaker)
+        except:
+            print('No builtin_speaker data  provided')
+        #================================================
+        try:
+            weight={
+            "complex_id": 0,
+            'id': monitor.weight.attribute_id,
+            "values": [{
+            # 'attribute_screen_coating': monitor.weight.attribute_screen_coating, 
+            'dictionary_value_id': monitor.weight.dictionary_value_id,
+            'value': monitor.weight.value,
+            # 'is_required': monitor.weight.is_required
+            }]
+            }
+            attributes.append(weight)
+        except:
+            print('No weight data  provided')
+        #================================================
+        try:
+            pixel_per_inch={
+            "complex_id": 0,
+            'id': monitor.pixel_per_inch.attribute_id,
+            "values": [{
+            # 'attribute_screen_coating': monitor.pixel_per_inch.attribute_screen_coating, 
+            'dictionary_value_id': monitor.pixel_per_inch.dictionary_value_id,
+            'value': monitor.pixel_per_inch.value,
+            # 'is_required': monitor.pixel_per_inch.is_required
+            }]
+            }
+            attributes.append(pixel_per_inch)
+        except:
+            print('No pixel_per_inch data  provided')
+        #================================================
+        try:
+            curved_display={
+            "complex_id": 0,
+            'id': monitor.curved_display.attribute_id,
+            "values": [{
+            # 'attribute_screen_coating': monitor.curved_display.attribute_screen_coating, 
+            'dictionary_value_id': monitor.curved_display.dictionary_value_id,
+            'value': monitor.curved_display.value,
+            # 'is_required': monitor.curved_display.is_required
+            }]
+            }
+            attributes.append(curved_display)
+        except:
+            print('No curved_display data provided')
+        #================================================
+        try:
+            response_time={
+            "complex_id": 0,
+            'id': monitor.response_time.attribute_id,
+            "values": [{
+            # 'attribute_screen_coating': monitor.response_time.attribute_screen_coating, 
+            'dictionary_value_id': monitor.response_time.dictionary_value_id,
+            'value': monitor.response_time.value,
+            # 'is_required': monitor.response_time.is_required
+            }]
+            }
+            attributes.append(response_time)
+        except:
+            print('No response_time data provided')
+        #================================================
+        try:
+            monitor_matrix={
+            "complex_id": 0,
+            'id': monitor.monitor_matrix.attribute_id,
+            "values": [{
+            # 'attribute_screen_coating': monitor.monitor_matrix.attribute_screen_coating, 
+            'dictionary_value_id': monitor.monitor_matrix.dictionary_value_id,
+            'value': monitor.monitor_matrix.value,
+            # 'is_required': monitor.monitor_matrix.is_required
+            }]
+            }
+            attributes.append(monitor_matrix)
+        except:
+            print('No monitor_matrix data provided')
+        #================================================
+        try:
+            hdr={
+            "complex_id": 0,
+            'id': monitor.hdr.attribute_id,
+            "values": [{
+            # 'attribute_screen_coating': monitor.hdr.attribute_screen_coating, 
+            'dictionary_value_id': monitor.hdr.dictionary_value_id,
+            'value': monitor.hdr.value,
+            # 'is_required': monitor.hdr.is_required
+            }]
+            }
+            attributes.append(hdr)
+        except:
+            print('No hdr data provided')
+
+
 
 
 
@@ -1495,7 +1631,133 @@ class MonitorSerializer(serializers.ModelSerializer):
             attributes.append(dict)
         except:
             print ('No special_feature provided')
+        #=====================================================
+        try:
+            array=[]
+            dict={"complex_id":0}
+            for i in monitor.vesa_fixture.all():
+                a= i.dictionary_value_id
+                b= i.value
+                item={
+                    'dictionary_value_id':a,
+                    'value': b
+                }
+                id=i.attribute_id
+                array.append(item)
+            dict['id']=id#добавляем ключ(id) и значение (id) в словарь dict
+            dict['values']=array
+            attributes.append(dict)
+        except:
+            print ('No vesa_fixture provided')
+        #=====================================================
+        try:
+            array=[]
+            dict={"complex_id":0}
+            for i in monitor.colour_monitor.all():
+                a= i.dictionary_value_id
+                b= i.value
+                item={
+                    'dictionary_value_id':a,
+                    'value': b
+                }
+                id=i.attribute_id
+                array.append(item)
+            dict['id']=id#добавляем ключ(id) и значение (id) в словарь dict
+            dict['values']=array
+            attributes.append(dict)
+        except:
+            print ('No colour_monitor provided')
+        #=====================================================
+        try:
+            array=[]
+            dict={"complex_id":0}
+            for i in monitor.monitor_installation.all():
+                a= i.dictionary_value_id
+                b= i.value
+                item={
+                    'dictionary_value_id':a,
+                    'value': b
+                }
+                id=i.attribute_id
+                array.append(item)
+            dict['id']=id#добавляем ключ(id) и значение (id) в словарь dict
+            dict['values']=array
+            attributes.append(dict)
+        except:
+            print ('No monitor_installation data provided')
+        #=====================================================
+        try:
+            array=[]
+            dict={"complex_id":0}
+            for i in monitor.design_feature.all():
+                a= i.dictionary_value_id
+                b= i.value
+                item={
+                    'dictionary_value_id':a,
+                    'value': b
+                }
+                id=i.attribute_id
+                array.append(item)
+            dict['id']=id#добавляем ключ(id) и значение (id) в словарь dict
+            dict['values']=array
+            attributes.append(dict)
+        except:
+            print ('No design_feature data provided')
+        #=====================================================   
+        try:
+            array=[]
+            dict={"complex_id":0}
+            for i in monitor.monitor_application.all():
+                a= i.dictionary_value_id
+                b= i.value
+                item={
+                    'dictionary_value_id':a,
+                    'value': b
+                }
+                id=i.attribute_id
+                array.append(item)
+            dict['id']=id#добавляем ключ(id) и значение (id) в словарь dict
+            dict['values']=array
+            attributes.append(dict)
+        except:
+            print ('No monitor_application data provided')
+        #=====================================================   
+        try:
+            array=[]
+            dict={"complex_id":0}
+            for i in monitor.monitor_connector.all():
+                a= i.dictionary_value_id
+                b= i.value
+                item={
+                    'dictionary_value_id':a,
+                    'value': b
+                }
+                id=i.attribute_id
+                array.append(item)
+            dict['id']=id#добавляем ключ(id) и значение (id) в словарь dict
+            dict['values']=array
+            attributes.append(dict)
+        except:
+            print ('No monitor_connector data provided')
+        #=====================================================   
+        try:
+            array=[]
+            dict={"complex_id":0}
+            for i in monitor.hdr_standard.all():
+                a= i.dictionary_value_id
+                b= i.value
+                item={
+                    'dictionary_value_id':a,
+                    'value': b
+                }
+                id=i.attribute_id
+                array.append(item)
+            dict['id']=id#добавляем ключ(id) и значение (id) в словарь dict
+            dict['values']=array
+            attributes.append(dict)
+        except:
+            print ('No hdr_standard data provided')
 
 
 
-   
+        return items

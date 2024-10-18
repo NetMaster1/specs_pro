@@ -11,7 +11,7 @@ from .models import (SmartphoneVersion, PublishingYear, RamSmartphone, ESimSuppo
     )
 
 class OzonCategoryAdmin(admin.ModelAdmin):
-    list_display = ('id', 'type_name', 'type_id', 'category_name', 'description_category_id', 'group_category_name', 'group_description_category_id')
+    list_display = ('id', 'active', 'type_name', 'type_id', 'category_name', 'description_category_id', 'group_category_name', 'group_description_category_id')
     list_filter = ('type_name',)
     ordering = ('type_name',)
     list_per_page=100

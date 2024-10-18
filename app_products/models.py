@@ -106,7 +106,7 @@ from app_monitor_reference.models import(
     BuiltinSpeaker,
     CurvedDispaly,
     HDR,
-    BrandMonitor,
+    #BrandMonitor,
     ColourMonitor,
     EuroAsianCodeMonitor,
 )
@@ -214,7 +214,7 @@ class Smartphone (models.Model):
     #Укажите название модели товара. Не указывайте в этом поле тип и бренд.
     #Заполните данное поле любым одинаковым значением у товаров, которые хотите объединить. 
     #И по разному, чтобы разъединить. Объединение через данный атрибут произойдет только если товары имеют одинаковый Тип и Бренд
-    model_name = models.ForeignKey(ModelName, on_delete=models.DO_NOTHING, null=True)#9048
+    #model_name = models.ForeignKey(ModelName, on_delete=models.DO_NOTHING, null=True)#9048
     #Только краткое название модели, без типа, бренда и характеристик товара. Будет использовано в шаблонизаторе 
     #для составления названия карточки для сайта.
     card_title_model_name = models.ForeignKey(CardTitleModelName, on_delete=models.DO_NOTHING, null=True)#11241
@@ -222,7 +222,7 @@ class Smartphone (models.Model):
     #Выберите наиболее подходящий тип товара. По типам товары распределяются по категориям на сайте Ozon. 
     #Если тип указан неправильно, товар попадет в неверную категорию. Чтобы правильно указать тип, найдите
     #на сайте Ozon товары, похожие на ваш, и посмотрите, какой тип у них указан. 8229; is_required,
-    type = models.ForeignKey(TypeSmartphone, on_delete=models.SET_NULL, null=True)
+    #type = models.ForeignKey(TypeSmartphone, on_delete=models.SET_NULL, null=True)
     #линейка мобильный устройств
     gadget_serie = models.ForeignKey(GadgetSerie, on_delete=models.SET_NULL, null=True, blank=True)#9225
     #=====================================================================================
@@ -257,7 +257,7 @@ class Monitor (models.Model):
     created = models.DateTimeField(auto_now=True)
     #В справочнике Ozon отсутствуют такие бренды как, Xiaomi, Redmi, Honor, Honor, Poco
     #Есть такие бренды как, Samsung
-    brand_monitor = models.ForeignKey(BrandMonitor, on_delete=models.DO_NOTHING, null=True)
+    #brand_monitor = models.ForeignKey(BrandMonitor, on_delete=models.DO_NOTHING, null=True)
     #=================================================================
     #Каталожный номер изделия или детали. Is_required=True. Можно использовать EAN
     #Не можем использовать IMEI телефона, так как они разные у одного SKU
@@ -316,7 +316,7 @@ class Monitor (models.Model):
     weight = models.ForeignKey(Weight, on_delete=models.DO_NOTHING, null=True, blank=True)
     pixel_per_inch = models.ForeignKey(PixelPerInch, on_delete=models.DO_NOTHING, null=True, blank=True)
     colour_monitor = models.ManyToManyField(ColourMonitor, blank=True)
-    monitor_installation = models.ManyToManyField(MonitorInstallation, blank=True)
+    #monitor_installation = models.ManyToManyField(MonitorInstallation, blank=True)
     design_feature = models.ManyToManyField(DesignFeature, blank=True)
     curved_display = models.ForeignKey(CurvedDispaly, on_delete=models.DO_NOTHING, null=True, blank=True)
     response_time = models.ForeignKey(ResponseTime, on_delete=models.DO_NOTHING, null=True, blank=True)

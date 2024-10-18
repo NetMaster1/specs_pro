@@ -8,6 +8,7 @@ class OzonCategory (models.Model):
     category_name = models.CharField(max_length=80, null=True)
     group_description_category_id = models.CharField(max_length=80, null=True)
     group_category_name = models.CharField(max_length=80, null=True)
+    active = models.BooleanField(default=False)
    
     def __str__(self):
         return self.type_name

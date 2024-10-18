@@ -7,9 +7,9 @@ from html.parser import HTMLParser
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 from app_products.models import Smartphone, Monitor
-from app_monitor_reference.models import (BrandMonitor, ColourMonitor,Resolution, TypeMonitor, USBPort, BuiltinSpeaker, CurvedDispaly, HDR,
+from app_monitor_reference.models import (ColourMonitor,Resolution, TypeMonitor, USBPort, BuiltinSpeaker, CurvedDispaly, HDR,
     EuroAsianCodeMonitor                                      
-    )
+    )#BrandMonitor
 from app_reference_shared.models import (OzonCategory,LightningType, Size, MonitorConnector, ScreenSize, WarrantyPeriod, ScreenCoating, HDMIPorts,
     Adjustment, PixelSize, Ratio, MaxScreenFrequency, Brightness, Contrast, DynamicContrast, LookAngle, HorizontalFrequency, 
     VerticalFrequency, WebCamera, StandAdjustment, PowerCapacity, SpecialFeature, DesignFeature, VESAFixture, PixelPerInch, MonitorInstallation,

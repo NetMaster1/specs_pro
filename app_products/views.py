@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from .models import Smartphone
+from app_reference_shared.models import OzonCategory
 from .serializers import SmartphoneSerializer
 
 # Create your views here.
@@ -21,11 +22,12 @@ class ProductView(viewsets.ModelViewSet):
 #========================================================================
 
 def products (request):
-    products=Smartphone.objects.all()
-    print(products)
+    #products=Smartphone.objects.all()
+    categories=OzonCategory.objects.all()
+    #print(products)
     context = {
 
-        'products': products
+        'categories': categories
     }
     return render (request, 'products.html', context)
 

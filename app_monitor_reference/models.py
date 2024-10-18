@@ -2,19 +2,20 @@ from django.db import models
 
 # Create your models here.
 
-class BrandMonitor (models.Model):
-    attribute_name = models.CharField(max_length=50, default='Бренд')
-    attribute_id = models.CharField(max_length=50, default='85')
-    value = models.CharField(max_length=100, blank=True)
-    #default = '1' means that this attribute has a table to choose from
-    #default = '0' means that we have to create the model ourselves
-    dictionary_value_id = models.CharField(max_length=20, default='1')
-    is_required = models.BooleanField(default=True)
-    category_dependent = models.BooleanField(default=True)
-    is_collection = models.BooleanField(default=False)
+# class BrandMonitor (models.Model):
+#     attribute_name = models.CharField(max_length=50, default='Бренд')
+#     attribute_id = models.CharField(max_length=50, default='85')
+#     value = models.CharField(max_length=100, blank=True)
+#     #default = '1' means that this attribute has a table to choose from
+#     #default = '0' means that we have to create the model ourselves
+#     dictionary_value_id = models.CharField(max_length=20, default='1')
+#     is_required = models.BooleanField(default=True)
+#     category_dependent = models.BooleanField(default=True)
+#     is_collection = models.BooleanField(default=False)
    
-    def __str__(self):
-        return self.value
+#     def __str__(self):
+#         return self.value
+    
 class Resolution (models.Model):
     attribute_name = models.CharField(max_length=50, default='Разрешение')
     attribute_id = models.CharField(max_length=50, default='5592')

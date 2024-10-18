@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import (SimCardQnty,BrandSmartphone, EuroAsianCode, CaseForm, MicroSDSlot, ProcessorCoreQnty, Processor, QntyOfBasicCamera, 
+from .models import (SimCardQnty, BrandSmartphone, EuroAsianCode, CaseForm, MicroSDSlot, ProcessorCoreQnty, Processor, QntyOfBasicCamera, 
 Colour, ProtectionGrade, GadgetModel, VideoQuality, ScreenResolution, SmartphoneModel, TypeSmartphone)
 
 class BrandSmartphoneAdmin(admin.ModelAdmin):

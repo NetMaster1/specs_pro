@@ -85,7 +85,7 @@ from app_monitor_reference.models import (
     BuiltinSpeaker,
     CurvedDispaly,
     HDR,
-    BrandMonitor,
+    #BrandMonitor,
     EuroAsianCodeMonitor,
     ColourMonitor
 )
