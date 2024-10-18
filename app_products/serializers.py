@@ -54,29 +54,29 @@ class SmartphoneSerializer(serializers.ModelSerializer):
         }
         attributes.append(warranty_period)
         #=================================================
-        type={
-        "complex_id": 0,
-        'id': smartphone.type.attribute_id,
-        "values": [{
-        # 'attribute_name': smartphone.type.attribute_name, 
-        'dictionary_value_id': smartphone.type.dictionary_value_id,
-        'value': smartphone.type.value,
-        # 'is_required': smartphone.type.is_required
-        }]
-        }
-        attributes.append(type)
+        # type={
+        # "complex_id": 0,
+        # 'id': smartphone.type.attribute_id,
+        # "values": [{
+        # # 'attribute_name': smartphone.type.attribute_name, 
+        # 'dictionary_value_id': smartphone.type.dictionary_value_id,
+        # 'value': smartphone.type.value,
+        # # 'is_required': smartphone.type.is_required
+        # }]
+        # }
+        # attributes.append(type)
         #===============================================================
-        model_name={
-        "complex_id": 0,
-        'id': smartphone.model_name.attribute_id,
-        "values": [{
-        # 'attribute_name': smartphone.model_name.attribute_name, 
-        'dictionary_value_id': smartphone.model_name.dictionary_value_id,
-        'value': smartphone.model_name.value,
-        # 'is_required': smartphone.model_name.is_required
-        }]
-        }
-        attributes.append(model_name)
+        # model_name={
+        # "complex_id": 0,
+        # 'id': smartphone.model_name.attribute_id,
+        # "values": [{
+        # # 'attribute_name': smartphone.model_name.attribute_name, 
+        # 'dictionary_value_id': smartphone.model_name.dictionary_value_id,
+        # 'value': smartphone.model_name.value,
+        # # 'is_required': smartphone.model_name.is_required
+        # }]
+        # }
+        # attributes.append(model_name)
         #================================================
         try:
             card_title_model_name={
@@ -1099,16 +1099,28 @@ class MonitorSerializer(serializers.ModelSerializer):
 
     def get_items (self, monitor):
         attributes =[]
-        warranty_period={
-        "complex_id": 0,
-        'id': monitor.warranty_period.attribute_id,
-        "values": [{
-        # 'attribute_name': monitor.warranty_period.attribute_name, 
-        'dictionary_value_id': monitor.warranty_period.dictionary_value_id,
-        'value': monitor.warranty_period.value,
-        # 'is_required': monitor.warranty_period.is_required
-        }]
-        }
+        try:
+            warranty_period={
+            "complex_id": 0,
+            'id': monitor.warranty_period.attribute_id,
+            "values": [{
+            # 'attribute_name': monitor.warranty_period.attribute_name, 
+            'dictionary_value_id': monitor.warranty_period.dictionary_value_id,
+            'value': monitor.warranty_period.value,
+            # 'is_required': monitor.warranty_period.is_required
+            }]
+            }
+        except:
+            warranty_period={
+            "complex_id": 0,
+            'id': 9048,
+            "values": [{
+            # 'attribute_name': monitor.warranty_period.attribute_name, 
+            'dictionary_value_id': 0,
+            'value': '1 год',
+            # 'is_required': monitor.warranty_period.is_required
+            }]
+            }
         attributes.append(warranty_period)
         #=================================================
         type={
@@ -1135,16 +1147,28 @@ class MonitorSerializer(serializers.ModelSerializer):
         }
         attributes.append(model_name)
         #===============================================================
-        resolution={
-        "complex_id": 0,
-        'id': monitor.resolution.attribute_id,
-        "values": [{
-        # 'attribute_name': monitor.resolution.attribute_name, 
-        'dictionary_value_id': monitor.resolution.dictionary_value_id,
-        'value': monitor.resolution.value,
-        # 'is_required': monitor.resolution.is_required
-        }]
-        }
+        try:
+            resolution={
+            "complex_id": 0,
+            'id': monitor.resolution.attribute_id,
+            "values": [{
+            # 'attribute_name': monitor.resolution.attribute_name, 
+            'dictionary_value_id': monitor.resolution.dictionary_value_id,
+            'value': monitor.resolution.value,
+            # 'is_required': monitor.resolution.is_required
+            }]
+            }
+        except:
+            resolution={
+            "complex_id": 0,
+            'id': 5592,
+            "values": [{
+            # 'attribute_name': monitor.resolution.attribute_name, 
+            'dictionary_value_id': 971410300,
+            'value': '1920x1080',
+            # 'is_required': monitor.resolution.is_required
+            }]
+            }
         attributes.append(resolution)
 
 
@@ -1757,7 +1781,32 @@ class MonitorSerializer(serializers.ModelSerializer):
             attributes.append(dict)
         except:
             print ('No hdr_standard data provided')
-
-
-
+        #==========================================
+        items=[{}]
+        items=[{"attributes" : attributes, 
+               "barcode": "",
+                "description_category_id": 	17028926,
+                "new_description_category_id": 0,
+                "color_image": "",
+                "complex_attributes": [],
+                "currency_code": "RUB",
+                "depth": "",
+                "dimension_unit": "mm",
+                "height": "100",
+                "images":   [ monitor.image_1, 
+                                monitor.image_2,
+                                monitor.image_3
+                            ],
+                "images360": [],
+                "name": monitor.name.value,
+                "offer_id": "", #monitor.part_number.value,
+                "old_price": "",
+                "pdf_list": [],
+                "price": "1000",
+                "primary_image": "",
+                "vat": "",
+                "weight": "", #monitor.weight.value,
+                "weight_unit": "g",
+                "width":""
+                 }]
         return items

@@ -7,9 +7,11 @@
 </head>
 <body>
     
-{% for item in products %}
+{% for category in categories %}
 
-{{item.name}}
+    <a href="{% url 'product' category.id %}">
+        {{category.type_name}}
+    </a>
 <br>
 
 {% endfor %}

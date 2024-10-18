@@ -7,9 +7,9 @@ from html.parser import HTMLParser
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 from app_products.models import Smartphone, Monitor
-from app_monitor_reference.models import (ColourMonitor,Resolution, TypeMonitor, USBPort, BuiltinSpeaker, CurvedDispaly, HDR,
+from app_monitor_reference.models import (Brand_Monitor, ColourMonitor,Resolution, TypeMonitor, USBPort, BuiltinSpeaker, CurvedDispaly, HDR,
     EuroAsianCodeMonitor                                      
-    )#BrandMonitor
+    )
 from app_reference_shared.models import (OzonCategory,LightningType, Size, MonitorConnector, ScreenSize, WarrantyPeriod, ScreenCoating, HDMIPorts,
     Adjustment, PixelSize, Ratio, MaxScreenFrequency, Brightness, Contrast, DynamicContrast, LookAngle, HorizontalFrequency, 
     VerticalFrequency, WebCamera, StandAdjustment, PowerCapacity, SpecialFeature, DesignFeature, VESAFixture, PixelPerInch, MonitorInstallation,
@@ -230,10 +230,10 @@ def specs (request):
         )
         #===============attributes with dictionary_id >0=========================
         try:
-            brand_monitor=BrandMonitor.objects.get(value=specs['Бренд'])
+            brand_monitor=Brand_Monitor.objects.get(value=specs['Бренд'])
             item.brand_monitor=brand_monitor
         except:
-            brand_monitor=BrandMonitor.objects.get(value='Нет бренда')
+            brand_monitor=Brand_Monitor.objects.get(value='Нет бренда')
             item.brand_monitor=brand_monitor
         try:
             usb_port=USBPort.objects.get(value=specs['Количество USB портов'])
@@ -979,12 +979,6 @@ def selenium_search(request):
                 except:
                     print('No resolution data provided')
                 try:
-                    brand_monitor=BrandMonitor.objects.get(value=specs['Бренд'])
-                    item.brand_monitor=brand_monitor
-                except:
-                    brand_monitor=BrandMonitor.objects.get(value='Нет бренда')
-                    item.brand_monitor=brand_monitor
-                try:
                     usb_port=USBPort.objects.get(value=specs['Количество USB портов'])
                     item.usb_port=usb_port
                 except:
@@ -1610,12 +1604,6 @@ def create_from_ozon(request):
                 type=type_monitor
             )
             #===============attributes with dictionary_id >0=========================
-            try:
-                brand_monitor=BrandMonitor.objects.get(value=specs['Бренд'])
-                item.brand_monitor=brand_monitor
-            except:
-                brand_monitor=BrandMonitor.objects.get(value='Нет бренда')
-                item.brand_monitor=brand_monitor
             try:
                 usb_port=USBPort.objects.get(value=specs['Количество USB портов'])
                 item.usb_port=usb_port

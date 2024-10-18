@@ -3,14 +3,13 @@ from . import views
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register('products', views.ProductView)
-
-
-#router.register('categories', views.ProductCategoryView)
+router.register('smartphones', views.SmartphoneView)
+router.register('monitors', views.MonitorView)
 
 urlpatterns = [ 
     path('api', include(router.urls)),
-    path ('', views.products, name='products'),
+    path ('', views.categories, name='categories'),
+    path ('product/<int:category_id>', views.product, name='product'),
    
     
     #path ('', views., name='reference'),

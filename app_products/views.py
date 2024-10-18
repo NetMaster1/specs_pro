@@ -1,35 +1,45 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from .models import Smartphone
+from .models import Smartphone, Monitor
 from app_reference_shared.models import OzonCategory
-from .serializers import SmartphoneSerializer
+from .serializers import SmartphoneSerializer, MonitorSerializer
 
 # Create your views here.
 
-class ProductView(viewsets.ModelViewSet):
+class SmartphoneView(viewsets.ModelViewSet):
     queryset = Smartphone.objects.all()
+    # queryset = Monitor.objects.all()
     serializer_class = SmartphoneSerializer
     #serializer_class = SmartphoneSerializer(many=True)
     http_method_names= ['get']#allowed methods
 
-
-#class ProductCategoryView(viewsets.ModelViewSet):
+class MonitorView(viewsets.ModelViewSet):
     #category="Smartphones"
-    #queryset = ProductCategory.objects.filter(name=category)
-    # queryset = ProductCategory.objects.all()
-    # serializer_class = ProductCategorySerializer
+    queryset =Monitor.objects.all()
+    serializer_class = MonitorSerializer
+    http_method_names= ['get']#allowed methods
 
 #========================================================================
 
-def products (request):
-    #products=Smartphone.objects.all()
-    categories=OzonCategory.objects.all()
-    #print(products)
+def categories (request):
+    categories=OzonCategory.objects.filter(activated=True)
     context = {
-
         'categories': categories
     }
+    return render (request, 'categories.html', context)
+
+def product (request, category_id):
+    category=OzonCategory.objects.get(id=category_id)
+    if category.type_name == 'Монитор':
+        products=Monitor.objects.all()
+    elif category.type_name=="Смартфон":
+        products=Smartphone.objects.all()
+ 
+    context = {
+        'products': products
+    }
     return render (request, 'products.html', context)
+
 
 
 #api=json.loads(api_request.content)

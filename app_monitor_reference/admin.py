@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import (Resolution, TypeMonitor, USBPort, BuiltinSpeaker, CurvedDispaly, HDR, ColourMonitor, EuroAsianCodeMonitor,) #BrandMonitor,)
+from .models import (Resolution, TypeMonitor, USBPort, BuiltinSpeaker, CurvedDispaly, HDR, ColourMonitor, EuroAsianCodeMonitor, Brand_Monitor)
 
 class ResolutionAdmin(admin.ModelAdmin):
     list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required', 'category_dependent')
@@ -43,7 +43,7 @@ class HDRAdmin(admin.ModelAdmin):
     list_per_page=100
     search_fields = ('value', )
 
-class BrandMonitorAdmin(admin.ModelAdmin):
+class Brand_MonitorAdmin(admin.ModelAdmin):
     list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required', 'category_dependent')
     list_filter = ('value',)
     ordering = ('value',)
@@ -70,6 +70,6 @@ admin.site.register(USBPort, USBPortAdmin)
 admin.site.register(BuiltinSpeaker, BuiltinSpeakerAdmin)
 admin.site.register(CurvedDispaly, CurverdDisplayAdmin)
 admin.site.register(HDR, HDRAdmin)
-#admin.site.register(BrandMonitor, BrandMonitorAdmin)
+admin.site.register(Brand_Monitor, Brand_MonitorAdmin)
 admin.site.register(ColourMonitor, ColourMonitorAdmin)
 admin.site.register(EuroAsianCodeMonitor, EuroAsianCodeMonitorAdmin)

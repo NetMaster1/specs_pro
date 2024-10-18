@@ -106,8 +106,8 @@ from app_monitor_reference.models import(
     BuiltinSpeaker,
     CurvedDispaly,
     HDR,
-    #BrandMonitor,
     ColourMonitor,
+    Brand_Monitor,
     EuroAsianCodeMonitor,
 )
 
@@ -257,10 +257,10 @@ class Monitor (models.Model):
     created = models.DateTimeField(auto_now=True)
     #В справочнике Ozon отсутствуют такие бренды как, Xiaomi, Redmi, Honor, Honor, Poco
     #Есть такие бренды как, Samsung
-    #brand_monitor = models.ForeignKey(BrandMonitor, on_delete=models.DO_NOTHING, null=True)
     #=================================================================
     #Каталожный номер изделия или детали. Is_required=True. Можно использовать EAN
     #Не можем использовать IMEI телефона, так как они разные у одного SKU
+    brand_monitor = models.ForeignKey(Brand_Monitor, on_delete=models.DO_NOTHING, null=True)
     part_number = models.ForeignKey(PartNumber, on_delete=models.DO_NOTHING, null=True)
     resolution = models.ForeignKey(Resolution, on_delete=models.DO_NOTHING, null=True, blank=True)#5592
     #Выберите наиболее подходящий тип товара. По типам товары распределяются по категориям на сайте Ozon. 

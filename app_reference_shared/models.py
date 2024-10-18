@@ -2,14 +2,14 @@ from django.db import models
 
 # Create your models here.
 class OzonCategory (models.Model):
+    activated = models.BooleanField(default=False)
     type_name = models.CharField(max_length=100, null=True)
     type_id = models.CharField(max_length=50, null=True)
     description_category_id = models.CharField(max_length=80, null=True)
     category_name = models.CharField(max_length=80, null=True)
     group_description_category_id = models.CharField(max_length=80, null=True)
     group_category_name = models.CharField(max_length=80, null=True)
-    active = models.BooleanField(default=False)
-   
+    
     def __str__(self):
         return self.type_name
 #========================================================Values========================
