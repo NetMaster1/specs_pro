@@ -3,6 +3,7 @@ from .models import  Smartphone, Monitor
 from app_reference_shared.models import OzonCategory, ProcessorModel, Authentication
 
 class SmartphoneSerializer(serializers.ModelSerializer):
+#class SmartphoneSerializer(serializers.HyperlinkedModelSerializer):
     #category_name = serializers.StringRelatedField(source='category')#outputs string repsresentation of foreign key instead of id
     #processor_key = serializers.StringRelatedField(many=True)#outputs string repsresentation of foreign key instead of id
     items = serializers.SerializerMethodField('get_items')
@@ -11,6 +12,7 @@ class SmartphoneSerializer(serializers.ModelSerializer):
     class Meta:
         model = Smartphone
         fields = ['items',]
+        #fields = ['url', 'items',]
         #fields ='__all__'
         depth=1#this field is crucial for displaying ManyToMany Field in serializer
         #Для вывода полей с ForeignField можно использовать функции get_smth или можно просто использовать параметр "depth=1"
@@ -1058,7 +1060,7 @@ class SmartphoneSerializer(serializers.ModelSerializer):
         except:
             print('No data provided')
         #=====================================
-        items=[{}]
+        #items=[{}]
         items=[{"attributes" : attributes, 
                "barcode": "",
                 "description_category_id": 15621050,
@@ -1090,12 +1092,13 @@ class SmartphoneSerializer(serializers.ModelSerializer):
         return items
 
 
-class MonitorSerializer(serializers.ModelSerializer):
+#class MonitorSerializer(serializers.ModelSerializer):
+class MonitorSerializer(serializers.HyperlinkedModelSerializer):
     items = serializers.SerializerMethodField('get_items')
 
     class Meta:
         model = Monitor
-        fields = ['items',]
+        fields = ['url', 'items',]
 
     def get_items (self, monitor):
         attributes =[]

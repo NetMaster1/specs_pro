@@ -6,12 +6,32 @@
     <title>Document</title>
 </head>
 <body>
-    
-{% for item in products %}
+Для получения технических характеристик в формате JSON интересующего вас SKU используйте ссылку ниже плюс соответствующй ID через "/"    
 
-{{item.name}}
+<br>
+{{url}}
+
+<!-- {% if category.type_name == 'Монитор' %}
+    url=http://127.0.0.1:8000/apimonitors
+{% elif category.type_name == "Смартфон" %}
+    url=http://127.0.0.1:8000/apismartphones
+{% endif %} -->
+<br>
+<br>Образец ссылки: <h5>{{url}}/4</h5>
+
+<h5>Поиск SKU по названию</h5>
+Введите название полностью или его часть. Например, уникальный цифро-буквенный код.
+<form action="{% url 'search_sku' %}" method="POST">
+    {% csrf_token %}
+        <input type="text" id="text" name="text" maxlength='100' autofocus>
+        <input type="submit" value="Поиск">
+</form>
 <br>
 
+
+{% for item in products %}
+SKU: &nbsp;{{item.name}}  &nbsp;&nbsp;&nbsp;  ID: {{item.id}}
+<br>
 {% endfor %}
 
 </body>

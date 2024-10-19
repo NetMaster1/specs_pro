@@ -208,7 +208,6 @@ def specs (request):
     for keys, values in specs.items():
         print(keys + ' : ' + values)
 
-    
     driver.quit()
 
     try:
@@ -280,8 +279,6 @@ def specs (request):
             item.euro_asian_code_monitor=euro_asian_code_monitor
         except:
             print('No euro_asian_code_monitor data provided')
-
-
 
         #==========================is_collection=========================================
         try:
@@ -395,7 +392,6 @@ def specs (request):
         except:
             print('No special_feature data provided')
         
-
         #======================Model with dictionary_id=0=========================
         try:
             if Name.objects.filter(value=specs['Название']).exists():

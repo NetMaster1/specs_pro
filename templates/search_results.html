@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    Для получения технических характеристик в формате JSON интересующего вас SKU используйте ссылку ниже плюс соответствующй ID через "/"    
+
+<br><br>
+    {% for item in array %}
+        SKU:&nbsp;&nbsp;{{item.name}}&nbsp;&nbsp;ID:&nbsp;{{item.id}}
+        <br>
+        <br>Образец ссылки: <h5>http://127.0.0.1:8000/apimonitors/{{item.id}}</h5>
+    {% endfor %}
+</body>
+</html>
