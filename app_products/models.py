@@ -316,7 +316,7 @@ class Monitor (models.Model):
     weight = models.ForeignKey(Weight, on_delete=models.DO_NOTHING, null=True, blank=True)
     pixel_per_inch = models.ForeignKey(PixelPerInch, on_delete=models.DO_NOTHING, null=True, blank=True)
     colour_monitor = models.ManyToManyField(ColourMonitor, blank=True)
-    #monitor_installation = models.ManyToManyField(MonitorInstallation, blank=True)
+    monitor_installation = models.ManyToManyField(MonitorInstallation, blank=True)
     design_feature = models.ManyToManyField(DesignFeature, blank=True)
     curved_display = models.ForeignKey(CurvedDispaly, on_delete=models.DO_NOTHING, null=True, blank=True)
     response_time = models.ForeignKey(ResponseTime, on_delete=models.DO_NOTHING, null=True, blank=True)
