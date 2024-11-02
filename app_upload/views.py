@@ -85,7 +85,7 @@ from app_monitor_reference.models import (
     BuiltinSpeaker,
     CurvedDispaly,
     HDR,
-    #BrandMonitor,
+    Brand_Monitor,
     EuroAsianCodeMonitor,
     ColourMonitor
 )
@@ -2363,9 +2363,9 @@ def upload_monitor(request):
     array=json['result']
     for i in array:
         try:
-            item=BrandMonitor.objects.get(dictionary_value_id=i['id'])
-        except BrandMonitor.DoesNotExist:
-            item= BrandMonitor.objects.create(
+            item=Brand_Monitor.objects.get(dictionary_value_id=i['id'])
+        except Brand_Monitor.DoesNotExist:
+            item= Brand_Monitor.objects.create(
                 value=i['value'],
                 dictionary_value_id=i['id'],
                 attribute_id='85',

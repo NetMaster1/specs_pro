@@ -11,8 +11,15 @@
 <br><br>
     {% for item in array %}
         SKU:&nbsp;&nbsp;{{item.name}}&nbsp;&nbsp;ID:&nbsp;{{item.id}}
+    
+        {% with url=f'http://127.0.0.1:8000/apimonitors/{item.id}' %}
+     
+
         <br>
-        <br>Образец ссылки: <h5>http://127.0.0.1:8000/apimonitors/{{item.id}}</h5>
+        <br>
+        <!-- Образец ссылки:<a href="http://127.0.0.1:8000/apimonitors/{item.id}" ({{item.id}})><h5>http://127.0.0.1:8000/apimonitors/{{item.id}}</h5></a> -->
+        Образец ссылки:<a href={{url}}><h5>http://127.0.0.1:8000/apimonitors/{{item.id}}</h5></a>
+        {% endwith %}
     {% endfor %}
 </body>
 </html>

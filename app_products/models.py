@@ -332,6 +332,7 @@ class Monitor (models.Model):
     #линейка мобильный устройств
     gadget_serie = models.ForeignKey(GadgetSerie, on_delete=models.SET_NULL, null=True, blank=True)#9225
     #======================dictionary_id > 0==================================================
+    video_url = models.URLField(blank=True)
     image_1 = models.URLField(blank=True)
     image_2 = models.URLField(blank=True)
     image_3 = models.URLField(blank=True)

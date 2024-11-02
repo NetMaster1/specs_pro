@@ -67,6 +67,7 @@ def search_sku(request):
             if Monitor.objects.filter(name=i).exists():
                 product=Monitor.objects.get(name=i)
                 array.append(product)
+           
         context = {
             'array' : array,
         }

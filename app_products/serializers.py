@@ -1091,7 +1091,6 @@ class SmartphoneSerializer(serializers.ModelSerializer):
         # return attributes
         return items
 
-
 #class MonitorSerializer(serializers.ModelSerializer):
 class MonitorSerializer(serializers.HyperlinkedModelSerializer):
     items = serializers.SerializerMethodField('get_items')

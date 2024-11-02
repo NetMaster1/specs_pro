@@ -6,8 +6,8 @@ from .models import (SmartphoneVersion, PublishingYear, RamSmartphone, ESimSuppo
     FrontCamerResolution, BasicCamerResolution, BatteryCapacity, StandByPeriod, WorkPeriod, RecordMaxSpeed, LifeSpan, ScreenSize, SellerCode,
     MarketingColour, ProcessorFrequency, Name, Description, KeyWord, MaxCardVolume, Json, LightningType, ScreenCoating, HDMIPorts, Adjustment,
     PixelSize, Ratio, MaxScreenFrequency, Brightness, Contrast, DynamicContrast, LookAngle, HorizontalFrequency, VerticalFrequency, WebCamera,
-    StandAdjustment, PowerCapacity, VESAFixture, PixelPerInch, MonitorInstallation, DesignFeature, ResponseTime, MonitorMatrix, MonitorApplication,
-    MonitorConnector, HDRStandard
+    StandAdjustment, PowerCapacity, VESAFixture, PixelPerInch, DesignFeature, ResponseTime, MonitorMatrix, MonitorApplication,
+    MonitorConnector, HDRStandard, MonitorInstallation,
     )
 
 class OzonCategoryAdmin(admin.ModelAdmin):
