@@ -13,13 +13,14 @@ class SmartphoneAdmin(admin.ModelAdmin):
     list_display = ('id', 'name',)  
     #list_filter = ('name',)
     #list_editable= ('processor', 'authentification', )
-    #search_fields = ('imei', )
+    search_fields = ('model_name', )
 
 class MonitorAdmin(admin.ModelAdmin):
     list_display = ('id', 'name',)  
     #list_filter = ('name',)
     #list_editable= ('processor', 'authentification', )
-    #search_fields = ('imei', )
+    #Для поиска по полю ForeignKey нужно ввести название поля затем двойной пробел и название поля в родительской моделе
+    search_fields = ('model_name__value', )
 
 # class TV_SetAdmin(admin.ModelAdmin):
 #     list_display = ('id', 'name', 'category_name',  'EAN')  

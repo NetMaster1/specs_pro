@@ -182,7 +182,7 @@ class ProcessorFrequency (models.Model):
 class Name (models.Model):
     attribute_name = models.CharField(max_length=50, null=True, default="Название")
     attribute_id = models.CharField(max_length=50, null=True, default="4180")
-    value = models.CharField(max_length=100, blank=True)
+    value = models.CharField(max_length=75, blank=True)
     dictionary_value_id = models.CharField(max_length=20, default=0)
     is_required = models.BooleanField(default=False)
     category_dependent = models.BooleanField(default=False)
@@ -252,7 +252,7 @@ class SmartphoneVersion (models.Model):
 class ModelName (models.Model):
     attribute_name = models.CharField(max_length=50, null=True, default="Название модели (для объединения в одну карточку)")
     attribute_id = models.CharField(max_length=50, null=True, default='9048')
-    value = models.CharField(max_length=100, blank=True)
+    value = models.CharField(max_length=50, blank=True)
     dictionary_value_id = models.CharField(max_length=20, default=0)
     is_required = models.BooleanField(default=False)
     category_dependent = models.BooleanField(default=False)
