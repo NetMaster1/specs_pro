@@ -188,7 +188,8 @@ def selenium_search_ozon_monitor(request):
     driver = webdriver.Chrome(options=options)
     
     #driver = webdriver.Firefox()
-    url="https://www.ozon.ru/category/monitory-15738/benq-26303024/?category_was_predicted=true&deny_category_prediction=true&from_global=true&opened=brand&text=%D0%BC%D0%BE%D0%BD%D0%B8%D1%82%D0%BE%D1%80"
+    #url="https://www.ozon.ru/category/monitory-15738/benq-26303024/?category_was_predicted=true&deny_category_prediction=true&from_global=true&opened=brand&text=%D0%BC%D0%BE%D0%BD%D0%B8%D1%82%D0%BE%D1%80"
+    url="https://www.ozon.ru/category/monitory-15738/benq-26303024/?category_was_predicted=true&deny_category_prediction=true&from_global=true&opened=brand&text=монитор"
     #url="https://www.ozon.ru/category/monitory-15738/samsung-24565087/?category_was_predicted=true&deny_category_prediction=true&from_global=true&rsdiagonalstr=34.000%3B34.000&text=монитор"
     #url="https://www.ozon.ru/product/samsung-27-monitor-essential-monitor-ls27c310eaixci-chernyy-1646295308/features/"
     #url="https://www.ozon.ru/category/monitory-15738/samsung-24565087/?category_was_predicted=true&deny_category_prediction=true&from_global=true&rsdiagonalstr=22.000%3B22.000&text=%D0%BC%D0%BE%D0%BD%D0%B8%D1%82%D0%BE%D1%80"
@@ -375,46 +376,46 @@ def selenium_search_ozon_monitor(request):
                 # window_after = driver.window_handles[1]
                 # driver.switch_to.window(window_handle_after)
                 driver.execute_script("return document.documentElement.innerHTML")
+                #scroll_down(driver, 10)
+                print()
                 print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
                 print('Here comes item # ' + str(general_counter))
-
-
+                print('------------------------------------')
                 #parsing links to image & video files
                 image_files=[]
                 try:
                     img_item = WebDriverWait(driver, 20).until(
-                            EC.presence_of_element_located((By.CLASS_NAME, "tl7_27"))
+                            EC.presence_of_element_located((By.CLASS_NAME, "l9t_27"))
                     )
-                    img_item=driver.find_element(By.CLASS_NAME, 'tl7_27')
+                    #img_item=driver.find_element(By.CLASS_NAME, 'l9t_27')
                     image_items = img_item.find_elements(By.XPATH, "*")
                     for k in image_items[1:5]:
-                        try:
-                            img_item=k.find_element(By.XPATH, "div")
-                            actions = ActionChains(driver)
-                            actions.move_to_element(img_item).perform()
-                            img_item.click()
+                        img_item=k.find_element(By.XPATH, "div")
+                        actions = ActionChains(driver)
+                        #actions.move_to_element(img_item).perform()
+                        actions.click(img_item).perform()
+                        #img_item.click()
 
-                            item=driver.find_element(By.CLASS_NAME, 'sl9_27')
-                            #item=item.find_element(By.XPATH, "//img")
-                            item=item.find_element(By.XPATH, "div")
-                            item=item.find_element(By.XPATH, "div")
-                            # item=item.find_element(By.XPATH, "div")
-                            image=item.find_element(By.XPATH, "img")
-                            url_file = image.get_attribute("src")
-                            image_files.append(url_file)
+                        try:
+                            # video = WebDriverWait(driver, 20).until(
+                            # EC.presence_of_element_located((By.CLASS_NAME, "rk7_27"))
+                            #     )
+                            video=driver.find_element(By.CLASS_NAME, 'rk7_27')
+                            video=video.find_element(By.XPATH, "video-player")
+                            url_file = video.get_attribute("src")
+                            image_files.append(url_file)  
                         except:
                             try:
-                                #video=driver.find_element(By.CLASS_NAME, 'k0s_27')
-                                video = WebDriverWait(driver, 20).until(
-                                EC.presence_of_element_located((By.CLASS_NAME, "r5k_27"))
-                                )
-                                video=video.find_element(By.XPATH, "video-player")
-                                url_file = video.get_attribute("src")
+                                item=driver.find_element(By.CLASS_NAME, 't0l_27')
+                                item=item.find_element(By.XPATH, "div")
+                                item=item.find_element(By.XPATH, "div")
+                                image=item.find_element(By.XPATH, "img")
+                                url_file = image.get_attribute("src")
                                 image_files.append(url_file)
                             except:
                                 pass
                 except:
-                    item = driver.find_element(By.CLASS_NAME, 'sl9_27')
+                    item = driver.find_element(By.CLASS_NAME, 't0l_27')
                     item=item.find_element(By.XPATH, "div")
                     item=item.find_element(By.XPATH, "div")
                     image=item.find_element(By.XPATH, "img")
@@ -423,40 +424,34 @@ def selenium_search_ozon_monitor(request):
                 print('Image files: ')
                 for i in image_files:
                     print(i)
-
                 #driver.forward()
                 #driver.refresh()
                 #driver.execute_script("return document.documentElement.outerHTML")
-                #item=driver.find_element(By.ID, 'paginatorContent')
-                #item=driver.find_element(By.CLASS_NAME, 'ky0_27')
-                item_keys=driver.find_elements(By.CLASS_NAME, 'k3y_27')
-                item_values=driver.find_elements(By.CLASS_NAME, 'ky3_27')
-                #LOOKING FOR HEADING
-                #heading = driver.find_element(By.CLASS_NAME, "m5t_27 tsHeadline550Medium")
-                heading_item = driver.find_element(By.CLASS_NAME,"t5m_27")
-                heading = heading_item.find_element(By.TAG_NAME,"h1")
-
+                item_keys=driver.find_elements(By.CLASS_NAME, 'yk4_27')
+                item_values=driver.find_elements(By.CLASS_NAME, 'y4k_27')
                 specs={}
                 #формирует словарь с тех характеристикам
                 for m, n in zip (item_keys, item_values):
-                        specs[m.text]=n.text
+                    specs[m.text]=n.text
                 #=========================================================================================
                 #парсим product_set отдельно от остальных характеристик, так как на странице ozon он стоит отдельно
                 #и иногда отсутствует
                 try:
                     product_set = driver.find_element(By.CLASS_NAME, 'RA-a1')
-                    #product_set = product_set[5]
-                    if 'Комплектация' in product_set.text:
-                        string=product_set.text
-                        string=string.replace('Комплектация', '')
-                        specs['Комплектация']=string
-                        #print(string)   
+                    h3 = product_set.find_elements(By.TAG_NAME,"h3")
+                    p = product_set.find_elements(By.TAG_NAME,"p")
+                    for k, p in zip (h3, p):
+                        specs[k.text]=p.text
+                        
                 except:
                     print('No product_set data provided')
-
-                print("Tecnhical Specs: ")
                 for keys, values in specs.items():
                     print(keys + ' : ' + values)
+
+                #LOOKING FOR HEADING
+                heading_item = driver.find_element(By.CLASS_NAME,"tm8_27")
+                heading = heading_item.find_element(By.TAG_NAME,"h1")
+
                 #===========================Required Attributes================================
                 #вычленяем название модели из названия товара, так как в характеристиках на странице ozon её нет
                 #и вносим в словарь (обязательный атрибут)
@@ -465,30 +460,34 @@ def selenium_search_ozon_monitor(request):
                 #удляем запятые из строки
                 #input_string.replace(',','')
                 #input_string = ' '.join(input_string.split())
+                print('-----------------------------')
                 print('Here comes heading text: ')
-                print(heading.text)#Samsung 34" Монитор S34C650VAI, черный
-                print(input_string)#Samsung 34" Монитор S34C650VAI, черный
+                print('-----------------------------')
+                print("Heading: " + heading.text)#Samsung 34" Монитор S34C650VAI, черный
+                #print(input_string)#Samsung 34" Монитор S34C650VAI, черный
                 #делим строку на две части по слову "Монитор" и преобразуем её в список (list)
                 string=input_string.split('Монитор ')
                 #берём вторую часть списка и преобразуем её в строку
                 string=str(string[1])
-                print(string)#S34C650VAI, черный
+                print("String after word 'monitor': " + string)#S34C650VAI, черный
                 try:
                     #и делаем из неё ещё один список, разделив его по "," 
-                    model_colour_list=string.split(',', 1)
-                    print(model_colour_list)#['S34C650VAI', ' черный']
+                    model_card_list=string.split(',', 1)
+                    model_card_string=str(model_card_list[0])
+                    print("Converting the string into list splitting it by ',': " + model_card_string)#['S34C650VAI', ' черный']
                     #берём первую часть и преобразуем эту часть в строку
-                    model_card_string=str(model_colour_list[0])
-                    print(model_card_string)#S34C650VAI
-                    specs['Название модели (для объединения в одну карточку)']=model_card_string
                 except:
-                    #и делаем из неё ещё один список, разделив его по "," 
-                    model_colour_list=string.split('/', 1)
-                    print(model_colour_list)#['S34C650VAI', ' черный']
-                    #берём первую часть и преобразуем эту часть в строку
-                    model_card_string=str(model_colour_list[0])
-                    print(model_card_string)#S34C650VAI
-                    specs['Название модели (для объединения в одну карточку)']=model_card_string
+                    if '/' in string:
+                        #и делаем из неё ещё один список, разделив его по "/" 
+                        model_card_list=string.split('/', 1)
+                        model_card_string=str(model_card_list[0])
+                        print("Converting the string into list splitting it by '/': " + model_card_string)#['S34C650VAI', ' черный']
+                    else:
+                        model_card_list=string.split(' ', 1)
+                        model_card_string=str(model_card_list[0])
+                        print("Converting the string into list splitting it by ' ': " + model_card_string)#['S34C650VAI', ' черный']
+                        #берём первую часть и преобразуем эту часть в строку
+                specs['Название модели (для объединения в одну карточку)']=model_card_string
 
                 #Берем значение бренда из словаря. Если оно отсутствует, вычленяем название бренда из названия модели,
                 #и добавляем в Название товара и в словарь
@@ -510,13 +509,12 @@ def selenium_search_ozon_monitor(request):
                     str(specs['Диагональ экрана, дюймы'] + '"'),
                     specs['Название модели (для объединения в одну карточку)'],
                 ]
-                #если в словаре есть значение цвета, добавляем его название в Название товара из heading.text
-                #цвет необязательный атрибут
                 #transforming list to string
                 type_brand_string=' '.join(type_brand_string)
                 print(type_brand_string)#Монитор Samsung 34" S34C650VAI
-
-                if ColourMonitor.objects.filter(value=specs['Цвет']).exists():
+                #если в словаре есть значение цвета, добавляем его название в название товара из heading.text
+                #цвет необязательный атрибут
+                if 'Цвет' in specs:
                     name_string=[
                         type_brand_string,
                         str(specs['Цвет']).lower()
@@ -525,22 +523,13 @@ def selenium_search_ozon_monitor(request):
                     name_string=[
                     type_brand_string,
                     ]
-                # try:
-                #     name_string=[
-                #         type_brand_string,
-                #         model_colour_list[1]
-                #     ]
-                #     specs['Цвет'] = str(model_colour_list[1]).lower(),
-                # except:
-                    
+               
                 #transforming list to string with commas
                 name_string=', '.join(name_string)#Монитор Samsung 34" S34C650VAI, черный
-                print(name_string)
+                print('Monitor Name: ' + name_string)
 
                 #Название, которое выводится в качестве основного название товара
                 #specs['Название']=name_string
-                print("Below comes technical data: ")
-                print('==============================')
                 #===============================================================
                 #checking if the sku exists in my DB
                 try:
@@ -601,7 +590,7 @@ def selenium_search_ozon_monitor(request):
                             )
                         item.brightness=brightness
                     if item.contrast is None and 'Контрастность' in specs:
-                        if Contrast.objects.filter(value=specs[]).exists():
+                        if Contrast.objects.filter(value=specs['Контрастность']).exists():
                             contrast=Contrast.objects.get(value=specs['Контрастность'])
                         else:
                             contrast=Contrast.objects.create(
@@ -609,7 +598,7 @@ def selenium_search_ozon_monitor(request):
                             )
                         item.contrast=contrast
                     if item.dynamic_contrast is None and 'Динамическая контрастность' in specs:
-                        if DynamicContrast.objects.filter(value=specs[]).exists():
+                        if DynamicContrast.objects.filter(value=specs['Динамическая контрастность']).exists():
                             dynamic_contrast=DynamicContrast.objects.get(value=specs['Динамическая контрастность'])
                         else:
                             dynamic_contrast=DynamicContrast.objects.create(
@@ -672,7 +661,7 @@ def selenium_search_ozon_monitor(request):
                                 value=str(specs['Время отклика, мс'])
                             )
                         item.response_time=response_time
-                    if item.description is None and specs[] is not None:
+                    if item.description is None and 'Аннотация' is specs:
                         if Description.objects.filter(value=specs['Аннотация']).exists():
                             description=Description.objects.get(value=specs['Аннотация'])
                         else:
@@ -680,7 +669,7 @@ def selenium_search_ozon_monitor(request):
                                 value=str(specs['Аннотация'])
                             )
                         item.description=description
-                    if item.size is None and 'Аннотация' in specs:
+                    if item.size is None and 'Размеры, мм' in specs:
                         if Size.objects.filter(value=specs['Размеры, мм']).exists():
                             size=Size.objects.get(value=specs['Размеры, мм'])
                         else:
@@ -893,7 +882,12 @@ def selenium_search_ozon_monitor(request):
 
                 #except Monitor.DoesNotExist:
                 except Exception as e:
+                    print('-------------------------------')
+                    print('Error: ')
                     print (e)
+                    print('--------------------------------')
+                    print('Missing parameters')
+
                     #=============is_required=======================
                     category_name=OzonCategory.objects.get(type_name='Монитор')
                     #resolution=Resolution.objects.get(value=specs['Разрешение'])
@@ -1345,6 +1339,7 @@ def selenium_search_ozon_monitor(request):
 
                     print('ITEM CREATED')
                     item.save()
+               
                 print('==============================')
                 #time.sleep(10)
                 #driver.back()

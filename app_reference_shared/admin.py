@@ -358,6 +358,7 @@ class WarrantyPeriodAdmin(admin.ModelAdmin):
 
 class ModelNameAdmin(admin.ModelAdmin):
     list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_per_page=100
     list_filter = ('value',)
     ordering = ('value',)
     list_per_page=100
