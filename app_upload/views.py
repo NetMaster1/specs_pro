@@ -1299,7 +1299,8 @@ def upload_special_features (request):
         "Api-Key": '6bbf7175-6585-4c35-8314-646f7253bef6'
     }
     task = {
-    "attribute_id": 11449,
+    "attribute_id": 5584,
+    #"attribute_id": 11449,
     "description_category_id": 15621050,
     "language": "DEFAULT",
     "last_value_id": 0,
@@ -1318,7 +1319,8 @@ def upload_special_features (request):
             item= SpecialFeature.objects.create(
                 value=i['value'],
                 dictionary_value_id=i['id'],
-                attribute_id='11449',
+                attribute_id='5584',
+                #attribute_id='11449',
                 attribute_name='Особенности',
                 is_required=False,
                 category_dependent=False

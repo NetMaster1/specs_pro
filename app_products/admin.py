@@ -17,10 +17,10 @@ class SmartphoneAdmin(admin.ModelAdmin):
 
 class MonitorAdmin(admin.ModelAdmin):
     list_display = ('id', 'name',)  
-    #list_filter = ('name',)
+    list_filter = ('brand_monitor__value',)
     #list_editable= ('processor', 'authentification', )
     #Для поиска по полю ForeignKey нужно ввести название поля затем двойной пробел и название поля в родительской моделе
-    search_fields = ('model_name__value', )
+    search_fields = ('model_name__value', 'brand_monitor__value' )
 
 # class TV_SetAdmin(admin.ModelAdmin):
 #     list_display = ('id', 'name', 'category_name',  'EAN')  

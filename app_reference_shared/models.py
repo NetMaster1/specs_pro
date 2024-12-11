@@ -50,7 +50,7 @@ class PartNumber (models.Model):
 class ProductSet (models.Model):
     attribute_name = models.CharField(max_length=50, null=True, default='Комплектация')
     attribute_id = models.CharField(max_length=50, null=True, default="4384")
-    value = models.CharField(max_length=100, blank=True)
+    value = models.CharField(max_length=250, blank=True)
     dictionary_value_id = models.CharField(max_length=20, default=0)
     is_required = models.BooleanField(default=False)
     category_dependent = models.BooleanField(default=False)
@@ -257,6 +257,8 @@ class ModelName (models.Model):
     is_required = models.BooleanField(default=False)
     category_dependent = models.BooleanField(default=False)
     is_collection = models.BooleanField(default=False)
+    equipment_type = models.CharField(max_length=50, null=True, blank=True)
+    equipment_brand = models.CharField(max_length=50, null=True, blank=True)
     def __str__(self):
         return self.value
     
@@ -428,7 +430,7 @@ class WebCamera (models.Model):
 class StandAdjustment (models.Model):
     attribute_name = models.CharField(max_length=50, default="Уровни регулировки подставки")
     attribute_id = models.CharField(max_length=50, default='5582')
-    value = models.CharField(max_length=100, blank=True)
+    value = models.CharField(max_length=250, blank=True)
     dictionary_value_id = models.CharField(max_length=20, default=0)
     is_required = models.BooleanField(default=False)
     category_dependent = models.BooleanField(default=False)

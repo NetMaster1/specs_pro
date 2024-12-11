@@ -357,12 +357,12 @@ class WarrantyPeriodAdmin(admin.ModelAdmin):
     search_fields = ('value', )
 
 class ModelNameAdmin(admin.ModelAdmin):
-    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_display = ('id', 'attribute_name',  'value', 'equipment_type', 'equipment_brand', 'dictionary_value_id', 'is_required')  
     list_per_page=100
     list_filter = ('value',)
     ordering = ('value',)
     list_per_page=100
-    search_fields = ('value', )
+    search_fields = ('value', 'equipment_type', 'equipment_brand' )
 
 class CardTitleModelNameAdmin(admin.ModelAdmin):
     list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
