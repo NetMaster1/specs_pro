@@ -17,11 +17,14 @@ from app_reference_shared.models import (OzonCategory,LightningType, Size, Monit
     PartNumber, Name, ModelName, LifeSpan, MaxCardVolume, BatteryCapacity, StandByPeriod, WorkPeriod, RecordMaxSpeed, ProcessorFrequency,
     FrontCamerResolution, BasicCamerResolution, MarketingColour, HardDrive, MatrixType, CardType, BluetoothType, VideoProcessorBrand,
     HazardGrade, VideoProcessor, ProcessorBrand, ProcessorModel, OSMobile, AndroidVersion, IOSVersion, ESimSupport, PublishingYear,
-    NavigationType, Sensor,
+    NavigationType, Sensor, SimType, WifiType, CameraFunction, WirelessInterface, CaseMaterial, Interface, CommunicationStandard,
+    ChargingFunction, Stabilization, Authentication,
     )
 from app_reference_smartphones.models import (BrandSmartphone, SmartphoneModel, TypeSmartphone, ScreenResolution, VideoQuality, 
     GadgetModel, ProtectionGrade, Colour, QntyOfBasicCamera, Processor, ProcessorCoreQnty, MicroSDSlot, CaseForm, EuroAsianCode,
-    SimCardQnty, ScreenResolution, VideoQuality, QntyOfBasicCamera, Processor, ProcessorCoreQnty, MicroSDSlot, CaseForm, )
+    SimCardQnty, ScreenResolution, VideoQuality, QntyOfBasicCamera, Processor, ProcessorCoreQnty, MicroSDSlot, CaseForm, ProtectionGrade, 
+    
+    )
 import datetime
 import re
 from selenium import webdriver
@@ -1053,24 +1056,162 @@ def selenium_search_ozon_smartphone(request):
                                 item.sensor.add(sensor)
                     except:
                         print('No sensor data provided')
-
-
-
-
-
-
                     try:
-                        string=specs['Цвет']
+                        string=specs['Форм-фактор SIM']
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if SimType.objects.filter(value=i).exists():
+                                sim_type=SimType.objects.get(value=i)
+                                item.sim_type.add(sim_type)
+                    except:
+                        print('No sim_type data provided')
+                    try:
+                        string=specs['Модуль связи WiFi']
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if WifiType.objects.filter(value=i).exists():
+                                wifi=WifiType.objects.get(value=i)
+                                item.wifi.add(wifi)
+                    except:
+                        print('No wifi data provided')
+                    try:
+                        string=specs['Степень защиты']
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if ProtectionGrade.objects.filter(value=i).exists():
+                                protection_grade=ProtectionGrade.objects.get(value=i)
+                                item.protection_grade.add(protection_grade)
+                    except:
+                        print('No protection_grade data provided')
+                    try:
+                        string=specs['Функции камеры']
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if CameraFunction.objects.filter(value=i).exists():
+                                camera_function=CameraFunction.objects.get(value=i)
+                                item.camera_function.add(camera_function)
+                    except:
+                        print('No camera_function data provided')
+                    try:
+                        string=specs['Цвет товара']
                         string=string.lower()
                         string=string.replace(", ", ",")#deleting spaces after comma
                         array=string.split(',')#transforming the string into a list
                         for i in array:
                             str(specs['Цвет']).lower()
-                            if ColourMonitor.objects.filter(value=i).exists():
-                                colour_monitor=ColourMonitor.objects.get(value=i)
-                                item.colour_monitor.add(colour_monitor)
+                            if Colour.objects.filter(value=i).exists():
+                                colour=Colour.objects.get(value=i)
+                                item.colour.add(colour)
                     except:
-                        print('No colour_monitor data provided')
+                        print('No colour data provided')
+                    try:
+                        string=specs['Беспроводные интерфейсы']
+                        string=string.lower()
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if WirelessInterface.objects.filter(value=i).exists():
+                                wireless_interface=WirelessInterface.objects.get(value=i)
+                                item.wireless_interface.add(wireless_interface)
+                    except:
+                        print('No wireless_interface data provided')
+                    try:
+                        string=specs['Основной материал корпуса']
+                        string=string.lower()
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if CaseMaterial.objects.filter(value=i).exists():
+                                case_material=CaseMaterial.objects.get(value=i)
+                                item.case_material.add(case_material)
+                    except:
+                        print('No case_material data provided')
+                    try:
+                        string=specs['Интерфейсы']
+                        string=string.lower()
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if Interface.objects.filter(value=i).exists():
+                                interface=Interface.objects.get(value=i)
+                                item.interface.add(interface)
+                    except:
+                        print('No interface data provided')
+                    try:
+                        string=specs['Стандарты связи']
+                        string=string.lower()
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if CommunicationStandard.objects.filter(value=i).exists():
+                                comms_standard=CommunicationStandard.objects.get(value=i)
+                                item.comms_standard.add(comms_standard)
+                    except:
+                        print('No comms_standard data provided')
+                    try:
+                        string=specs['Стандарты связи']
+                        string=string.lower()
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if CommunicationStandard.objects.filter(value=i).exists():
+                                comms_standard=CommunicationStandard.objects.get(value=i)
+                                item.comms_standard.add(comms_standard)
+                    except:
+                        print('No comms_standard data provided')
+                    try:
+                        string=specs['Особенности']
+                        string=string.lower()
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if SpecialFeature.objects.filter(value=i).exists():
+                                special_feature=SpecialFeature.objects.get(value=i)
+                                item.special_feature.add(special_feature)
+                    except:
+                        print('No special_feature data provided')
+                    try:
+                        string=specs['Функции зарядки']
+                        string=string.lower()
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if ChargingFunction.objects.filter(value=i).exists():
+                                stabilization=ChargingFunction.objects.get(value=i)
+                                item.charging_function.add(charging_function)
+                    except:
+                        print('No charging_function data provided')
+                    try:
+                        string=specs['Стабилизация']
+                        string=string.lower()
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if Stabilization.objects.filter(value=i).exists():
+                                stabilization=Stabilization.objects.get(value=i)
+                                item.stabilization.add(stabilization)
+                    except:
+                        print('No stabilization data provided')
+                    try:
+                        string=specs['Аутентификация']
+                        string=string.lower()
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if Authentication.objects.filter(value=i).exists():
+                                authentification=Authentication.objects.get(value=i)
+                                item.authentification.add(authentification)
+                    except:
+                        print('No authentification data provided')
+
+
+
+
+                    
                     try:
                         string=specs['Разъёмы монитора']
                         string=string.replace(", ", ",")#deleting spaces after comma
