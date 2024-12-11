@@ -450,169 +450,105 @@ def selenium_search_ozon_smartphone(request):
                         #checking if the field is Null or Blank
                         #if item.screen_size is None and specs['Диагональ экрана, дюймы'] is not None:
                         #===========editing items with dictionary = 0 ======================================
-                        if item.screen_size is None and 'Диагональ экрана, дюймы' in specs:
-                            print('ScreenSize ok')
-                            if ScreenSize.objects.filter(value=specs['Диагональ экрана, дюймы']).exists():
-                                screen_size=ScreenSize.objects.get(value=specs['Диагональ экрана, дюймы'])
-                            else:
-                                screen_size=ScreenSize.objects.create(
-                                    value=specs['Диагональ экрана, дюймы']
-                                )
-                            item.screen_size=screen_size
-                            print('item.screen_size edited to ' + str(item.screen_size))
-                        if item.pixel_size is None and 'Размер пикселя, мм' in specs:
-                            if PixelSize.objects.filter(value=specs['Размер пикселя, мм']).exists():
-                                pixel_size=PixelSize.objects.get(value=specs['Размер пикселя, мм'])
-                            else:
-                                pixel_size=PixelSize.objects.create(
-                                    value=str(specs['Размер пикселя, мм'])
-                                )
-                            item.pixel_size=pixel_size
-                            print('item.pixel_size edited to ' + str(item.pixel_size))
                         if item.warranty_period is None and 'Гарантийный срок' in specs:
                             if WarrantyPeriod.objects.filter(value=specs['Гарантийный срок']).exists():
-                                warranty_period=WarrantyPeriod.objects.get(value=specs['Гарантийный срок']) 
+                                warranty_period=WarrantyPeriod.objects.get(value=specs['Гарантийный срок'])
                             else:
                                 warranty_period=WarrantyPeriod.objects.create(
-                                    value=str(specs['Гарантийный срок'])
+                                    value=specs['Гарантийный срок']
                                 )
                             item.warranty_period=warranty_period
                             print('item.warranty_period edited to ' + str(item.warranty_period))
-                        if item.hdmi_ports is None and 'Число портов HDMI' in specs:
-                            if HDMIPorts.objects.filter(value=specs['Число портов HDMI']).exists():
-                                hdmi_ports=HDMIPorts.objects.get(value=specs['Число портов HDMI'])
-                            else:
-                                hdmi_ports=HDMIPorts.objects.create(
-                                    value=str(specs['Число портов HDMI'])
-                                )
-                            item.hdmi_ports=hdmi_ports
-                            print('item.hdmi_ports edited')
-                        if item.max_screen_frq is None and 'Макс. частота обновления, Гц' in specs:
-                            if MaxScreenFrequency.objects.filter(value=specs['Макс. частота обновления, Гц']).exists():
-                                max_screen_frq=MaxScreenFrequency.objects.get(value=specs['Макс. частота обновления, Гц'])
-                            else:
-                                max_screen_frq=MaxScreenFrequency.objects.create(
-                                    value=str(specs['Макс. частота обновления, Гц'])
-                                )
-                            item.max_screen_frq=max_screen_frq
-                            print('item.max_screen_frq edited')
-                        if item.brightness is None and 'Яркость, кд/м2' in specs:
-                            if Brightness.objects.filter(value=specs['Яркость, кд/м2']).exists():
-                                brightness=Brightness.objects.get(value=specs['Яркость, кд/м2'])
-                            else:
-                                brightness=Brightness.objects.create(
-                                    value=str(specs['Яркость, кд/м2'])
-                                )
-                            item.brightness=brightness
-                            print('item.brigtness edited')
-                        if item.contrast is None and 'Контрастность' in specs:
-                            if Contrast.objects.filter(value=specs['Контрастность']).exists():
-                                contrast=Contrast.objects.get(value=specs['Контрастность'])
-                            else:
-                                contrast=Contrast.objects.create(
-                                    value=str(specs['Контрастность'])
-                                )
-                            item.contrast=contrast
-                            print('item.contrast edited')
-                        if item.dynamic_contrast is None and 'Динамическая контрастность' in specs:
-                            if DynamicContrast.objects.filter(value=specs['Динамическая контрастность']).exists():
-                                dynamic_contrast=DynamicContrast.objects.get(value=specs['Динамическая контрастность'])
-                            else:
-                                dynamic_contrast=DynamicContrast.objects.create(
-                                    value=str(specs['Динамическая контрастность'])
-                                )
-                            item.dynamic_contrast=dynamic_contrast
-                            print('item.dynamic_contrast edited')
-                        if item.vertical_frequency is None and 'Частота вертикальной развертки, Гц' in specs:
-                            if VerticalFrequency.objects.filter(value=specs['Частота вертикальной развертки, Гц']).exists():
-                                vertical_frequency=VerticalFrequency.objects.get(value=specs['Частота вертикальной развертки, Гц'])
-                            else:
-                                vertical_frequency=VerticalFrequency.objects.create(
-                                    value=str(specs['Частота вертикальной развертки, Гц'])
-                                )
-                            item.vertical_frequency=vertical_frequency
-                            print('item.vertical_frequency edited')
-                        if item.horizontal_frequency is None and 'Частота горизонтальной развертки, кГц' in specs:
-                            if HorizontalFrequency.objects.filter(value=specs['Частота горизонтальной развертки, кГц']).exists():
-                                horizontal_frequency=HorizontalFrequency.objects.get(value=specs['Частота горизонтальной развертки, кГц'])
-                            else:
-                                horizontal_frequency=HorizontalFrequency.objects.create(
-                                    value=str(specs['Частота горизонтальной развертки, кГц'])
-                                )
-                            item.horizontal_frequency=horizontal_frequency
-                            print('item.horizontal_frequency edited')
-                        if item.web_camera is None and 'Web-камера' in specs:
-                            if WebCamera.objects.filter(value=specs['Web-камера']).exists():
-                                web_camera=WebCamera.objects.get(value=specs['Web-камера'])
-                            else:
-                                web_camera=WebCamera.objects.create(
-                                    value=str(specs['Web-камера'])
-                                )
-                            item.web_camera=web_camera
-                            print('item.web_camera edited')
-                        if item.stand_adjustment is None and 'Уровни регулировки подставки' in specs:
-                            if StandAdjustment.objects.filter(value=specs['Уровни регулировки подставки']).exists():
-                                stand_adjustment=StandAdjustment.objects.get(value=specs['Уровни регулировки подставки'])
-                            else:
-                                stand_adjustment=StandAdjustment.objects.create(
-                                    value=str(specs['Уровни регулировки подставки'])
-                                )
-                            item.stand_adjustment=stand_adjustment
-                            print('item.stand_adjustment edited')
-                        if item.power_capacity is None and 'Потребляемая мощность, Вт' in specs:
-                            if PowerCapacity.objects.filter(value=specs['Потребляемая мощность, Вт']).exists():
-                                power_capacity=PowerCapacity.objects.get(value=specs['Потребляемая мощность, Вт'])
-                            else:
-                                power_capacity=PowerCapacity.objects.create(
-                                    value=str(specs['Потребляемая мощность, Вт'])
-                                )
-                            item.power_capacity=power_capacity
-                            print('item.power_capacity edited')
-                        if item.pixel_per_inch is None and 'Плотность пикселей, ppi' in specs:
-                            if PixelPerInch.objects.filter(value=specs['Плотность пикселей, ppi']).exists():
-                                pixel_per_inch=PixelPerInch.objects.get(value=specs['Плотность пикселей, ppi'])
-                            else:
-                                pixel_per_inch=PixelPerInch.objects.create(
-                                    value=str(specs['Плотность пикселей, ppi'])
-                                )
-                            item.pixel_per_inch=pixel_per_inch
-                            print('item.pixel_per_inch edited')
-                        if item.response_time is None and 'Время отклика, мс' in specs:
-                            if ResponseTime.objects.filter(value=specs['Время отклика, мс']).exists():
-                                response_time=ResponseTime.objects.get(value=specs['Время отклика, мс'])
-                            else:
-                                response_time=ResponseTime.objects.create(
-                                    value=str(specs['Время отклика, мс'])
-                                )
-                            item.response_time=response_time
-                            print('item.response_time edited')
-                        if item.description is None and 'Аннотация' in specs:
-                            if Description.objects.filter(value=specs['Аннотация']).exists():
-                                description=Description.objects.get(value=specs['Аннотация'])
-                            else:
-                                description=Description.objects.create(
-                                    value=str(specs['Аннотация'])
-                                )
-                            item.description=description
-                            print('item.description edited')
                         if item.size is None and 'Размеры, мм' in specs:
                             if Size.objects.filter(value=specs['Размеры, мм']).exists():
                                 size=Size.objects.get(value=specs['Размеры, мм'])
                             else:
                                 size=Size.objects.create(
-                                    value=str(specs['Размеры, мм'])
+                                    value=specs['Размеры, мм']
                                 )
                             item.size=size
-                            print('item.size edited')
+                            print('item.size edited to ' + str(item.size))
+                        if item.weight is None and 'Вес товара, г' in specs:
+                            if Weight.objects.filter(value=specs['Вес товара, г']).exists():
+                                weight=Weight.objects.get(value=specs['Вес товара, г'])
+                            else:
+                                weight=Weight.objects.create(
+                                    value=str(specs['Вес товара, г'])
+                                )
+                            item.weight=weight
+                            print('item.weight edited to ' + str(item.weight))
                         if item.product_set is None and 'Комплектация' in specs:
                             if ProductSet.objects.filter(value=specs['Комплектация']).exists():
-                                product_set=ProductSet.objects.get(value=specs['Комплектация'])
+                                product_set=ProductSet.objects.get(value=specs['Комплектация']) 
                             else:
                                 product_set=ProductSet.objects.create(
                                     value=str(specs['Комплектация'])
                                 )
                             item.product_set=product_set
                             print('item.product_set edited to ' + str(item.product_set))
+                        if item.max_card_volume is None and 'Макс. объём карты памяти, ГБ' in specs:
+                            if MaxCardVolume.objects.filter(value=specs['Макс. объём карты памяти, ГБ']).exists():
+                                max_card_volume=MaxCardVolume.objects.get(value=specs['Макс. объём карты памяти, ГБ'])
+                            else:
+                                max_card_volume=MaxCardVolume.objects.create(
+                                    value=str(specs['Макс. объём карты памяти, ГБ'])
+                                )
+                            item.max_card_volume=max_card_volume
+                            print('item.max_card_volume edited')
+                        if item.front_camera_resolution is None and 'Разрешение фронтальной (селфи) камеры, Мпикс' in specs:
+                            if FrontCamerResolution.objects.filter(value=specs['Разрешение фронтальной (селфи) камеры, Мпикс']).exists():
+                                front_camera_resolution=FrontCamerResolution.objects.get(value=specs['Разрешение фронтальной (селфи) камеры, Мпикс'])
+                            else:
+                                front_camera_resolution=FrontCamerResolution.objects.create(
+                                    value=str(specs['Разрешение фронтальной (селфи) камеры, Мпикс'])
+                                )
+                            item.front_camera_resolution=front_camera_resolution
+                            print('item.front_camera_resolution edited')
+                        if item.basic_camera_resolution is None and 'Разрешение основной камеры, Мпикс' in specs:
+                            if BasicCamerResolution.objects.filter(value=specs['Разрешение основной камеры, Мпикс']).exists():
+                                basic_camera_resolution=BasicCamerResolution.objects.get(value=specs['Разрешение основной камеры, Мпикс'])
+                            else:
+                                basic_camera_resolution=BasicCamerResolution.objects.create(
+                                    value=str(specs['Разрешение основной камеры, Мпикс'])
+                                )
+                            item.basic_camera_resolution=basic_camera_resolution
+                            print('item.basic_camera_resolution edited')
+                        if item.battery_capacity is None and 'Емкость аккумулятора, мАч' in specs:
+                            if BatteryCapacity.objects.filter(value=specs['Емкость аккумулятора, мАч']).exists():
+                                battery_capacity=BatteryCapacity.objects.get(value=specs['Емкость аккумулятора, мАч'])
+                            else:
+                                battery_capacity=BatteryCapacity.objects.create(
+                                    value=str(specs['Емкость аккумулятора, мАч'])
+                                )
+                            item.battery_capacity=battery_capacity
+                            print('item.battery_capacity edited')
+                        if item.standby_period is None and 'Работа в режиме ожидания, ч' in specs:
+                            if StandByPeriod.objects.filter(value=specs['Работа в режиме ожидания, ч']).exists():
+                                standby_period=StandByPeriod.objects.get(value=specs['Работа в режиме ожидания, ч'])
+                            else:
+                                standby_period=StandByPeriod.objects.create(
+                                    value=str(specs['Работа в режиме ожидания, ч'])
+                                )
+                            item.standby_period=standby_period
+                            print('item.standby_period edited')
+                        if item.work_period is None and 'Время работы в режиме разговора, ч' in specs:
+                            if WorkPeriod.objects.filter(value=specs['Время работы в режиме разговора, ч']).exists():
+                                work_period=WorkPeriod.objects.get(value=specs['Время работы в режиме разговора, ч'])
+                            else:
+                                work_period=WorkPeriod.objects.create(
+                                    value=str(specs['Время работы в режиме разговора, ч'])
+                                )
+                            item.work_period=work_period
+                            print('item.work_period edited')
+                        if item.record_max_speed is None and 'Макс. скорость видеосъемки, кадр/с' in specs:
+                            if RecordMaxSpeed.objects.filter(value=specs['Макс. скорость видеосъемки, кадр/с']).exists():
+                                record_max_speed=RecordMaxSpeed.objects.get(value=specs['Макс. скорость видеосъемки, кадр/с'])
+                            else:
+                                record_max_speed=RecordMaxSpeed.objects.create(
+                                    value=str(specs['Макс. скорость видеосъемки, кадр/с'])
+                                )
+                            item.record_max_speed=record_max_speed
+                            print('item.record_max_speed edited')
                         if item.life_span is None and 'Срок службы, лет' in specs:
                             if LifeSpan.objects.filter(value=specs['Срок службы, лет']).exists():
                                 life_span=LifeSpan.objects.get(value=specs['Срок службы, лет'])
@@ -622,15 +558,33 @@ def selenium_search_ozon_smartphone(request):
                                 )
                             item.life_span=life_span
                             print('item.life_span edited')
-                        if item.weight is None and 'Вес, кг' in specs:
-                            if Weight.objects.filter(value=specs['Вес, кг']).exists():
-                                weight=Weight.objects.get(value=specs['Вес, кг'])
+                        if item.screen_size is None and 'Диагональ экрана, дюймы' in specs:
+                            if ScreenSize.objects.filter(value=specs['Диагональ экрана, дюймы']).exists():
+                                screen_size=ScreenSize.objects.get(value=specs['Диагональ экрана, дюймы'])
                             else:
-                                weight=Weight.objects.create(
-                                    value=str(specs['Вес, кг'])
+                                screen_size=ScreenSize.objects.create(
+                                    value=str(specs['Диагональ экрана, дюймы'])
                                 )
-                            item.weight=weight
-                            print('item.weight edited')
+                            item.screen_size=screen_size
+                            print('item.screen_size edited')
+                        if item.marketing_colour is None and 'Название цвета' in specs:
+                            if MarketingColour.objects.filter(value=specs['Название цвета']).exists():
+                                marketing_colour=MarketingColour.objects.get(value=specs['Название цвета'])
+                            else:
+                                marketing_colour=MarketingColour.objects.create(
+                                    value=str(specs['Название цвета'])
+                                )
+                            item.marketing_colour=marketing_colour
+                            print('item.marketing_colour edited')
+                        if item.processor_frequency is None and 'Частота процессора, ГГц' in specs:
+                            if ProcessorFrequency.objects.filter(value=specs['Частота процессора, ГГц']).exists():
+                                processor_frequency=ProcessorFrequency.objects.get(value=specs['Частота процессора, ГГц'])
+                            else:
+                                processor_frequency=ProcessorFrequency.objects.create(
+                                    value=str(specs['Частота процессора, ГГц'])
+                                )
+                            item.processor_frequency=processor_frequency
+                            print('item.processor_frequency edited')
                         if item.key_word is None and 'Ключевые слова' in specs:      
                             if KeyWord.objects.filter(value=specs['Ключевые слова']).exists():
                                 key_word=KeyWord.objects.get(value=specs['Ключевые слова'])
@@ -649,6 +603,15 @@ def selenium_search_ozon_smartphone(request):
                                 )
                             item.part_number=part_number
                             print('item.part_number edited')
+                        if item.description is None and 'Аннотация' in specs:
+                            if Description.objects.filter(value=specs['Аннотация']).exists():
+                                description=Description.objects.get(value=specs['Аннотация'])
+                            else:
+                                description=Description.objects.create(
+                                    value=str(specs['Аннотация'])
+                                )
+                            item.description=description
+                            print('item.description edited')
                         #=========================editing items with dictionary > 0=======================================
                         if item.usb_port is None and 'Количество USB портов' in specs:  
                             if USBPort.objects.filter(value=specs['Количество USB портов']).exists():
@@ -1206,104 +1169,7 @@ def selenium_search_ozon_smartphone(request):
                                 authentification=Authentication.objects.get(value=i)
                                 item.authentification.add(authentification)
                     except:
-                        print('No authentification data provided')
-
-
-
-
-                    
-                    try:
-                        string=specs['Разъёмы монитора']
-                        string=string.replace(", ", ",")#deleting spaces after comma
-                        array=string.split(',')#transforming the string into a list
-                        for i in array:
-                            if MonitorConnector.objects.filter(value=i).exists():
-                                monitor_connector=MonitorConnector.objects.get(value=i)
-                                item.monitor_connector.add(monitor_connector)
-                    except:
-                        print('No monitor connectors data provided')
-                    try:
-                        string=specs['Регулировки']
-                        string=string.replace(", ", ",")#deleting spaces after comma
-                        array=string.split(',')#transforming the string into a list
-                        for i in array:
-                            if Adjustment.objects.filter(value=i).exists():
-                                adjustments=Adjustment.objects.get(value=i)
-                                item.adjustments.add(adjustments)
-                    except:
-                        print('No adjustments data provided')
-                    try:
-                        string=specs['Конструктивные особенности']
-                        string=string.replace(", ", ",")#deleting spaces after comma
-                        array=string.split(',')#transforming the string into a list
-                        for i in array:
-                            if DesignFeature.objects.filter(value=i).exists():
-                                design_feature=DesignFeature.objects.get(value=i)
-                                item.design_feature.add(design_feature)
-                    except:
-                        print('No design_feature data provided')
-                    try:
-                        string=specs['Стандарт крепления VESA']
-                        string=string.replace(", ", ",")#deleting spaces after comma
-                        array=string.split(',')#transforming the string into a list
-                        for i in array:
-                            if VESAFixture.objects.filter(value=i).exists():
-                                vesa_fixture=VESAFixture.objects.get(value=i)
-                                item.vesa_fixture.add(vesa_fixture)
-                    except:
-                        print('No vesa_fixture data provided')
-                    try:
-                        string=specs['Установка монитора']
-                        string=string.replace(", ", ",")#deleting spaces after comma
-                        array=string.split(',')#transforming the string into a list
-                        for i in array:
-                            if MonitorInstallation.objects.filter(value=i).exists():
-                                monitor_installation=MonitorInstallation.objects.get(value=i)
-                                item.monitor_installation.add(monitor_installation)
-                    except:
-                        print('No monitor_installation data provided')
-                    try:
-                        string=specs['Назначение монитора']
-                        string=string.replace(", ", ",")#deleting spaces after comma
-                        array=string.split(',')#transforming the string into a list
-                        for i in array:
-                            if MonitorApplication.objects.filter(value=i).exists():
-                                monitor_application=MonitorApplication.objects.get(value=i)
-                                item.monitor_application.add(monitor_application)
-                    except:
-                        print('No monitor_application data provided')
-                    try:
-                        string=specs['Cтандарты HDR']
-                        string=string.replace(", ", ",")#deleting spaces after comma
-                        array=string.split(',')#transforming the string into a list
-                        for i in array:
-                            if HDRStandard.objects.filter(value=i).exists():
-                                hdr_standard=HDRStandard.objects.get(value=i)
-                                item.hdr_standard.add(hdr_standard)
-                    except:
-                        print('No hdr_standard data provided')
-                    
-                    try:
-                        string=specs['Тип подсветки']
-                        string=string.replace(", ", ",")#deleting spaces after comma
-                        array=string.split(',')#transforming the string into a list
-                        for i in array:
-                            if LightningType.objects.filter(value=i).exists():
-                                lighting_type=LightningType.objects.get(value=i)
-                                item.lighting_type.add(lighting_type)
-                    except:
-                        print('No lighting_type data provided')
-                    try:
-                        string=specs['Особенности']
-                        string=string.replace(", ", ",")#deleting spaces after comma
-                        array=string.split(',')#transforming the string into a list
-                        for i in array:
-                            if SpecialFeature.objects.filter(value=i).exists():
-                                special_feature=SpecialFeature.objects.get(value=i)
-                                item.special_feature.add(special_feature)
-                    except:
-                        print('No special_feature data provided')
-                    
+                        print('No authentification data provided')       
                     #======================Model with dictionary_id=0=========================
                     try:
                         if WarrantyPeriod.objects.filter(value=specs['Гарантийный срок']).exists():
@@ -1366,11 +1232,11 @@ def selenium_search_ozon_smartphone(request):
                     except:
                         print('no front_camera_resolution data provided')
                     try:
-                        if BasicCamerResolution.objects.filter(value=specs['Разрешение фронтальной (селфи) камеры, Мпикс']).exists():
-                            basic_camera_resolution=BasicCamerResolution.objects.get(value=specs['Разрешение фронтальной (селфи) камеры, Мпикс'])
+                        if BasicCamerResolution.objects.filter(value=specs['Разрешение основной камеры, Мпикс']).exists():
+                            basic_camera_resolution=BasicCamerResolution.objects.get(value=specs['Разрешение основной камеры, Мпикс'])
                         else:
                             basic_camera_resolution=BasicCamerResolution.objects.create(
-                                value=str(specs['Разрешение фронтальной (селфи) камеры, Мпикс'])
+                                value=str(specs['Разрешение основной камеры, Мпикс'])
                             )
                         item.basic_camera_resolution=basic_camera_resolution
                     except:
@@ -1465,10 +1331,6 @@ def selenium_search_ozon_smartphone(request):
                         item.description=description
                     except:
                         print('no description data provided')
-
-
-
-
                     try:
                         if KeyWord.objects.filter(value=specs['Ключевые слова']).exists():
                             key_word=KeyWord.objects.get(value=specs['Ключевые слова'])
@@ -1926,8 +1788,8 @@ def selenium_search_ozon_monitor(request):
                                 )
                             item.max_screen_frq=max_screen_frq
                             print('item.max_screen_frq edited')
-                        if item.brightness is None and 'Яркость, кд/м2' in specs:
-                            if Brightness.objects.filter(value=specs['Яркость, кд/м2']).exists():
+                        if item.screen_resolution is None and 'Яркость, кд/м2' in specs:
+                            if screen_resolution.objects.filter(value=specs['Яркость, кд/м2']).exists():
                                 brightness=Brightness.objects.get(value=specs['Яркость, кд/м2'])
                             else:
                                 brightness=Brightness.objects.create(
