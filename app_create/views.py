@@ -18,12 +18,11 @@ from app_reference_shared.models import (OzonCategory,LightningType, Size, Monit
     FrontCamerResolution, BasicCamerResolution, MarketingColour, HardDrive, MatrixType, CardType, BluetoothType, VideoProcessorBrand,
     HazardGrade, VideoProcessor, ProcessorBrand, ProcessorModel, OSMobile, AndroidVersion, IOSVersion, ESimSupport, PublishingYear,
     NavigationType, Sensor, SimType, WifiType, CameraFunction, WirelessInterface, CaseMaterial, Interface, CommunicationStandard,
-    ChargingFunction, Stabilization, Authentication,
+    ChargingFunction, Stabilization, Authentication, RamSmartphone
     )
 from app_reference_smartphones.models import (BrandSmartphone, SmartphoneModel, TypeSmartphone, ScreenResolution, VideoQuality, 
     GadgetModel, ProtectionGrade, Colour, QntyOfBasicCamera, Processor, ProcessorCoreQnty, MicroSDSlot, CaseForm, EuroAsianCode,
     SimCardQnty, ScreenResolution, VideoQuality, QntyOfBasicCamera, Processor, ProcessorCoreQnty, MicroSDSlot, CaseForm, ProtectionGrade, 
-    
     )
 import datetime
 import re
@@ -613,46 +612,123 @@ def selenium_search_ozon_smartphone(request):
                             item.description=description
                             print('item.description edited')
                         #=========================editing items with dictionary > 0=======================================
-                        if item.usb_port is None and 'Количество USB портов' in specs:  
-                            if USBPort.objects.filter(value=specs['Количество USB портов']).exists():
-                                usb_port=USBPort.objects.get(value=specs['Количество USB портов'])
-                                item.usb_port=usb_port
-                                print('item.usb_port edited')
-                        if item.builtin_speaker is None and 'Встроенные динамики' in specs:  
-                            if BuiltinSpeaker.objects.filter(value=specs['Встроенные динамики']).exists():
-                                builtin_speaker=BuiltinSpeaker.objects.get(value=specs['Встроенные динамики'])
-                                item.builtin_speaker=builtin_speaker
-                                print('item.builtin_speaker edited')
-                        if item.curved_display is None and 'Изогнутый экран' in specs:
-                            if CurvedDispaly.objects.filter(value=specs['Изогнутый экран']).exists():
-                                curved_display=CurvedDispaly.objects.get(value=specs['Изогнутый экран'])
-                                item.curved_display=curved_display
-                                print('item.curved_display edited')
-                        if item.hdr is None and 'Технология HDR' in specs:
-                            if HDR.objects.filter(value=specs['Технология HDR']).exists():
-                                hdr=HDR.objects.get(value=specs['Технология HDR'])
-                                item.hdr=hdr
-                                print('item.hdr edited')
-                        if item.screen_coating is None and 'Покрытие экрана' in specs:
-                            if ScreenCoating.objects.filter(value=specs['Покрытие экрана']).exists():
-                                screen_coating=ScreenCoating.objects.get(value=specs['Покрытие экрана'])
-                                item.screen_coating=screen_coating
-                                print('item.screen_coating edited')
-                        if item.ratio is None and 'Соотношение сторон' in specs:
-                            if Ratio.objects.filter(value=specs['Соотношение сторон']).exists():
-                                ratio=Ratio.objects.get(value=specs['Соотношение сторон'])
-                                item.ratio=ratio
-                                print('item.ratio edited')
-                        if item.look_angle is None and 'Углы обзора (Г/В)' in specs:
-                            if LookAngle.objects.filter(value=specs['Углы обзора (Г/В)']).exists():
-                                look_angle=LookAngle.objects.get(value=specs['Углы обзора (Г/В)'])
-                                item.look_angle=look_angle
-                                print('item.look_angle edited')
-                        if item.monitor_matrix is None and 'Матрица монитора' in specs:
-                            if MonitorMatrix.objects.filter(value=specs['Матрица монитора']).exists():
-                                monitor_matrix=MonitorMatrix.objects.get(value=specs['Матрица монитора'])
-                                item.monitor_matrix=monitor_matrix
-                                print('item.monitor_matrix edited')
+                        if item.hard_drive is None and 'Встроенная память' in specs:  
+                            if HardDrive.objects.filter(value=specs['Встроенная память']).exists():
+                                hard_drive=HardDrive.objects.get(value=specs['Встроенная память'])
+                                item.hard_drive=hard_drive
+                                print('item.hard_drive edited')
+                        if item.matrix_type is None and 'Технология матрицы' in specs:  
+                            if MatrixType.objects.filter(value=specs['Технология матрицы']).exists():
+                                matrix_type=MatrixType.objects.get(value=specs['Технология матрицы'])
+                                item.matrix_type=matrix_type
+                                print('item.matrix_type edited')
+                        if item.sim_card_qnty is None and 'Число физических SIM-карт' in specs:
+                            if SimCardQnty.objects.filter(value=specs['Число физических SIM-карт']).exists():
+                                sim_card_qnty=SimCardQnty.objects.get(value=specs['Число физических SIM-карт'])
+                                item.sim_card_qnty=sim_card_qnty
+                                print('item.sim_card_qnty edited')
+                        if item.card_type is None and 'Тип карты памяти' in specs:
+                            if CardType.objects.filter(value=specs['Тип карты памяти']).exists():
+                                card_type=CardType.objects.get(value=specs['Тип карты памяти'])
+                                item.card_type=card_type
+                                print('item.card_type edited')
+                        if item.bluetooth is None and 'Модуль связи Bluetooth' in specs:
+                            if BluetoothType.objects.filter(value=specs['Модуль связи Bluetooth']).exists():
+                                bluetooth=BluetoothType.objects.get(value=specs['Модуль связи Bluetooth'])
+                                item.bluetooth=bluetooth
+                                print('item.bluetooth edited')
+                        if item.video_processor_brand is None and 'Бренд графического процессора' in specs:
+                            if VideoProcessorBrand.objects.filter(value=specs['Бренд графического процессора']).exists():
+                                video_processor_brand=VideoProcessorBrand.objects.get(value=specs['Бренд графического процессора'])
+                                item.video_processor_brand=video_processor_brand
+                                print('item.video_processor_brand edited')
+                        if item.screen_resolution is None and 'Разрешение экрана' in specs:
+                            if ScreenResolution.objects.filter(value=specs['Разрешение экрана']).exists():
+                                screen_resolution=ScreenResolution.objects.get(value=specs['Разрешение экрана'])
+                                item.screen_resolution=screen_resolution
+                                print('item.screen_resolution edited')
+                        if item.video_quality is None and 'Качество видео' in specs:
+                            if VideoQuality.objects.filter(value=specs['Качество видео']).exists():
+                                video_quality=VideoQuality.objects.get(value=specs['Качество видео'])
+                                item.video_quality=video_quality
+                                print('item.video_quality edited')
+                        if item.hazard_grade is None and 'Класс опасности товара' in specs:
+                            if HazardGrade.objects.filter(value=specs['Класс опасности товара']).exists():
+                                hazard_grade=HazardGrade.objects.get(value=specs['Класс опасности товара'])
+                                item.hazard_grade=hazard_grade
+                                print('item.hazard_grade edited')
+                        if item.qnty_of_basic_camera is None and 'Количество основных камер' in specs:
+                            if QntyOfBasicCamera.objects.filter(value=specs['Количество основных камер']).exists():
+                                qnty_of_basic_camera=QntyOfBasicCamera.objects.get(value=specs['Количество основных камер'])
+                                item.qnty_of_basic_camera=qnty_of_basic_camera
+                                print('item.qnty_of_basic_camera edited')
+                        if item.processor is None and 'Процессор' in specs:
+                            if Processor.objects.filter(value=specs['Процессор']).exists():
+                                processor=Processor.objects.get(value=specs['Процессор'])
+                                item.processor=processor
+                                print('item.processor edited')
+                        if item.video_processor is None and 'Видеопроцессор' in specs:
+                            if Videovideo_processor.objects.filter(value=specs['Видеопроцессор']).exists():
+                                video_processor=Videovideo_processor.objects.get(value=specs['Видеопроцессор'])
+                                item.video_processor=video_processor
+                                print('item.video_processor edited')
+                        if item.processor_brand is None and 'Бренд процессора' in specs:
+                            if ProcessorBrand.objects.filter(value=specs['Бренд процессора']).exists():
+                                processor_brand=ProcessorBrand.objects.get(value=specs['Бренд процессора'])
+                                item.processor_brand=processor_brand
+                                print('item.processor_brand edited')
+                        if item.processor_core_qnty is None and 'Число ядер процессора' in specs:
+                            if ProcessorCoreQnty.objects.filter(value=specs['Число ядер процессора']).exists():
+                                processor_core_qnty=ProcessorCoreQnty.objects.get(value=specs['Число ядер процессора'])
+                                item.processor_core_qnty=processor_core_qnty
+                                print('item.processor_core_qnty edited')
+                        if item.processor_model is None and 'Модель процессора' in specs:
+                            if ProcessorModel.objects.filter(value=specs['Модель процессора']).exists():
+                                processor_model=ProcessorModel.objects.get(value=specs['Модель процессора'])
+                                item.processor_model=processor_model
+                                print('item.processor_model edited')
+                        if item.operation_system is None and 'Операционная система' in specs:
+                            if OSMobile.objects.filter(value=specs['Операционная система']).exists():
+                                operation_system=OSMobile.objects.get(value=specs['Операционная система'])
+                                item.operation_system=operation_system
+                                print('item.operation_system edited')
+                        if item.android_version is None and 'Версия Android' in specs:
+                            if AndroidVersion.objects.filter(value=specs['Версия Android']).exists():
+                                android_version=AndroidVersion.objects.get(value=specs['Версия Android'])
+                                item.android_version=android_version
+                                print('item.android_version edited')
+                        if item.microsd_slot is None and 'Слот для карты памяти' in specs:
+                            if MicroSDSlot.objects.filter(value=specs['Слот для карты памяти']).exists():
+                                microsd_slot=MicroSDSlot.objects.get(value=specs['Слот для карты памяти'])
+                                item.microsd_slot=microsd_slot
+                                print('item.microsd_slot edited')
+                        if item.case_form is None and 'Тип корпуса' in specs:
+                            if CaseForm.objects.filter(value=specs['Тип корпуса']).exists():
+                                case_form=CaseForm.objects.get(value=specs['Тип корпуса'])
+                                item.case_form=case_form
+                                print('item.case_form edited')
+                        if item.ios_version is None and 'Версия iOS' in specs:
+                            if IOSVersion.objects.filter(value=specs['Версия iOS']).exists():
+                                ios_version=IOSVersion.objects.get(value=specs['Версия iOS'])
+                                item.ios_version=ios_version
+                                print('item.ios_version edited')
+                        if item.esim_support is None and 'Поддержка eSim' in specs:
+                            if ESimSupport.objects.filter(value=specs['Поддержка eSim']).exists():
+                                esim_support=ESimSupport.objects.get(value=specs['Поддержка eSim'])
+                                item.esim_support=esim_support
+                                print('item.esim_support edited')
+                        if item.ram is None and 'Оперативная память' in specs:
+                            if RamSmartphone.objects.filter(value=specs['Оперативная память']).exists():
+                                ram=RamSmartphone.objects.get(value=specs['Оперативная память'])
+                                item.ram=ram
+                                print('item.ram edited')
+                        if item.publishing_year is None and 'Год анонсирования' in specs:
+                            if PublishingYear.objects.filter(value=specs['Год анонсирования']).exists():
+                                publishing_year=PublishingYear.objects.get(value=specs['Год анонсирования'])
+                                item.publishing_year=publishing_year
+                                print('item.publishing_year edited')
+
+
                         # if item.euro_asian_code_monitor is None and 'ТН ВЭД коды ЕАЭС' in specs:
                         #     if EuroAsianCodeMonitor.objects.get(value=specs['ТН ВЭД коды ЕАЭС']).exists():
                         #         euro_asian_code_monitor=EuroAsianCodeMonitor.objects.get(value=specs['ТН ВЭД коды ЕАЭС'])
