@@ -727,113 +727,15 @@ def selenium_search_ozon_smartphone(request):
                                 publishing_year=PublishingYear.objects.get(value=specs['Год анонсирования'])
                                 item.publishing_year=publishing_year
                                 print('item.publishing_year edited')
-
-
                         # if item.euro_asian_code_monitor is None and 'ТН ВЭД коды ЕАЭС' in specs:
                         #     if EuroAsianCodeMonitor.objects.get(value=specs['ТН ВЭД коды ЕАЭС']).exists():
                         #         euro_asian_code_monitor=EuroAsianCodeMonitor.objects.get(value=specs['ТН ВЭД коды ЕАЭС'])
                         #         item.euro_asian_code_monitor=euro_asian_code_monitor
                         #         print('item.euro_asian_code_monitor edited')
                         #========================editing is_collection items========================================
-                        if item.colour_monitor.count() == 0 and 'Цвет' in specs:
-                            string=specs['Цвет']
-                            string=string.lower()
-                            string=string.replace(", ", ",")#deleting spaces after comma
-                            array=string.split(',')#transforming the string into a list
-                            for i in array:
-                                try:
-                                    if ColourMonitor.objects.filter(value=i).exists():
-                                        colour_monitor=ColourMonitor.objects.get(value=i)
-                                        item.colour_monitor.add(colour_monitor)
-                                except:
-                                    pass
-                            print('item.colour_monitor edited')
-                        if item.monitor_connector.count() == 0 and 'Разъёмы монитора' in specs:
-                            string=specs['Разъёмы монитора']
-                            string=string.replace(", ", ",")#deleting spaces after comma
-                            array=string.split(',')#transforming the string into a list
-                            for i in array:
-                                try:
-                                    if MonitorConnector.objects.filter(value=i).exists():
-                                        monitor_connector=MonitorConnector.objects.get(value=i)
-                                        item.monitor_connector.add(monitor_connector)
-                                except:
-                                    pass
-                            print('item.monitor_connector edited')
-                        if item.adjustments.count() == 0 and 'Регулировки' in specs:
-                            string=specs['Регулировки']
-                            string=string.replace(", ", ",")#deleting spaces after comma
-                            array=string.split(',')#transforming the string into a list
-                            for i in array:
-                                try:
-                                    if Adjustment.objects.filter(value=i).exists():
-                                        adjustments=Adjustment.objects.get(value=i)
-                                        item.adjustments.add(adjustments)
-                                except:
-                                    pass
-                            print('item.adjustments edited')
-                        if item.design_feature.count() == 0 and 'Конструктивные особенности' in specs:
-                            string=specs['Конструктивные особенности']
-                            string=string.replace(", ", ",")#deleting spaces after comma
-                            array=string.split(',')#transforming the string into a list
-                            for i in array:
-                                try:
-                                    if DesignFeature.objects.filter(value=i).exists():
-                                        design_feature=DesignFeature.objects.get(value=i)
-                                        item.design_feature.add(design_feature)
-                                except:
-                                    pass
-                            print('item.design_feature edited')
-                        if item.vesa_fixture.count() == 0 and 'Стандарт крепления VESA' in specs:
-                            string=specs['Стандарт крепления VESA']
-                            string=string.replace(", ", ",")#deleting spaces after comma
-                            array=string.split(',')#transforming the string into a list
-                            for i in array:
-                                try:
-                                    if VESAFixture.objects.filter(value=i).exists():
-                                        vesa_fixture=VESAFixture.objects.get(value=i)
-                                        item.vesa_fixture.add(vesa_fixture)
-                                except:
-                                    pass
-                            print('item.vesa_fixture edited')
-                        if item.monitor_installation.count() == 0 and 'Установка монитора' in specs:
-                            string=specs['Установка монитора']
-                            string=string.replace(", ", ",")#deleting spaces after comma
-                            array=string.split(',')#transforming the string into a list
-                            for i in array:
-                                try:
-                                    if MonitorInstallation.objects.filter(value=i).exists():
-                                        monitor_installation=MonitorInstallation.objects.get(value=i)
-                                        item.monitor_installation.add(monitor_installation)
-                                except:
-                                    pass
-                            print('item.monitor_installation edited')
-                        if item.monitor_application.count() == 0 and 'Назначение монитора' in specs:
-                            string=specs['Назначение монитора']
-                            string=string.replace(", ", ",")#deleting spaces after comma
-                            array=string.split(',')#transforming the string into a list
-                            for i in array:
-                                try:
-                                    if MonitorApplication.objects.filter(value=i).exists():
-                                        monitor_application=MonitorApplication.objects.get(value=i)
-                                        item.monitor_application.add(monitor_application)
-                                except:
-                                    pass
-                            print('item.monitor_application edited to ' + str(item.monitor_application))
-                        if item.hdr_standard.count() == 0 and 'Cтандарты HDR' in specs:
-                            string=specs['Cтандарты HDR']
-                            string=string.replace(", ", ",")#deleting spaces after comma
-                            array=string.split(',')#transforming the string into a list
-                            for i in array:
-                                try:
-                                    if HDRStandard.objects.filter(value=i).exists():
-                                        hdr_standard=HDRStandard.objects.get(value=i)
-                                        item.hdr_standard.add(hdr_standard)
-                                except:
-                                    pass
-                            print('item.hdr_stadard edited')
                         if item.country_of_manufacture.count() == 0 and 'Страна-изготовитель' in specs:
                             string=specs['Страна-изготовитель']
+                            string=string.lower()
                             string=string.replace(", ", ",")#deleting spaces after comma
                             array=string.split(',')#transforming the string into a list
                             for i in array:
@@ -844,18 +746,138 @@ def selenium_search_ozon_smartphone(request):
                                 except:
                                     pass
                             print('item.country_of_manufacture edited')
-                        if item.lighting_type.count() == 0 and 'Тип подсветки' in specs:
-                            string=specs['Тип подсветки']
+                        if item.navigation.count() == 0 and 'Навигация' in specs:
+                            string=specs['Навигация']
                             string=string.replace(", ", ",")#deleting spaces after comma
                             array=string.split(',')#transforming the string into a list
                             for i in array:
                                 try:
-                                    if LightningType.objects.filter(value=i).exists():
-                                        lighting_type=LightningType.objects.get(value=i)
-                                        item.lighting_type.add(lighting_type)
+                                    if NavigationType.objects.filter(value=i).exists():
+                                        navigation=NavigationType.objects.get(value=i)
+                                        item.navigation.add(navigation)
                                 except:
                                     pass
-                            print('item.lightning_type edited')
+                            print('item.navigation edited')
+                        if item.sensor.count() == 0 and 'Встроенные датчики' in specs:
+                            string=specs['Встроенные датчики']
+                            string=string.replace(", ", ",")#deleting spaces after comma
+                            array=string.split(',')#transforming the string into a list
+                            for i in array:
+                                try:
+                                    if Sensor.objects.filter(value=i).exists():
+                                        sensor=Sensor.objects.get(value=i)
+                                        item.sensor.add(sensor)
+                                except:
+                                    pass
+                            print('item.sensor edited')
+                        if item.sim_type.count() == 0 and 'Форм-фактор SIM' in specs:
+                            string=specs['Форм-фактор SIM']
+                            string=string.replace(", ", ",")#deleting spaces after comma
+                            array=string.split(',')#transforming the string into a list
+                            for i in array:
+                                try:
+                                    if SimType.objects.filter(value=i).exists():
+                                        sim_type=SimType.objects.get(value=i)
+                                        item.sim_type.add(sim_type)
+                                except:
+                                    pass
+                            print('item.sim_type edited')
+                        if item.wifi.count() == 0 and 'Модуль связи WiFi' in specs:
+                            string=specs['Модуль связи WiFi']
+                            string=string.replace(", ", ",")#deleting spaces after comma
+                            array=string.split(',')#transforming the string into a list
+                            for i in array:
+                                try:
+                                    if WifiType.objects.filter(value=i).exists():
+                                        wifi=WifiType.objects.get(value=i)
+                                        item.wifi.add(wifi)
+                                except:
+                                    pass
+                            print('item.wifi edited')
+                        if item.protection_grade.count() == 0 and 'Степень защиты' in specs:
+                            string=specs['Степень защиты']
+                            string=string.replace(", ", ",")#deleting spaces after comma
+                            array=string.split(',')#transforming the string into a list
+                            for i in array:
+                                try:
+                                    if ProtectionGrade.objects.filter(value=i).exists():
+                                        protection_grade=ProtectionGrade.objects.get(value=i)
+                                        item.protection_grade.add(protection_grade)
+                                except:
+                                    pass
+                            print('item.protection_grade edited')
+                        if item.camera_function.count() == 0 and 'Функции камеры' in specs:
+                            string=specs['Функции камеры']
+                            string=string.replace(", ", ",")#deleting spaces after comma
+                            array=string.split(',')#transforming the string into a list
+                            for i in array:
+                                try:
+                                    if CameraFunction.objects.filter(value=i).exists():
+                                        camera_function=CameraFunction.objects.get(value=i)
+                                        item.camera_function.add(camera_function)
+                                except:
+                                    pass
+                            print('item.camera_function edited to ' + str(item.camera_function))
+                        if item.colour.count() == 0 and 'Цвет товара' in specs:
+                            string=specs['Цвет товара']
+                            string=string.replace(", ", ",")#deleting spaces after comma
+                            array=string.split(',')#transforming the string into a list
+                            for i in array:
+                                try:
+                                    if Colour.objects.filter(value=i).exists():
+                                        colour=Colour.objects.get(value=i)
+                                        item.colour.add(colour)
+                                except:
+                                    pass
+                            print('item.colour edited')
+                        if item.wireless_interface.count() == 0 and 'Беспроводные интерфейсы' in specs:
+                            string=specs['Беспроводные интерфейсы']
+                            string=string.replace(", ", ",")#deleting spaces after comma
+                            array=string.split(',')#transforming the string into a list
+                            for i in array:
+                                try:
+                                    if WirelessInterface.objects.filter(value=i).exists():
+                                        wireless_interface=WirelessInterface.objects.get(value=i)
+                                        item.wireless_interface.add(wireless_interface)
+                                except:
+                                    pass
+                            print('item.wireless_interface edited')
+                        if item.case_material.count() == 0 and 'Основной материал корпуса' in specs:
+                            string=specs['Основной материал корпуса']
+                            string=string.replace(", ", ",")#deleting spaces after comma
+                            array=string.split(',')#transforming the string into a list
+                            for i in array:
+                                try:
+                                    if CaseMaterial.objects.filter(value=i).exists():
+                                        case_material=CaseMaterial.objects.get(value=i)
+                                        item.case_material.add(case_material)
+                                except:
+                                    pass
+                            print('item.case_material edited')
+                        if item.interface.count() == 0 and 'Интерфейсы' in specs:
+                            string=specs['Интерфейсы']
+                            string=string.replace(", ", ",")#deleting spaces after comma
+                            array=string.split(',')#transforming the string into a list
+                            for i in array:
+                                try:
+                                    if Interface.objects.filter(value=i).exists():
+                                        interface=Interface.objects.get(value=i)
+                                        item.interface.add(interface)
+                                except:
+                                    pass
+                            print('item.interface edited')
+                        if item.comms_standard.count() == 0 and 'Стандарты связи' in specs:
+                            string=specs['Стандарты связи']
+                            string=string.replace(", ", ",")#deleting spaces after comma
+                            array=string.split(',')#transforming the string into a list
+                            for i in array:
+                                try:
+                                    if CommunicationStandard.objects.filter(value=i).exists():
+                                        comms_standard=CommunicationStandard.objects.get(value=i)
+                                        item.comms_standard.add(comms_standard)
+                                except:
+                                    pass
+                            print('item.comms_standard edited')
                         if item.special_feature.count() == 0 and 'Особенности' in specs:
                             string=specs['Особенности']
                             string=string.replace(", ", ",")#deleting spaces after comma
@@ -868,6 +890,42 @@ def selenium_search_ozon_smartphone(request):
                                 except:
                                     pass
                             print('item.special_feature edited')
+                        if item.charging_function.count() == 0 and 'Функции зарядки' in specs:
+                            string=specs['Функции зарядки']
+                            string=string.replace(", ", ",")#deleting spaces after comma
+                            array=string.split(',')#transforming the string into a list
+                            for i in array:
+                                try:
+                                    if ChargingFunction.objects.filter(value=i).exists():
+                                        charging_function=ChargingFunction.objects.get(value=i)
+                                        item.charging_function.add(charging_function)
+                                except:
+                                    pass
+                            print('item.charging_function edited')
+                        if item.stabilization.count() == 0 and 'Стабилизация' in specs:
+                            string=specs['Стабилизация']
+                            string=string.replace(", ", ",")#deleting spaces after comma
+                            array=string.split(',')#transforming the string into a list
+                            for i in array:
+                                try:
+                                    if Stabilization.objects.filter(value=i).exists():
+                                        stabilization=Stabilization.objects.get(value=i)
+                                        item.stabilization.add(stabilization)
+                                except:
+                                    pass
+                            print('item.stabilization edited')
+                        if item.authentification.count() == 0 and 'Аутентификация' in specs:
+                            string=specs['Аутентификация']
+                            string=string.replace(", ", ",")#deleting spaces after comma
+                            array=string.split(',')#transforming the string into a list
+                            for i in array:
+                                try:
+                                    if Authentication.objects.filter(value=i).exists():
+                                        authentification=Authentication.objects.get(value=i)
+                                        item.authentification.add(authentification)
+                                except:
+                                    pass
+                            print('item.authentification edited')
                                 
                         item.save()
                         print('Item # ' + str(item.id) + ' edited')
@@ -1192,17 +1250,6 @@ def selenium_search_ozon_smartphone(request):
                     except:
                         print('No comms_standard data provided')
                     try:
-                        string=specs['Стандарты связи']
-                        string=string.lower()
-                        string=string.replace(", ", ",")#deleting spaces after comma
-                        array=string.split(',')#transforming the string into a list
-                        for i in array:
-                            if CommunicationStandard.objects.filter(value=i).exists():
-                                comms_standard=CommunicationStandard.objects.get(value=i)
-                                item.comms_standard.add(comms_standard)
-                    except:
-                        print('No comms_standard data provided')
-                    try:
                         string=specs['Особенности']
                         string=string.lower()
                         string=string.replace(", ", ",")#deleting spaces after comma
@@ -1220,7 +1267,7 @@ def selenium_search_ozon_smartphone(request):
                         array=string.split(',')#transforming the string into a list
                         for i in array:
                             if ChargingFunction.objects.filter(value=i).exists():
-                                stabilization=ChargingFunction.objects.get(value=i)
+                                charging_function=ChargingFunction.objects.get(value=i)
                                 item.charging_function.add(charging_function)
                     except:
                         print('No charging_function data provided')
@@ -1454,7 +1501,7 @@ def selenium_search_ozon_smartphone(request):
     return render (request, 'products.html')
 
 
-def selenium_search_ozon_monitor(request):
+def selenium_search_ozon_monitor(request):case_material
     #driver = webdriver.Chrome()
     options = webdriver.ChromeOptions()
     options.add_argument("--disable-blink-features=AutomationControlled")
