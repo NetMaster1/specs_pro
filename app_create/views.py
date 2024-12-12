@@ -1501,7 +1501,7 @@ def selenium_search_ozon_smartphone(request):
     return render (request, 'products.html')
 
 
-def selenium_search_ozon_monitor(request):case_material
+def selenium_search_ozon_monitor(request):
     #driver = webdriver.Chrome()
     options = webdriver.ChromeOptions()
     options.add_argument("--disable-blink-features=AutomationControlled")
