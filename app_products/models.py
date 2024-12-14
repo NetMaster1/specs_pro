@@ -116,7 +116,7 @@ class Smartphone (models.Model):
     category_name = models.ForeignKey(OzonCategory, on_delete=models.DO_NOTHING, null=True)
     #В справочнике Ozon отсутствуют такие бренды как, Xiaomi, Redmi, Honor, Honor, Poco
     #Есть такие бренды как, Samsung
-    #brand = models.ForeignKey(BrandSmartphone, on_delete=models.DO_NOTHING, null=True)
+    brand = models.ForeignKey(BrandSmartphone, on_delete=models.DO_NOTHING, null=True)
     #=================================================================
     created = models.DateTimeField(auto_now=True)
     #Название пишется по принципу:\nТип + Бренд + Модель (серия + пояснение) + Артикул производителя + , 
