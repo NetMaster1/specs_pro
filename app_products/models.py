@@ -222,7 +222,7 @@ class Smartphone (models.Model):
     #Выберите наиболее подходящий тип товара. По типам товары распределяются по категориям на сайте Ozon. 
     #Если тип указан неправильно, товар попадет в неверную категорию. Чтобы правильно указать тип, найдите
     #на сайте Ozon товары, похожие на ваш, и посмотрите, какой тип у них указан. 8229; is_required,
-    #type = models.ForeignKey(TypeSmartphone, on_delete=models.SET_NULL, null=True)
+    type_smartphone = models.ForeignKey(TypeSmartphone, on_delete=models.SET_NULL, null=True)
     #линейка мобильный устройств
     gadget_serie = models.ForeignKey(GadgetSerie, on_delete=models.SET_NULL, null=True, blank=True)#9225
     #=====================================================================================

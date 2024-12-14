@@ -20,9 +20,11 @@ from app_reference_shared.models import (OzonCategory,LightningType, Size, Monit
     NavigationType, Sensor, SimType, WifiType, CameraFunction, WirelessInterface, CaseMaterial, Interface, CommunicationStandard,
     ChargingFunction, Stabilization, Authentication, RamSmartphone, SmartphoneVersion,
     )
-from app_reference_smartphones.models import (BrandSmartphone, SmartphoneModel, TypeSmartphone, ScreenResolution, VideoQuality, 
+from app_reference_smartphones.models import (BrandSmartphone, SmartphoneModel, ScreenResolution, VideoQuality, 
     GadgetModel, ProtectionGrade, Colour, QntyOfBasicCamera, Processor, ProcessorCoreQnty, MicroSDSlot, CaseForm, EuroAsianCode,
-    SimCardQnty, ScreenResolution, VideoQuality, QntyOfBasicCamera, Processor, ProcessorCoreQnty, MicroSDSlot, CaseForm, ProtectionGrade, )
+    SimCardQnty, ScreenResolution, VideoQuality, QntyOfBasicCamera, Processor, ProcessorCoreQnty, MicroSDSlot, CaseForm, ProtectionGrade,
+    TypeSmartphone
+    )
 import datetime
 import re
 from selenium import webdriver

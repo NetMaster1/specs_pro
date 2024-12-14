@@ -14,7 +14,7 @@ from app_reference_smartphones.models import (
     GadgetModel, 
     VideoQuality,
     ScreenResolution, 
-    TypeSmartphone,
+    #TypeSmartphone,
     SimCardQnty
 )
 #from app_tv.models import TV_Brand
