@@ -30,6 +30,7 @@ from app_reference_shared.models import (
     Stabilization, 
     ChargingFunction, 
     SpecialFeature, 
+    SpecialFeatureSmartphone, 
     Interface, 
     AndroidVersion,
     OSMobile, 
@@ -1321,6 +1322,39 @@ def upload_special_features (request):
                 dictionary_value_id=i['id'],
                 attribute_id='5584',
                 #attribute_id='11449',
+                attribute_name='Особенности',
+                is_required=False,
+                category_dependent=False
+            )
+    
+    return render (request, 'products.html')
+
+def upload_special_features_smartphone (request):
+    headers = {
+        "Client-Id": "867100",
+        "Api-Key": '6bbf7175-6585-4c35-8314-646f7253bef6'
+    }
+    task = {
+    "attribute_id": 11449,
+    "description_category_id": 15621050,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 10000,
+    "type_id": 95139
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=SpecialFeatureSmartphone.objects.get(dictionary_value_id=i['id'])
+
+        except SpecialFeatureSmartphone.DoesNotExist:
+            item= SpecialFeatureSmartphone.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='11449',
                 attribute_name='Особенности',
                 is_required=False,
                 category_dependent=False

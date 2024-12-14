@@ -80,6 +80,7 @@ from app_reference_shared.models import (
     MonitorApplication,
     MonitorConnector,
     HDRStandard,
+    SpecialFeatureSmartphone,
 
 )
 from app_reference_smartphones.models import (
@@ -97,6 +98,7 @@ from app_reference_smartphones.models import (
     CaseForm,
     EuroAsianCode,
     SimCardQnty,
+
 )
 
 from app_monitor_reference.models import(
@@ -199,7 +201,7 @@ class Smartphone (models.Model):
     #Вес товара без упаковки (нетто) в граммах в расчете на 1 SKU. Допустимо указывать только цифры
     weight = models.ForeignKey(Weight, on_delete=models.DO_NOTHING, null=True, blank=True)
     colour = models.ManyToManyField(Colour, blank=True)
-    special_feature = models.ManyToManyField(SpecialFeature, blank=True)
+    special_feature = models.ManyToManyField(SpecialFeatureSmartphone, blank=True)
     #=====================================================================
     marketing_colour = models.ForeignKey(MarketingColour, on_delete=models.DO_NOTHING, null=True, blank=True)
     description = models.ForeignKey(Description, on_delete=models.DO_NOTHING, null=True, blank=True)
@@ -214,7 +216,7 @@ class Smartphone (models.Model):
     #Укажите название модели товара. Не указывайте в этом поле тип и бренд.
     #Заполните данное поле любым одинаковым значением у товаров, которые хотите объединить. 
     #И по разному, чтобы разъединить. Объединение через данный атрибут произойдет только если товары имеют одинаковый Тип и Бренд
-    #model_name = models.ForeignKey(ModelName, on_delete=models.DO_NOTHING, null=True)#9048
+    model_name_smartphone = models.ForeignKey(ModelName, on_delete=models.DO_NOTHING, null=True)#9048
     #Только краткое название модели, без типа, бренда и характеристик товара. Будет использовано в шаблонизаторе 
     #для составления названия карточки для сайта.
     card_title_model_name = models.ForeignKey(CardTitleModelName, on_delete=models.DO_NOTHING, null=True)#11241

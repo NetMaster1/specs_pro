@@ -20,7 +20,7 @@ from app_reference_shared.models import (OzonCategory,LightningType, Size, Monit
     NavigationType, Sensor, SimType, WifiType, CameraFunction, WirelessInterface, CaseMaterial, Interface, CommunicationStandard,
     ChargingFunction, Stabilization, Authentication, RamSmartphone, SmartphoneVersion,
     )
-from app_reference_smartphones.models import (BrandSmartphone, SmartphoneModel, ScreenResolution, VideoQuality, 
+from app_reference_smartphones.models import (BrandSmartphone, SmartphoneModel, ScreenResolution, 
     GadgetModel, ProtectionGrade, Colour, QntyOfBasicCamera, Processor, ProcessorCoreQnty, MicroSDSlot, CaseForm, EuroAsianCode,
     SimCardQnty, ScreenResolution, VideoQuality, QntyOfBasicCamera, Processor, ProcessorCoreQnty, MicroSDSlot, CaseForm, ProtectionGrade,
     TypeSmartphone
@@ -46,42 +46,6 @@ def scroll_down(driver, deep):
     for _ in range(deep):
         driver.execute_script('window.scrollBy(0, 1500)')
         time.sleep(0.05)
-
-def create_smartphone(request):
-    headers={'User-Agent': UserAgent().chrome}
-    url = 'https://nn.shop.megafon.ru/mobile/182129'
-    megafon_response=requests.get(url, headers=headers)
-    print(megafon_response.status_code)
-    soupMEG=BeautifulSoup(megafon_response.content, "html.parser")
-    key=soupMEG.find_all("div", {"class":"b-good-specs__head"})
-    value=soupMEG.find_all("div", {"class":"b-good-specs__content"})
-    specs={}
-    for i, j in zip (key, value):   
-        a=str(i.text)
-        a=' '.join(a.split())#удаляем лишние пробелы
-        a=a.rstrip("\n")#удаляем символ каретки'\n'
-        head, sep, tail = a.partition(':')#удаляем часть строки после символа ":"
-        b=str(j.text)
-        b=' '.join(b.split())#удаляем лишние пробелы
-        b=b.rstrip("\n")#удаляем символ каретки '\n'
-        specs[head]=b#Добавляем пару (ключ : значение) в словарь
-    for keys, values in specs.items():
-        print(keys + ' : ' + values)
-
-    # key=soupMEG.find_all("div", {"class":"b-good-specs__head"})
-    # value=soupMEG.find_all("div", {"class":"b-good-specs__content"})
-    # specs={}
-    # for i, j in zip (key, value):   
-    #     a=str(i.text)
-    #     a=' '.join(a.split())#удаляем лишние пробелы
-    #     a=a.rstrip("\n")#удаляем символ каретки'\n'
-    #     head, sep, tail = a.partition(':')#удаляем часть строки после символа ":"
-    #     b=str(j.text)
-    #     b=' '.join(b.split())#удаляем лишние пробелы
-    #     b=b.rstrip("\n")#удаляем символ каретки '\n'
-    #     specs[head]=b#Добавляем пару (ключ : значение) в словарь
-    # for keys, values in specs.items():
-    #     print(keys + ' : ' + values)
 
 def selenium_search_ozon_smartphone(request):
     #driver = webdriver.Chrome()
@@ -446,7 +410,7 @@ def selenium_search_ozon_smartphone(request):
                 if ModelName.objects.filter(value=specs['Название модели (для объединения в одну карточку)'], equipment_brand=brand, equipment_type=specs['Тип']).exists():
                     try:
                         model_name=ModelName.objects.get(value=specs['Название модели (для объединения в одну карточку)'], equipment_brand=brand, equipment_type=specs['Тип'])
-                        item=Smartphone.objects.get(model_name=model_name)
+                        item=Smartphone.objects.get(model_name_smartphone=model_name)
                         print("It's a duplicate")
                         #checking if the field is Null or Blank
                         #if item.screen_size is None and specs['Диагональ экрана, дюймы'] is not None:
@@ -659,11 +623,11 @@ def selenium_search_ozon_smartphone(request):
                                 hazard_grade=HazardGrade.objects.get(value=specs['Класс опасности товара'])
                                 item.hazard_grade=hazard_grade
                                 print('item.hazard_grade edited')
-                        if item.qnty_of_basic_camera is None and 'Количество основных камер' in specs:
+                        if item.qnty_of_basic_cameras is None and 'Количество основных камер' in specs:
                             if QntyOfBasicCamera.objects.filter(value=specs['Количество основных камер']).exists():
-                                qnty_of_basic_camera=QntyOfBasicCamera.objects.get(value=specs['Количество основных камер'])
-                                item.qnty_of_basic_camera=qnty_of_basic_camera
-                                print('item.qnty_of_basic_camera edited')
+                                qnty_of_basic_cameras=QntyOfBasicCamera.objects.get(value=specs['Количество основных камер'])
+                                item.qnty_of_basic_cameras=qnty_of_basic_cameras
+                                print('item.qnty_of_basic_cameras edited')
                         if item.processor is None and 'Процессор' in specs:
                             if Processor.objects.filter(value=specs['Процессор']).exists():
                                 processor=Processor.objects.get(value=specs['Процессор'])
@@ -944,549 +908,544 @@ def selenium_search_ozon_smartphone(request):
                 else:
                     print('--------------------------------')
                     print('Missing parameters: ')
-                    try:
-                        #=============is_required=======================
-                        category_name=OzonCategory.objects.get(type_name='Смартфон')
-                        #resolution=Resolution.objects.get(value=specs['Разрешение'])
-                    
-                        model_name=ModelName.objects.create(
-                            value=specs['Название модели (для объединения в одну карточку)'],
-                            #следующие два параметра нунжы для работы с БД в административной панели
-                            #они помогают отдлеть model_names для оборудования разных типов
-                            equipment_type=specs['Тип'],
-                            equipment_brand=specs['Бренд']
-                            )
-                        
-                        name=Name.objects.create(value=name_string)
-                        type_smartphone=TypeSmartphone.objects.get(value='Смартфон')
-
-                        try:
-                            brand=BrandSmartphone.objects.get(value=specs['Бренд'])
-                        except:
-                            brand=BrandSmartphone.objects.get(value='Нет бренда')
-                        #=============dictionnay id = 0 =====================================               
-                        item=Smartphone.objects.create(
-                            category_name=category_name,
-                            type=type_smartphone,
-                            brand=brand,
-                            model_name=model_name,
-                            name=name
-
-                            #part_number=part_number,
+                    # try:
+                    #=============is_required=======================
+                    category_name=OzonCategory.objects.get(type_name='Смартфон')
+                    #resolution=Resolution.objects.get(value=specs['Разрешение'])
+                
+                    model_name=ModelName.objects.create(
+                        value=specs['Название модели (для объединения в одну карточку)'],
+                        #следующие два параметра нунжы для работы с БД в административной панели
+                        #они помогают отдлеть model_names для оборудования разных типов
+                        equipment_type=specs['Тип'],
+                        equipment_brand=specs['Бренд']
                         )
-                        list_length=len(image_files)
-                        if list_length>1:
-                            counter=0
-                            for i in image_files:
-                                if counter<1:
-                                    #if i.endswith('mp4'):
-                                    if '.mp4' in i:
-                                        item.video_url=i
-                                    else:
-                                        item.image_1=i
-                                elif counter==1:
-                                    if not item.image_1:
-                                        item.image_1=i
-                                    else:
-                                        item.image_2=i
-                                elif counter==2:
-                                    if not item.image_2:
-                                        item.image_2=i
-                                    else:
-                                        item.image_3=i
-                                elif counter==3:
-                                    if not item.image_3:
-                                        item.image_3=i
-                                    else:
-                                        item.image_4=i
-                                counter+=1
-                            item.save()
-                        #===============attributes with dictionary_id >0=========================
-                        try:
-                            hard_drive=HardDrive.objects.get(value=specs['Встроенная память'])
-                            item.hard_drive=hard_drive
-                        except:
-                            print('No hard_drive provided')
-                        try:
-                            matrix_type=MatrixType.objects.get(value=specs['Технология матрицы'])
-                            item.matrix_type=matrix_type
-                        except:
-                            print('No matrix_type data provided')
-                        try:
-                            sim_card_qnty=SimCardQnty.objects.get(value=specs['Число физических SIM-карт'])
-                            item.sim_card_qnty=sim_card_qnty
-                        except:
-                            print('No sim_card_qnty data provided')
-                        try:
-                            card_type=CardType.objects.get(value=specs['Тип карты памяти'])
-                            item.card_type=card_type
-                        except:
-                            print('No card_type data provided')
-                        try:
-                            bluetooth=BluetoothType.objects.get(value=specs['Модуль связи Bluetooth'])
-                            item.bluetooth=bluetooth
-                        except:
-                            print('No bluetooth data provided')
-                        try:
-                            video_processor_brand=VideoProcessorBrand.objects.get(value=specs['Бренд графического процессора'])
-                            item.video_processor_brand=video_processor_brand
-                        except:
-                            print('No video_processor_brand data provided')
-                        try:
-                            screen_resolution=ScreenResolution.objects.get(value=specs['Разрешение экрана'])
-                            item.screen_resolution=screen_resolution
-                        except:
-                            print('No screen_resolution data provided')
-                        try:
-                            video_quality=VideoQuality.objects.get(value=specs['Качество видео'])
-                            item.video_quality=video_quality
-                        except:
-                            print('No video_quality data provided')
-                        try:
-                            hazard_grade=HazardGrade.objects.get(value=specs['Класс опасности товара'])
-                            item.hazard_grade=hazard_grade
-                        except:
-                            print('No hazard_grade data provided')
-                        try:
-                            qnty_of_basic_cameras=QntyOfBasicCamera.objects.get(value=specs['Количество основных камер'])
-                            item.qnty_of_basic_cameras=qnty_of_basic_cameras
-                        except:
-                            print('No qnty_of_basic_cameras data provided')
-                        try:
-                            processor=Processor.objects.get(value=specs['Процессор'])
-                            item.processor=processor
-                        except:
-                            print('No processor data provided')
-                        try:
-                            video_processor=VideoProcessor.objects.get(value=specs['Видеопроцессор'])
-                            item.video_processor=video_processor
-                        except:
-                            print('No video_processor data provided')
-                        try:
-                            processor_brand=ProcessorBrand.objects.get(value=specs['Бренд процессора'])
-                            item.processor_brand=processor_brand
-                        except:
-                            print('No processor_brand data provided')
-                        try:
-                            processor_core_qnty=ProcessorCoreQnty.objects.get(value=specs['Число ядер процессора'])
-                            item.processor_core_qnty=processor_core_qnty
-                        except:
-                            print('No processor_core_qnty data provided')
-                        try:
-                            processor_model=ProcessorModel.objects.get(value=specs['Модель процессора'])
-                            item.processor_model=processor_model
-                        except:
-                            print('No processor_model data provided')
-                        try:
-                            operation_system=OSMobile.objects.get(value=specs['Операционная система'])
-                            item.operation_system=operation_system
-                        except:
-                            print('No operation_system data provided')
-                        try:
-                            android_version=AndroidVersion.objects.get(value=specs['Версия Android'])
-                            item.android_version=android_version
-                        except:
-                            print('No android_version data provided')
-                        try:
-                            microsd_slot=MicroSDSlot.objects.get(value=specs['Слот для карты памяти'])
-                            item.microsd_slot=microsd_slot
-                        except:
-                            print('No microsd_slot data provided')
-                        try:
-                            case_form=CaseForm.objects.get(value=specs['Тип корпуса'])
-                            item.case_form=case_form
-                        except:
-                            print('No case_form data provided')
-                        try:
-                            ios_version=IOSVersion.objects.get(value=specs['Версия iOS'])
-                            item.ios_version=ios_version
-                        except:
-                            print('No ios_version data provided')
-                        try:
-                            esim_support=ESimSupport.objects.get(value=specs['Поддержка eSim'])
-                            item.esim_support=esim_support
-                        except:
-                            print('No esim_support data provided')
-                        try:
-                            ram=RamSmartphone.objects.get(value=specs['Оперативная память'])
-                            item.ram=ram
-                        except:
-                            print('No ram data provided')
-                        try:
-                            publishing_year=PublishingYear.objects.get(value=specs['Год анонсирования'])
-                            item.publishing_year=publishing_year
-                        except:
-                            print('No publishing_year data provided')
-                        try:
-                            smartphone_version=SmartphoneVersion.objects.get(value=specs['Версия смартфона'])
-                            item.smartphone_version=smartphone_version
-                        except:
-                            print('No smartphone_version data provided')
-                        # try:
-                        #     euro_asian_code_monitor=EuroAsianCodeMonitor.objects.get(value=specs['ТН ВЭД коды ЕАЭС'])
-                        #     item.euro_asian_code_monitor=euro_asian_code_monitor
-                        # except:
-                        #     print('No euro_asian_code_monitor data provided')
+                    
+                    name=Name.objects.create(value=name_string)
+                    type_smartphone=TypeSmartphone.objects.get(value='Смартфон')
 
-                        #==========================is_collection (Many)=========================================
-                        try:
-                            string=specs['Страна-изготовитель']
-                            string=string.replace(", ", ",")#deleting spaces after comma
-                            array=string.split(',')#transforming the string into a list
-                            for i in array:
-                                if CountryOfManufacture.objects.filter(value=i).exists():
-                                    country_of_manufacture=CountryOfManufacture.objects.get(value=i)
-                                    item.country_of_manufacture.add(country_of_manufacture)
-                        except:
-                            print('No country_of_manufacture data provided')
-                        try:
-                            string=specs['Навигация']
-                            string=string.replace(", ", ",")#deleting spaces after comma
-                            array=string.split(',')#transforming the string into a list
-                            for i in array:
-                                if NavigationType.objects.filter(value=i).exists():
-                                    navigation=NavigationType.objects.get(value=i)
-                                    item.navigation.add(navigation)
-                        except:
-                            print('No navigation data provided')
-                        try:
-                            string=specs['Встроенные датчики']
-                            string=string.replace(", ", ",")#deleting spaces after comma
-                            array=string.split(',')#transforming the string into a list
-                            for i in array:
-                                if Sensor.objects.filter(value=i).exists():
-                                    sensor=Sensor.objects.get(value=i)
-                                    item.sensor.add(sensor)
-                        except:
-                            print('No sensor data provided')
-                        try:
-                            string=specs['Форм-фактор SIM']
-                            string=string.replace(", ", ",")#deleting spaces after comma
-                            array=string.split(',')#transforming the string into a list
-                            for i in array:
-                                if SimType.objects.filter(value=i).exists():
-                                    sim_type=SimType.objects.get(value=i)
-                                    item.sim_type.add(sim_type)
-                        except:
-                            print('No sim_type data provided')
-                        try:
-                            string=specs['Модуль связи WiFi']
-                            string=string.replace(", ", ",")#deleting spaces after comma
-                            array=string.split(',')#transforming the string into a list
-                            for i in array:
-                                if WifiType.objects.filter(value=i).exists():
-                                    wifi=WifiType.objects.get(value=i)
-                                    item.wifi.add(wifi)
-                        except:
-                            print('No wifi data provided')
-                        try:
-                            string=specs['Степень защиты']
-                            string=string.replace(", ", ",")#deleting spaces after comma
-                            array=string.split(',')#transforming the string into a list
-                            for i in array:
-                                if ProtectionGrade.objects.filter(value=i).exists():
-                                    protection_grade=ProtectionGrade.objects.get(value=i)
-                                    item.protection_grade.add(protection_grade)
-                        except:
-                            print('No protection_grade data provided')
-                        try:
-                            string=specs['Функции камеры']
-                            string=string.replace(", ", ",")#deleting spaces after comma
-                            array=string.split(',')#transforming the string into a list
-                            for i in array:
-                                if CameraFunction.objects.filter(value=i).exists():
-                                    camera_function=CameraFunction.objects.get(value=i)
-                                    item.camera_function.add(camera_function)
-                        except:
-                            print('No camera_function data provided')
-                        try:
-                            string=specs['Цвет товара']
-                            string=string.lower()
-                            string=string.replace(", ", ",")#deleting spaces after comma
-                            array=string.split(',')#transforming the string into a list
-                            for i in array:
-                                str(specs['Цвет']).lower()
-                                if Colour.objects.filter(value=i).exists():
-                                    colour=Colour.objects.get(value=i)
-                                    item.colour.add(colour)
-                        except:
-                            print('No colour data provided')
-                        try:
-                            string=specs['Беспроводные интерфейсы']
-                            string=string.lower()
-                            string=string.replace(", ", ",")#deleting spaces after comma
-                            array=string.split(',')#transforming the string into a list
-                            for i in array:
-                                if WirelessInterface.objects.filter(value=i).exists():
-                                    wireless_interface=WirelessInterface.objects.get(value=i)
-                                    item.wireless_interface.add(wireless_interface)
-                        except:
-                            print('No wireless_interface data provided')
-                        try:
-                            string=specs['Основной материал корпуса']
-                            string=string.lower()
-                            string=string.replace(", ", ",")#deleting spaces after comma
-                            array=string.split(',')#transforming the string into a list
-                            for i in array:
-                                if CaseMaterial.objects.filter(value=i).exists():
-                                    case_material=CaseMaterial.objects.get(value=i)
-                                    item.case_material.add(case_material)
-                        except:
-                            print('No case_material data provided')
-                        try:
-                            string=specs['Интерфейсы']
-                            string=string.lower()
-                            string=string.replace(", ", ",")#deleting spaces after comma
-                            array=string.split(',')#transforming the string into a list
-                            for i in array:
-                                if Interface.objects.filter(value=i).exists():
-                                    interface=Interface.objects.get(value=i)
-                                    item.interface.add(interface)
-                        except:
-                            print('No interface data provided')
-                        try:
-                            string=specs['Стандарты связи']
-                            string=string.lower()
-                            string=string.replace(", ", ",")#deleting spaces after comma
-                            array=string.split(',')#transforming the string into a list
-                            for i in array:
-                                if CommunicationStandard.objects.filter(value=i).exists():
-                                    comms_standard=CommunicationStandard.objects.get(value=i)
-                                    item.comms_standard.add(comms_standard)
-                        except:
-                            print('No comms_standard data provided')
-                        try:
-                            string=specs['Особенности']
-                            string=string.lower()
-                            string=string.replace(", ", ",")#deleting spaces after comma
-                            array=string.split(',')#transforming the string into a list
-                            for i in array:
-                                if SpecialFeature.objects.filter(value=i).exists():
-                                    special_feature=SpecialFeature.objects.get(value=i)
-                                    item.special_feature.add(special_feature)
-                        except:
-                            print('No special_feature data provided')
-                        try:
-                            string=specs['Функции зарядки']
-                            string=string.lower()
-                            string=string.replace(", ", ",")#deleting spaces after comma
-                            array=string.split(',')#transforming the string into a list
-                            for i in array:
-                                if ChargingFunction.objects.filter(value=i).exists():
-                                    charging_function=ChargingFunction.objects.get(value=i)
-                                    item.charging_function.add(charging_function)
-                        except:
-                            print('No charging_function data provided')
-                        try:
-                            string=specs['Стабилизация']
-                            string=string.lower()
-                            string=string.replace(", ", ",")#deleting spaces after comma
-                            array=string.split(',')#transforming the string into a list
-                            for i in array:
-                                if Stabilization.objects.filter(value=i).exists():
-                                    stabilization=Stabilization.objects.get(value=i)
-                                    item.stabilization.add(stabilization)
-                        except:
-                            print('No stabilization data provided')
-                        try:
-                            string=specs['Аутентификация']
-                            string=string.lower()
-                            string=string.replace(", ", ",")#deleting spaces after comma
-                            array=string.split(',')#transforming the string into a list
-                            for i in array:
-                                if Authentication.objects.filter(value=i).exists():
-                                    authentification=Authentication.objects.get(value=i)
-                                    item.authentification.add(authentification)
-                        except:
-                            print('No authentification data provided')       
-                        #======================Model with dictionary_id=0=========================
-                        try:
-                            if WarrantyPeriod.objects.filter(value=specs['Гарантийный срок']).exists():
-                                warranty_period=WarrantyPeriod.objects.get(value=specs['Гарантийный срок']) 
-                            else:
-                                warranty_period=WarrantyPeriod.objects.create(
-                                    value=str(specs['Гарантийный срок'])
-                                )
-                            item.warranty_period=warranty_period
-                        except:
-                            print('no warranty period data provided')
-                        try:
-                            if Size.objects.filter(value=specs['Размеры, мм']).exists():
-                                size=Size.objects.get(value=specs['Размеры, мм'])
-                            else:
-                                size=Size.objects.create(
-                                    value=str(specs['Размеры, мм'])
-                                )
-                            item.size=size
-                        except:
-                            print('no size data provided')
-                        try:
-                            if Weight.objects.filter(value=specs['Вес товара, г']).exists():
-                                weight=Weight.objects.get(value=specs['Вес, кг'])
-                            else:
-                                weight=Weight.objects.create(
-                                    value=str(specs['Вес товара, г'])
-                                )
-                            item.weight=weight
-                        except:
-                            print('no weight data provided')
-                        try:
-                            if ProductSet.objects.filter(value=specs['Комплектация']).exists():
-                                product_set=ProductSet.objects.get(value=specs['Комплектация'])
-                            else:
-                                product_set=ProductSet.objects.create(
-                                    value=str(specs['Комплектация'])
-                                )
-                            item.product_set=product_set
-                        except:
-                            print('no product_set data provided')
-                        try:
-                            if MaxCardVolume.objects.filter(value=specs['Макс. объём карты памяти, ГБ']).exists():
-                                max_card_volume=MaxCardVolume.objects.get(value=specs['Партномер'])
-                            else:
-                                max_card_volume=MaxCardVolume.objects.create(
-                                    value=str(specs['Макс. объём карты памяти, ГБ'])
-                                )
-                            item.max_card_volume=max_card_volume
-                        except:
-                            print('no max_card_volume data provided')
-                        try:
-                            if FrontCamerResolution.objects.filter(value=specs['Разрешение фронтальной (селфи) камеры, Мпикс']).exists():
-                                front_camera_resolution=FrontCamerResolution.objects.get(value=specs['Разрешение фронтальной (селфи) камеры, Мпикс'])
-                            else:
-                                front_camera_resolution=FrontCamerResolution.objects.create(
-                                    value=str(specs['Разрешение фронтальной (селфи) камеры, Мпикс'])
-                                )
-                            item.front_camera_resolution=front_camera_resolution
-                        except:
-                            print('no front_camera_resolution data provided')
-                        try:
-                            if BasicCamerResolution.objects.filter(value=specs['Разрешение основной камеры, Мпикс']).exists():
-                                basic_camera_resolution=BasicCamerResolution.objects.get(value=specs['Разрешение основной камеры, Мпикс'])
-                            else:
-                                basic_camera_resolution=BasicCamerResolution.objects.create(
-                                    value=str(specs['Разрешение основной камеры, Мпикс'])
-                                )
-                            item.basic_camera_resolution=basic_camera_resolution
-                        except:
-                            print('no basic_camera_resolution data provided')
-                        try:
-                            if BatteryCapacity.objects.filter(value=specs['Емкость аккумулятора, мАч']).exists():
-                                battery_capacity=BatteryCapacity.objects.get(value=specs['Емкость аккумулятора, мАч'])
-                            else:
-                                battery_capacity=BatteryCapacity.objects.create(
-                                    value=str(specs['Емкость аккумулятора, мАч'])
-                                )
-                            item.battery_capacity=battery_capacity
-                        except:
-                            print('no battery_capacity data provided')
-                        try:
-                            if StandByPeriod.objects.filter(value=specs['Работа в режиме ожидания, ч']).exists():
-                                standby_period=StandByPeriod.objects.get(value=specs['Работа в режиме ожидания, ч'])
-                            else:
-                                standby_period=StandByPeriod.objects.create(
-                                    value=str(specs['Работа в режиме ожидания, ч'])
-                                )
-                            item.standby_period=standby_period
-                        except:
-                            print('no standby_period data provided')
-                        try:
-                            if WorkPeriod.objects.filter(value=specs['Время работы в режиме разговора, ч']).exists():
-                                work_period=WorkPeriod.objects.get(value=specs['Время работы в режиме разговора, ч'])
-                            else:
-                                work_period=WorkPeriod.objects.create(
-                                    value=str(specs['Время работы в режиме разговора, ч'])
-                                )
-                            item.work_period=work_period
-                        except:
-                            print('no work_period data provided')
-                        try:
-                            if RecordMaxSpeed.objects.filter(value=specs['Макс. скорость видеосъемки, кадр/с']).exists():
-                                record_max_speed=RecordMaxSpeed.objects.get(value=specs['Макс. скорость видеосъемки, кадр/с'])
-                            else:
-                                record_max_speed=RecordMaxSpeed.objects.create(
-                                    value=specs['Макс. скорость видеосъемки, кадр/с']
-                                )
-                            item.record_max_speed=record_max_speed
-                        except:
-                            print('no record_max_speed data provided')
-                        try:
-                            if LifeSpan.objects.filter(value=specs['Срок службы, лет']).exists():
-                                life_span=LifeSpan.objects.get(value=specs['Срок службы, лет'])
-                            else:
-                                life_span=LifeSpan.objects.create(
-                                    value=str(specs['Срок службы, лет'])
-                                )
-                            item.life_span=life_span
-                        except:
-                            print('no life_span data provided')
-                        try:
-                            if ScreenSize.objects.filter(value=specs['Диагональ экрана, дюймы']).exists():
-                                screen_size=ScreenSize.objects.get(value=specs['Диагональ экрана, дюймы'])
-                            else:
-                                screen_size=ScreenSize.objects.create(
-                                    value=specs['Диагональ экрана, дюймы']
-                                )
-                            item.screen_size=screen_size
-                        except:
-                            print('no screen_size data provided')
-                        try:
-                            if MarketingColour.objects.filter(value=specs['Название цвета']).exists():
-                                marketing_colour=MarketingColour.objects.get(value=specs['Название цвета'])
-                            else:
-                                marketing_colour=MarketingColour.objects.create(
-                                    value=str(specs['Название цвета'])
-                                )
-                            item.marketing_colour=marketing_colour
-                        except:
-                            print('no marketing_colour data provided')
-                        try:
-                            if ProcessorFrequency.objects.filter(value=specs['Частота процессора, ГГц']).exists():
-                                processor_frequency=ProcessorFrequency.objects.get(value=specs['Частота процессора, ГГц'])
-                            else:
-                                processor_frequency=ProcessorFrequency.objects.create(
-                                    value=str(specs['Частота процессора, ГГц'])
-                                )
-                            item.processor_frequency=processor_frequency
-                        except:
-                            print('no processor_frequency data provided')
-                        try:
-                            if Description.objects.filter(value=specs['Аннотация']).exists():
-                                description=Description.objects.get(value=specs['Аннотация'])
-                            else:
-                                description=Description.objects.create(
-                                    value=str(specs['Аннотация'])
-                                )
-                            item.description=description
-                        except:
-                            print('no description data provided')
-                        try:
-                            if KeyWord.objects.filter(value=specs['Ключевые слова']).exists():
-                                key_word=KeyWord.objects.get(value=specs['Ключевые слова'])
-                            else:
-                                key_word=KeyWord.objects.create(
-                                    value=str(specs['Ключевые слова'])
-                                )
-                            item.key_word=key_word
-                        except:
-                            print('no key_word data provided')
-                        try:
-                            if PartNumber.objects.filter(value=specs['Партномер']).exists():
-                                part_number=PartNumber.objects.get(value=specs['Партномер'])
-                            else:
-                                part_number=PartNumber.objects.create(
-                                    value=str(specs['Партномер'])
-                                )
-                            item.part_number=part_number
-                        except:
-                            print('no part_number data provided')
+                    try:
+                        brand=BrandSmartphone.objects.get(value=specs['Бренд'])
+                    except:
+                        brand=BrandSmartphone.objects.get(value='Нет бренда')
+                    #=============Creating Smartphone Item =====================================               
+                    item=Smartphone.objects.create(
+                        category_name=category_name,
+                        type_smartphone=type_smartphone,
+                        brand=brand,
+                        model_name_smartphone=model_name,
+                        name=name
 
+                        #part_number=part_number,
+                    )
+                    list_length=len(image_files)
+                    if list_length>1:
+                        counter=0
+                        for i in image_files:
+                            if counter<1:
+                                #if i.endswith('mp4'):
+                                if '.mp4' in i:
+                                    item.video_url=i
+                                else:
+                                    item.image_1=i
+                            elif counter==1:
+                                if not item.image_1:
+                                    item.image_1=i
+                                else:
+                                    item.image_2=i
+                            elif counter==2:
+                                if not item.image_2:
+                                    item.image_2=i
+                                else:
+                                    item.image_3=i
+                            elif counter==3:
+                                if not item.image_3:
+                                    item.image_3=i
+                                else:
+                                    item.image_4=i
+                            counter+=1
                         item.save()
-                        print('ITEM # ' + str(item.id) + ' CREATED')
-                    except Exception as e:
-                        print('-------------------------------')
-                        print('Exception Error #2: ')
-                        print (e)
+                    #===============attributes with dictionary_id >0=========================
+                    try:
+                        hard_drive=HardDrive.objects.get(value=specs['Встроенная память'])
+                        item.hard_drive=hard_drive
+                    except:
+                        print('No hard_drive provided')
+                    try:
+                        matrix_type=MatrixType.objects.get(value=specs['Технология матрицы'])
+                        item.matrix_type=matrix_type
+                    except:
+                        print('No matrix_type data provided')
+                    try:
+                        sim_card_qnty=SimCardQnty.objects.get(value=specs['Число физических SIM-карт'])
+                        item.sim_card_qnty=sim_card_qnty
+                    except:
+                        print('No sim_card_qnty data provided')
+                    try:
+                        card_type=CardType.objects.get(value=specs['Тип карты памяти'])
+                        item.card_type=card_type
+                    except:
+                        print('No card_type data provided')
+                    try:
+                        bt_string=specs['Модуль связи Bluetooth']
+                        bt_string_edited=bt_string.replace('.', ',')
+                        bluetooth=BluetoothType.objects.get(value=bt_string_edited)
+                        item.bluetooth=bluetooth
+                    except:
+                        print('No bluetooth data provided')
+                    try:
+                        video_processor_brand=VideoProcessorBrand.objects.get(value=specs['Бренд графического процессора'])
+                        item.video_processor_brand=video_processor_brand
+                    except:
+                        print('No video_processor_brand data provided')
+                    try:
+                        screen_resolution=ScreenResolution.objects.get(value=specs['Разрешение экрана'])
+                        item.screen_resolution=screen_resolution
+                    except:
+                        print('No screen_resolution data provided')
+                    try:
+                        if VideoQuality.objects.filter(value=specs['Качество видео']).exists():
+                            video_quality=VideoQuality.objects.filter(value=specs['Качество видео']).first()
+                            item.video_quality=video_quality
+                    except:
+                        print('No video_quality data provided')
+                    try:
+                        hazard_grade=HazardGrade.objects.get(value=specs['Класс опасности товара'])
+                        item.hazard_grade=hazard_grade
+                    except:
+                        print('No hazard_grade data provided')
+                    try:
+                        qnty_of_basic_cameras=QntyOfBasicCamera.objects.get(value=specs['Количество основных камер'])
+                        item.qnty_of_basic_cameras=qnty_of_basic_cameras
+                    except:
+                        print('No qnty_of_basic_cameras data provided')
+                    try:
+                        processor=Processor.objects.get(value=specs['Процессор'])
+                        item.processor=processor
+                    except:
+                        print('No processor data provided')
+                    try:
+                        video_processor=VideoProcessor.objects.get(value=specs['Видеопроцессор'])
+                        item.video_processor=video_processor
+                    except:
+                        print('No video_processor data provided')
+                    try:
+                        processor_brand=ProcessorBrand.objects.get(value=specs['Бренд процессора'])
+                        item.processor_brand=processor_brand
+                    except:
+                        print('No processor_brand data provided')
+                    try:
+                        processor_core_qnty=ProcessorCoreQnty.objects.get(value=specs['Число ядер процессора'])
+                        item.processor_core_qnty=processor_core_qnty
+                    except:
+                        print('No processor_core_qnty data provided')
+                    try:
+                        processor_model=ProcessorModel.objects.get(value=specs['Модель процессора'])
+                        item.processor_model=processor_model
+                    except:
+                        print('No processor_model data provided')
+                    try:
+                        operation_system=OSMobile.objects.get(value=specs['Операционная система'])
+                        item.operation_system=operation_system
+                    except:
+                        print('No operation_system data provided')
+                    try:
+                        android_version=AndroidVersion.objects.get(value=specs['Версия Android'])
+                        item.android_version=android_version
+                    except:
+                        print('No android_version data provided')
+                    try:
+                        microsd_slot=MicroSDSlot.objects.get(value=specs['Слот для карты памяти'])
+                        item.microsd_slot=microsd_slot
+                    except:
+                        print('No microsd_slot data provided')
+                    try:
+                        case_form=CaseForm.objects.get(value=specs['Тип корпуса'])
+                        item.case_form=case_form
+                    except:
+                        print('No case_form data provided')
+                    try:
+                        ios_version=IOSVersion.objects.get(value=specs['Версия iOS'])
+                        item.ios_version=ios_version
+                    except:
+                        print('No ios_version data provided')
+                    try:
+                        esim_support=ESimSupport.objects.get(value=specs['Поддержка eSim'])
+                        item.esim_support=esim_support
+                    except:
+                        print('No esim_support data provided')
+                    try:
+                        ram=RamSmartphone.objects.get(value=specs['Оперативная память'])
+                        item.ram=ram
+                    except:
+                        print('No ram data provided')
+                    try:
+                        publishing_year=PublishingYear.objects.get(value=specs['Год анонсирования'])
+                        item.publishing_year=publishing_year
+                    except:
+                        print('No publishing_year data provided')
+                    try:
+                        smartphone_version=SmartphoneVersion.objects.get(value=specs['Версия смартфона'])
+                        item.smartphone_version=smartphone_version
+                    except:
+                        print('No smartphone_version data provided')
+                    # try:
+                    #     euro_asian_code_monitor=EuroAsianCodeMonitor.objects.get(value=specs['ТН ВЭД коды ЕАЭС'])
+                    #     item.euro_asian_code_monitor=euro_asian_code_monitor
+                    # except:
+                    #     print('No euro_asian_code_monitor data provided')
+
+                    #==========================is_collection (Many)=========================================
+                    try:
+                        string=specs['Страна-изготовитель']
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if CountryOfManufacture.objects.filter(value=i).exists():
+                                country_of_manufacture=CountryOfManufacture.objects.get(value=i)
+                                item.country_of_manufacture.add(country_of_manufacture)
+                    except:
+                        print('No country_of_manufacture data provided')
+                    try:
+                        string=specs['Навигация']
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if NavigationType.objects.filter(value=i).exists():
+                                navigation=NavigationType.objects.get(value=i)
+                                item.navigation.add(navigation)
+                    except:
+                        print('No navigation data provided')
+                    try:
+                        string=specs['Встроенные датчики']
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if Sensor.objects.filter(value=i).exists():
+                                sensor=Sensor.objects.get(value=i)
+                                item.sensor.add(sensor)
+                    except:
+                        print('No sensor data provided')
+                    try:
+                        string=specs['Форм-фактор SIM']
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if SimType.objects.filter(value=i).exists():
+                                sim_type=SimType.objects.get(value=i)
+                                item.sim_type.add(sim_type)
+                    except:
+                        print('No sim_type data provided')
+                    try:
+                        string=specs['Модуль связи WiFi']
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if WifiType.objects.filter(value=i).exists():
+                                wifi=WifiType.objects.get(value=i)
+                                item.wifi.add(wifi)
+                    except:
+                        print('No wifi data provided')
+                    try:
+                        string=specs['Степень защиты']
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if ProtectionGrade.objects.filter(value=i).exists():
+                                protection_grade=ProtectionGrade.objects.get(value=i)
+                                item.protection_grade.add(protection_grade)
+                    except:
+                        print('No protection_grade data provided')
+                    try:
+                        string=specs['Функции камеры']
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if CameraFunction.objects.filter(value=i).exists():
+                                camera_function=CameraFunction.objects.get(value=i)
+                                item.camera_function.add(camera_function)
+                    except:
+                        print('No camera_function data provided')
+                    try:
+                        string=specs['Цвет товара']
+                        string=string.lower()
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            str(specs['Цвет']).lower()
+                            if Colour.objects.filter(value=i).exists():
+                                colour=Colour.objects.get(value=i)
+                                item.colour.add(colour)
+                    except:
+                        print('No colour data provided')
+                    try:
+                        string=specs['Беспроводные интерфейсы']
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if WirelessInterface.objects.filter(value=i).exists():
+                                wireless_interface=WirelessInterface.objects.get(value=i)
+                                item.wireless_interface.add(wireless_interface)
+                    except:
+                        print('No wireless_interface data provided')
+                    try:
+                        string=specs['Основной материал корпуса']
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if CaseMaterial.objects.filter(value=i).exists():
+                                case_material=CaseMaterial.objects.get(value=i)
+                                item.case_material.add(case_material)
+                    except:
+                        print('No case_material data provided')
+                    try:
+                        string=specs['Интерфейсы']
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if Interface.objects.filter(value=i).exists():
+                                interface=Interface.objects.get(value=i)
+                                item.interface.add(interface)
+                    except:
+                        print('No interface data provided')
+                    try:
+                        string=specs['Стандарты связи']
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if CommunicationStandard.objects.filter(value=i).exists():
+                                comms_standard=CommunicationStandard.objects.get(value=i)
+                                item.comms_standard.add(comms_standard)
+                    except:
+                        print('No comms_standard data provided')
+                    try:
+                        string=specs['Особенности']
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if SpecialFeature.objects.filter(value=i).exists():
+                                special_feature=SpecialFeature.objects.get(value=i)
+                                item.special_feature.add(special_feature)
+                    except:
+                        print('No special_feature data provided')
+                    try:
+                        string=specs['Функции зарядки']
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if ChargingFunction.objects.filter(value=i).exists():
+                                charging_function=ChargingFunction.objects.get(value=i)
+                                item.charging_function.add(charging_function)
+                    except:
+                        print('No charging_function data provided')
+                    try:
+                        string=specs['Стабилизация']
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if Stabilization.objects.filter(value=i).exists():
+                                stabilization=Stabilization.objects.get(value=i)
+                                item.stabilization.add(stabilization)
+                    except:
+                        print('No stabilization data provided')
+                    try:
+                        string=specs['Аутентификация']
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if Authentication.objects.filter(value=i).exists():
+                                authentification=Authentication.objects.get(value=i)
+                                item.authentification.add(authentification)
+                    except:
+                        print('No authentification data provided')       
+                    #======================Model with dictionary_id=0=========================
+                    try:
+                        if WarrantyPeriod.objects.filter(value=specs['Гарантийный срок']).exists():
+                            warranty_period=WarrantyPeriod.objects.get(value=specs['Гарантийный срок']) 
+                        else:
+                            warranty_period=WarrantyPeriod.objects.create(
+                                value=str(specs['Гарантийный срок'])
+                            )
+                        item.warranty_period=warranty_period
+                    except:
+                        print('no warranty period data provided')
+                    try:
+                        if Size.objects.filter(value=specs['Размеры, мм']).exists():
+                            size=Size.objects.get(value=specs['Размеры, мм'])
+                        else:
+                            size=Size.objects.create(
+                                value=str(specs['Размеры, мм'])
+                            )
+                        item.size=size
+                    except:
+                        print('no size data provided')
+                    try:
+                        if Weight.objects.filter(value=specs['Вес товара, г']).exists():
+                            weight=Weight.objects.get(value=specs['Вес, кг'])
+                        else:
+                            weight=Weight.objects.create(
+                                value=str(specs['Вес товара, г'])
+                            )
+                        item.weight=weight
+                    except:
+                        print('no weight data provided')
+                    try:
+                        if ProductSet.objects.filter(value=specs['Комплектация']).exists():
+                            product_set=ProductSet.objects.get(value=specs['Комплектация'])
+                        else:
+                            product_set=ProductSet.objects.create(
+                                value=str(specs['Комплектация'])
+                            )
+                        item.product_set=product_set
+                    except:
+                        print('no product_set data provided')
+                    try:
+                        if MaxCardVolume.objects.filter(value=specs['Макс. объём карты памяти, ГБ']).exists():
+                            max_card_volume=MaxCardVolume.objects.get(value=specs['Партномер'])
+                        else:
+                            max_card_volume=MaxCardVolume.objects.create(
+                                value=str(specs['Макс. объём карты памяти, ГБ'])
+                            )
+                        item.max_card_volume=max_card_volume
+                    except:
+                        print('no max_card_volume data provided')
+                    try:
+                        if FrontCamerResolution.objects.filter(value=specs['Разрешение фронтальной (селфи) камеры, Мпикс']).exists():
+                            front_camera_resolution=FrontCamerResolution.objects.get(value=specs['Разрешение фронтальной (селфи) камеры, Мпикс'])
+                        else:
+                            front_camera_resolution=FrontCamerResolution.objects.create(
+                                value=str(specs['Разрешение фронтальной (селфи) камеры, Мпикс'])
+                            )
+                        item.front_camera_resolution=front_camera_resolution
+                    except:
+                        print('no front_camera_resolution data provided')
+                    try:
+                        if BasicCamerResolution.objects.filter(value=specs['Разрешение основной камеры, Мпикс']).exists():
+                            basic_camera_resolution=BasicCamerResolution.objects.get(value=specs['Разрешение основной камеры, Мпикс'])
+                        else:
+                            basic_camera_resolution=BasicCamerResolution.objects.create(
+                                value=str(specs['Разрешение основной камеры, Мпикс'])
+                            )
+                        item.basic_camera_resolution=basic_camera_resolution
+                    except:
+                        print('no basic_camera_resolution data provided')
+                    try:
+                        if BatteryCapacity.objects.filter(value=specs['Емкость аккумулятора, мАч']).exists():
+                            battery_capacity=BatteryCapacity.objects.get(value=specs['Емкость аккумулятора, мАч'])
+                        else:
+                            battery_capacity=BatteryCapacity.objects.create(
+                                value=str(specs['Емкость аккумулятора, мАч'])
+                            )
+                        item.battery_capacity=battery_capacity
+                    except:
+                        print('no battery_capacity data provided')
+                    try:
+                        if StandByPeriod.objects.filter(value=specs['Работа в режиме ожидания, ч']).exists():
+                            standby_period=StandByPeriod.objects.get(value=specs['Работа в режиме ожидания, ч'])
+                        else:
+                            standby_period=StandByPeriod.objects.create(
+                                value=str(specs['Работа в режиме ожидания, ч'])
+                            )
+                        item.standby_period=standby_period
+                    except:
+                        print('no standby_period data provided')
+                    try:
+                        if WorkPeriod.objects.filter(value=specs['Время работы в режиме разговора, ч']).exists():
+                            work_period=WorkPeriod.objects.get(value=specs['Время работы в режиме разговора, ч'])
+                        else:
+                            work_period=WorkPeriod.objects.create(
+                                value=str(specs['Время работы в режиме разговора, ч'])
+                            )
+                        item.work_period=work_period
+                    except:
+                        print('no work_period data provided')
+                    try:
+                        if RecordMaxSpeed.objects.filter(value=specs['Макс. скорость видеосъемки, кадр/с']).exists():
+                            record_max_speed=RecordMaxSpeed.objects.get(value=specs['Макс. скорость видеосъемки, кадр/с'])
+                        else:
+                            record_max_speed=RecordMaxSpeed.objects.create(
+                                value=specs['Макс. скорость видеосъемки, кадр/с']
+                            )
+                        item.record_max_speed=record_max_speed
+                    except:
+                        print('no record_max_speed data provided')
+                    try:
+                        if LifeSpan.objects.filter(value=specs['Срок службы, лет']).exists():
+                            life_span=LifeSpan.objects.get(value=specs['Срок службы, лет'])
+                        else:
+                            life_span=LifeSpan.objects.create(
+                                value=str(specs['Срок службы, лет'])
+                            )
+                        item.life_span=life_span
+                    except:
+                        print('no life_span data provided')
+                    try:
+                        if ScreenSize.objects.filter(value=specs['Диагональ экрана, дюймы']).exists():
+                            screen_size=ScreenSize.objects.get(value=specs['Диагональ экрана, дюймы'])
+                        else:
+                            screen_size=ScreenSize.objects.create(
+                                value=specs['Диагональ экрана, дюймы']
+                            )
+                        item.screen_size=screen_size
+                    except:
+                        print('no screen_size data provided')
+                    try:
+                        if MarketingColour.objects.filter(value=specs['Название цвета']).exists():
+                            marketing_colour=MarketingColour.objects.get(value=specs['Название цвета'])
+                        else:
+                            marketing_colour=MarketingColour.objects.create(
+                                value=str(specs['Название цвета'])
+                            )
+                        item.marketing_colour=marketing_colour
+                    except:
+                        print('no marketing_colour data provided')
+                    try:
+                        if ProcessorFrequency.objects.filter(value=specs['Частота процессора, ГГц']).exists():
+                            processor_frequency=ProcessorFrequency.objects.get(value=specs['Частота процессора, ГГц'])
+                        else:
+                            processor_frequency=ProcessorFrequency.objects.create(
+                                value=str(specs['Частота процессора, ГГц'])
+                            )
+                        item.processor_frequency=processor_frequency
+                    except:
+                        print('no processor_frequency data provided')
+                    try:
+                        if Description.objects.filter(value=specs['Аннотация']).exists():
+                            description=Description.objects.get(value=specs['Аннотация'])
+                        else:
+                            description=Description.objects.create(
+                                value=str(specs['Аннотация'])
+                            )
+                        item.description=description
+                    except:
+                        print('no description data provided')
+                    try:
+                        if KeyWord.objects.filter(value=specs['Ключевые слова']).exists():
+                            key_word=KeyWord.objects.get(value=specs['Ключевые слова'])
+                        else:
+                            key_word=KeyWord.objects.create(
+                                value=str(specs['Ключевые слова'])
+                            )
+                        item.key_word=key_word
+                    except:
+                        print('no key_word data provided')
+                    try:
+                        if PartNumber.objects.filter(value=specs['Партномер']).exists():
+                            part_number=PartNumber.objects.get(value=specs['Партномер'])
+                        else:
+                            part_number=PartNumber.objects.create(
+                                value=str(specs['Партномер'])
+                            )
+                        item.part_number=part_number
+                    except:
+                        print('no part_number data provided')
+
+                    item.save()
+                    print('ITEM # ' + str(item.id) + ' CREATED')
+                    # except Exception as e:
+                    #     print('-------------------------------')
+                    #     print('Exception Error #2: ')
+                    #     print (e)
 
                 print('==============================')
                 #time.sleep(10)

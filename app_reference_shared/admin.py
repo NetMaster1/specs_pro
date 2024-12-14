@@ -7,7 +7,7 @@ from .models import (SmartphoneVersion, PublishingYear, RamSmartphone, ESimSuppo
     MarketingColour, ProcessorFrequency, Name, Description, KeyWord, MaxCardVolume, Json, LightningType, ScreenCoating, HDMIPorts, Adjustment,
     PixelSize, Ratio, MaxScreenFrequency, Brightness, Contrast, DynamicContrast, LookAngle, HorizontalFrequency, VerticalFrequency, WebCamera,
     StandAdjustment, PowerCapacity, VESAFixture, PixelPerInch, DesignFeature, ResponseTime, MonitorMatrix, MonitorApplication,
-    MonitorConnector, HDRStandard, MonitorInstallation,
+    MonitorConnector, HDRStandard, MonitorInstallation, SpecialFeatureSmartphone,
     )
 
 class OzonCategoryAdmin(admin.ModelAdmin):
@@ -189,6 +189,13 @@ class ChargingFunctionAdmin(admin.ModelAdmin):
     search_fields = ('value', )
 
 class SpecialFeatureAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class SpecialFeatureSmartphoneAdmin(admin.ModelAdmin):
     list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
     list_filter = ('value',)
     ordering = ('value',)
@@ -597,6 +604,7 @@ admin.site.register(OSMobile, OSMobileAdmin)
 admin.site.register(AndroidVersion, AndroidVersionAdmin)
 admin.site.register(Interface, InterfaceAdmin)
 admin.site.register(SpecialFeature, SpecialFeatureAdmin)
+admin.site.register(SpecialFeatureSmartphone, SpecialFeatureSmartphoneAdmin)
 admin.site.register(ChargingFunction, ChargingFunctionAdmin)
 admin.site.register(Stabilization, StabilizationAdmin)
 admin.site.register(Authentication, AuthenticationAdmin)

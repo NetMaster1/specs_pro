@@ -39,6 +39,7 @@ urlpatterns = [
     path ('upload_communication_standards', views.upload_communication_standards, name='upload_communication_standards'),
     path ('upload_microsd_slots', views.upload_microsd_slots, name='upload_microsd_slots'),
     path ('upload_special_features', views.upload_special_features, name='upload_special_features'),
+    path ('upload_special_features_smartphone', views.upload_special_features_smartphone, name='upload_special_features_smartphone'),
     path ('upload_charging_functions', views.upload_charging_functions, name='upload_charging_functions'),
     path ('upload_stabilization', views.upload_stabilization, name='upload_stabilization'),
     path ('upload_authentication', views.upload_authentication, name='upload_authentication'),
