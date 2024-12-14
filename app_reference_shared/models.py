@@ -35,7 +35,7 @@ class PowerOffWorkTime (models.Model):
     def __str__(self):
         return self.value
     
-class USB3_0_Ports (models.Model):
+class USB3Gen1Ports (models.Model):
     attribute_name = models.CharField(max_length=50, default='Число портов USB Type-A  3.2 Gen 1')
     attribute_id = models.CharField(max_length=50, null=True, default='4432')
     value = models.CharField(max_length=100, blank=True)
@@ -67,6 +67,106 @@ class Chipset (models.Model):
     is_collection = models.BooleanField(default=True)
     def __str__(self):
         return self.value
+    
+class USB3Gen2Ports (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Число портов USB Type-A 3.2 Gen 2')
+    attribute_id = models.CharField(max_length=50, null=True, default='4446')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class RAMFormFactor (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Форм-фактор RAM')
+    attribute_id = models.CharField(max_length=50, null=True, default='4447')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class DVDDrive (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Оптический привод')
+    attribute_id = models.CharField(max_length=50, null=True, default='4452')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class VideoCardType (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Тип видеокарты')
+    attribute_id = models.CharField(max_length=50, null=True, default='4454')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class SoundConfig (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Конфигурация звука')
+    attribute_id = models.CharField(max_length=50, null=True, default='4459')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=True)
+    def __str__(self):
+        return self.value
+    
+class ManualInputDevice (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Устройства ручного ввода')
+    attribute_id = models.CharField(max_length=50, null=True, default='4461')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=True)
+    def __str__(self):
+        return self.value
+    
+class ManualInputDeviceFeatures (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Особенности устройств ручного ввода')
+    attribute_id = models.CharField(max_length=50, null=True, default='4462')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=True)
+    def __str__(self):
+        return self.value
+    
+class LANCard (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Сетевая карта')
+    attribute_id = models.CharField(max_length=50, null=True, default='4466')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class BuiltInDevices (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Встроенные устройства')
+    attribute_id = models.CharField(max_length=50, null=True, default='4467')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=True)
+    def __str__(self):
+        return self.value
+
 
 
 
@@ -890,10 +990,10 @@ class VideoProcessorBrand (models.Model):
         return self.value
 
 class WifiType (models.Model):
-    attribute_name = models.CharField(max_length=50, null=True)
-    attribute_id = models.CharField(max_length=50, null=True)
+    attribute_name = models.CharField(max_length=50, null=True, default='Модуль связи WiFi')
+    attribute_id = models.CharField(max_length=50, null=True, default='4465')
     value = models.CharField(max_length=100, blank=True)
-    dictionary_value_id = models.CharField(max_length=20, default=0)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
     is_required = models.BooleanField(default=False)
     category_dependent = models.BooleanField(default=False)
     is_collection = models.BooleanField(default=True)

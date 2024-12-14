@@ -71,3 +71,47 @@ class NotebookMaxRAM(models.Model):
    
     def __str__(self):
         return self.value
+    
+class RAMExtraSlots (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Доп. слоты RAM памяти')
+    attribute_id = models.CharField(max_length=50, null=True, default='4448')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=True)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class SSDQnty (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Количество SSD')
+    attribute_id = models.CharField(max_length=50, null=True, default='4451')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=True)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class VideoRAM (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Видеопамять')
+    attribute_id = models.CharField(max_length=50, null=True, default='4455')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=True)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class KeyboardColour (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Цвет клавиатуры')
+    attribute_id = models.CharField(max_length=50, null=True, default='4455')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=True)
+    is_collection = models.BooleanField(default=True)
+    def __str__(self):
+        return self.value
