@@ -105,8 +105,8 @@ class QntyOfBasicCamera (models.Model):
         return self.value
 
 class Processor (models.Model):
-    attribute_name = models.CharField(max_length=50, null=True)
-    attribute_id = models.CharField(max_length=50, null=True)
+    attribute_name = models.CharField(max_length=50, null=True, default="Процессор")
+    attribute_id = models.CharField(max_length=50, null=True, default='10313')
     value = models.CharField(max_length=100, blank=True)
     dictionary_value_id = models.CharField(max_length=20, default=0)
     is_required = models.BooleanField(default=False)

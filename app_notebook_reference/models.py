@@ -115,3 +115,102 @@ class KeyboardColour (models.Model):
     is_collection = models.BooleanField(default=True)
     def __str__(self):
         return self.value
+    
+class NotebookCaseMaterial (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Материал корпуса')
+    attribute_id = models.CharField(max_length=50, null=True, default='4469')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=True)
+    is_collection = models.BooleanField(default=True)
+    def __str__(self):
+        return self.value
+    
+class NotebookInterfacesConnectors (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Интерфейсы и разъемы')
+    attribute_id = models.CharField(max_length=50, null=True, default='4471')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=True)
+    is_collection = models.BooleanField(default=True)
+    def __str__(self):
+        return self.value
+    
+class BatteryElementQnty (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Кол-во элементов аккумулятора')
+    attribute_id = models.CharField(max_length=50, null=True, default='4479')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=True)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class NotebookScreenResolution (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Разрешение экрана')
+    attribute_id = models.CharField(max_length=50, null=True, default='5186')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=True)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class HDDFormFactor (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Форм-фактор HDD')
+    attribute_id = models.CharField(max_length=50, null=True, default='9141')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=True)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class SSDFormFactor (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Форм-фактор SSD')
+    attribute_id = models.CharField(max_length=50, null=True, default='9142')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=True)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class StorageType (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Тип накопителя')
+    attribute_id = models.CharField(max_length=50, null=True, default='9221')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=True)
+    is_collection = models.BooleanField(default=True)
+    def __str__(self):
+        return self.value
+    
+class VideoCard (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Видеокарта')
+    attribute_id = models.CharField(max_length=50, null=True, default='9786')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=True)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class VRSupport (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Поддержка VR')
+    attribute_id = models.CharField(max_length=50, null=True, default='9923')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=True)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
