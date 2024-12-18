@@ -12,7 +12,18 @@ class OzonCategory (models.Model):
     
     def __str__(self):
         return self.type_name
-    
+
+class ProcessorModelNotebook (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Модель процессора' )
+    attribute_id = models.CharField(max_length=50, default='10320')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=True)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+
 class PortQntyUSB (models.Model):
     attribute_name = models.CharField(max_length=50, default='Число портов USB 2.0')
     attribute_id = models.CharField(max_length=50, null=True, default='4416')
@@ -57,7 +68,16 @@ class NotebookFormFactor (models.Model):
     def __str__(self):
         return self.value
     
-
+class Chipset (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Чипсет')
+    attribute_id = models.CharField(max_length=50, null=True, default='4442')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=True)
+    def __str__(self):
+        return self.value
     
 class PortQntyUSB3Gen2 (models.Model):
     attribute_name = models.CharField(max_length=50, default='Число портов USB Type-A 3.2 Gen 2')
@@ -315,16 +335,7 @@ class CaseCoating (models.Model):
     def __str__(self):
         return self.value
 
-class Chipset (models.Model):
-    attribute_name = models.CharField(max_length=50, default='Чипсет')
-    attribute_id = models.CharField(max_length=50, null=True, default='4442')
-    value = models.CharField(max_length=100, blank=True)
-    dictionary_value_id = models.CharField(max_length=20, default=1)
-    is_required = models.BooleanField(default=False)
-    category_dependent = models.BooleanField(default=False)
-    is_collection = models.BooleanField(default=True)
-    def __str__(self):
-        return self.value
+
 
 class Configuration (models.Model):
     attribute_name = models.CharField(max_length=50, default='Конфигурация')
@@ -336,7 +347,116 @@ class Configuration (models.Model):
     is_collection = models.BooleanField(default=False)
     def __str__(self):
         return self.value
-
+    
+class NotebookProcessorBrand (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Бренд процессора')
+    attribute_id = models.CharField(max_length=50, null=True, default='11362')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class NotebookVideoProcessorBrand (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Бренд процессора')
+    attribute_id = models.CharField(max_length=50, null=True, default='11363')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class OperationSystem (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Операционная система')
+    attribute_id = models.CharField(max_length=50, null=True, default='11377')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class VideoProcessorFamily (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Серия графического процессора')
+    attribute_id = models.CharField(max_length=50, null=True, default='11379')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class NotebookMatrixType (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Технология матрицы')
+    attribute_id = models.CharField(max_length=50, null=True, default='11379')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class WindowsVersion (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Версия Windows')
+    attribute_id = models.CharField(max_length=50, null=True, default='12454')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class MacOSVersion (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Версия MacOS')
+    attribute_id = models.CharField(max_length=50, null=True, default='12455')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class KeyboardLayout (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Раскладка клавиатуры')
+    attribute_id = models.CharField(max_length=50, null=True, default='21988')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class WebCameraShutter (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Шторка для веб-камеры')
+    attribute_id = models.CharField(max_length=50, null=True, default='22288')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class NotebookBatteryCapacity (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Емкость аккумулятора, Втч')
+    attribute_id = models.CharField(max_length=50, null=True, default='23007')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
 
 
 
@@ -411,7 +531,8 @@ class BasicCamerResolution (models.Model):
     is_collection = models.BooleanField(default=False)
     def __str__(self):
         return self.value
-    
+
+#Smartphone
 class BatteryCapacity (models.Model):
     attribute_name = models.CharField(max_length=50, null=True, default='Емкость аккумулятора, мАч')
     attribute_id = models.CharField(max_length=50, null=True, default="4429")
@@ -894,10 +1015,9 @@ class HDRStandard (models.Model):
 #         return self.value
 
 
-
 class WarrantyPeriod (models.Model):
     attribute_name = models.CharField(max_length=50, null=True, default="Гарантийный срок")
-    attribute_id = models.CharField(max_length=50, null=True, default="9048")
+    attribute_id = models.CharField(max_length=50, null=True, default="4385")
     value = models.CharField(max_length=100, null=True, default="1 год с момента покупки")
     dictionary_value_id = models.CharField(max_length=20, default=0)
     is_required = models.BooleanField(default=False)
@@ -1042,8 +1162,8 @@ class AndroidVersion (models.Model):
         return self.value
 
 class OSMobile (models.Model):
-    attribute_name = models.CharField(max_length=50, null=True)
-    attribute_id = models.CharField(max_length=50, null=True)
+    attribute_name = models.CharField(max_length=50, null=True, default='Операционная система')
+    attribute_id = models.CharField(max_length=50, null=True, default='10889')
     value = models.CharField(max_length=100, blank=True)
     dictionary_value_id = models.CharField(max_length=20, default=0)
     is_required = models.BooleanField(default=False)
@@ -1053,8 +1173,8 @@ class OSMobile (models.Model):
         return self.value
 
 class CaseMaterial (models.Model):
-    attribute_name = models.CharField(max_length=50, null=True)
-    attribute_id = models.CharField(max_length=50, null=True)
+    attribute_name = models.CharField(max_length=50, null=True, default='Основной материал корпуса')
+    attribute_id = models.CharField(max_length=50, null=True, default='10746')
     value = models.CharField(max_length=100, blank=True)
     dictionary_value_id = models.CharField(max_length=20, default=0)
     is_required = models.BooleanField(default=False)
@@ -1074,9 +1194,10 @@ class WirelessInterface (models.Model):
     def __str__(self):
         return self.value
 
+#Smartphone
 class ProcessorModel (models.Model):
-    attribute_name = models.CharField(max_length=50, null=True)
-    attribute_id = models.CharField(max_length=50, null=True)
+    attribute_name = models.CharField(max_length=50, null=True, default='Модель процессора')
+    attribute_id = models.CharField(max_length=50, null=True, default='10320')
     value = models.CharField(max_length=100, blank=True)
     dictionary_value_id = models.CharField(max_length=20, default=1)
     is_required = models.BooleanField(default=False)
@@ -1085,21 +1206,10 @@ class ProcessorModel (models.Model):
     def __str__(self):
         return self.value
 
-class ProcessorModelNotebook (models.Model):
-    attribute_name = models.CharField(max_length=50, default='Модель процессора' )
-    attribute_id = models.CharField(max_length=50, default='10320')
-    value = models.CharField(max_length=100, blank=True)
-    dictionary_value_id = models.CharField(max_length=20, default=1)
-    is_required = models.BooleanField(default=True)
-    category_dependent = models.BooleanField(default=False)
-    is_collection = models.BooleanField(default=False)
-    def __str__(self):
-        return self.value
-
-
+#Smartphone
 class ProcessorBrand (models.Model):
-    attribute_name = models.CharField(max_length=50, null=True)
-    attribute_id = models.CharField(max_length=50, null=True)
+    attribute_name = models.CharField(max_length=50, null=True, default='Бренд процессора')
+    attribute_id = models.CharField(max_length=50, null=True, default='10315')
     value = models.CharField(max_length=100, blank=True)
     dictionary_value_id = models.CharField(max_length=20, default=0)
     is_required = models.BooleanField(default=False)
@@ -1152,9 +1262,10 @@ class GadgetSerie (models.Model):
     def __str__(self):
         return self.value
 
+#Smartphone
 class VideoProcessorBrand (models.Model):
-    attribute_name = models.CharField(max_length=50, null=True)
-    attribute_id = models.CharField(max_length=50, null=True)
+    attribute_name = models.CharField(max_length=50, null=True, default='Бренд графического процессора')
+    attribute_id = models.CharField(max_length=50, null=True, default='5142')
     value = models.CharField(max_length=100, blank=True)
     dictionary_value_id = models.CharField(max_length=20, default=0)
     is_required = models.BooleanField(default=False)
@@ -1209,8 +1320,8 @@ class NavigationType (models.Model):
         return self.value
 
 class BluetoothType (models.Model):
-    attribute_name = models.CharField(max_length=50, null=True)
-    attribute_id = models.CharField(max_length=50, null=True)
+    attribute_name = models.CharField(max_length=50, null=True, default='Модуль связи Bluetooth')
+    attribute_id = models.CharField(max_length=50, null=True, default='4414')
     value = models.CharField(max_length=100, blank=True)
     dictionary_value_id = models.CharField(max_length=20, default=0)
     is_required = models.BooleanField(default=False)
@@ -1231,8 +1342,8 @@ class HardDrive (models.Model):
         return self.value
     
 class CountryOfManufacture (models.Model):
-    attribute_name = models.CharField(max_length=50, null=True)
-    attribute_id = models.CharField(max_length=50, null=True)
+    attribute_name = models.CharField(max_length=50, null=True, default='Страна-изготовитель')
+    attribute_id = models.CharField(max_length=50, null=True, default='4389')
     value = models.CharField(max_length=100, blank=True)
     dictionary_value_id = models.CharField(max_length=20, default=0)
     is_required = models.BooleanField(default=False)
@@ -1242,8 +1353,8 @@ class CountryOfManufacture (models.Model):
         return self.value
     
 class MatrixType (models.Model):
-    attribute_name = models.CharField(max_length=50, null=True)
-    attribute_id = models.CharField(max_length=50, null=True)
+    attribute_name = models.CharField(max_length=50, null=True, default="Технология матрицы")
+    attribute_id = models.CharField(max_length=50, null=True, default='4406')
     value = models.CharField(max_length=100, blank=True)
     dictionary_value_id = models.CharField(max_length=20, default=0)
     is_required = models.BooleanField(default=False)

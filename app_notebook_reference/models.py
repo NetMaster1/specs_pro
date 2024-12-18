@@ -237,8 +237,8 @@ class TouchScreen (models.Model):
     def __str__(self):
         return self.value
     
-class TouchScreen (models.Model):
-    attribute_name = models.CharField(max_length=50, default='Сенсорный экран')
+class KeyboardLightning (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Подсветка клавиатуры')
     attribute_id = models.CharField(max_length=50, null=True, default='10294')
     value = models.CharField(max_length=100, blank=True)
     dictionary_value_id = models.CharField(max_length=20, default=1)
@@ -247,3 +247,15 @@ class TouchScreen (models.Model):
     is_collection = models.BooleanField(default=False)
     def __str__(self):
         return self.value
+    
+class MobileCommsModule (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Модуль сотовой связи')
+    attribute_id = models.CharField(max_length=50, null=True, default='20102')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=True)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
