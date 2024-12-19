@@ -111,13 +111,24 @@ from app_reference_shared.models import (
     TotalSSDVolume,
     ScreenSize,
     PortQntyTypeC,
-    Configuration
+    Configuration,
+    NotebookProcessor,
+    NotebookProcessorBrand,
+    NotebookVideoProcessorBrand,
+    OperationSystem,
+    VideoProcessorFamily,
+    NotebookMatrixType,
+    WindowsVersion,
+    MacOSVersion,
+    KeyboardLayout,
+    WebCamShutter
     
 )
 
 from app_notebook_reference.models import (BrandNotebook, HDDQnty, RAMNotebook, NotebookRAMType, NotebookMaxRAM, RAMExtraSlot, SSDQnty,
     VideoRAM, KeyboardColour, NotebookCaseMaterial, NotebookInterfacesConnectors, BatteryElementQnty, NotebookScreenResolution,
-    HDDFormFactor, SSDFormFactor, StorageType, 
+    HDDFormFactor, SSDFormFactor, StorageType, VideoCard, VRSupport, NotebookColour, TouchScreen, NotebookProcessorCoreQnty,
+    KeyboardLightning, MobileCommsModule,
     )
 
 from app_reference_smartphones.models import (BrandSmartphone, TypeSmartphone, ScreenResolution, VideoQuality, GadgetModel, ProtectionGrade,
@@ -144,7 +155,6 @@ class Notebook (models.Model):
     bluetooth = models.ForeignKey(BluetoothType, on_delete=models.SET_NULL, null=True, blank=True)
     port_qnty_USB = models.ForeignKey(PortQntyUSB, on_delete=models.SET_NULL, null=True, blank=True)
     power_off_work_time = models.ForeignKey(PowerOffWorkTime, on_delete=models.SET_NULL, null=True, blank=True)
-    #notebook_battery_capacity = models.ForeignKey(NotebookBatteryCapacity, on_delete=models.SET_NULL, null=True, blank=True)#23007
     battery_capacity = models.ForeignKey(BatteryCapacity, on_delete=models.DO_NOTHING, null=True, blank=True)#4429
     port_usb3_gen1 = models.ForeignKey(PortQntyUSB3Gen1, on_delete=models.DO_NOTHING, null=True, blank=True)
     hdd_qnty = models.ForeignKey(HDDQnty, on_delete=models.DO_NOTHING, null=True, blank=True)
@@ -194,97 +204,31 @@ class Notebook (models.Model):
     storage_type= models.ForeignKey(StorageType, on_delete=models.DO_NOTHING, null=True, blank=True)
     configuration= models.ForeignKey(Configuration, on_delete=models.DO_NOTHING, null=True, blank=True)
     hazard_grade= models.ForeignKey(HazardGrade, on_delete=models.DO_NOTHING, null=True, blank=True)
+    nb_processor= models.ForeignKey(NotebookProcessor, on_delete=models.DO_NOTHING, null=True, blank=True)
+    video_card= models.ForeignKey(VideoCard, on_delete=models.DO_NOTHING, null=True, blank=True)
+    vr_support= models.ForeignKey(VRSupport, on_delete=models.DO_NOTHING, null=True, blank=True)
+    nb_colour= models.ForeignKey(NotebookColour, on_delete=models.DO_NOTHING, null=True, blank=True)
+    marketing_colour= models.ForeignKey(MarketingColour, on_delete=models.DO_NOTHING, null=True, blank=True)
+    touch_screen= models.ForeignKey(TouchScreen, on_delete=models.DO_NOTHING, null=True, blank=True)
+    processor_frequency= models.ForeignKey(ProcessorFrequency, on_delete=models.DO_NOTHING, null=True, blank=True)
+    nb_processor_core_qnty= models.ForeignKey(NotebookProcessorCoreQnty, on_delete=models.DO_NOTHING, null=True, blank=True)
+    case_material= models.ForeignKey(CaseMaterial, on_delete=models.DO_NOTHING, null=True, blank=True)
+    nb_processor_brand= models.ForeignKey(NotebookProcessorBrand, on_delete=models.DO_NOTHING, null=True, blank=True)
+    nb_video_processor_brand= models.ForeignKey(NotebookVideoProcessorBrand, on_delete=models.DO_NOTHING, null=True, blank=True)
+    operation_system= models.ForeignKey(OperationSystem, on_delete=models.DO_NOTHING, null=True, blank=True)
+    video_processor_family= models.ForeignKey(VideoProcessorFamily, on_delete=models.DO_NOTHING, null=True, blank=True)
+    nb_matrix_type= models.ForeignKey(NotebookMatrixType, on_delete=models.DO_NOTHING, null=True, blank=True)
+    windwos_version= models.ForeignKey(WindowsVersion, on_delete=models.DO_NOTHING, null=True, blank=True)
+    mac_os_version= models.ForeignKey(MacOSVersion, on_delete=models.DO_NOTHING, null=True, blank=True)
+    keyboard_lightning= models.ForeignKey(KeyboardLightning, on_delete=models.DO_NOTHING, null=True, blank=True)
+    mobile_comms_module= models.ForeignKey(MobileCommsModule, on_delete=models.DO_NOTHING, null=True, blank=True)
+    keyboard_layout= models.ForeignKey(KeyboardLayout, on_delete=models.DO_NOTHING, null=True, blank=True)
+    web_cam_shutter= models.ForeignKey(WebCamShutter, on_delete=models.DO_NOTHING, null=True, blank=True)
+    key_word = models.ForeignKey(KeyWord, on_delete=models.DO_NOTHING, null=True, blank=True)
+    nb_battery_capacity = models.ForeignKey(NotebookBatteryCapacity, on_delete=models.DO_NOTHING, null=True, blank=True)
    
    
-    #=================================================================
-   
-    # #Название пишется по принципу:\nТип + Бренд + Модель (серия + пояснение) + Артикул производителя + , 
-    # #(запятая) + Атрибут\nНазвание не пишется большими буквами (не используем caps lock).\n
-    # #Перед атрибутом ставится запятая. Если атрибутов несколько, они так же разделяются запятыми.\n
-    # # Если какой-то составной части названия нет - пропускаем её.\nАтрибутом может быть: цвет, вес, объём, 
-    # # количество штук в упаковке и т.д.\nЦвет пишется с маленькой буквы, в мужском роде, единственном числе.\n
-    # # Слово цвет в названии не пишем.\nТочка в конце не ставится.\nНикаких знаков препинания, кроме запятой, не используем.\n
-    # # Кавычки используем только для названий на русском языке.\nПримеры корректных названий:\nСмартфон Apple iPhone XS MT572RU/A, 
-    # # space black \nКеды Dr. Martens Киноклассика, бело-черные, размер 43\nСтиральный порошок Ariel Магия белого с мерной ложкой, 
-    # # 15 кг\nСоус Heinz Xtreme Tabasco суперострый, 10 мл\nИгрушка для животных Четыре лапы \"Бегающая мышка\" БММ, белый
-   
-   
-    # name = models.ForeignKey(Name, on_delete=models.DO_NOTHING, null=True, blank=True)#4180
-    # comms_standard = models.ManyToManyField(CommunicationStandard, blank=True)
-    # sim_type = models.ManyToManyField(SimType, blank=True)
-    # esim_support = models.ForeignKey(ESimSupport, on_delete=models.SET_NULL, null=True, blank=True)
-    # ram = models.ForeignKey(RamSmartphone, on_delete=models.SET_NULL, null=True, blank=True)
-    # hard_drive = models.ForeignKey(HardDrive, on_delete=models.SET_NULL, null=True)
-    # #Записывается только число. Десятичные цифры
-    # screen_size = models.ForeignKey(ScreenSize, on_delete=models.DO_NOTHING, null=True, blank=True)
-    # qnty_of_basic_cameras = models.ForeignKey(QntyOfBasicCamera, on_delete=models.SET_NULL, null=True, blank=True)
-    # #===============================================================
-    # operation_system = models.ForeignKey(OSMobile, on_delete=models.SET_NULL, null=True, blank=True)
-    # android_version = models.ForeignKey(AndroidVersion, on_delete=models.SET_NULL, null=True, blank=True)
-    # ios_version = models.ForeignKey(IOSVersion, on_delete=models.SET_NULL, null=True, blank=True)
     
-    # #================================================================
-    
-    # publishing_year = models.ForeignKey(PublishingYear, on_delete=models.SET_NULL, null=True, blank=True)
-    
-    # warranty_period = models.ForeignKey(WarrantyPeriod, on_delete=models.DO_NOTHING, null=True)
-    # life_span = models.ForeignKey(LifeSpan, on_delete=models.DO_NOTHING, null=True, blank=True)
-    # sim_card_qnty = models.ForeignKey(SimCardQnty, on_delete=models.SET_NULL, null=True, blank=True)
-    # #=================================================================
-    # processor = models.ForeignKey(Processor, on_delete=models.SET_NULL, null=True, blank=True)
-    # processor_brand = models.ForeignKey(ProcessorBrand, on_delete=models.SET_NULL, null=True, blank=True)
-    
-    # processor_core_qnty = models.ForeignKey(ProcessorCoreQnty, on_delete=models.SET_NULL, null=True, blank=True)
-    # processor_frequency = models.ForeignKey(ProcessorFrequency, on_delete=models.DO_NOTHING, null=True, blank=True)
-    # video_processor_brand = models.ForeignKey(VideoProcessorBrand, on_delete=models.SET_NULL, null=True, blank=True)
-    # video_processor = models.ForeignKey(VideoProcessor, on_delete=models.SET_NULL, null=True, blank=True)
-    # #=================================================================
-    # card_type = models.ManyToManyField(CardType, blank=True)
-    # microsd_slot = models.ForeignKey(MicroSDSlot, on_delete=models.SET_NULL, null=True, blank=True)
-    # max_card_volume = models.ForeignKey(MaxCardVolume, on_delete=models.SET_NULL, null=True, blank=True)#записывается только целое число
-    # #==================================================================
-    # #Записывается только число. Десятичные цифры
-    # charging_function = models.ManyToManyField(ChargingFunction, blank=True)
-    # #Записывается только число. Десятичные цифры
-    # standby_period = models.ForeignKey(StandByPeriod, on_delete=models.DO_NOTHING, null=True, blank=True)
-    # #Записывается только число. Десятичные цифры
-    # work_period = models.ForeignKey(WorkPeriod, on_delete=models.DO_NOTHING, null=True, blank=True)
-    # #==================================================================
-    # matrix_type = models.ForeignKey(MatrixType, on_delete=models.SET_NULL, null=True, blank=True)
-    # screen_resolution = models.ForeignKey(ScreenResolution, on_delete=models.SET_NULL, null=True, blank=True)
-    # #==================================================================
-    # camera_function = models.ManyToManyField(CameraFunction, blank=True)
-    # stabilization = models.ManyToManyField(Stabilization, blank=True)
-    # #Записывается только число. Десятичные цифры
-    # basic_camera_resolution = models.ForeignKey(BasicCamerResolution, on_delete=models.DO_NOTHING, null=True, blank=True)
-    # #Записывается только число. Десятичные цифры
-    # front_camera_resolution = models.ForeignKey(FrontCamerResolution, on_delete=models.DO_NOTHING, null=True, blank=True)
-    # #Записывается только число. Десятичные цифры. Измеряется в кадр/сек
-    # record_max_speed = models.ForeignKey(RecordMaxSpeed, on_delete=models.DO_NOTHING, null=True, blank=True)
-    # video_quality = models.ForeignKey(VideoQuality, on_delete=models.SET_NULL, null=True, blank=True)
-    # #==================================================================
-    # wifi = models.ManyToManyField(WifiType, blank=True)
-    # bluetooth = models.ForeignKey(BluetoothType, on_delete=models.SET_NULL, null=True, blank=True)
-    # wireless_interface = models.ManyToManyField(WirelessInterface, blank=True)
-    # interface = models.ManyToManyField(Interface, blank=True)
-    # #===================================================================
-    # sensor = models.ManyToManyField(Sensor, blank=True)
-    # navigation = models.ManyToManyField(NavigationType, blank=True)
-    # authentification = models.ManyToManyField(Authentication, blank=True)
-    # #====================================================================
-    # case_form = models.ForeignKey(CaseForm, on_delete=models.SET_NULL, null=True, blank=True)
-    # case_material = models.ManyToManyField(CaseMaterial, blank=True)
-    # #Размеры сторон товара без упаковки – длина х ширина х высота в миллиметрах (указывать через Х). 
-    # #Длина – самая большая сторона, высота – самая маленькая
-    # size = models.ForeignKey(Size, on_delete=models.DO_NOTHING, null=True, blank=True)
-    # #Вес товара без упаковки (нетто) в граммах в расчете на 1 SKU. Допустимо указывать только цифры
-    # weight = models.ForeignKey(Weight, on_delete=models.DO_NOTHING, null=True, blank=True)
-    # colour = models.ManyToManyField(Colour, blank=True)
-    # special_feature = models.ManyToManyField(SpecialFeatureSmartphone, blank=True)
-    # #=====================================================================
-    # marketing_colour = models.ForeignKey(MarketingColour, on_delete=models.DO_NOTHING, null=True, blank=True)
-    # description = models.ForeignKey(Description, on_delete=models.DO_NOTHING, null=True, blank=True)
-    # key_word = models.ForeignKey(KeyWord, on_delete=models.DO_NOTHING, null=True, blank=True)
     # #=========================================================================
     # #EAС (Ростест)
     # smartphone_version = models.ForeignKey(SmartphoneVersion, on_delete=models.SET_NULL, null=True, blank=True)

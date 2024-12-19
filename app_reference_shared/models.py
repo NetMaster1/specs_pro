@@ -379,7 +379,7 @@ class VideoProcessorFamily (models.Model):
     
 class NotebookMatrixType (models.Model):
     attribute_name = models.CharField(max_length=50, default='Технология матрицы')
-    attribute_id = models.CharField(max_length=50, null=True, default='11379')
+    attribute_id = models.CharField(max_length=50, null=True, default='11380')
     value = models.CharField(max_length=100, blank=True)
     dictionary_value_id = models.CharField(max_length=20, default=1)
     is_required = models.BooleanField(default=False)
@@ -421,7 +421,7 @@ class KeyboardLayout (models.Model):
     def __str__(self):
         return self.value
     
-class WebCameraShutter (models.Model):
+class WebCamShutter (models.Model):
     attribute_name = models.CharField(max_length=50, default='Шторка для веб-камеры')
     attribute_id = models.CharField(max_length=50, null=True, default='22288')
     value = models.CharField(max_length=100, blank=True)
@@ -442,12 +442,6 @@ class NotebookBatteryCapacity (models.Model):
     is_collection = models.BooleanField(default=False)
     def __str__(self):
         return self.value
-
-
-
-
-
-
 
 #========================================================Values========================
 class Size (models.Model):
