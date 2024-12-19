@@ -178,8 +178,6 @@ class WebCamResolution (models.Model):
     def __str__(self):
         return self.value
     
-
-    
 class PortQntyThunderbolt (models.Model):
     attribute_name = models.CharField(max_length=50, default='Число портов Thunderbolt')
     attribute_id = models.CharField(max_length=50, null=True, default='4473')
@@ -191,18 +189,7 @@ class PortQntyThunderbolt (models.Model):
     def __str__(self):
         return self.value
     
-class PortQntyHDMI (models.Model):
-    attribute_name = models.CharField(max_length=50, default='Число портов HDMI')
-    attribute_id = models.CharField(max_length=50, null=True, default='4473')
-    value = models.CharField(max_length=100, blank=True)
-    dictionary_value_id = models.CharField(max_length=20, default=0)
-    is_required = models.BooleanField(default=False)
-    category_dependent = models.BooleanField(default=False)
-    is_collection = models.BooleanField(default=False)
-    def __str__(self):
-        return self.value
-    
-class PortQntyDisplayPort (models.Model):
+class DisplayPort (models.Model):
     attribute_name = models.CharField(max_length=50, default='Число портов DisplayPort')
     attribute_id = models.CharField(max_length=50, null=True, default='4475')
     value = models.CharField(max_length=100, blank=True)
@@ -258,7 +245,7 @@ class TotalHDDVolume (models.Model):
     def __str__(self):
         return self.value
     
-class TotalSDDVolume (models.Model):
+class TotalSSDVolume (models.Model):
     attribute_name = models.CharField(max_length=50, default='Общий объем SSD, ГБ')
     attribute_id = models.CharField(max_length=50, null=True, default='8575')
     value = models.CharField(max_length=100, blank=True)
@@ -291,7 +278,7 @@ class NotebookProcessor (models.Model):
     def __str__(self):
         return self.value
     
-class BatteryType (models.Model):
+class BatteryType(models.Model):
     attribute_name = models.CharField(max_length=50, default='Тип аккумулятора')
     attribute_id = models.CharField(max_length=50, null=True, default='4480')
     value = models.CharField(max_length=100, blank=True)
@@ -334,8 +321,6 @@ class CaseCoating (models.Model):
     is_collection = models.BooleanField(default=True)
     def __str__(self):
         return self.value
-
-
 
 class Configuration (models.Model):
     attribute_name = models.CharField(max_length=50, default='Конфигурация')
@@ -748,7 +733,7 @@ class ScreenCoating (models.Model):
     def __str__(self):
         return self.value
     
-class HDMIPorts (models.Model):
+class HDMIPort (models.Model):
     attribute_name = models.CharField(max_length=50, default="Число портов HDMI")
     attribute_id = models.CharField(max_length=50, default='4474')
     value = models.CharField(max_length=100, blank=True)
@@ -793,7 +778,7 @@ class Ratio (models.Model):
         return self.value
     
 class MaxScreenFrequency (models.Model):
-    attribute_name = models.CharField(max_length=50, default="Макс. частота обнровления, Гц")
+    attribute_name = models.CharField(max_length=50, default="Макс. частота обновления, Гц")
     attribute_id = models.CharField(max_length=50, default='5570')
     value = models.CharField(max_length=100, blank=True)
     dictionary_value_id = models.CharField(max_length=20, default=0)

@@ -57,7 +57,7 @@ from app_reference_shared.models import (
     MaxCardVolume,
     LightningType,
     ScreenCoating,
-    HDMIPorts,
+    HDMIPort,
     Adjustment,
     PixelSize,
     Ratio,
@@ -90,40 +90,45 @@ from app_reference_shared.models import (
     Chipset,
     RAMFormFactor,
     PortQntyUSB3Gen2,
-
+    DVDrive,
+    VideoCardType,
+    SoundConfig,
+    ManualInputDevice,
+    ManualInputDeviceFeature,
+    LANCard,
+    BuiltInDevice,
+    WebCamResolution,
+    CaseCoating,
+    PortQntyThunderbolt,
+    DisplayPort,
+    BatteryType,
+    PowerSupplyVoltage,
+    MaxScreenFrequency,
+    CardReader,
+    NotebookWeight,
+    TotalDiskVolume,
+    TotalHDDVolume,
+    TotalSSDVolume,
+    ScreenSize,
+    PortQntyTypeC,
+    Configuration
+    
 )
 
-from app_notebook_reference.models import (BrandNotebook, HDDQnty, RAMNotebook, NotebookRAMType, NotebookMaxRAM)
+from app_notebook_reference.models import (BrandNotebook, HDDQnty, RAMNotebook, NotebookRAMType, NotebookMaxRAM, RAMExtraSlot, SSDQnty,
+    VideoRAM, KeyboardColour, NotebookCaseMaterial, NotebookInterfacesConnectors, BatteryElementQnty, NotebookScreenResolution,
+    HDDFormFactor, SSDFormFactor, StorageType, 
+    )
 
-from app_reference_smartphones.models import (
-    BrandSmartphone, 
-    TypeSmartphone, 
-    ScreenResolution, 
-    VideoQuality, 
-    GadgetModel, 
-    ProtectionGrade, 
-    Colour, 
-    QntyOfBasicCamera, 
-    Processor,
-    ProcessorCoreQnty,
-    MicroSDSlot,
-    CaseForm,
-    EuroAsianCode,
-    SimCardQnty,
+from app_reference_smartphones.models import (BrandSmartphone, TypeSmartphone, ScreenResolution, VideoQuality, GadgetModel, ProtectionGrade,
+    Colour, QntyOfBasicCamera, Processor, ProcessorCoreQnty, MicroSDSlot, CaseForm, EuroAsianCode, SimCardQnty,
 
-)
+    )
 
-from app_monitor_reference.models import(
-    Resolution,
-    TypeMonitor,
-    USBPort,
-    BuiltinSpeaker,
-    CurvedDispaly,
-    HDR,
-    ColourMonitor,
-    Brand_Monitor,
+from app_monitor_reference.models import(Resolution, TypeMonitor, USBPort, BuiltinSpeaker, CurvedDispaly, HDR, ColourMonitor, Brand_Monitor,
     EuroAsianCodeMonitor,
-)
+
+    )
 
 class Notebook (models.Model):
     #Дополнительное поле. Не входит в attributes for notebook. Использую просто для связи с таблицей категории.
@@ -150,6 +155,47 @@ class Notebook (models.Model):
     notebook_max_ram= models.ForeignKey(NotebookMaxRAM, on_delete=models.DO_NOTHING, null=True, blank=True)
     port_usb3_gen2 = models.ForeignKey(PortQntyUSB3Gen2, on_delete=models.DO_NOTHING, null=True, blank=True)
     ram_form_factor= models.ForeignKey(RAMFormFactor, on_delete=models.DO_NOTHING, null=True, blank=True)
+    ram_extra_slot= models.ForeignKey(RAMExtraSlot, on_delete=models.DO_NOTHING, null=True, blank=True)
+    ssd_qnty= models.ForeignKey(SSDQnty, on_delete=models.DO_NOTHING, null=True, blank=True)
+    dvd_drive= models.ForeignKey(DVDrive, on_delete=models.DO_NOTHING, null=True, blank=True)
+    video_card_type= models.ForeignKey(VideoCardType, on_delete=models.DO_NOTHING, null=True, blank=True)
+    video_ram= models.ForeignKey(VideoRAM, on_delete=models.DO_NOTHING, null=True, blank=True)
+    lightning_type= models.ForeignKey(LightningType, on_delete=models.DO_NOTHING, null=True, blank=True)
+    screen_coating= models.ForeignKey(ScreenCoating, on_delete=models.DO_NOTHING, null=True, blank=True)
+    sound_config= models.ForeignKey(SoundConfig, on_delete=models.DO_NOTHING, null=True, blank=True)
+    manual_input_device= models.ForeignKey(ManualInputDevice, on_delete=models.DO_NOTHING, null=True, blank=True)
+    manual_input_device_feature= models.ForeignKey(ManualInputDeviceFeature, on_delete=models.DO_NOTHING, null=True, blank=True)
+    keyboard_colour= models.ForeignKey(KeyboardColour, on_delete=models.DO_NOTHING, null=True, blank=True)
+    wifi_type= models.ForeignKey(WifiType, on_delete=models.DO_NOTHING, null=True, blank=True)
+    lan_card= models.ForeignKey(LANCard, on_delete=models.DO_NOTHING, null=True, blank=True)
+    builtin_device= models.ForeignKey(BuiltInDevice, on_delete=models.DO_NOTHING, null=True, blank=True)
+    web_cam_resolution= models.ForeignKey(WebCamResolution, on_delete=models.DO_NOTHING, null=True, blank=True)
+    case_material= models.ForeignKey(NotebookCaseMaterial, on_delete=models.DO_NOTHING, null=True, blank=True)
+    case_coating= models.ForeignKey(CaseCoating, on_delete=models.DO_NOTHING, null=True, blank=True)
+    interface_connector= models.ForeignKey(NotebookInterfacesConnectors, on_delete=models.DO_NOTHING, null=True, blank=True)
+    port_qnty_thunderbolt= models.ForeignKey(PortQntyThunderbolt, on_delete=models.DO_NOTHING, null=True, blank=True)
+    port_hdmi= models.ForeignKey(HDMIPort, on_delete=models.DO_NOTHING, null=True, blank=True)
+    display_port= models.ForeignKey(DisplayPort, on_delete=models.DO_NOTHING, null=True, blank=True)
+    battery_element_qnty= models.ForeignKey(BatteryElementQnty, on_delete=models.DO_NOTHING, null=True, blank=True)
+    battery_type= models.ForeignKey(BatteryType, on_delete=models.DO_NOTHING, null=True, blank=True)
+    power_supply_voltage= models.ForeignKey(PowerSupplyVoltage, on_delete=models.DO_NOTHING, null=True, blank=True)
+    nb_screen_resolution= models.ForeignKey(NotebookScreenResolution, on_delete=models.DO_NOTHING, null=True, blank=True)
+    max_screen_frequency= models.ForeignKey(MaxScreenFrequency, on_delete=models.DO_NOTHING, null=True, blank=True)
+    card_reader= models.ForeignKey(CardReader, on_delete=models.DO_NOTHING, null=True, blank=True)
+    nb_weight= models.ForeignKey(NotebookWeight, on_delete=models.DO_NOTHING, null=True, blank=True)
+    life_span= models.ForeignKey(LifeSpan, on_delete=models.DO_NOTHING, null=True, blank=True)
+    total_disk_volume= models.ForeignKey(TotalDiskVolume, on_delete=models.DO_NOTHING, null=True, blank=True)
+    total_hdd_volume= models.ForeignKey(TotalHDDVolume, on_delete=models.DO_NOTHING, null=True, blank=True)
+    total_ssd_volume= models.ForeignKey(TotalSSDVolume, on_delete=models.DO_NOTHING, null=True, blank=True)
+    screen_size= models.ForeignKey(ScreenSize, on_delete=models.DO_NOTHING, null=True, blank=True)
+    port_TypeC= models.ForeignKey(PortQntyTypeC, on_delete=models.DO_NOTHING, null=True, blank=True)
+    hdd_form_factor= models.ForeignKey(HDDFormFactor, on_delete=models.DO_NOTHING, null=True, blank=True)
+    ssd_form_factor= models.ForeignKey(SSDFormFactor, on_delete=models.DO_NOTHING, null=True, blank=True)
+    storage_type= models.ForeignKey(StorageType, on_delete=models.DO_NOTHING, null=True, blank=True)
+    configuration= models.ForeignKey(Configuration, on_delete=models.DO_NOTHING, null=True, blank=True)
+    hazard_grade= models.ForeignKey(HazardGrade, on_delete=models.DO_NOTHING, null=True, blank=True)
+   
+   
     #=================================================================
    
     # #Название пишется по принципу:\nТип + Бренд + Модель (серия + пояснение) + Артикул производителя + , 
@@ -282,8 +328,8 @@ class Notebook (models.Model):
    
     class Meta:
         # ordering = ('created',)  # sorting by date
-        verbose_name = 'smartphone'
-        verbose_name_plural = 'smartphones'
+        verbose_name = 'notebook'
+        verbose_name_plural = 'notebooks'
 
 
 
@@ -467,7 +513,7 @@ class Monitor (models.Model):
     country_of_manufacture = models.ManyToManyField(CountryOfManufacture, blank=True)
     lighting_type = models.ManyToManyField(LightningType, blank=True)
     screen_coating = models.ForeignKey(ScreenCoating, on_delete=models.DO_NOTHING, null=True, blank=True)
-    hdmi_ports = models.ForeignKey(HDMIPorts, on_delete=models.DO_NOTHING, null=True, blank=True)
+    hdmi_ports = models.ForeignKey(HDMIPort, on_delete=models.DO_NOTHING, null=True, blank=True)
     adjustments = models.ManyToManyField(Adjustment, blank=True)
     pixel_size = models.ForeignKey(PixelSize, on_delete=models.DO_NOTHING, null=True, blank=True)
     ratio = models.ForeignKey(Ratio, on_delete=models.DO_NOTHING, null=True, blank=True)

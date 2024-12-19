@@ -72,7 +72,7 @@ class NotebookMaxRAM(models.Model):
     def __str__(self):
         return self.value
     
-class RAMExtraSlots (models.Model):
+class RAMExtraSlot (models.Model):
     attribute_name = models.CharField(max_length=50, default='Доп. слоты RAM памяти')
     attribute_id = models.CharField(max_length=50, null=True, default='4448')
     value = models.CharField(max_length=100, blank=True)

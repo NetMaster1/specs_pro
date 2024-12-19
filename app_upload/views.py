@@ -55,7 +55,7 @@ from app_reference_shared.models import (
     Json,
     LightningType,
     ScreenCoating,
-    HDMIPorts,
+    HDMIPort,
     Adjustment,
     PixelSize,
     Ratio,

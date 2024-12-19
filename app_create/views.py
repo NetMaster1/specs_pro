@@ -10,7 +10,7 @@ from app_products.models import Smartphone, Monitor
 from app_monitor_reference.models import (Brand_Monitor, ColourMonitor,Resolution, TypeMonitor, USBPort, BuiltinSpeaker, CurvedDispaly, HDR,
     EuroAsianCodeMonitor                                      
     )
-from app_reference_shared.models import (OzonCategory,LightningType, Size, MonitorConnector, ScreenSize, WarrantyPeriod, ScreenCoating, HDMIPorts,
+from app_reference_shared.models import (OzonCategory,LightningType, Size, MonitorConnector, ScreenSize, WarrantyPeriod, ScreenCoating, HDMIPort,
     Adjustment, PixelSize, Ratio, MaxScreenFrequency, Brightness, Contrast, DynamicContrast, LookAngle, HorizontalFrequency, 
     VerticalFrequency, WebCamera, StandAdjustment, PowerCapacity, SpecialFeature, DesignFeature, VESAFixture, PixelPerInch, MonitorInstallation,
     ResponseTime, MonitorMatrix, MonitorApplication, HDRStandard, Description, ProductSet, CountryOfManufacture, WorkPeriod, Weight, KeyWord,
@@ -1862,10 +1862,10 @@ def selenium_search_ozon_monitor(request):
                             item.warranty_period=warranty_period
                             print('item.warranty_period edited to ' + str(item.warranty_period))
                         if item.hdmi_ports is None and 'Число портов HDMI' in specs:
-                            if HDMIPorts.objects.filter(value=specs['Число портов HDMI']).exists():
-                                hdmi_ports=HDMIPorts.objects.get(value=specs['Число портов HDMI'])
+                            if HDMIPort.objects.filter(value=specs['Число портов HDMI']).exists():
+                                hdmi_ports=HDMIPort.objects.get(value=specs['Число портов HDMI'])
                             else:
-                                hdmi_ports=HDMIPorts.objects.create(
+                                hdmi_ports=HDMIPort.objects.create(
                                     value=str(specs['Число портов HDMI'])
                                 )
                             item.hdmi_ports=hdmi_ports
@@ -2479,10 +2479,10 @@ def selenium_search_ozon_monitor(request):
                     except:
                         print('no warranty period data provided')
                     try:
-                        if HDMIPorts.objects.filter(value=specs['Число портов HDMI']).exists():
-                            hdmi_ports=HDMIPorts.objects.get(value=specs['Число портов HDMI'])
+                        if HDMIPort.objects.filter(value=specs['Число портов HDMI']).exists():
+                            hdmi_ports=HDMIPort.objects.get(value=specs['Число портов HDMI'])
                         else:
-                            hdmi_ports=HDMIPorts.objects.create(
+                            hdmi_ports=HDMIPort.objects.create(
                                 value=str(specs['Число портов HDMI'])
                             )
                         item.hdmi_ports=hdmi_ports

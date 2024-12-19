@@ -4,7 +4,7 @@ from .models import (SmartphoneVersion, PublishingYear, RamSmartphone, ESimSuppo
     HazardGrade, CameraFunction, GadgetSerie, VideoProcessorBrand, OzonCategory, HardDrive, CountryOfManufacture, MatrixType, CardType, BluetoothType, 
     NavigationType, Sensor, SimType, WifiType, WarrantyPeriod, ModelName, CardTitleModelName, CommunicationStandard, PartNumber, Size, Weight, ProductSet,
     FrontCamerResolution, BasicCamerResolution, BatteryCapacity, StandByPeriod, WorkPeriod, RecordMaxSpeed, LifeSpan, ScreenSize, SellerCode,
-    MarketingColour, ProcessorFrequency, Name, Description, KeyWord, MaxCardVolume, Json, LightningType, ScreenCoating, HDMIPorts, Adjustment,
+    MarketingColour, ProcessorFrequency, Name, Description, KeyWord, MaxCardVolume, Json, LightningType, ScreenCoating, HDMIPort, Adjustment,
     PixelSize, Ratio, MaxScreenFrequency, Brightness, Contrast, DynamicContrast, LookAngle, HorizontalFrequency, VerticalFrequency, WebCamera,
     StandAdjustment, PowerCapacity, VESAFixture, PixelPerInch, DesignFeature, ResponseTime, MonitorMatrix, MonitorApplication,
     MonitorConnector, HDRStandard, MonitorInstallation, SpecialFeatureSmartphone,
@@ -420,7 +420,7 @@ class ScreenCoatingAdmin(admin.ModelAdmin):
     list_per_page=100
     search_fields = ('value', )
 
-class HDMIPortsAdmin(admin.ModelAdmin):
+class HDMIPortAdmin(admin.ModelAdmin):
     list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
     list_filter = ('value',)
     ordering = ('value',)
@@ -639,7 +639,7 @@ admin.site.register(Weight, WeightAdmin)
 admin.site.register(Json, JsonAdmin)
 admin.site.register(LightningType, LightningTypeAdmin)
 admin.site.register(ScreenCoating, ScreenCoatingAdmin)
-admin.site.register(HDMIPorts, HDMIPortsAdmin)
+admin.site.register(HDMIPort, HDMIPortAdmin)
 admin.site.register(Adjustment, AdjustmentAdmin)
 admin.site.register(PixelSize, PixelSizeAdmin)
 admin.site.register(Ratio, RatioAdmin)
