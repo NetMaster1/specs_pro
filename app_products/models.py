@@ -138,7 +138,6 @@ from app_reference_smartphones.models import (BrandSmartphone, TypeSmartphone, S
 
 from app_monitor_reference.models import(Resolution, TypeMonitor, USBPort, BuiltinSpeaker, CurvedDispaly, HDR, ColourMonitor, Brand_Monitor,
     EuroAsianCodeMonitor,
-
     )
 
 class Notebook (models.Model):
@@ -227,11 +226,6 @@ class Notebook (models.Model):
     key_word = models.ForeignKey(KeyWord, on_delete=models.DO_NOTHING, null=True, blank=True)
     nb_battery_capacity = models.ForeignKey(NotebookBatteryCapacity, on_delete=models.DO_NOTHING, null=True, blank=True)
    
-   
-    
-    # #=========================================================================
-    # #EAС (Ростест)
-    # smartphone_version = models.ForeignKey(SmartphoneVersion, on_delete=models.SET_NULL, null=True, blank=True)
     # #=====================MODEL NAMES=====================================
     # #Выберите одно значение из выпадающего списка
     # gadget_model = models.ManyToManyField(GadgetModel, blank=True)#5219
@@ -243,13 +237,7 @@ class Notebook (models.Model):
     # #Только краткое название модели, без типа, бренда и характеристик товара. Будет использовано в шаблонизаторе 
     # #для составления названия карточки для сайта.
     # card_title_model_name = models.ForeignKey(CardTitleModelName, on_delete=models.DO_NOTHING, null=True)#11241
-    # #===========================================================================================
-    # #Выберите наиболее подходящий тип товара. По типам товары распределяются по категориям на сайте Ozon. 
-    # #Если тип указан неправильно, товар попадет в неверную категорию. Чтобы правильно указать тип, найдите
-    # #на сайте Ozon товары, похожие на ваш, и посмотрите, какой тип у них указан. 8229; is_required,
-    # type_smartphone = models.ForeignKey(TypeSmartphone, on_delete=models.SET_NULL, null=True)
-    # #линейка мобильный устройств
-    # gadget_serie = models.ForeignKey(GadgetSerie, on_delete=models.SET_NULL, null=True, blank=True)#9225
+    
     # #=====================================================================================
     # #Каталожный номер изделия или детали. Is_required=True. Можно использовать EAN
     # #Не можем использовать IMEI телефона, так как они разные у одного SKU
@@ -259,8 +247,6 @@ class Notebook (models.Model):
     # # для этих параметров есть отдельные атрибуты. Артикул выводится в карточке товара на сайте 
     # # и может использоваться при автоматическом формировании названия товара.
     # #seller_code = models.ForeignKey(SellerCode, on_delete=models.DO_NOTHING, null=True, blank=True)
-    # hazard_grade = models.ForeignKey(HazardGrade, on_delete=models.SET_NULL, null=True, blank=True)
-    # protection_grade = models.ManyToManyField(ProtectionGrade, blank=True)
     # euro_asian_code_monitor = models.ForeignKey(EuroAsianCodeMonitor, on_delete=models.SET_NULL, null=True, blank=True)
     #======================dictionary_id > 0==================================================
     image_1 = models.URLField(blank=True)
@@ -269,13 +255,10 @@ class Notebook (models.Model):
     image_4 = models.URLField(blank=True)
     image_5 = models.URLField(blank=True)
 
-   
     class Meta:
         # ordering = ('created',)  # sorting by date
         verbose_name = 'notebook'
         verbose_name_plural = 'notebooks'
-
-
 
 class Smartphone (models.Model):
     #Дополнительное поле. Не входит в attributes for smartphone. Использую просто для связи с таблицей категории.
@@ -415,7 +398,6 @@ class Smartphone (models.Model):
         # ordering = ('created',)  # sorting by date
         verbose_name = 'smartphone'
         verbose_name_plural = 'smartphones'
-
 
 class Monitor (models.Model):
     #Дополнительное поле. Не входит в attributes for smartphone. Использую просто для связи с таблицей категории.

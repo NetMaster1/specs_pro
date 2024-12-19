@@ -54,6 +54,7 @@ urlpatterns = [
     path ('upload_json', views.upload_json, name='upload_json'),
 
     path ('upload_tv_brands', views.upload_tv_brands, name='tv_upload_brands'),
+    path ('upload_notebook', views.upload_notebook, name='upload_notebook'),
 
 
     #path ('change_tables', views.change_tables, name='change_tables'),

@@ -15,7 +15,7 @@ class OzonCategory (models.Model):
 
 class ProcessorModelNotebook (models.Model):
     attribute_name = models.CharField(max_length=50, default='Модель процессора' )
-    attribute_id = models.CharField(max_length=50, default='10320')
+    attribute_id = models.CharField(max_length=50, default='10316')
     value = models.CharField(max_length=100, blank=True)
     dictionary_value_id = models.CharField(max_length=20, default=1)
     is_required = models.BooleanField(default=True)
