@@ -83,24 +83,35 @@ from app_reference_shared.models import (
     Chipset,
     RAMFormFactor,
     DVDrive,
-    VideoCardType
+    VideoCardType,
+    SoundConfig,
+    ManualInputDevice,
+    ManualInputDeviceFeature,
+    LANCard,
+    BuiltInDevice,
+    WebCamResolution,
+    CaseCoating,
+    BatteryType,
+    PowerSupplyVoltage,
+    CardReader,
+    NotebookProcessor,
+    NotebookProcessorBrand,
+    NotebookVideoProcessorBrand,
+    OperationSystem,
+    VideoProcessorFamily,
+    NotebookMatrixType,
+    WindowsVersion,
+    MacOSVersion,
+    KeyboardLayout,
+    WebCamShutter,
 )
 from app_monitor_reference.models import (
-    Resolution,
-    TypeMonitor,
-    USBPort,
-    BuiltinSpeaker,
-    CurvedDispaly,
-    HDR,
-    Brand_Monitor,
-    EuroAsianCodeMonitor,
-    ColourMonitor,
-  
-
+    Resolution, TypeMonitor, USBPort, BuiltinSpeaker, CurvedDispaly, HDR, Brand_Monitor, EuroAsianCodeMonitor, ColourMonitor,
 )
 from app_notebook_reference.models import (
-    BrandNotebook, HDDQnty, RAMNotebook, NotebookRAMType, NotebookMaxRAM, RAMExtraSlot, SSDQnty, VideoRAM
-    
+    BrandNotebook, HDDQnty, RAMNotebook, NotebookRAMType, NotebookMaxRAM, RAMExtraSlot, SSDQnty, VideoRAM, KeyboardColour, NotebookCaseMaterial, 
+    NotebookInterfacesConnectors, BatteryElementQnty, NotebookScreenResolution, HDDFormFactor, SSDFormFactor, StorageType, VideoCard, VRSupport,
+    NotebookColour, TouchScreen, NotebookProcessorCoreQnty, KeyboardLightning, MobileCommsModule, 
 )
 
 #from django.http import HttpResponse
@@ -470,6 +481,968 @@ def upload_notebook(request):
                 dictionary_value_id=i['id'],
                 attribute_id='4455',
                 attribute_name='Видеопамять',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 4459,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=SoundConfig.objects.get(dictionary_value_id=i['id'])
+        except SoundConfig.DoesNotExist:
+            item= SoundConfig.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='4459',
+                attribute_name='Конфигурация звука',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 4461,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=ManualInputDevice.objects.get(dictionary_value_id=i['id'])
+        except ManualInputDevice.DoesNotExist:
+            item= ManualInputDevice.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='4461',
+                attribute_name='Устройства ручного ввода',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 4462,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=ManualInputDeviceFeature.objects.get(dictionary_value_id=i['id'])
+        except ManualInputDeviceFeature.DoesNotExist:
+            item= ManualInputDeviceFeature.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='4462',
+                attribute_name='Особенности устройств ручного ввода',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 4463,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=KeyboardColour.objects.get(dictionary_value_id=i['id'])
+        except KeyboardColour.DoesNotExist:
+            item= KeyboardColour.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='4463',
+                attribute_name='Цвет клавиатуры',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 4466,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=LANCard.objects.get(dictionary_value_id=i['id'])
+        except LANCard.DoesNotExist:
+            item= LANCard.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='4466',
+                attribute_name='Сетевая карта',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 4463,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=KeyboardColour.objects.get(dictionary_value_id=i['id'])
+        except KeyboardColour.DoesNotExist:
+            item= KeyboardColour.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='4463',
+                attribute_name='Цвет клавиатуры',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 4467,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=BuiltInDevice.objects.get(dictionary_value_id=i['id'])
+        except BuiltInDevice.DoesNotExist:
+            item= BuiltInDevice.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='4467',
+                attribute_name='Встроенные устройства',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 4468,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=WebCamResolution.objects.get(dictionary_value_id=i['id'])
+        except WebCamResolution.DoesNotExist:
+            item= WebCamResolution.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='4468',
+                attribute_name='Разрешение Web-камеры',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 4469,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=NotebookCaseMaterial.objects.get(dictionary_value_id=i['id'])
+        except NotebookCaseMaterial.DoesNotExist:
+            item= NotebookCaseMaterial.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='4469',
+                attribute_name='Материал корпуса',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 4470,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=CaseCoating.objects.get(dictionary_value_id=i['id'])
+        except CaseCoating.DoesNotExist:
+            item= CaseCoating.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='4470',
+                attribute_name='Покрытие корпуса',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 4471,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=NotebookInterfacesConnectors.objects.get(dictionary_value_id=i['id'])
+        except NotebookInterfacesConnectors.DoesNotExist:
+            item= NotebookInterfacesConnectors.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='4471',
+                attribute_name='Интерфейсы и разъемы',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 4479,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=BatteryElementQnty.objects.get(dictionary_value_id=i['id'])
+        except BatteryElementQnty.DoesNotExist:
+            item= BatteryElementQnty.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='4479',
+                attribute_name='Кол-во элементов аккумулятора',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 4480,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=BatteryType.objects.get(dictionary_value_id=i['id'])
+        except BatteryType.DoesNotExist:
+            item= BatteryType.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='4480',
+                attribute_name='Тип аккумулятора',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 4481,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=PowerSupplyVoltage.objects.get(dictionary_value_id=i['id'])
+        except PowerSupplyVoltage.DoesNotExist:
+            item= PowerSupplyVoltage.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='4481',
+                attribute_name='Напряжение адаптера питания',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 5186,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=NotebookScreenResolution.objects.get(dictionary_value_id=i['id'])
+        except NotebookScreenResolution.DoesNotExist:
+            item= NotebookScreenResolution.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='5186',
+                attribute_name='Разрешение экрана',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 5580,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=CardReader.objects.get(dictionary_value_id=i['id'])
+        except CardReader.DoesNotExist:
+            item= CardReader.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='5580',
+                attribute_name='Картридер',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 9141,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=HDDFormFactor.objects.get(dictionary_value_id=i['id'])
+        except HDDFormFactor.DoesNotExist:
+            item= HDDFormFactor.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='9141',
+                attribute_name='Форм-фактор HDD',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 9142,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=SSDFormFactor.objects.get(dictionary_value_id=i['id'])
+        except SSDFormFactor.DoesNotExist:
+            item= SSDFormFactor.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='9142',
+                attribute_name='Форм-фактор SSD',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 9221,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=StorageType.objects.get(dictionary_value_id=i['id'])
+        except StorageType.DoesNotExist:
+            item= StorageType.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='9221',
+                attribute_name='Тип накопителя',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 9785,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=NotebookProcessor.objects.get(dictionary_value_id=i['id'])
+        except NotebookProcessor.DoesNotExist:
+            item= NotebookProcessor.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='9785',
+                attribute_name='Процессор',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 9786,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=VideoCard.objects.get(dictionary_value_id=i['id'])
+        except VideoCard.DoesNotExist:
+            item= VideoCard.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='9786',
+                attribute_name='Видеокарта',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 9923,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=VRSupport.objects.get(dictionary_value_id=i['id'])
+        except VRSupport.DoesNotExist:
+            item= VRSupport.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='9923',
+                attribute_name='Поддержка VR',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 10096,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=NotebookColour.objects.get(dictionary_value_id=i['id'])
+        except NotebookColour.DoesNotExist:
+            item= NotebookColour.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='10096',
+                attribute_name='Цвет товара',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 10294,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=TouchScreen.objects.get(dictionary_value_id=i['id'])
+        except TouchScreen.DoesNotExist:
+            item= TouchScreen.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='10294',
+                attribute_name='Сенсорный экран',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 10318,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=NotebookProcessorCoreQnty.objects.get(dictionary_value_id=i['id'])
+        except NotebookProcessorCoreQnty.DoesNotExist:
+            item= NotebookProcessorCoreQnty.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='10318',
+                attribute_name='Число ядер процессора',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 10746,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=CaseMaterial.objects.get(dictionary_value_id=i['id'])
+        except CaseMaterial.DoesNotExist:
+            item= CaseMaterial.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='10746',
+                attribute_name='Основной материал корпуса',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 11362,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=NotebookProcessorBrand.objects.get(dictionary_value_id=i['id'])
+        except NotebookProcessorBrand.DoesNotExist:
+            item= NotebookProcessorBrand.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='11362',
+                attribute_name='Бренд процессора',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 11363,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=NotebookVideoProcessorBrand.objects.get(dictionary_value_id=i['id'])
+        except NotebookVideoProcessorBrand.DoesNotExist:
+            item= NotebookVideoProcessorBrand.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='11363',
+                attribute_name='Бренд графического процессора',
+                is_collection=False,
+                is_required=False,
+                category_dependent=False
+            )
+    #========================================================
+    task = {
+    "attribute_id": 11377,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=OperationSystem.objects.get(dictionary_value_id=i['id'])
+        except OperationSystem.DoesNotExist:
+            item= OperationSystem.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='11377',
+                attribute_name='Операционная система',
+                is_collection=False,
+                is_required=False,
+                category_dependent=False
+            )
+    #========================================================
+    task = {
+    "attribute_id": 11379,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=VideoProcessorFamily.objects.get(dictionary_value_id=i['id'])
+        except VideoProcessorFamily.DoesNotExist:
+            item= VideoProcessorFamily.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='11379',
+                attribute_name='Серия графического процессора',
+                is_collection=False,
+                is_required=False,
+                category_dependent=False
+            )
+    #========================================================
+    task = {
+    "attribute_id": 11380,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=NotebookMatrixType.objects.get(dictionary_value_id=i['id'])
+        except NotebookMatrixType.DoesNotExist:
+            item= NotebookMatrixType.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='11380',
+                attribute_name='Технология матрицы',
+                is_collection=False,
+                is_required=False,
+                category_dependent=False
+            )
+    #========================================================
+    task = {
+    "attribute_id": 12454,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=WindowsVersion.objects.get(dictionary_value_id=i['id'])
+        except WindowsVersion.DoesNotExist:
+            item= WindowsVersion.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='12454',
+                attribute_name='Версия Windows',
+                is_collection=False,
+                is_required=False,
+                category_dependent=False
+            )
+    #========================================================
+    task = {
+    "attribute_id": 12455,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=MacOSVersion.objects.get(dictionary_value_id=i['id'])
+        except MacOSVersion.DoesNotExist:
+            item= MacOSVersion.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='12455',
+                attribute_name='Версия MacOS',
+                is_collection=False,
+                is_required=False,
+                category_dependent=False
+            )
+    #========================================================
+    task = {
+    "attribute_id": 12611,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=KeyboardLightning.objects.get(dictionary_value_id=i['id'])
+        except KeyboardLightning.DoesNotExist:
+            item= KeyboardLightning.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='12611',
+                attribute_name='Подсветка клавиатуры',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 20102,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=MobileCommsModule.objects.get(dictionary_value_id=i['id'])
+        except MobileCommsModule.DoesNotExist:
+            item= MobileCommsModule.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='20102',
+                attribute_name='Модуль сотовой связи',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 21988,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=KeyboardLayout.objects.get(dictionary_value_id=i['id'])
+        except KeyboardLayout.DoesNotExist:
+            item= KeyboardLayout.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='21988',
+                attribute_name='Раскладка клавиатуры',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 22288,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=WebCamShutter.objects.get(dictionary_value_id=i['id'])
+        except WebCamShutter.DoesNotExist:
+            item= WebCamShutter.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='22288',
+                attribute_name='Шторка для веб-камеры',
                 is_collection=False,
                 is_required=False,
                 category_dependent=True

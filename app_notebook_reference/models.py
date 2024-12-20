@@ -107,7 +107,7 @@ class VideoRAM (models.Model):
     
 class KeyboardColour (models.Model):
     attribute_name = models.CharField(max_length=50, default='Цвет клавиатуры')
-    attribute_id = models.CharField(max_length=50, null=True, default='4455')
+    attribute_id = models.CharField(max_length=50, null=True, default='4463')
     value = models.CharField(max_length=100, blank=True)
     dictionary_value_id = models.CharField(max_length=20, default=1)
     is_required = models.BooleanField(default=False)
