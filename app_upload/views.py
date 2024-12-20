@@ -81,7 +81,9 @@ from app_reference_shared.models import (
     ProcessorModelNotebook,
     NotebookFormFactor,
     Chipset,
-    RAMFormFactor
+    RAMFormFactor,
+    DVDrive,
+    VideoCardType
 )
 from app_monitor_reference.models import (
     Resolution,
@@ -97,7 +99,7 @@ from app_monitor_reference.models import (
 
 )
 from app_notebook_reference.models import (
-    BrandNotebook, HDDQnty, RAMNotebook, NotebookRAMType, NotebookMaxRAM
+    BrandNotebook, HDDQnty, RAMNotebook, NotebookRAMType, NotebookMaxRAM, RAMExtraSlot, SSDQnty, VideoRAM
     
 )
 
@@ -312,7 +314,7 @@ def upload_notebook(request):
                 dictionary_value_id=i['id'],
                 attribute_id='4445',
                 attribute_name='Возможность расширения RAM, до',
-                is_collection=True,
+                is_collection=False,
                 is_required=False,
                 category_dependent=True
             )
@@ -338,7 +340,137 @@ def upload_notebook(request):
                 dictionary_value_id=i['id'],
                 attribute_id='4447',
                 attribute_name='Форм-фактор RAM',
-                is_collection=True,
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 4448,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=RAMExtraSlot.objects.get(dictionary_value_id=i['id'])
+        except RAMExtraSlot.DoesNotExist:
+            item= RAMExtraSlot.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='4448',
+                attribute_name='Доп. слоты RAM памяти',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 4451,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=SSDQnty.objects.get(dictionary_value_id=i['id'])
+        except SSDQnty.DoesNotExist:
+            item= SSDQnty.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='4451',
+                attribute_name='Количество SSD',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 4452,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=DVDrive.objects.get(dictionary_value_id=i['id'])
+        except DVDrive.DoesNotExist:
+            item= DVDrive.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='4452',
+                attribute_name='Оптический привод',
+                is_collection=False,
+                is_required=False,
+                category_dependent=False
+            )
+    #========================================================
+    task = {
+    "attribute_id": 4454,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=VideoCardType.objects.get(dictionary_value_id=i['id'])
+        except VideoCardType.DoesNotExist:
+            item= VideoCardType.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='4454',
+                attribute_name='Тип видеокарты',
+                is_collection=False,
+                is_required=False,
+                category_dependent=False
+            )
+    #========================================================
+    task = {
+    "attribute_id": 4455,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=VideoRAM.objects.get(dictionary_value_id=i['id'])
+        except VideoRAM.DoesNotExist:
+            item= VideoRAM.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='4455',
+                attribute_name='Видеопамять',
+                is_collection=False,
                 is_required=False,
                 category_dependent=True
             )
