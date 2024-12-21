@@ -217,7 +217,7 @@ class Notebook (models.Model):
     operation_system= models.ForeignKey(OperationSystem, on_delete=models.DO_NOTHING, null=True, blank=True)
     video_processor_family= models.ForeignKey(VideoProcessorFamily, on_delete=models.DO_NOTHING, null=True, blank=True)
     nb_matrix_type= models.ForeignKey(NotebookMatrixType, on_delete=models.DO_NOTHING, null=True, blank=True)
-    windwos_version= models.ForeignKey(WindowsVersion, on_delete=models.DO_NOTHING, null=True, blank=True)
+    windows_version= models.ForeignKey(WindowsVersion, on_delete=models.DO_NOTHING, null=True, blank=True)
     mac_os_version= models.ForeignKey(MacOSVersion, on_delete=models.DO_NOTHING, null=True, blank=True)
     keyboard_lightning= models.ForeignKey(KeyboardLightning, on_delete=models.DO_NOTHING, null=True, blank=True)
     mobile_comms_module= models.ForeignKey(MobileCommsModule, on_delete=models.DO_NOTHING, null=True, blank=True)

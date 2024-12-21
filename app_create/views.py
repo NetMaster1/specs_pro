@@ -18,13 +18,22 @@ from app_reference_shared.models import (OzonCategory,LightningType, Size, Monit
     FrontCamerResolution, BasicCamerResolution, MarketingColour, HardDrive, MatrixType, CardType, BluetoothType, VideoProcessorBrand,
     HazardGrade, VideoProcessor, ProcessorBrand, ProcessorModel, OSMobile, AndroidVersion, IOSVersion, ESimSupport, PublishingYear,
     NavigationType, Sensor, SimType, WifiType, CameraFunction, WirelessInterface, CaseMaterial, Interface, CommunicationStandard,
-    ChargingFunction, Stabilization, Authentication, RamSmartphone, SmartphoneVersion,
+    ChargingFunction, Stabilization, Authentication, RamSmartphone, SmartphoneVersion, ProcessorModelNotebook, NotebookFormFactor, 
+    RAMFormFactor, DVDrive, VideoCardType, LANCard, WebCamResolution, NotebookProcessor, NotebookProcessorBrand, NotebookVideoProcessorBrand, 
+    OperationSystem, VideoProcessorFamily, NotebookMatrixType, WindowsVersion, MacOSVersion, KeyboardLayout, WebCamShutter,
     )
 from app_reference_smartphones.models import (BrandSmartphone, SmartphoneModel, ScreenResolution, 
     GadgetModel, ProtectionGrade, Colour, QntyOfBasicCamera, Processor, ProcessorCoreQnty, MicroSDSlot, CaseForm, EuroAsianCode,
     SimCardQnty, ScreenResolution, VideoQuality, QntyOfBasicCamera, Processor, ProcessorCoreQnty, MicroSDSlot, CaseForm, ProtectionGrade,
     TypeSmartphone
     )
+
+from app_notebook_reference.models import (HDDQnty, RAMNotebook, NotebookMaxRAM, RAMExtraSlot, SSDQnty, VideoRAM, BatteryElementQnty, 
+    NotebookScreenResolution, HDDFormFactor, VideoCard, VRSupport, TouchScreen, NotebookProcessorCoreQnty, KeyboardLightning, MobileCommsModule, 
+    
+    )
+
+
 import datetime
 import re
 from selenium import webdriver
@@ -971,7 +980,9 @@ def selenium_search_ozon_notebook(request):
                     except:
                         print('No notebook_processor_model provided')
                     try:
-                        bluetooth=BluetoothType.objects.get(value=specs['Модуль связи Bluetooth'])
+                        bt_string=specs['Модуль связи Bluetooth']
+                        bt_string_edited=bt_string.replace('.', ',')
+                        bluetooth=BluetoothType.objects.get(value=bt_string_edited)
                         item.bluetooth=bluetooth
                     except:
                         print('No bluetooth data provided')
@@ -1100,113 +1111,46 @@ def selenium_search_ozon_notebook(request):
                         item.operation_system=operation_system
                     except:
                         print('No operation_system data provided')
-
-
-
-
                     try:
-                        bt_string=specs['Модуль связи Bluetooth']
-                        bt_string_edited=bt_string.replace('.', ',')
-                        bluetooth=BluetoothType.objects.get(value=bt_string_edited)
-                        item.bluetooth=bluetooth
+                        video_processor_family=VideoProcessorFamily.objects.get(value=specs['Серия графического процессора'])
+                        item.video_processor_family=video_processor_family
                     except:
-                        print('No bluetooth data provided')
+                        print('No video_processor_family data provided')
                     try:
-                        video_processor_brand=VideoProcessorBrand.objects.get(value=specs['Бренд графического процессора'])
-                        item.video_processor_brand=video_processor_brand
+                        windwos_version=NotebookMatrixType.objects.get(value=specs['Технология матрицы'])
+                        item.nb_matrix_type=nb_matrix_type
                     except:
-                        print('No video_processor_brand data provided')
+                        print('No nb_matrix_type data provided')
                     try:
-                        screen_resolution=ScreenResolution.objects.get(value=specs['Разрешение экрана'])
-                        item.screen_resolution=screen_resolution
+                        windows_version=WindowsVersion.objects.get(value=specs['Версия Windows'])
+                        item.windows_version=windows_version
                     except:
-                        print('No screen_resolution data provided')
+                        print('No windows_version data provided')
                     try:
-                        if VideoQuality.objects.filter(value=specs['Качество видео']).exists():
-                            video_quality=VideoQuality.objects.filter(value=specs['Качество видео']).first()
-                            item.video_quality=video_quality
+                        mac_os_version=MacOSVersion.objects.get(value=specs['Версия MacOS'])
+                        item.mac_os_version=mac_os_version
                     except:
-                        print('No video_quality data provided')
+                        print('No mac_os_version data provided')
                     try:
-                        hazard_grade=HazardGrade.objects.get(value=specs['Класс опасности товара'])
-                        item.hazard_grade=hazard_grade
+                        keyboard_lightning=KeyboardLightning.objects.get(value=specs['Подсветка клавиатуры'])
+                        item.keyboard_lightning=keyboard_lightning
                     except:
-                        print('No hazard_grade data provided')
+                        print('No keyboard_lightning data provided')
                     try:
-                        qnty_of_basic_cameras=QntyOfBasicCamera.objects.get(value=specs['Количество основных камер'])
-                        item.qnty_of_basic_cameras=qnty_of_basic_cameras
+                        mobile_comms_module=MobileCommsModule.objects.get(value=specs['Модуль сотовой связи'])
+                        item.mobile_comms_module=mobile_comms_module
                     except:
-                        print('No qnty_of_basic_cameras data provided')
+                        print('No mobile_comms_module data provided')
                     try:
-                        processor=Processor.objects.get(value=specs['Процессор'])
-                        item.processor=processor
+                        keyboard_layout=KeyboardLayout.objects.get(value=specs['Раскладка клавиатуры'])
+                        item.keyboard_layout=keyboard_layout
                     except:
-                        print('No processor data provided')
+                        print('No keyboard_layout data provided')
                     try:
-                        video_processor=VideoProcessor.objects.get(value=specs['Видеопроцессор'])
-                        item.video_processor=video_processor
+                        web_cam_shutter=WebCamShutter.objects.get(value=specs['Шторка для веб-камеры'])
+                        item.web_cam_shutter=web_cam_shutter
                     except:
-                        print('No video_processor data provided')
-                    try:
-                        processor_brand=ProcessorBrand.objects.get(value=specs['Бренд процессора'])
-                        item.processor_brand=processor_brand
-                    except:
-                        print('No processor_brand data provided')
-                    try:
-                        processor_core_qnty=ProcessorCoreQnty.objects.get(value=specs['Число ядер процессора'])
-                        item.processor_core_qnty=processor_core_qnty
-                    except:
-                        print('No processor_core_qnty data provided')
-                    try:
-                        processor_model=ProcessorModel.objects.get(value=specs['Модель процессора'])
-                        item.processor_model=processor_model
-                    except:
-                        print('No processor_model data provided')
-                    try:
-                        operation_system=OSMobile.objects.get(value=specs['Операционная система'])
-                        item.operation_system=operation_system
-                    except:
-                        print('No operation_system data provided')
-                    try:
-                        android_version=AndroidVersion.objects.get(value=specs['Версия Android'])
-                        item.android_version=android_version
-                    except:
-                        print('No android_version data provided')
-                    try:
-                        microsd_slot=MicroSDSlot.objects.get(value=specs['Слот для карты памяти'])
-                        item.microsd_slot=microsd_slot
-                    except:
-                        print('No microsd_slot data provided')
-                    try:
-                        case_form=CaseForm.objects.get(value=specs['Тип корпуса'])
-                        item.case_form=case_form
-                    except:
-                        print('No case_form data provided')
-                    try:
-                        ios_version=IOSVersion.objects.get(value=specs['Версия iOS'])
-                        item.ios_version=ios_version
-                    except:
-                        print('No ios_version data provided')
-                    try:
-                        esim_support=ESimSupport.objects.get(value=specs['Поддержка eSim'])
-                        item.esim_support=esim_support
-                    except:
-                        print('No esim_support data provided')
-                    try:
-                        ram=RamSmartphone.objects.get(value=specs['Оперативная память'])
-                        item.ram=ram
-                    except:
-                        print('No ram data provided')
-                    try:
-                        publishing_year=PublishingYear.objects.get(value=specs['Год анонсирования'])
-                        item.publishing_year=publishing_year
-                    except:
-                        print('No publishing_year data provided')
-                    try:
-                        smartphone_version=SmartphoneVersion.objects.get(value=specs['Версия смартфона'])
-                        item.smartphone_version=smartphone_version
-                    except:
-                        print('No smartphone_version data provided')
+                        print('No web_cam_shutter data provided')
                     # try:
                     #     euro_asian_code_monitor=EuroAsianCodeMonitor.objects.get(value=specs['ТН ВЭД коды ЕАЭС'])
                     #     item.euro_asian_code_monitor=euro_asian_code_monitor
