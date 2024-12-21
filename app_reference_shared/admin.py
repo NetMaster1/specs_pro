@@ -7,7 +7,12 @@ from .models import (SmartphoneVersion, PublishingYear, RamSmartphone, ESimSuppo
     MarketingColour, ProcessorFrequency, Name, Description, KeyWord, MaxCardVolume, Json, LightningType, ScreenCoating, HDMIPort, Adjustment,
     PixelSize, Ratio, MaxScreenFrequency, Brightness, Contrast, DynamicContrast, LookAngle, HorizontalFrequency, VerticalFrequency, WebCamera,
     StandAdjustment, PowerCapacity, VESAFixture, PixelPerInch, DesignFeature, ResponseTime, MonitorMatrix, MonitorApplication,
-    MonitorConnector, HDRStandard, MonitorInstallation, SpecialFeatureSmartphone,
+    MonitorConnector, HDRStandard, MonitorInstallation, SpecialFeatureSmartphone, ProcessorModelNotebook, PortQntyUSB, PowerOffWorkTime,
+    PortQntyUSB3Gen1, NotebookFormFactor, Chipset, PortQntyUSB3Gen2, RAMFormFactor, DVDrive, VideoCardType, SoundConfig, ManualInputDevice,
+    ManualInputDeviceFeature, LANCard, WebCamResolution, PortQntyThunderbolt, DisplayPort, PowerSupplyVoltage, NotebookWeight, TotalDiskVolume,
+    TotalHDDVolume, TotalSSDVolume, PortQntyTypeC, NotebookProcessor, BatteryType, BuiltInDevice, CardReader, CaseCoating, Configuration,
+    NotebookProcessorBrand, NotebookVideoProcessorBrand, OperationSystem, VideoProcessorFamily, NotebookMatrixType, WindowsVersion, MacOSVersion, 
+    KeyboardLayout, WebCamShutter, NotebookBatteryCapacity
     )
 
 class OzonCategoryAdmin(admin.ModelAdmin):
@@ -18,6 +23,266 @@ class OzonCategoryAdmin(admin.ModelAdmin):
     search_fields = ('type_name', )
     list_editable=('activated', )
 
+class KeyboardLayoutAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class NotebookBatteryCapacityAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class WebCamShutterAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class MacOSVersionAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class NotebookMatrixTypeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class WindowsVersionAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class VideoProcessorFamilyAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class OperationSystemAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class NotebookVideoProcessorBrandAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class NotebookProcessorBrandAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class CardReaderAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class ConfigurationAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class CaseCoatingAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class BuiltInDeviceAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class BatteryTypeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class NotebookProcessorAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class TotalSSDVolumeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class PortQntyTypeCAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class TotalHDDVolumeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+    
+class NotebookWeightAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class TotalDiskVolumeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class PortQntyThunderboltAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class PowerSupplyVoltageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class DisplayPortAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class WebCamResolutionAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class LANCardAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class SoundConfigAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class VideoCardTypeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class DVDriveAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class RAMFormFactorAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class PortQntyUSB3Gen2Admin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class PortQntyUSB3Gen1Admin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class ChipsetAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class NotebookFormFactorAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class PowerOffWorkTimeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class PortQntyUSBAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class ProcessorModelNotebookAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+#==================================================================================
 class NameAdmin(admin.ModelAdmin):
     list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
     list_filter = ('value',)
@@ -581,6 +846,22 @@ class HDRStandardAdmin(admin.ModelAdmin):
     list_per_page=100
     search_fields = ('value', )
 
+admin.site.register(KeyboardLayout, KeyboardLayoutAdmin)
+admin.site.register(NotebookBatteryCapacity, NotebookBatteryCapacityAdmin)
+admin.site.register(WebCamShutter, WebCamShutterAdmin)
+admin.site.register(MacOSVersion, MacOSVersionAdmin)
+admin.site.register(NotebookMatrixType, NotebookMatrixTypeAdmin)
+admin.site.register(WindowsVersion, WindowsVersionAdmin)
+admin.site.register(VideoProcessorFamily, VideoProcessorFamilyAdmin)
+admin.site.register(OperationSystem, OperationSystemAdmin)
+admin.site.register(NotebookVideoProcessorBrand, NotebookVideoProcessorBrandAdmin)
+admin.site.register(NotebookProcessorBrand, NotebookProcessorBrandAdmin)
+admin.site.register(CardReader, CardReaderAdmin)
+admin.site.register(Configuration, ConfigurationAdmin)
+admin.site.register(CaseCoating, CaseCoatingAdmin)
+admin.site.register(BuiltInDevice, BuiltInDeviceAdmin)
+
+#===============================================================
 admin.site.register(VideoProcessorBrand, VideoProcessorBrandAdmin)
 admin.site.register(WifiType, WifiTypeAdmin)
 admin.site.register(SimType, SimTypeAdmin)

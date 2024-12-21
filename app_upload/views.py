@@ -1445,7 +1445,7 @@ def upload_notebook(request):
                 attribute_name='Шторка для веб-камеры',
                 is_collection=False,
                 is_required=False,
-                category_dependent=True
+                category_dependent=False
             )
     #========================================================
  
