@@ -23,6 +23,20 @@ class OzonCategoryAdmin(admin.ModelAdmin):
     search_fields = ('type_name', )
     list_editable=('activated', )
 
+class ManualInputDeviceAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class ManualInputDeviceFeatureAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
 class KeyboardLayoutAdmin(admin.ModelAdmin):
     list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
     list_filter = ('value',)
@@ -847,6 +861,8 @@ class HDRStandardAdmin(admin.ModelAdmin):
     search_fields = ('value', )
 
 #==========================Notebook=====================================
+admin.site.register(ManualInputDeviceFeature, ManualInputDeviceFeatureAdmin)
+admin.site.register(ManualInputDevice, ManualInputDeviceAdmin)
 admin.site.register(KeyboardLayout, KeyboardLayoutAdmin)
 admin.site.register(NotebookBatteryCapacity, NotebookBatteryCapacityAdmin)
 admin.site.register(WebCamShutter, WebCamShutterAdmin)

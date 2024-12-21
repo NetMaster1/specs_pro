@@ -1,5 +1,5 @@
 from django.contrib import admin
-from . models import Smartphone, Monitor
+from . models import Smartphone, Monitor, Notebook
 
 
 # class NotebookAdmin(admin.ModelAdmin):
@@ -8,6 +8,12 @@ from . models import Smartphone, Monitor
 #     #list_editable= ('processor', 'authentification', )
 #     #search_fields = ('imei', )
 
+
+class NotebookAdmin(admin.ModelAdmin):
+    list_display = ('id',)  
+    #list_filter = ('name',)
+    #list_editable= ('processor', 'authentification', )
+    search_fields = ('model_name', )
 
 class SmartphoneAdmin(admin.ModelAdmin):
     list_display = ('id', 'name',)  
@@ -28,6 +34,7 @@ class MonitorAdmin(admin.ModelAdmin):
 #     #list_editable= ('processor', 'authentification', )
 #     #search_fields = ('imei', )
 
+admin.site.register(Notebook, NotebookAdmin)
 admin.site.register(Smartphone, SmartphoneAdmin)
 admin.site.register(Monitor, MonitorAdmin)
 # admin.site.register(Notebook, NotebookAdmin)

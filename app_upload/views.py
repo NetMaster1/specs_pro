@@ -1449,7 +1449,7 @@ def upload_notebook(request):
             )
     #========================================================
  
-
+    return render (request, 'products.html')
 
 
 def upload_ozon_categories(request):

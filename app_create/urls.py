@@ -5,6 +5,7 @@ urlpatterns = [
          #path ('create_from_ozon', views.create_from_ozon, name='create_from_ozon'),
          path ('selenium_search_ozon_monitor', views.selenium_search_ozon_monitor, name='selenium_search_ozon_monitor'),
          path ('selenium_search_ozon_smartphone', views.selenium_search_ozon_smartphone, name='selenium_search_ozon_smartphone'),
+         path ('selenium_search_ozon_notebook', views.selenium_search_ozon_notebook, name='selenium_search_ozon_notebook'),
          #path ('specs', views.specs, name='specs'),
         #  path ('ozon_test', views.ozon_test, name='ozon_test'),
 ]
