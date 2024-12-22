@@ -127,7 +127,7 @@ class NotebookCaseMaterial (models.Model):
     def __str__(self):
         return self.value
     
-class NotebookInterfacesConnectors (models.Model):
+class NotebookInterfacesConnector (models.Model):
     attribute_name = models.CharField(max_length=50, default='Интерфейсы и разъемы')
     attribute_id = models.CharField(max_length=50, null=True, default='4471')
     value = models.CharField(max_length=100, blank=True)

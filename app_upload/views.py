@@ -110,7 +110,7 @@ from app_monitor_reference.models import (
 )
 from app_notebook_reference.models import (
     BrandNotebook, HDDQnty, RAMNotebook, NotebookRAMType, NotebookMaxRAM, RAMExtraSlot, SSDQnty, VideoRAM, KeyboardColour, NotebookCaseMaterial, 
-    NotebookInterfacesConnectors, BatteryElementQnty, NotebookScreenResolution, HDDFormFactor, SSDFormFactor, StorageType, VideoCard, VRSupport,
+    NotebookInterfacesConnector, BatteryElementQnty, NotebookScreenResolution, HDDFormFactor, SSDFormFactor, StorageType, VideoCard, VRSupport,
     NotebookColour, TouchScreen, NotebookProcessorCoreQnty, KeyboardLightning, MobileCommsModule, 
 )
 
@@ -760,9 +760,9 @@ def upload_notebook(request):
     array=json['result']
     for i in array:
         try:
-            item=NotebookInterfacesConnectors.objects.get(dictionary_value_id=i['id'])
-        except NotebookInterfacesConnectors.DoesNotExist:
-            item= NotebookInterfacesConnectors.objects.create(
+            item=NotebookInterfacesConnector.objects.get(dictionary_value_id=i['id'])
+        except NotebookInterfacesConnector.DoesNotExist:
+            item= NotebookInterfacesConnector.objects.create(
                 value=i['value'],
                 dictionary_value_id=i['id'],
                 attribute_id='4471',

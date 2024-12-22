@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import (BrandNotebook, TypeNotebook, HDDQnty, RAMNotebook, NotebookRAMType, NotebookMaxRAM, RAMExtraSlot, SSDQnty, VideoRAM, 
-    KeyboardColour, NotebookCaseMaterial, NotebookInterfacesConnectors, BatteryElementQnty, NotebookScreenResolution, HDDFormFactor, 
+    KeyboardColour, NotebookCaseMaterial, NotebookInterfacesConnector, BatteryElementQnty, NotebookScreenResolution, HDDFormFactor, 
     SSDFormFactor, StorageType, VideoCard, VRSupport, NotebookColour, TouchScreen, NotebookProcessorCoreQnty, KeyboardLightning, 
     MobileCommsModule, 
     )
@@ -82,7 +82,7 @@ class NotebookCaseMaterialAdmin(admin.ModelAdmin):
     list_per_page=100
     search_fields = ('value', )
 
-class NotebookInterfacesConnectorsAdmin(admin.ModelAdmin):
+class NotebookInterfacesConnectorAdmin(admin.ModelAdmin):
     list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
     list_filter = ('value',)
     ordering = ('value',)
@@ -184,7 +184,7 @@ admin.site.register(SSDQnty, SSDQntyAdmin)
 admin.site.register(VideoRAM, VideoRAMAdmin)
 admin.site.register(KeyboardColour, KeyboardColourAdmin)
 admin.site.register(NotebookCaseMaterial, NotebookCaseMaterialAdmin)
-admin.site.register(NotebookInterfacesConnectors, NotebookInterfacesConnectorsAdmin)
+admin.site.register(NotebookInterfacesConnector, NotebookInterfacesConnectorAdmin)
 admin.site.register(BatteryElementQnty, BatteryElementQntyAdmin)
 admin.site.register(NotebookScreenResolution, NotebookScreenResolutionAdmin)
 admin.site.register(HDDFormFactor, HDDFormFactorAdmin)

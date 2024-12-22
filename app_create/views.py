@@ -1169,87 +1169,187 @@ def selenium_search_ozon_notebook(request):
                     except:
                         print('No country_of_manufacture data provided')
                     try:
-                        string=specs['Навигация']
+                        string=specs['Чипсет']
                         string=string.replace(", ", ",")#deleting spaces after comma
                         array=string.split(',')#transforming the string into a list
                         for i in array:
-                            if NavigationType.objects.filter(value=i).exists():
-                                navigation=NavigationType.objects.get(value=i)
-                                item.navigation.add(navigation)
+                            if Chipset.objects.filter(value=i).exists():
+                                navigation=Chipset.objects.get(value=i)
+                                item.chipset.add(chipset)
                     except:
-                        print('No navigation data provided')
+                        print('No chipset data provided')
                     try:
-                        string=specs['Встроенные датчики']
+                        string=specs['Тип памяти']
                         string=string.replace(", ", ",")#deleting spaces after comma
                         array=string.split(',')#transforming the string into a list
                         for i in array:
-                            if Sensor.objects.filter(value=i).exists():
-                                sensor=Sensor.objects.get(value=i)
-                                item.sensor.add(sensor)
+                            if NotebookRAMType.objects.filter(value=i).exists():
+                                notebook_ram_type=NotebookRAMType.objects.get(value=i)
+                                item.notebook_ram_type.add(notebook_ram_type)
                     except:
-                        print('No sensor data provided')
+                        print('No notebook_ram_type data provided')
                     try:
-                        string=specs['Форм-фактор SIM']
+                        string=specs['Тип подсветки']
                         string=string.replace(", ", ",")#deleting spaces after comma
                         array=string.split(',')#transforming the string into a list
                         for i in array:
-                            if SimType.objects.filter(value=i).exists():
-                                sim_type=SimType.objects.get(value=i)
-                                item.sim_type.add(sim_type)
+                            if LightningType.objects.filter(value=i).exists():
+                                lightning_type=LightningType.objects.get(value=i)
+                                item.lightning_type.add(lightning_type)
                     except:
-                        print('No sim_type data provided')
+                        print('No lightning_type data provided')
+                    try:
+                        string=specs['Конфигурация звука']
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if SoundConfig.objects.filter(value=i).exists():
+                                sound_config=SoundConfig.objects.get(value=i)
+                                item.sound_config.add(sound_config)
+                    except:
+                        print('No sound_config data provided')
+                    try:
+                        string=specs['Устройства ручного ввода']
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if ManualInputDevice.objects.filter(value=i).exists():
+                                manual_input_device=ManualInputDevice.objects.get(value=i)
+                                item.manual_input_device.add(manual_input_device)
+                    except:
+                        print('No manual_input_device data provided')
+                    try:
+                        string=specs['Особенности устройств ручного ввода']
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if ManualInputDeviceFeature.objects.filter(value=i).exists():
+                                manual_input_device_feature=ManualInputDeviceFeature.objects.get(value=i)
+                                item.manual_input_device_feature.add(manual_input_device_feature)
+                    except:
+                        print('No manual_input_device_feature data provided')
+                    try:
+                        string=specs['Цвет клавиатуры']
+                        string=string.lower()
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            str(specs['Цвет']).lower()
+                            if KeyboardColour.objects.filter(value=i).exists():
+                                keyboard_colour=Keyboardkeyboard_colour.objects.get(value=i)
+                                item.keyboard_colour.add(keyboard_colour)
+                    except:
+                        print('No keyboard_colour data provided')
                     try:
                         string=specs['Модуль связи WiFi']
                         string=string.replace(", ", ",")#deleting spaces after comma
                         array=string.split(',')#transforming the string into a list
                         for i in array:
                             if WifiType.objects.filter(value=i).exists():
-                                wifi=WifiType.objects.get(value=i)
-                                item.wifi.add(wifi)
+                                wifi_type=WifiType.objects.get(value=i)
+                                item.wifi_type.add(wifi_type)
                     except:
-                        print('No wifi data provided')
+                        print('No wifi_type data provided')
                     try:
-                        string=specs['Степень защиты']
+                        string=specs['Встроенные устройства']
                         string=string.replace(", ", ",")#deleting spaces after comma
                         array=string.split(',')#transforming the string into a list
                         for i in array:
-                            if ProtectionGrade.objects.filter(value=i).exists():
-                                protection_grade=ProtectionGrade.objects.get(value=i)
-                                item.protection_grade.add(protection_grade)
+                            if BuiltInDevice.objects.filter(value=i).exists():
+                                builtin_device=BuiltInDevice.objects.get(value=i)
+                                item.builtin_device.add(builtin_device)
                     except:
-                        print('No protection_grade data provided')
+                        print('No builtin_device data provided')
                     try:
-                        string=specs['Функции камеры']
+                        string=specs['Материал корпуса']
                         string=string.replace(", ", ",")#deleting spaces after comma
                         array=string.split(',')#transforming the string into a list
                         for i in array:
-                            if CameraFunction.objects.filter(value=i).exists():
-                                camera_function=CameraFunction.objects.get(value=i)
-                                item.camera_function.add(camera_function)
+                            if NotebookCaseMaterial.objects.filter(value=i).exists():
+                                case_material=NotebookCaseMaterial.objects.get(value=i)
+                                item.case_material.add(case_material)
                     except:
-                        print('No camera_function data provided')
+                        print('No case_material data provided')
+                    try:
+                        string=specs['Покрытие корпуса']
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if CaseCoating.objects.filter(value=i).exists():
+                                case_coating=CaseCoating.objects.get(value=i)
+                                item.case_coating.add(case_coating)
+                    except:
+                        print('No case_coating data provided')
+                    try:
+                        string=specs['Интерфейсы и разъемы']
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if NotebookInterfacesConnector.objects.filter(value=i).exists():
+                                interface_connector=NotebookInterfacesConnector.objects.get(value=i)
+                                item.interface_connector.add(interface_connector)
+                    except:
+                        print('No interface_connector data provided')
+                    try:
+                        string=specs['Тип аккумулятора']
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if BatteryType.objects.filter(value=i).exists():
+                                battery_type=BatteryType.objects.get(value=i)
+                                item.battery_type.add(battery_type)
+                    except:
+                        print('No battery_type data provided')
+                    try:
+                        string=specs['Напряжение адаптера питания']
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if PowerSupplyVoltage.objects.filter(value=i).exists():
+                                power_supply_voltage=PowerSupplyVoltage.objects.get(value=i)
+                                item.power_supply_voltage.add(power_supply_voltage)
+                    except:
+                        print('No power_supply_voltage data provided')
+                    try:
+                        string=specs['Картридер']
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if CardReader.objects.filter(value=i).exists():
+                                card_reader=CardReader.objects.get(value=i)
+                                item.card_reader.add(card_reader)
+                    except:
+                        print('No card_reader data provided')       
+                    try:
+                        string=specs['Форм-фактор SSD']
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if SSDFormFactor.objects.filter(value=i).exists():
+                                ssd_form_factor=SSDFormFactor.objects.get(value=i)
+                                item.ssd_form_factor.add(ssd_form_factor)
+                    except:
+                        print('No ssd_form_factor data provided')       
+                    try:
+                        string=specs['Тип накопителя']
+                        string=string.replace(", ", ",")#deleting spaces after comma
+                        array=string.split(',')#transforming the string into a list
+                        for i in array:
+                            if StorageType.objects.filter(value=i).exists():
+                                storage_type=StorageType.objects.get(value=i)
+                                item.storage_type.add(storage_type)
+                    except:
+                        print('No storage_type data provided')       
                     try:
                         string=specs['Цвет товара']
-                        string=string.lower()
                         string=string.replace(", ", ",")#deleting spaces after comma
                         array=string.split(',')#transforming the string into a list
                         for i in array:
-                            str(specs['Цвет']).lower()
-                            if Colour.objects.filter(value=i).exists():
-                                colour=Colour.objects.get(value=i)
-                                item.colour.add(colour)
+                            if NotebookColour.objects.filter(value=i).exists():
+                                nb_colour=NotebookColour.objects.get(value=i)
+                                item.nb_colour.add(nb_colour)
                     except:
-                        print('No colour data provided')
-                    try:
-                        string=specs['Беспроводные интерфейсы']
-                        string=string.replace(", ", ",")#deleting spaces after comma
-                        array=string.split(',')#transforming the string into a list
-                        for i in array:
-                            if WirelessInterface.objects.filter(value=i).exists():
-                                wireless_interface=WirelessInterface.objects.get(value=i)
-                                item.wireless_interface.add(wireless_interface)
-                    except:
-                        print('No wireless_interface data provided')
+                        print('No nb_colour data provided')       
                     try:
                         string=specs['Основной материал корпуса']
                         string=string.replace(", ", ",")#deleting spaces after comma
@@ -1259,67 +1359,11 @@ def selenium_search_ozon_notebook(request):
                                 case_material=CaseMaterial.objects.get(value=i)
                                 item.case_material.add(case_material)
                     except:
-                        print('No case_material data provided')
-                    try:
-                        string=specs['Интерфейсы']
-                        string=string.replace(", ", ",")#deleting spaces after comma
-                        array=string.split(',')#transforming the string into a list
-                        for i in array:
-                            if Interface.objects.filter(value=i).exists():
-                                interface=Interface.objects.get(value=i)
-                                item.interface.add(interface)
-                    except:
-                        print('No interface data provided')
-                    try:
-                        string=specs['Стандарты связи']
-                        string=string.replace(", ", ",")#deleting spaces after comma
-                        array=string.split(',')#transforming the string into a list
-                        for i in array:
-                            if CommunicationStandard.objects.filter(value=i).exists():
-                                comms_standard=CommunicationStandard.objects.get(value=i)
-                                item.comms_standard.add(comms_standard)
-                    except:
-                        print('No comms_standard data provided')
-                    try:
-                        string=specs['Особенности']
-                        string=string.replace(", ", ",")#deleting spaces after comma
-                        array=string.split(',')#transforming the string into a list
-                        for i in array:
-                            if SpecialFeature.objects.filter(value=i).exists():
-                                special_feature=SpecialFeature.objects.get(value=i)
-                                item.special_feature.add(special_feature)
-                    except:
-                        print('No special_feature data provided')
-                    try:
-                        string=specs['Функции зарядки']
-                        string=string.replace(", ", ",")#deleting spaces after comma
-                        array=string.split(',')#transforming the string into a list
-                        for i in array:
-                            if ChargingFunction.objects.filter(value=i).exists():
-                                charging_function=ChargingFunction.objects.get(value=i)
-                                item.charging_function.add(charging_function)
-                    except:
-                        print('No charging_function data provided')
-                    try:
-                        string=specs['Стабилизация']
-                        string=string.replace(", ", ",")#deleting spaces after comma
-                        array=string.split(',')#transforming the string into a list
-                        for i in array:
-                            if Stabilization.objects.filter(value=i).exists():
-                                stabilization=Stabilization.objects.get(value=i)
-                                item.stabilization.add(stabilization)
-                    except:
-                        print('No stabilization data provided')
-                    try:
-                        string=specs['Аутентификация']
-                        string=string.replace(", ", ",")#deleting spaces after comma
-                        array=string.split(',')#transforming the string into a list
-                        for i in array:
-                            if Authentication.objects.filter(value=i).exists():
-                                authentification=Authentication.objects.get(value=i)
-                                item.authentification.add(authentification)
-                    except:
-                        print('No authentification data provided')       
+                        print('No case_material data provided')       
+
+
+
+
                     #======================Model with dictionary_id=0=========================
                     try:
                         if WarrantyPeriod.objects.filter(value=specs['Гарантийный срок']).exists():
@@ -1521,6 +1565,16 @@ def selenium_search_ozon_notebook(request):
                         item.nb_battery_capacity=nb_battery_capacity
                     except:
                         print('no nb_battery_capacity data provided')
+                    try:
+                        if MarketingColour.objects.filter(value=specs['Название цвета']).exists():
+                            marketing_colour=MarketingColour.objects.get(value=specs['Название цвета'])
+                        else:
+                            marketing_colour=MarketingColour.objects.create(
+                                value=str(specs['Название цвета'])
+                            )
+                        item.marketing_colour=marketing_colour
+                    except:
+                        print('no marketing_colour data provided')
 
 
 

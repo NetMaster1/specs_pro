@@ -126,7 +126,7 @@ from app_reference_shared.models import (
 )
 
 from app_notebook_reference.models import (BrandNotebook, HDDQnty, RAMNotebook, NotebookRAMType, NotebookMaxRAM, RAMExtraSlot, SSDQnty,
-    VideoRAM, KeyboardColour, NotebookCaseMaterial, NotebookInterfacesConnectors, BatteryElementQnty, NotebookScreenResolution,
+    VideoRAM, KeyboardColour, NotebookCaseMaterial, NotebookInterfacesConnector, BatteryElementQnty, NotebookScreenResolution,
     HDDFormFactor, SSDFormFactor, StorageType, VideoCard, VRSupport, NotebookColour, TouchScreen, NotebookProcessorCoreQnty,
     KeyboardLightning, MobileCommsModule,
     )
@@ -181,7 +181,7 @@ class Notebook (models.Model):
     web_cam_resolution= models.ForeignKey(WebCamResolution, on_delete=models.DO_NOTHING, null=True, blank=True)
     case_material= models.ForeignKey(NotebookCaseMaterial, on_delete=models.DO_NOTHING, null=True, blank=True)
     case_coating= models.ForeignKey(CaseCoating, on_delete=models.DO_NOTHING, null=True, blank=True)
-    interface_connector= models.ForeignKey(NotebookInterfacesConnectors, on_delete=models.DO_NOTHING, null=True, blank=True)
+    interface_connector= models.ForeignKey(NotebookInterfacesConnector, on_delete=models.DO_NOTHING, null=True, blank=True)
     port_qnty_thunderbolt= models.ForeignKey(PortQntyThunderbolt, on_delete=models.DO_NOTHING, null=True, blank=True)
     port_hdmi= models.ForeignKey(HDMIPort, on_delete=models.DO_NOTHING, null=True, blank=True)
     display_port= models.ForeignKey(DisplayPort, on_delete=models.DO_NOTHING, null=True, blank=True)
