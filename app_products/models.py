@@ -179,7 +179,7 @@ class Notebook (models.Model):
     lan_card= models.ForeignKey(LANCard, on_delete=models.DO_NOTHING, null=True, blank=True)
     builtin_device= models.ForeignKey(BuiltInDevice, on_delete=models.DO_NOTHING, null=True, blank=True)
     web_cam_resolution= models.ForeignKey(WebCamResolution, on_delete=models.DO_NOTHING, null=True, blank=True)
-    case_material= models.ForeignKey(NotebookCaseMaterial, on_delete=models.DO_NOTHING, null=True, blank=True)
+    nb_case_material= models.ForeignKey(NotebookCaseMaterial, on_delete=models.DO_NOTHING, null=True, blank=True)
     case_coating= models.ForeignKey(CaseCoating, on_delete=models.DO_NOTHING, null=True, blank=True)
     interface_connector= models.ForeignKey(NotebookInterfacesConnector, on_delete=models.DO_NOTHING, null=True, blank=True)
     port_qnty_thunderbolt= models.ForeignKey(PortQntyThunderbolt, on_delete=models.DO_NOTHING, null=True, blank=True)
