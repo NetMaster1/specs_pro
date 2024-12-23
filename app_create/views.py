@@ -625,93 +625,93 @@ def selenium_search_ozon_notebook(request):
                                 bluetooth=BluetoothType.objects.get(value=specs['Модуль связи Bluetooth'])
                                 item.bluetooth=bluetooth
                                 print('item.bluetooth edited')
-
-
-                        if item.sim_card_qnty is None and 'Число физических SIM-карт' in specs:
-                            if SimCardQnty.objects.filter(value=specs['Число физических SIM-карт']).exists():
-                                sim_card_qnty=SimCardQnty.objects.get(value=specs['Число физических SIM-карт'])
-                                item.sim_card_qnty=sim_card_qnty
-                                print('item.sim_card_qnty edited')
-                        if item.card_type is None and 'Тип карты памяти' in specs:
-                            if CardType.objects.filter(value=specs['Тип карты памяти']).exists():
-                                card_type=CardType.objects.get(value=specs['Тип карты памяти'])
-                                item.card_type=card_type
-                                print('item.card_type edited')
-                        if item.bluetooth is None and 'Модуль связи Bluetooth' in specs:
-                            if BluetoothType.objects.filter(value=specs['Модуль связи Bluetooth']).exists():
-                                bluetooth=BluetoothType.objects.get(value=specs['Модуль связи Bluetooth'])
-                                item.bluetooth=bluetooth
-                                print('item.bluetooth edited')
-                        if item.video_processor_brand is None and 'Бренд графического процессора' in specs:
-                            if VideoProcessorBrand.objects.filter(value=specs['Бренд графического процессора']).exists():
-                                video_processor_brand=VideoProcessorBrand.objects.get(value=specs['Бренд графического процессора'])
-                                item.video_processor_brand=video_processor_brand
-                                print('item.video_processor_brand edited')
-                        if item.screen_resolution is None and 'Разрешение экрана' in specs:
-                            if ScreenResolution.objects.filter(value=specs['Разрешение экрана']).exists():
-                                screen_resolution=ScreenResolution.objects.get(value=specs['Разрешение экрана'])
-                                item.screen_resolution=screen_resolution
-                                print('item.screen_resolution edited')
-                        if item.video_quality is None and 'Качество видео' in specs:
-                            if VideoQuality.objects.filter(value=specs['Качество видео']).exists():
-                                video_quality=VideoQuality.objects.get(value=specs['Качество видео'])
-                                item.video_quality=video_quality
-                                print('item.video_quality edited')
+                        if item.hdd_qnty is None and 'Количество HDD' in specs:
+                            if HDDQnty.objects.filter(value=specs['Количество HDD']).exists():
+                                hdd_qnty=HDDQnty.objects.get(value=specs['Количество HDD'])
+                                item.hdd_qnty=hdd_qnty
+                                print('item.hdd_qnty edited')
+                        if item.notebook_form_factor is None and 'Форм-фактор ноутбука' in specs:
+                            if NotebookFormFactor.objects.filter(value=specs['Форм-фактор ноутбука']).exists():
+                                notebook_form_factor=NotebookFormFactor.objects.get(value=specs['Форм-фактор ноутбука'])
+                                item.notebook_form_factor=notebook_form_factor
+                                print('item.notebook_form_factor edited')
+                        if item.notebook_ram is None and 'Оперативная память' in specs:
+                            if RAMNotebook.objects.filter(value=specs['Оперативная память']).exists():
+                                notebook_ram=RAMNotebook.objects.get(value=specs['Оперативная память'])
+                                item.notebook_ram=notebook_ram
+                                print('item.notebook_ram edited')
+                        if item.notebook_max_ram is None and 'Возможность расширения RAM, до' in specs:
+                            if NotebookMaxRAM.objects.filter(value=specs['Возможность расширения RAM, до']).exists():
+                                notebook_max_ram=NotebookMaxRAM.objects.get(value=specs['Возможность расширения RAM, до'])
+                                item.notebook_max_ram=notebook_max_ram
+                                print('item.notebook_max_ram edited')
+                        if item.ram_form_factor is None and 'Форм-фактор RAM' in specs:
+                            if RAMFormFactor.objects.filter(value=specs['Форм-фактор RAM']).exists():
+                                ram_form_factor=RAMFormFactor.objects.get(value=specs['Форм-фактор RAM'])
+                                item.ram_form_factor=ram_form_factor
+                                print('item.ram_form_factor edited')
+                        if item.ram_extra_slot is None and 'Доп. слоты RAM памяти' in specs:
+                            if RAMExtraSlot.objects.filter(value=specs['Доп. слоты RAM памяти']).exists():
+                                ram_extra_slot=RAMExtraSlot.objects.get(value=specs['Доп. слоты RAM памяти'])
+                                item.ram_extra_slot=ram_extra_slot
+                                print('item.ram_extra_slot edited')
+                        if item.ssd_qnty is None and 'Количество SSD' in specs:
+                            if SSDQnty.objects.filter(value=specs['Количество SSD']).exists():
+                                ssd_qnty=SSDQnty.objects.get(value=specs['Количество SSD'])
+                                item.ssd_qnty=ssd_qnty
+                                print('item.ssd_qnty edited')
+                        if item.dvd_drive is None and 'Оптический привод' in specs:
+                            if DVDrive.objects.filter(value=specs['Оптический привод']).exists():
+                                dvd_drive=DVDrive.objects.get(value=specs['Оптический привод'])
+                                item.dvd_drive=dvd_drive
+                                print('item.dvd_drive edited')
+                        if item.video_card_type is None and 'Тип видеокарты' in specs:
+                            if VideoCardType.objects.filter(value=specs['Тип видеокарты']).exists():
+                                video_card_type=VideoCardType.objects.get(value=specs['Тип видеокарты'])
+                                item.video_card_type=video_card_type
+                                print('item.video_card_type edited')
+                        if item.video_ram is None and 'Видеопамять' in specs:
+                            if VideoRAM.objects.filter(value=specs['Видеопамять']).exists():
+                                video_ram=VideoRAM.objects.get(value=specs['Видеопамять'])
+                                item.video_ram=video_ram
+                                print('item.video_ram edited')
+                        if item.screen_coating is None and 'Покрытие экрана' in specs:
+                            if ScreenCoating.objects.filter(value=specs['Покрытие экрана']).exists():
+                                screen_coating=ScreenCoating.objects.get(value=specs['Покрытие экрана'])
+                                item.screen_coating=screen_coating
+                                print('item.screen_coating edited')
+                        if item.lan_card is None and 'Сетевая карта' in specs:
+                            if LANCard.objects.filter(value=specs['Сетевая карта']).exists():
+                                lan_card=LANCard.objects.get(value=specs['Сетевая карта'])
+                                item.lan_card=lan_card
+                                print('item.lan_card edited')
+                        if item.web_cam_resolution is None and 'Разрешение Web-камеры' in specs:
+                            if WebCamResolution.objects.filter(value=specs['Разрешение Web-камеры']).exists():
+                                web_cam_resolution=WebCamResolution.objects.get(value=specs['Разрешение Web-камеры'])
+                                item.web_cam_resolution=web_cam_resolution
+                                print('item.web_cam_resolution edited')
+                        if item.battery_element_qnty is None and 'Кол-во элементов аккумулятора' in specs:
+                            if BatteryElementQnty.objects.filter(value=specs['Кол-во элементов аккумулятора']).exists():
+                                battery_element_qnty=BatteryElementQnty.objects.get(value=specs['Кол-во элементов аккумулятора'])
+                                item.battery_element_qnty=battery_element_qnty
+                                print('item.battery_element_qnty edited')
+                        if item.nb_screen_resolution is None and 'Разрешение экрана' in specs:
+                            if NotebookScreenResolution.objects.filter(value=specs['Разрешение экрана']).exists():
+                                nb_screen_resolution=NotebookScreenResolution.objects.get(value=specs['Разрешение экрана'])
+                                item.nb_screen_resolution=nb_screen_resolution
+                                print('item.nb_screen_resolution edited')
+                        if item.hdd_form_factor is None and 'Форм-фактор HDD' in specs:
+                            if HDDFormFactor.objects.filter(value=specs['Форм-фактор HDD']).exists():
+                                hdd_form_factor=HDDFormFactor.objects.get(value=specs['Форм-фактор HDD'])
+                                item.hdd_form_factor=hdd_form_factor
+                                print('item.hdd_form_factor edited')
                         if item.hazard_grade is None and 'Класс опасности товара' in specs:
                             if HazardGrade.objects.filter(value=specs['Класс опасности товара']).exists():
                                 hazard_grade=HazardGrade.objects.get(value=specs['Класс опасности товара'])
                                 item.hazard_grade=hazard_grade
                                 print('item.hazard_grade edited')
-                        if item.qnty_of_basic_cameras is None and 'Количество основных камер' in specs:
-                            if QntyOfBasicCamera.objects.filter(value=specs['Количество основных камер']).exists():
-                                qnty_of_basic_cameras=QntyOfBasicCamera.objects.get(value=specs['Количество основных камер'])
-                                item.qnty_of_basic_cameras=qnty_of_basic_cameras
-                                print('item.qnty_of_basic_cameras edited')
-                        if item.processor is None and 'Процессор' in specs:
-                            if Processor.objects.filter(value=specs['Процессор']).exists():
-                                processor=Processor.objects.get(value=specs['Процессор'])
-                                item.processor=processor
-                                print('item.processor edited')
-                        if item.video_processor is None and 'Видеопроцессор' in specs:
-                            if Videovideo_processor.objects.filter(value=specs['Видеопроцессор']).exists():
-                                video_processor=Videovideo_processor.objects.get(value=specs['Видеопроцессор'])
-                                item.video_processor=video_processor
-                                print('item.video_processor edited')
-                        if item.processor_brand is None and 'Бренд процессора' in specs:
-                            if ProcessorBrand.objects.filter(value=specs['Бренд процессора']).exists():
-                                processor_brand=ProcessorBrand.objects.get(value=specs['Бренд процессора'])
-                                item.processor_brand=processor_brand
-                                print('item.processor_brand edited')
-                        if item.processor_core_qnty is None and 'Число ядер процессора' in specs:
-                            if ProcessorCoreQnty.objects.filter(value=specs['Число ядер процессора']).exists():
-                                processor_core_qnty=ProcessorCoreQnty.objects.get(value=specs['Число ядер процессора'])
-                                item.processor_core_qnty=processor_core_qnty
-                                print('item.processor_core_qnty edited')
-                        if item.processor_model is None and 'Модель процессора' in specs:
-                            if ProcessorModel.objects.filter(value=specs['Модель процессора']).exists():
-                                processor_model=ProcessorModel.objects.get(value=specs['Модель процессора'])
-                                item.processor_model=processor_model
-                                print('item.processor_model edited')
-                        if item.operation_system is None and 'Операционная система' in specs:
-                            if OSMobile.objects.filter(value=specs['Операционная система']).exists():
-                                operation_system=OSMobile.objects.get(value=specs['Операционная система'])
-                                item.operation_system=operation_system
-                                print('item.operation_system edited')
-                        if item.android_version is None and 'Версия Android' in specs:
-                            if AndroidVersion.objects.filter(value=specs['Версия Android']).exists():
-                                android_version=AndroidVersion.objects.get(value=specs['Версия Android'])
-                                item.android_version=android_version
-                                print('item.android_version edited')
-                        if item.microsd_slot is None and 'Слот для карты памяти' in specs:
-                            if MicroSDSlot.objects.filter(value=specs['Слот для карты памяти']).exists():
-                                microsd_slot=MicroSDSlot.objects.get(value=specs['Слот для карты памяти'])
-                                item.microsd_slot=microsd_slot
-                                print('item.microsd_slot edited')
-                        if item.case_form is None and 'Тип корпуса' in specs:
-                            if CaseForm.objects.filter(value=specs['Тип корпуса']).exists():
-                                case_form=CaseForm.objects.get(value=specs['Тип корпуса'])
-                                item.case_form=case_form
-                                print('item.case_form edited')
+
+
                         if item.ios_version is None and 'Версия iOS' in specs:
                             if IOSVersion.objects.filter(value=specs['Версия iOS']).exists():
                                 ios_version=IOSVersion.objects.get(value=specs['Версия iOS'])
