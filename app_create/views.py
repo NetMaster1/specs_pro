@@ -34,7 +34,7 @@ from app_reference_smartphones.models import (BrandSmartphone, SmartphoneModel, 
 from app_notebook_reference.models import (BrandNotebook, HDDQnty, RAMNotebook, NotebookMaxRAM, RAMExtraSlot, SSDQnty, VideoRAM, BatteryElementQnty, 
     NotebookScreenResolution, HDDFormFactor, VideoCard, VRSupport, TouchScreen, NotebookProcessorCoreQnty, KeyboardLightning, MobileCommsModule, 
     NotebookRAMType, KeyboardColour, NotebookCaseMaterial, NotebookInterfacesConnector, SSDFormFactor, StorageType, NotebookColour, 
-    
+
     )
 
 
@@ -518,15 +518,15 @@ def selenium_search_ozon_notebook(request):
                                 )
                             item.max_screen_frequency=max_screen_frequency
                             print('item.max_screen_frequency edited')
-                        if item.nb_weigh is None and 'Вес, кг' in specs:
+                        if item.nb_weight is None and 'Вес, кг' in specs:
                             if NotebookWeight.objects.filter(value=specs['Вес, кг']).exists():
-                                nb_weigh=NotebookWeight.objects.get(value=specs['Вес, кг'])
+                                nb_weight=NotebookWeight.objects.get(value=specs['Вес, кг'])
                             else:
-                                nb_weigh=NotebookWeight.objects.create(
+                                nb_weight=NotebookWeight.objects.create(
                                     value=str(specs['Вес, кг'])
                                 )
-                            item.nb_weigh=nb_weigh
-                            print('item.nb_weigh edited')
+                            item.nb_weight=nb_weight
+                            print('item.nb_weight edited')
                         if item.life_span is None and 'Срок службы, лет' in specs:
                             if LifeSpan.objects.filter(value=specs['Срок службы, лет']).exists():
                                 life_span=LifeSpan.objects.get(value=specs['Срок службы, лет'])
