@@ -20,7 +20,10 @@ from app_reference_shared.models import (OzonCategory,LightningType, Size, Monit
     NavigationType, Sensor, SimType, WifiType, CameraFunction, WirelessInterface, CaseMaterial, Interface, CommunicationStandard,
     ChargingFunction, Stabilization, Authentication, RamSmartphone, SmartphoneVersion, ProcessorModelNotebook, NotebookFormFactor, 
     RAMFormFactor, DVDrive, VideoCardType, LANCard, WebCamResolution, NotebookProcessor, NotebookProcessorBrand, NotebookVideoProcessorBrand, 
-    OperationSystem, VideoProcessorFamily, NotebookMatrixType, WindowsVersion, MacOSVersion, KeyboardLayout, WebCamShutter,
+    OperationSystem, VideoProcessorFamily, NotebookMatrixType, WindowsVersion, MacOSVersion, KeyboardLayout, WebCamShutter, PortQntyUSB, 
+    PowerOffWorkTime, PortQntyUSB3Gen1, Chipset, PortQntyUSB3Gen2, SoundConfig, ManualInputDevice, ManualInputDeviceFeature, BuiltInDevice,
+    CaseCoating, PortQntyThunderbolt, DisplayPort, BatteryType, PowerSupplyVoltage, CardReader, NotebookWeight, TotalDiskVolume, TotalHDDVolume, 
+    TotalSSDVolume, PortQntyTypeC, Configuration, 
     )
 from app_reference_smartphones.models import (BrandSmartphone, SmartphoneModel, ScreenResolution, 
     GadgetModel, ProtectionGrade, Colour, QntyOfBasicCamera, Processor, ProcessorCoreQnty, MicroSDSlot, CaseForm, EuroAsianCode,
@@ -28,8 +31,9 @@ from app_reference_smartphones.models import (BrandSmartphone, SmartphoneModel, 
     TypeSmartphone
     )
 
-from app_notebook_reference.models import (HDDQnty, RAMNotebook, NotebookMaxRAM, RAMExtraSlot, SSDQnty, VideoRAM, BatteryElementQnty, 
+from app_notebook_reference.models import (BrandNotebook, HDDQnty, RAMNotebook, NotebookMaxRAM, RAMExtraSlot, SSDQnty, VideoRAM, BatteryElementQnty, 
     NotebookScreenResolution, HDDFormFactor, VideoCard, VRSupport, TouchScreen, NotebookProcessorCoreQnty, KeyboardLightning, MobileCommsModule, 
+    NotebookRAMType, KeyboardColour, NotebookCaseMaterial, NotebookInterfacesConnector, SSDFormFactor, StorageType, NotebookColour, 
     
     )
 
@@ -790,10 +794,6 @@ def selenium_search_ozon_notebook(request):
                                 web_cam_shutter=WebCamShutter.objects.get(value=specs['Шторка для веб-камеры'])
                                 item.web_cam_shutter=web_cam_shutter
                                 print('item.web_cam_shutter edited')
-
-
-
-
                         # if item.euro_asian_code_monitor is None and 'ТН ВЭД коды ЕАЭС' in specs:
                         #     if EuroAsianCodeMonitor.objects.get(value=specs['ТН ВЭД коды ЕАЭС']).exists():
                         #         euro_asian_code_monitor=EuroAsianCodeMonitor.objects.get(value=specs['ТН ВЭД коды ЕАЭС'])
