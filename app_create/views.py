@@ -710,33 +710,90 @@ def selenium_search_ozon_notebook(request):
                                 hazard_grade=HazardGrade.objects.get(value=specs['Класс опасности товара'])
                                 item.hazard_grade=hazard_grade
                                 print('item.hazard_grade edited')
+                        if item.nb_processor is None and 'Процессор' in specs:
+                            if NotebookProcessor.objects.filter(value=specs['Процессор']).exists():
+                                nb_processor=NotebookProcessor.objects.get(value=specs['Процессор'])
+                                item.nb_processor=nb_processor
+                                print('item.nb_processor edited')
+                        if item.video_card is None and 'Видеокарта' in specs:
+                            if VideoCard.objects.filter(value=specs['Видеокарта']).exists():
+                                video_card=VideoCard.objects.get(value=specs['Видеокарта'])
+                                item.video_card=video_card
+                                print('item.video_card edited')
+                        if item.vr_support is None and 'Поддержка VR' in specs:
+                            if VRSupport.objects.filter(value=specs['Поддержка VR']).exists():
+                                vr_support=VRSupport.objects.get(value=specs['Поддержка VR'])
+                                item.vr_support=vr_support
+                                print('item.vr_support edited')
+                        if item.touch_screen is None and 'Сенсорный экран' in specs:
+                            if TouchScreen.objects.filter(value=specs['Сенсорный экран']).exists():
+                                touch_screen=TouchScreen.objects.get(value=specs['Сенсорный экран'])
+                                item.touch_screen=touch_screen
+                                print('item.touch_screen edited')
+                        if item.nb_processor_core_qnty is None and 'Число ядер процессора' in specs:
+                            if NotebookProcessorCoreQnty.objects.filter(value=specs['Число ядер процессора']).exists():
+                                nb_processor_core_qnty=NotebookProcessorCoreQnty.objects.get(value=specs['Число ядер процессора'])
+                                item.nb_processor_core_qnty=nb_processor_core_qnty
+                                print('item.nb_processor_core_qnty edited')
+                        if item.nb_processor_brand is None and 'Бренд процессора' in specs:
+                            if NotebookProcessorBrand.objects.filter(value=specs['Бренд процессора']).exists():
+                                nb_processor_brand=NotebookProcessorBrand.objects.get(value=specs['Бренд процессора'])
+                                item.nb_processor_brand=nb_processor_brand
+                                print('item.nb_processor_brand edited')                
+                        if item.nb_video_processor_brand is None and 'Бренд графического процессора' in specs:
+                            if NotebookVideoProcessorBrand.objects.filter(value=specs['Бренд графического процессора']).exists():
+                                nb_video_processor_brand=NotebookVideoProcessorBrand.objects.get(value=specs['Бренд графического процессора'])
+                                item.nb_video_processor_brand=nb_video_processor_brand
+                                print('item.nb_video_processor_brand edited')
+                        if item.operation_system is None and 'Операционная система' in specs:
+                            if OperationSystem.objects.filter(value=specs['Операционная система']).exists():
+                                operation_system=OperationSystem.objects.get(value=specs['Операционная система'])
+                                item.operation_system=operation_system
+                                print('item.operation_system edited')
+                        if item.video_processor_family is None and 'Серия графического процессора' in specs:
+                            if VideoProcessorFamily.objects.filter(value=specs['Серия графического процессора']).exists():
+                                video_processor_family=VideoProcessorFamily.objects.get(value=specs['Серия графического процессора'])
+                                item.video_processor_family=video_processor_family
+                                print('item.video_processor_family edited')
+                        if item.nb_matrix_type is None and 'Технология матрицы' in specs:
+                            if NotebookMatrixType.objects.filter(value=specs['Технология матрицы']).exists():
+                                nb_matrix_type=NotebookMatrixType.objects.get(value=specs['Технология матрицы'])
+                                item.nb_matrix_type=nb_matrix_type
+                                print('item.nb_matrix_type edited')
+                        if item.windows_version is None and 'Версия Windows' in specs:
+                            if WindowsVersion.objects.filter(value=specs['Версия Windows']).exists():
+                                windows_version=WindowsVersion.objects.get(value=specs['Версия Windows'])
+                                item.windows_version=windows_version
+                                print('item.windows_version edited')
+                        if item.mac_os_version is None and 'Версия MacOS' in specs:
+                            if MacOSVersion.objects.filter(value=specs['Версия MacOS']).exists():
+                                mac_os_version=MacOSVersion.objects.get(value=specs['Версия MacOS'])
+                                item.mac_os_version=mac_os_version
+                                print('item.mac_os_version edited')
+                        if item.keyboard_lightning is None and 'Подсветка клавиатуры' in specs:
+                            if KeyboardLightning.objects.filter(value=specs['Подсветка клавиатуры']).exists():
+                                keyboard_lightning=KeyboardLightning.objects.get(value=specs['Подсветка клавиатуры'])
+                                item.keyboard_lightning=keyboard_lightning
+                                print('item.keyboard_lightning edited')
+                        if item.mobile_comms_module is None and 'Модуль сотовой связи' in specs:
+                            if MobileCommsModule.objects.filter(value=specs['Модуль сотовой связи']).exists():
+                                mobile_comms_module=MobileCommsModule.objects.get(value=specs['Модуль сотовой связи'])
+                                item.mobile_comms_module=mobile_comms_module
+                                print('item.mobile_comms_module edited')
+                        if item.keyboard_layout is None and 'Раскладка клавиатуры' in specs:
+                            if KeyboardLayout.objects.filter(value=specs['Раскладка клавиатуры']).exists():
+                                keyboard_layout=KeyboardLayout.objects.get(value=specs['Раскладка клавиатуры'])
+                                item.keyboard_layout=keyboard_layout
+                                print('item.keyboard_layout edited')
+                        if item.web_cam_shutter is None and 'Шторка для веб-камеры' in specs:
+                            if WebCamShutter.objects.filter(value=specs['Шторка для веб-камеры']).exists():
+                                web_cam_shutter=WebCamShutter.objects.get(value=specs['Шторка для веб-камеры'])
+                                item.web_cam_shutter=web_cam_shutter
+                                print('item.web_cam_shutter edited')
 
 
-                        if item.ios_version is None and 'Версия iOS' in specs:
-                            if IOSVersion.objects.filter(value=specs['Версия iOS']).exists():
-                                ios_version=IOSVersion.objects.get(value=specs['Версия iOS'])
-                                item.ios_version=ios_version
-                                print('item.ios_version edited')
-                        if item.esim_support is None and 'Поддержка eSim' in specs:
-                            if ESimSupport.objects.filter(value=specs['Поддержка eSim']).exists():
-                                esim_support=ESimSupport.objects.get(value=specs['Поддержка eSim'])
-                                item.esim_support=esim_support
-                                print('item.esim_support edited')
-                        if item.ram is None and 'Оперативная память' in specs:
-                            if RamSmartphone.objects.filter(value=specs['Оперативная память']).exists():
-                                ram=RamSmartphone.objects.get(value=specs['Оперативная память'])
-                                item.ram=ram
-                                print('item.ram edited')
-                        if item.publishing_year is None and 'Год анонсирования' in specs:
-                            if PublishingYear.objects.filter(value=specs['Год анонсирования']).exists():
-                                publishing_year=PublishingYear.objects.get(value=specs['Год анонсирования'])
-                                item.publishing_year=publishing_year
-                                print('item.publishing_year edited')
-                        if item.smartphone_version is None and 'Версия смартфона' in specs:
-                            if SmartphoneVersion.objects.filter(value=specs['Версия смартфона']).exists():
-                                smartphone_version=SmartphoneVersion.objects.get(value=specs['Версия смартфона'])
-                                item.smartphone_version=smartphone_version
-                                print('item.smartphone_version edited')
+
+
                         # if item.euro_asian_code_monitor is None and 'ТН ВЭД коды ЕАЭС' in specs:
                         #     if EuroAsianCodeMonitor.objects.get(value=specs['ТН ВЭД коды ЕАЭС']).exists():
                         #         euro_asian_code_monitor=EuroAsianCodeMonitor.objects.get(value=specs['ТН ВЭД коды ЕАЭС'])
