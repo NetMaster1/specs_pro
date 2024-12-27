@@ -6,7 +6,7 @@ import bs4
 from html.parser import HTMLParser
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
-from app_products.models import Smartphone, Monitor
+from app_products.models import Smartphone, Monitor, Notebook
 from app_monitor_reference.models import (Brand_Monitor, ColourMonitor,Resolution, TypeMonitor, USBPort, BuiltinSpeaker, CurvedDispaly, HDR,
     EuroAsianCodeMonitor                                      
     )
@@ -34,7 +34,7 @@ from app_reference_smartphones.models import (BrandSmartphone, SmartphoneModel, 
 from app_notebook_reference.models import (BrandNotebook, HDDQnty, RAMNotebook, NotebookMaxRAM, RAMExtraSlot, SSDQnty, VideoRAM, BatteryElementQnty, 
     NotebookScreenResolution, HDDFormFactor, VideoCard, VRSupport, TouchScreen, NotebookProcessorCoreQnty, KeyboardLightning, MobileCommsModule, 
     NotebookRAMType, KeyboardColour, NotebookCaseMaterial, NotebookInterfacesConnector, SSDFormFactor, StorageType, NotebookColour, 
-
+    TypeNotebook,
     )
 
 
@@ -356,18 +356,18 @@ def selenium_search_ozon_notebook(request):
                 print('Here comes heading text: ')
                 print('-----------------------------')
                 print("Heading: " + heading.text)#Samsung Смартфон Galaxy A25 6/128 ГБ, светло-синий
-                #print(input_string)#Samsung Смартфон Galaxy A25 6/128 ГБ, светло-синий
                 #делим строку на две части по слову "Монитор" и преобразуем её в список (list)
-                string=input_string.split('Смартфон ')
-                #берём вторую часть списка и преобразуем её в строку
-                string=str(string[1])
-                print("String after word 'monitor': " + string)#Galaxy A25 6/128 ГБ, светло-синий
+                string=input_string.split('Ноутбук ')
+                #берём первую часть списка и преобразуем её в строку
+                string=str(string[0])
+                print("String before word 'Ноутбук': " + string)#
                 try:
-                    #и делаем из получившейся строки ещё один список, разделив его по первой "," 
-                    model_name_list=string.split(',', 1)#['Galaxy A25 6/128 ГБ', ' светло-синий']
-                    #преобразуем первую член списка в строку
-                    model_name_string=str(model_name_list[0])#S34C650VAI
+                    #и делаем из получившейся строки ещё один список, разделив его по первому пробелу 
+                    model_name_list=string.split(' ', 1)#['Galaxy A25 6/128 ГБ', ' светло-синий']
+                    #преобразуем второй член списка в строку
+                    model_name_string=str(model_name_list[1])#
                     print("Converting the string into list splitting it by ',': " + model_name_string)
+
                 except:
                     if '/' in string:
                         #и делаем из неё ещё один список, разделив его по "/" 
@@ -393,29 +393,33 @@ def selenium_search_ozon_notebook(request):
                     specs['Тип'],
                     brand,
                     specs['Название модели (для объединения в одну карточку)'],
+                    specs['Процессор'],
                     specs['Оперативная память'],
-                    specs['Встроенная память'],
+                    specs['Общий объем SSD, ГБ'],
+                    specs['Общий объем HDD, ГБ'],
+                    specs['Операционная система'],
+                    specs['Цвет товара'],
                     
                 ]
                 #transforming list to string
-                type_brand_string=' '.join(type_brand_string)
-                print(type_brand_string)#Монитор Samsung 34" S34C650VAI
+                name=' '.join(type_brand_string)
+                print(name)#Монитор Samsung 34" S34C650VAI
                 #если в словаре есть значение цвета, добавляем его название в название товара из heading.text
-                #цвет необязательный атрибут
-                if 'Цвет' in specs:
-                    name_string=[
-                        type_brand_string,
-                        str(specs['Цвет']).lower()
-                        ]
-                else:
-                    name_string=[
-                    type_brand_string,
-                    ]
+                # #цвет необязательный атрибут
+                # if 'Цвет' in specs:
+                #     name_string=[
+                #         type_brand_string,
+                #         str(specs['Цвет']).lower()
+                #         ]
+                # else:
+                #     name_string=[
+                #     type_brand_string,
+                #     ]
                 
                 #Название, которое выводится в качестве основного название товара
                 #specs['Название']=name_string
                 #transforming list to string with commas
-                name_string=', '.join(name_string)#Монитор Samsung 34" S34C650VAI, черный
+                name_string=', '.join(name)#Монитор Samsung 34" S34C650VAI, черный
                 print('Notebook Name: ' + name_string)
 
                 #===============================================================
@@ -1065,18 +1069,18 @@ def selenium_search_ozon_notebook(request):
                         )
                     
                     name=Name.objects.create(value=name_string)
-                    type_smartphone=TypeSmartphone.objects.get(value='Смартфон')
+                    type_notebook=TypeNotebook.objects.get(value='Ноутбук')
 
                     try:
-                        brand=BrandSmartphone.objects.get(value=specs['Бренд'])
+                        brand=BrandNotebook.objects.get(value=specs['Бренд'])
                     except:
-                        brand=BrandSmartphone.objects.get(value='Нет бренда')
+                        brand=BrandNotebook.objects.get(value='Нет бренда')
                     #=============Creating Smartphone Item =====================================               
-                    item=Smartphone.objects.create(
+                    item=Notebook.objects.create(
                         category_name=category_name,
-                        type_smartphone=type_smartphone,
+                        type_notebook=type_notebook,
                         brand=brand,
-                        model_name_smartphone=model_name,
+                        model_name_notebook=model_name,
                         name=name
 
                         #part_number=part_number,

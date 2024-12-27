@@ -128,7 +128,7 @@ from app_reference_shared.models import (
 from app_notebook_reference.models import (BrandNotebook, HDDQnty, RAMNotebook, NotebookRAMType, NotebookMaxRAM, RAMExtraSlot, SSDQnty,
     VideoRAM, KeyboardColour, NotebookCaseMaterial, NotebookInterfacesConnector, BatteryElementQnty, NotebookScreenResolution,
     HDDFormFactor, SSDFormFactor, StorageType, VideoCard, VRSupport, NotebookColour, TouchScreen, NotebookProcessorCoreQnty,
-    KeyboardLightning, MobileCommsModule,
+    KeyboardLightning, MobileCommsModule, TypeNotebook,
     )
 
 from app_reference_smartphones.models import (BrandSmartphone, TypeSmartphone, ScreenResolution, VideoQuality, GadgetModel, ProtectionGrade,
@@ -147,6 +147,15 @@ class Notebook (models.Model):
     #В справочнике Ozon отсутствуют такие бренды как, Xiaomi, Redmi, Honor, Honor, Poco
     #Есть такие бренды как, Samsung
     brand_notebook = models.ForeignKey(BrandNotebook, on_delete=models.DO_NOTHING, null=True)
+    #Выберите наиболее подходящий тип товара. По типам товары распределяются по категориям на сайте Ozon. 
+    #Если тип указан неправильно, товар попадет в неверную категорию.
+    type_notebook = models.ForeignKey(TypeNotebook, on_delete=models.SET_NULL, null=True)
+    #name = models.ForeignKey(Name, on_delete=models.DO_NOTHING, null=True, blank=True)#4180
+    #(для объединения в одну карточку)
+    #Укажите название модели товара. Не указывайте в этом поле тип и бренд.
+    #Заполните данное поле любым одинаковым значением у товаров, которые хотите объединить. 
+    #И по разному, чтобы разъединить. Объединение через данный атрибут произойдет только если товары имеют одинаковый Тип и Бренд
+    model_name_notebook = models.ForeignKey(ModelName, on_delete=models.DO_NOTHING, null=True)#9048
     notebook_processor_model = models.ForeignKey(ProcessorModelNotebook, on_delete=models.SET_NULL, null=True, blank=True)
     product_set = models.ForeignKey(ProductSet, on_delete=models.DO_NOTHING, null=True, blank=True)
     warranty_period = models.ForeignKey(WarrantyPeriod, on_delete=models.DO_NOTHING, null=True)
@@ -266,6 +275,9 @@ class Smartphone (models.Model):
     #В справочнике Ozon отсутствуют такие бренды как, Xiaomi, Redmi, Honor, Honor, Poco
     #Есть такие бренды как, Samsung
     brand = models.ForeignKey(BrandSmartphone, on_delete=models.DO_NOTHING, null=True)
+    #Выберите наиболее подходящий тип товара. По типам товары распределяются по категориям на сайте Ozon. 
+    #Если тип указан неправильно, товар попадет в неверную категорию.
+    type_smartphone = models.ForeignKey(TypeSmartphone, on_delete=models.SET_NULL, null=True)
     #=================================================================
     created = models.DateTimeField(auto_now=True)
     #Название пишется по принципу:\nТип + Бренд + Модель (серия + пояснение) + Артикул производителя + , 
@@ -368,10 +380,6 @@ class Smartphone (models.Model):
     #для составления названия карточки для сайта.
     card_title_model_name = models.ForeignKey(CardTitleModelName, on_delete=models.DO_NOTHING, null=True)#11241
     #===========================================================================================
-    #Выберите наиболее подходящий тип товара. По типам товары распределяются по категориям на сайте Ozon. 
-    #Если тип указан неправильно, товар попадет в неверную категорию. Чтобы правильно указать тип, найдите
-    #на сайте Ozon товары, похожие на ваш, и посмотрите, какой тип у них указан. 8229; is_required,
-    type_smartphone = models.ForeignKey(TypeSmartphone, on_delete=models.SET_NULL, null=True)
     #линейка мобильный устройств
     gadget_serie = models.ForeignKey(GadgetSerie, on_delete=models.SET_NULL, null=True, blank=True)#9225
     #=====================================================================================
