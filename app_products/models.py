@@ -150,7 +150,7 @@ class Notebook (models.Model):
     #Выберите наиболее подходящий тип товара. По типам товары распределяются по категориям на сайте Ozon. 
     #Если тип указан неправильно, товар попадет в неверную категорию.
     type_notebook = models.ForeignKey(TypeNotebook, on_delete=models.SET_NULL, null=True)
-    #name = models.ForeignKey(Name, on_delete=models.DO_NOTHING, null=True, blank=True)#4180
+    name = models.ForeignKey(Name, on_delete=models.DO_NOTHING, null=True, blank=True)#4180
     #(для объединения в одну карточку)
     #Укажите название модели товара. Не указывайте в этом поле тип и бренд.
     #Заполните данное поле любым одинаковым значением у товаров, которые хотите объединить. 

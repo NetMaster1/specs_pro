@@ -254,9 +254,8 @@ def selenium_search_ozon_notebook(request):
                 #parsing links to image & video files
                 image_files=[]
                 try:
-                    img_item = WebDriverWait(driver, 20).until(
-                            #EC.presence_of_element_located((By.CLASS_NAME, "l9t_27"))
-                            EC.presence_of_element_located((By.CLASS_NAME, "yk3_27"))
+                    img_item = WebDriverWait(driver, 10).until(
+                            EC.presence_of_element_located((By.CLASS_NAME, "kv7_27"))
                     )
                     #img_item=driver.find_element(By.CLASS_NAME, 'l9t_27')
                     image_items = img_item.find_elements(By.XPATH, "*")
@@ -271,13 +270,13 @@ def selenium_search_ozon_notebook(request):
                             # video = WebDriverWait(driver, 20).until(
                             # EC.presence_of_element_located((By.CLASS_NAME, "rk7_27"))
                             #     )
-                            video=driver.find_element(By.CLASS_NAME, 'jx5_27')
+                            video=driver.find_element(By.CLASS_NAME, 'j3t_27')
                             video=video.find_element(By.XPATH, "video-player")
                             url_file = video.get_attribute("src")
                             image_files.append(url_file)  
                         except:
                             try:
-                                item=driver.find_element(By.CLASS_NAME, 'xk5_27')
+                                item=driver.find_element(By.CLASS_NAME, 'ku9_27')
                                 item=item.find_element(By.XPATH, "div")
                                 item=item.find_element(By.XPATH, "div")
                                 image=item.find_element(By.XPATH, "img")
@@ -297,8 +296,8 @@ def selenium_search_ozon_notebook(request):
                     print(i)
                 #driver.forward()
                 #driver.refresh()
-                item_keys=driver.find_elements(By.CLASS_NAME, 'o7k_27')
-                item_values=driver.find_elements(By.CLASS_NAME, 'ok7_27')
+                item_keys=driver.find_elements(By.CLASS_NAME, 'm0k_27')
+                item_values=driver.find_elements(By.CLASS_NAME, 'mk0_27')
                 #формирует словарь с тех характеристикам
                 specs={}
                 for m, n in zip (item_keys, item_values):
@@ -314,34 +313,27 @@ def selenium_search_ozon_notebook(request):
                     #specs[m.text]=n.text
                     specs[key_string]=value_string   
                 #=========================================================================================
-                #парсим product_set (комплектация), warranty_period (гарантийный срок) и "название цвета" отдельно от 
+                # парсим product_set (комплектация), warranty_period (гарантийный срок) и "название цвета" отдельно от 
                 # остальных характеристик, так как на странице ozon они стоит отдельно и иногда отсутствуют
-                # try:
-                #     item = driver.find_element(By.CLASS_NAME, 'k9u_27')
-                #     item_div=item.find_element(By.XPATH, "div[1]")
-                #     if "Комплектация" in item_div.text:
-                #         key_items = item_div.find_elements(By.TAG_NAME, 'h3')
-                #         value_items = item_div.find_elements(By.TAG_NAME,"p")
-                #         for k, l in zip (key_items, value_items):
-                #             specs[k.text]=l.text
-                    # else:
-                    #     item_div=item.find_element(By.XPATH, "div[2]")
-                    #     if "Комплектация" in item_div.text:
-                    #         key_items = item_div.find_elements(By.TAG_NAME, 'h3')
-                    #         value_items = item_div.find_elements(By.TAG_NAME,"p")
-                    #         for k, l in zip (key_items, value_items):
-                    #             specs[k.text]=l.text
-                # except Exception as e:
-                #     print('Exception Error #1: ')
-                #     print (e)
-                #     print('no product set, warranty period colour name provided')
-               #specs = dict(sorted(specs.items()))
+                try:
+                    item = driver.find_element(By.CLASS_NAME, 'ks6_27')
+                    item_div=item.find_element(By.XPATH, "div[1]")
+                    key_items = item_div.find_elements(By.TAG_NAME, 'h3')
+                    value_items = item_div.find_elements(By.TAG_NAME,"p")
+                    for k, l in zip (key_items, value_items):
+                        specs[k.text]=l.text
+                except Exception as e:
+                    print('Exception Error #1: ')
+                    print (e)
+                    print('no product set, warranty period colour name provided')
+                specs = dict(sorted(specs.items()))
+                print('--------------------------------')
                 for keys, values in specs.items():
                     print(keys + ' : ' + values)
                     #time.sleep(3)
 
                 #LOOKING FOR HEADING
-                heading_item = driver.find_element(By.CLASS_NAME,"lw8_27")
+                heading_item = driver.find_element(By.CLASS_NAME,"lu5_27")
                 heading = heading_item.find_element(By.TAG_NAME,"h1")
 
                 #===========================Required Attributes================================
@@ -357,16 +349,19 @@ def selenium_search_ozon_notebook(request):
                 print('-----------------------------')
                 print("Heading: " + heading.text)#Samsung Смартфон Galaxy A25 6/128 ГБ, светло-синий
                 #делим строку на две части по слову "Монитор" и преобразуем её в список (list)
-                string=input_string.split('Ноутбук ')
+                #input_string=input_string.lower()#lower the string since it may contain "Ноутбук" & 'ноутбук'
+                if 'ноутбук' in input_string:
+                    input_string=input_string.replace('ноутбук', 'Ноутбук')
+                string=input_string.split(' Ноутбук')
                 #берём первую часть списка и преобразуем её в строку
                 string=str(string[0])
                 print("String before word 'Ноутбук': " + string)#
                 try:
                     #и делаем из получившейся строки ещё один список, разделив его по первому пробелу 
-                    model_name_list=string.split(' ', 1)#['Galaxy A25 6/128 ГБ', ' светло-синий']
+                    model_name_list=string.split(' ', 1)
                     #преобразуем второй член списка в строку
-                    model_name_string=str(model_name_list[1])#
-                    print("Converting the string into list splitting it by ',': " + model_name_string)
+                    model_name_string=str(model_name_list[1])
+                    print("Converting the string into list splitting it by the first space: " + model_name_string)
 
                 except:
                     if '/' in string:
@@ -389,21 +384,26 @@ def selenium_search_ozon_notebook(request):
           
                 #формируем название (name) товара
                 specs['Тип']='Ноутбук'
-                type_brand_string=[
+                name_part_1=[
                     specs['Тип'],
                     brand,
-                    specs['Название модели (для объединения в одну карточку)'],
+                    specs['Название модели (для объединения в одну карточку)']
+                ]
+                #преобразуем список в строку с пробелами
+                name_string=' '.join(name_part_1)
+
+                name= [
+                    name_string,
                     specs['Процессор'],
                     specs['Оперативная память'],
                     specs['Общий объем SSD, ГБ'],
-                    specs['Общий объем HDD, ГБ'],
+                    #specs['Общий объем HDD, ГБ'],
                     specs['Операционная система'],
-                    specs['Цвет товара'],
-                    
-                ]
+                    #specs['Цвет товара'],
+                ]   
                 #transforming list to string
-                name=' '.join(type_brand_string)
-                print(name)#Монитор Samsung 34" S34C650VAI
+                #name=' '.join(type_brand_string)
+                #print(name)#Монитор Samsung 34" S34C650VAI
                 #если в словаре есть значение цвета, добавляем его название в название товара из heading.text
                 # #цвет необязательный атрибут
                 # if 'Цвет' in specs:
@@ -419,8 +419,8 @@ def selenium_search_ozon_notebook(request):
                 #Название, которое выводится в качестве основного название товара
                 #specs['Название']=name_string
                 #transforming list to string with commas
-                name_string=', '.join(name)#Монитор Samsung 34" S34C650VAI, черный
-                print('Notebook Name: ' + name_string)
+                name=', '.join(name)#Монитор Samsung 34" S34C650VAI, черный
+                print('Notebook Name: ' + name)
 
                 #===============================================================
                 #checking if the sku exists in my DB
@@ -1067,8 +1067,10 @@ def selenium_search_ozon_notebook(request):
                         equipment_type=specs['Тип'],
                         equipment_brand=specs['Бренд']
                         )
-                    
-                    name=Name.objects.create(value=name_string)
+                    if Name.objects.filter(value=name).exists():
+                        name=Name.objects.get(value=name)
+                    else:
+                        name=Name.objects.create(value=name)
                     type_notebook=TypeNotebook.objects.get(value='Ноутбук')
 
                     try:
@@ -1079,7 +1081,7 @@ def selenium_search_ozon_notebook(request):
                     item=Notebook.objects.create(
                         category_name=category_name,
                         type_notebook=type_notebook,
-                        brand=brand,
+                        brand_notebook=brand,
                         model_name_notebook=model_name,
                         name=name
 

@@ -109,13 +109,45 @@ from app_monitor_reference.models import (
     Resolution, TypeMonitor, USBPort, BuiltinSpeaker, CurvedDispaly, HDR, Brand_Monitor, EuroAsianCodeMonitor, ColourMonitor,
 )
 from app_notebook_reference.models import (
-    BrandNotebook, HDDQnty, RAMNotebook, NotebookRAMType, NotebookMaxRAM, RAMExtraSlot, SSDQnty, VideoRAM, KeyboardColour, NotebookCaseMaterial, 
+    BrandNotebook, TypeNotebook, HDDQnty, RAMNotebook, NotebookRAMType, NotebookMaxRAM, RAMExtraSlot, SSDQnty, VideoRAM, KeyboardColour, NotebookCaseMaterial, 
     NotebookInterfacesConnector, BatteryElementQnty, NotebookScreenResolution, HDDFormFactor, SSDFormFactor, StorageType, VideoCard, VRSupport,
     NotebookColour, TouchScreen, NotebookProcessorCoreQnty, KeyboardLightning, MobileCommsModule, 
 )
 
 #from django.http import HttpResponse
 import requests
+
+def upload_type_nb(request):
+    headers = {
+        "Client-Id": "867100",
+        "Api-Key": '6bbf7175-6585-4c35-8314-646f7253bef6'
+    }
+    task = {
+    "attribute_id": 8229,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=TypeNotebook.objects.get(dictionary_value_id=i['id'])
+        except TypeNotebook.DoesNotExist:
+            item= TypeNotebook.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='8229',
+                attribute_name='Тип',
+                is_collection=False,
+                is_required=True,
+                category_dependent=True
+            )
+
 
 def upload_notebook(request):
     headers = {
@@ -148,6 +180,33 @@ def upload_notebook(request):
                 category_dependent=True
             )
     #========================================================
+    task = {
+    "attribute_id": 8229,
+    "description_category_id": 17028619,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 91477
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=TypeNotebook.objects.get(dictionary_value_id=i['id'])
+        except TypeNotebook.DoesNotExist:
+            item= TypeNotebook.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='8229',
+                attribute_name='Тип',
+                is_collection=False,
+                is_required=True,
+                category_dependent=True
+            )
+    
+    #==============================================================================
     task = {
     "attribute_id": 10316,
     "description_category_id": 17028619,
