@@ -10,7 +10,7 @@ from . models import Smartphone, Monitor, Notebook
 
 
 class NotebookAdmin(admin.ModelAdmin):
-    list_display = ('id',)  
+    list_display = ('id', 'name')  
     #list_filter = ('name',)
     #list_editable= ('processor', 'authentification', )
     search_fields = ('model_name', )
