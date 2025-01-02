@@ -1106,10 +1106,11 @@ class SpecialFeatureSmartphone (models.Model):
     is_collection = models.BooleanField(default=True)
     def __str__(self):
         return self.value
-
+    
+#attributes Smartphone
 class Interface (models.Model):
-    attribute_name = models.CharField(max_length=50, null=True)
-    attribute_id = models.CharField(max_length=50, null=True)
+    attribute_name = models.CharField(max_length=50, null=True, default='Интерфейсы')
+    attribute_id = models.CharField(max_length=50, null=True, default='11298')
     value = models.CharField(max_length=100, blank=True)
     dictionary_value_id = models.CharField(max_length=20, default=0)
     is_required = models.BooleanField(default=False)
@@ -1163,8 +1164,8 @@ class CaseMaterial (models.Model):
         return self.value
 
 class WirelessInterface (models.Model):
-    attribute_name = models.CharField(max_length=50, null=True)
-    attribute_id = models.CharField(max_length=50, null=True)
+    attribute_name = models.CharField(max_length=50, null=True, default='Беспроводные интерфейсы')
+    attribute_id = models.CharField(max_length=50, null=True, default='10387')
     value = models.CharField(max_length=100, blank=True)
     dictionary_value_id = models.CharField(max_length=20, default=0)
     is_required = models.BooleanField(default=False)

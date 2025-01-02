@@ -140,6 +140,91 @@ from app_monitor_reference.models import(Resolution, TypeMonitor, USBPort, Built
     EuroAsianCodeMonitor,
     )
 
+class TV (models.Model):
+    #Дополнительное поле. Не входит в attributes for smartphone. Использую просто для связи с таблицей категории.
+    category_name = models.ForeignKey(OzonCategory, on_delete=models.DO_NOTHING, null=True)
+    created = models.DateTimeField(auto_now=True)
+    #В справочнике Ozon отсутствуют такие бренды как, Xiaomi, Redmi, Honor, Honor, Poco
+    #Есть такие бренды как, Samsung
+    #=================================================================
+    #Каталожный номер изделия или детали. Is_required=True. Можно использовать EAN
+    #Не можем использовать IMEI телефона, так как они разные у одного SKU
+    brand_tv = models.ForeignKey(BrandTV, on_delete=models.DO_NOTHING, null=True)
+    type_tv = models.ForeignKey(TypeTV, on_delete=models.SET_NULL, null=True)#8229
+    warranty_period = models.ForeignKey(WarrantyPeriod, on_delete=models.DO_NOTHING, null=True)
+    tv_tuner = models.ManyToManyField(TVTuner, null=True)
+    tv_resolution = models.ForeignKey(TVResolution, on_delete=models.DO_NOTHING, null=True, blank=True)#5592
+    refresh_rate = models.ForeignKey(RefreshRate, on_delete=models.DO_NOTHING, null=True, blank=True)
+    screen_size = models.ForeignKey(ScreenSize, on_delete=models.DO_NOTHING, null=True, blank=True)
+    tv_interface = models.ManyToManyField(TVInterface, blank=True)#11528
+    tv_hdr_technology = models.ForeignKey(TVHDRTechnology, on_delete=models.DO_NOTHING, null=True, blank=True)#11529
+    tv_lightning_type = models.ForeignKey(TVLightningType, on_delete=models.DO_NOTHING, null=True, blank=True)#11529
+    support_size = models.ForeignKey(SupportSize, on_delete=models.DO_NOTHING, null=True, blank=True)#11529
+    tv_size = models.ForeignKey(Size, on_delete=models.DO_NOTHING, null=True, blank=True)#11529
+    tv_weight = models.ForeignKey(Weight, on_delete=models.DO_NOTHING, null=True, blank=True)#11529
+    product_set = models.ForeignKey(ProductSet, on_delete=models.DO_NOTHING, null=True, blank=True)#11529
+    country_of_manufacture = models.ManyToManyField(CountryOfManufacture, blank=True)
+    tv_ram = models.ForeignKey(TVRAM, on_delete=models.DO_NOTHING, null=True)
+    hdmi_port = models.ForeignKey(HDMIPort, on_delete=models.DO_NOTHING, null=True)
+    tv_data_storag = models.ForeignKey(TVDataStorage, on_delete=models.DO_NOTHING, null=True)
+    tv_power_consumption = models.ForeignKey(TVPowerConsumption, on_delete=models.DO_NOTHING, null=True)#4851
+    audio_decoder = models.ManyToManyField(AudioDecoder, blank=True)
+    tv_usb = models.ForeignKey(TVUsb, on_delete=models.DO_NOTHING, null=True)#5523
+    wifi_frequency = models.ManyToManyField(WifiFrequency, blank=True)
+    audio_system_power = models.ForeignKey(AudioSystemPower, on_delete=models.DO_NOTHING, null=True)
+    vesa_fixture = models.ManyToManyField(VESAFixture, blank=True)
+    life_span = models.ForeignKey(LifeSpan, on_delete=models.DO_NOTHING, null=True, blank=True)
+    height = models.ForeignKey(Height, on_delete=models.DO_NOTHING, null=True, blank=True)
+    tv_screen_size = models.ForeignKey(TVScreenSize, on_delete=models.DO_NOTHING, null=True, blank=True)#9227
+    smart_tv = models.ForeignKey(SmartTV, on_delete=models.DO_NOTHING, null=True, blank=True)
+    tv_colour = models.ManyToManyField(TVColour, blank=True)#10096
+    width = models.ForeignKey(Width, on_delete=models.DO_NOTHING, null=True, blank=True)
+    vesa_fixture = models.ManyToManyField(VESAFixture, blank=True)
+    wireless_interface = models.ManyToManyField(WirelessInterface, blank=True)
+    tv_curved_screen = models.ForeignKey(TVCurvedScreen, on_delete=models.DO_NOTHING, null=True, blank=True)
+    subwoofer = models.ForeignKey(Subwoofer, on_delete=models.DO_NOTHING, null=True, blank=True)
+    tv_alternative_modes = models.ManyToManyField(TVAlternativeModes, blank=True)
+    recording = models.ManyToManyField(Recording, blank=True)
+    media_player = models.ForeignKey(MediaPlayer, on_delete=models.DO_NOTHING, null=True, blank=True)
+    tv_control = models.ManyToManyField(TVControl, blank=True)
+    network = models.ManyToManyField(Network, blank=True)
+    tv_operation_system = models.ForeignKey(TVOperationSystem, on_delete=models.DO_NOTHING, null=True, blank=True)
+    tv_matrix_type = models.ForeignKey(TVMatrixType, on_delete=models.DO_NOTHING, null=True, blank=True)#11532
+    resolution_standard = models.ForeignKey(ResolutionStandard, on_delete=models.DO_NOTHING, null=True, blank=True)#11534
+    screen_technology = models.ForeignKey(ScreenTechnology, on_delete=models.DO_NOTHING, null=True, blank=True)#11633
+    hdmi_version = models.ManyToManyField(HDMIVersion, blank=True)
+    interior_tv_set = models.ForeignKey(InteriorTVSet, on_delete=models.DO_NOTHING, null=True, blank=True)
+    #(для объединения в одну карточку)
+    #Укажите название модели товара. Не указывайте в этом поле тип и бренд.
+    #Заполните данное поле любым одинаковым значением у товаров, которые хотите объединить. 
+    #И по разному, чтобы разъединить. Объединение через данный атрибут произойдет только если товары имеют одинаковый Тип и Бренд
+    model_name = models.ForeignKey(ModelName, on_delete=models.DO_NOTHING, null=True)#9048
+    part_number = models.ForeignKey(PartNumber, on_delete=models.DO_NOTHING, null=True)
+    #Выберите наиболее подходящий тип товара. По типам товары распределяются по категориям на сайте Ozon. 
+    #Если тип указан неправильно, товар попадет в неверную категорию. Чтобы правильно указать тип, найдите
+    #на сайте Ozon товары, похожие на ваш, и посмотрите, какой тип у них указан. 8229; is_required,
+    type = models.ForeignKey(TypeMonitor, on_delete=models.SET_NULL, null=True)#8229
+    #Название пишется по принципу:\nТип + Бренд + Модель (серия + пояснение) + Артикул производителя + , 
+    #(запятая) + Атрибут\nНазвание не пишется большими буквами (не используем caps lock).\n
+    #Перед атрибутом ставится запятая. Если атрибутов несколько, они так же разделяются запятыми.\n
+    # Если какой-то составной части названия нет - пропускаем её.\nАтрибутом может быть: цвет, вес, объём, 
+    # количество штук в упаковке и т.д.\nЦвет пишется с маленькой буквы, в мужском роде, единственном числе.\n
+    # Слово цвет в названии не пишем.\nТочка в конце не ставится.\nНикаких знаков препинания, кроме запятой, не используем.\n
+    # Кавычки используем только для названий на русском языке.\nПримеры корректных названий:\nСмартфон Apple iPhone XS MT572RU/A, 
+    # space black \nКеды Dr. Martens Киноклассика, бело-черные, размер 43\nСтиральный порошок Ariel Магия белого с мерной ложкой, 
+    # 15 кг\nСоус Heinz Xtreme Tabasco суперострый, 10 мл\nИгрушка для животных Четыре лапы \"Бегающая мышка\" БММ, белый
+    name = models.ForeignKey(Name, on_delete=models.DO_NOTHING, null=True, blank=True)#4180
+    description = models.ForeignKey(Description, on_delete=models.DO_NOTHING, null=True, blank=True)
+    #======================dictionary_id > 0==================================================
+    video_url = models.URLField(blank=True)
+    image_1 = models.URLField(blank=True)
+    image_2 = models.URLField(blank=True)
+    image_3 = models.URLField(blank=True)
+    image_4 = models.URLField(blank=True)
+    image_5 = models.URLField(blank=True)
+
+
+
 class Notebook (models.Model):
     #Дополнительное поле. Не входит в attributes for notebook. Использую просто для связи с таблицей категории.
     category_name = models.ForeignKey(OzonCategory, on_delete=models.DO_NOTHING, null=True)
@@ -167,9 +252,9 @@ class Notebook (models.Model):
     port_usb3_gen1 = models.ForeignKey(PortQntyUSB3Gen1, on_delete=models.DO_NOTHING, null=True, blank=True)
     hdd_qnty = models.ForeignKey(HDDQnty, on_delete=models.DO_NOTHING, null=True, blank=True)
     notebook_form_factor = models.ForeignKey(NotebookFormFactor, on_delete=models.DO_NOTHING, null=True, blank=True)
-    chipset = models.ForeignKey(Chipset, on_delete=models.DO_NOTHING, null=True, blank=True)
+    chipset = models.ManyToManyField(Chipset, blank=True)
     notebook_ram = models.ForeignKey(RAMNotebook, on_delete=models.DO_NOTHING, null=True, blank=True)
-    notebook_ram_type = models.ForeignKey(NotebookRAMType, on_delete=models.DO_NOTHING, null=True, blank=True)
+    notebook_ram_type = models.ManyToManyField(NotebookRAMType, blank=True)
     notebook_max_ram= models.ForeignKey(NotebookMaxRAM, on_delete=models.DO_NOTHING, null=True, blank=True)
     port_usb3_gen2 = models.ForeignKey(PortQntyUSB3Gen2, on_delete=models.DO_NOTHING, null=True, blank=True)
     ram_form_factor= models.ForeignKey(RAMFormFactor, on_delete=models.DO_NOTHING, null=True, blank=True)
@@ -178,28 +263,28 @@ class Notebook (models.Model):
     dvd_drive= models.ForeignKey(DVDrive, on_delete=models.DO_NOTHING, null=True, blank=True)
     video_card_type= models.ForeignKey(VideoCardType, on_delete=models.DO_NOTHING, null=True, blank=True)
     video_ram= models.ForeignKey(VideoRAM, on_delete=models.DO_NOTHING, null=True, blank=True)
-    lightning_type= models.ForeignKey(LightningType, on_delete=models.DO_NOTHING, null=True, blank=True)
+    lightning_type= models.ManyToManyField(LightningType, blank=True)
     screen_coating= models.ForeignKey(ScreenCoating, on_delete=models.DO_NOTHING, null=True, blank=True)
-    sound_config= models.ForeignKey(SoundConfig, on_delete=models.DO_NOTHING, null=True, blank=True)
-    manual_input_device= models.ForeignKey(ManualInputDevice, on_delete=models.DO_NOTHING, null=True, blank=True)
-    manual_input_device_feature= models.ForeignKey(ManualInputDeviceFeature, on_delete=models.DO_NOTHING, null=True, blank=True)
-    keyboard_colour= models.ForeignKey(KeyboardColour, on_delete=models.DO_NOTHING, null=True, blank=True)
-    wifi_type= models.ForeignKey(WifiType, on_delete=models.DO_NOTHING, null=True, blank=True)
+    sound_config= models.ManyToManyField(SoundConfig, blank=True)
+    manual_input_device= models.ManyToManyField(ManualInputDevice, blank=True)
+    manual_input_device_feature= models.ManyToManyField(ManualInputDeviceFeature, blank=True)
+    keyboard_colour= models.ManyToManyField(KeyboardColour, blank=True)
+    wifi_type= models.ManyToManyField(WifiType, blank=True)
     lan_card= models.ForeignKey(LANCard, on_delete=models.DO_NOTHING, null=True, blank=True)
-    builtin_device= models.ForeignKey(BuiltInDevice, on_delete=models.DO_NOTHING, null=True, blank=True)
+    builtin_device= models.ManyToManyField(BuiltInDevice, blank=True)
     web_cam_resolution= models.ForeignKey(WebCamResolution, on_delete=models.DO_NOTHING, null=True, blank=True)
-    nb_case_material= models.ForeignKey(NotebookCaseMaterial, on_delete=models.DO_NOTHING, null=True, blank=True)
-    case_coating= models.ForeignKey(CaseCoating, on_delete=models.DO_NOTHING, null=True, blank=True)
-    interface_connector= models.ForeignKey(NotebookInterfacesConnector, on_delete=models.DO_NOTHING, null=True, blank=True)
+    nb_case_material= models.ManyToManyField(NotebookCaseMaterial, blank=True)
+    case_coating= models.ManyToManyField(CaseCoating, blank=True)
+    interface_connector= models.ManyToManyField(NotebookInterfacesConnector, blank=True)
     port_qnty_thunderbolt= models.ForeignKey(PortQntyThunderbolt, on_delete=models.DO_NOTHING, null=True, blank=True)
     port_hdmi= models.ForeignKey(HDMIPort, on_delete=models.DO_NOTHING, null=True, blank=True)
     display_port= models.ForeignKey(DisplayPort, on_delete=models.DO_NOTHING, null=True, blank=True)
     battery_element_qnty= models.ForeignKey(BatteryElementQnty, on_delete=models.DO_NOTHING, null=True, blank=True)
-    battery_type= models.ForeignKey(BatteryType, on_delete=models.DO_NOTHING, null=True, blank=True)
-    power_supply_voltage= models.ForeignKey(PowerSupplyVoltage, on_delete=models.DO_NOTHING, null=True, blank=True)
+    battery_type= models.ManyToManyField(BatteryType, blank=True)
+    power_supply_voltage= models.ManyToManyField(PowerSupplyVoltage, blank=True)
     nb_screen_resolution= models.ForeignKey(NotebookScreenResolution, on_delete=models.DO_NOTHING, null=True, blank=True)
     max_screen_frequency= models.ForeignKey(MaxScreenFrequency, on_delete=models.DO_NOTHING, null=True, blank=True)
-    card_reader= models.ForeignKey(CardReader, on_delete=models.DO_NOTHING, null=True, blank=True)
+    card_reader= models.ManyToManyField(CardReader, blank=True)
     nb_weight= models.ForeignKey(NotebookWeight, on_delete=models.DO_NOTHING, null=True, blank=True)
     life_span= models.ForeignKey(LifeSpan, on_delete=models.DO_NOTHING, null=True, blank=True)
     total_disk_volume= models.ForeignKey(TotalDiskVolume, on_delete=models.DO_NOTHING, null=True, blank=True)
@@ -208,19 +293,19 @@ class Notebook (models.Model):
     screen_size= models.ForeignKey(ScreenSize, on_delete=models.DO_NOTHING, null=True, blank=True)
     port_TypeC= models.ForeignKey(PortQntyTypeC, on_delete=models.DO_NOTHING, null=True, blank=True)
     hdd_form_factor= models.ForeignKey(HDDFormFactor, on_delete=models.DO_NOTHING, null=True, blank=True)
-    ssd_form_factor= models.ForeignKey(SSDFormFactor, on_delete=models.DO_NOTHING, null=True, blank=True)
-    storage_type= models.ForeignKey(StorageType, on_delete=models.DO_NOTHING, null=True, blank=True)
+    ssd_form_factor= models.ManyToManyField(SSDFormFactor, blank=True)
+    storage_type= models.ManyToManyField(StorageType, blank=True)
     configuration= models.ForeignKey(Configuration, on_delete=models.DO_NOTHING, null=True, blank=True)
     hazard_grade= models.ForeignKey(HazardGrade, on_delete=models.DO_NOTHING, null=True, blank=True)
     nb_processor= models.ForeignKey(NotebookProcessor, on_delete=models.DO_NOTHING, null=True, blank=True)
     video_card= models.ForeignKey(VideoCard, on_delete=models.DO_NOTHING, null=True, blank=True)
     vr_support= models.ForeignKey(VRSupport, on_delete=models.DO_NOTHING, null=True, blank=True)
-    nb_colour= models.ForeignKey(NotebookColour, on_delete=models.DO_NOTHING, null=True, blank=True)
-    marketing_colour= models.ForeignKey(MarketingColour, on_delete=models.DO_NOTHING, null=True, blank=True)
+    nb_colour= models.ManyToManyField(NotebookColour, blank=True)#10096
+    marketing_colour= models.ForeignKey(MarketingColour, on_delete=models.DO_NOTHING, null=True, blank=True)#10097
     touch_screen= models.ForeignKey(TouchScreen, on_delete=models.DO_NOTHING, null=True, blank=True)
     processor_frequency= models.ForeignKey(ProcessorFrequency, on_delete=models.DO_NOTHING, null=True, blank=True)
     nb_processor_core_qnty= models.ForeignKey(NotebookProcessorCoreQnty, on_delete=models.DO_NOTHING, null=True, blank=True)
-    case_material= models.ForeignKey(CaseMaterial, on_delete=models.DO_NOTHING, null=True, blank=True)
+    case_material= models.ManyToManyField(CaseMaterial, blank=True)#10746
     nb_processor_brand= models.ForeignKey(NotebookProcessorBrand, on_delete=models.DO_NOTHING, null=True, blank=True)
     nb_video_processor_brand= models.ForeignKey(NotebookVideoProcessorBrand, on_delete=models.DO_NOTHING, null=True, blank=True)
     operation_system= models.ForeignKey(OperationSystem, on_delete=models.DO_NOTHING, null=True, blank=True)
@@ -346,7 +431,7 @@ class Smartphone (models.Model):
     wifi = models.ManyToManyField(WifiType, blank=True)
     bluetooth = models.ForeignKey(BluetoothType, on_delete=models.SET_NULL, null=True, blank=True)
     wireless_interface = models.ManyToManyField(WirelessInterface, blank=True)
-    interface = models.ManyToManyField(Interface, blank=True)
+    interface = models.ManyToManyField(Interface, blank=True)#11298
     #===================================================================
     sensor = models.ManyToManyField(Sensor, blank=True)
     navigation = models.ManyToManyField(NavigationType, blank=True)
