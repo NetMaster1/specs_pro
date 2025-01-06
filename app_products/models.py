@@ -121,8 +121,28 @@ from app_reference_shared.models import (
     WindowsVersion,
     MacOSVersion,
     KeyboardLayout,
-    WebCamShutter
-    
+    WebCamShutter,
+    TVTuner,
+    RefreshRate,
+    TVInterface,
+    TVLightningType,
+    SupportSize,
+    TVPowerConsumption,
+    AudioDecoder,
+    WifiFrequency,
+    AudioSystemPower,
+    Height,
+    TVScreenSize,
+    Width,
+    Recording,
+    TVAlternativeModes,
+    TVControl,
+    Network,
+    TVOperationSystem,
+    TVMatrixType,
+    ResolutionStandard,
+    ScreenTechnology,
+    HDMIVersion,
 )
 
 from app_notebook_reference.models import (BrandNotebook, HDDQnty, RAMNotebook, NotebookRAMType, NotebookMaxRAM, RAMExtraSlot, SSDQnty,
@@ -133,11 +153,14 @@ from app_notebook_reference.models import (BrandNotebook, HDDQnty, RAMNotebook, 
 
 from app_reference_smartphones.models import (BrandSmartphone, TypeSmartphone, ScreenResolution, VideoQuality, GadgetModel, ProtectionGrade,
     Colour, QntyOfBasicCamera, Processor, ProcessorCoreQnty, MicroSDSlot, CaseForm, EuroAsianCode, SimCardQnty,
-
     )
 
 from app_monitor_reference.models import(Resolution, TypeMonitor, USBPort, BuiltinSpeaker, CurvedDispaly, HDR, ColourMonitor, Brand_Monitor,
     EuroAsianCodeMonitor,
+    )
+
+from app_tv_reference.models import(BrandTV, TypeTV, TVResolution, TVHDRTechnology, TVRAM, TVDataStorage, TVUsb, SmartTV,
+    TVColour, TVCurvedScreen, Subwoofer, MediaPlayer, InteriorTVSet,             
     )
 
 class TV (models.Model):
@@ -155,7 +178,7 @@ class TV (models.Model):
     #на сайте Ozon товары, похожие на ваш, и посмотрите, какой тип у них указан. 8229; is_required,
     type_tv = models.ForeignKey(TypeTV, on_delete=models.SET_NULL, null=True)#8229
     warranty_period = models.ForeignKey(WarrantyPeriod, on_delete=models.DO_NOTHING, null=True)
-    tv_tuner = models.ManyToManyField(TVTuner, null=True)
+    tv_tuner = models.ManyToManyField(TVTuner, blank=True)
     tv_resolution = models.ForeignKey(TVResolution, on_delete=models.DO_NOTHING, null=True, blank=True)#5592
     refresh_rate = models.ForeignKey(RefreshRate, on_delete=models.DO_NOTHING, null=True, blank=True)
     screen_size = models.ForeignKey(ScreenSize, on_delete=models.DO_NOTHING, null=True, blank=True)
@@ -220,8 +243,6 @@ class TV (models.Model):
     image_3 = models.URLField(blank=True)
     image_4 = models.URLField(blank=True)
     image_5 = models.URLField(blank=True)
-
-
 
 class Notebook (models.Model):
     #Дополнительное поле. Не входит в attributes for notebook. Использую просто для связи с таблицей категории.

@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'app_create',
     'app_monitor_reference',
     'app_notebook_reference',
+    'app_tv_reference',
 ]
 
 MIDDLEWARE = [

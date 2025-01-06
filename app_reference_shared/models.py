@@ -177,6 +177,74 @@ class TVControl (models.Model):
     is_collection = models.BooleanField(default=True)
     def __str__(self):
         return self.value
+    
+class Network (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Сетевые возможности' )
+    attribute_id = models.CharField(max_length=50, default='11530')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=True)
+    def __str__(self):
+        return self.value
+    
+class TVOperationSystem (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Операционная система ТВ' )
+    attribute_id = models.CharField(max_length=50, default='11531')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class TVMatrixType (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Технология матрицы ТВ' )
+    attribute_id = models.CharField(max_length=50, default='11532')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class ResolutionStandard (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Стандарт разрешения' )
+    attribute_id = models.CharField(max_length=50, default='11534')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class ScreenTechnology (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Технология экрана' )
+    attribute_id = models.CharField(max_length=50, default='11633')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class HDMIVersion (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Версия HDMI' )
+    attribute_id = models.CharField(max_length=50, default='11972')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+
+
 
 #===========================================================
 class ProcessorModelNotebook (models.Model):
