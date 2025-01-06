@@ -150,6 +150,9 @@ class TV (models.Model):
     #Каталожный номер изделия или детали. Is_required=True. Можно использовать EAN
     #Не можем использовать IMEI телефона, так как они разные у одного SKU
     brand_tv = models.ForeignKey(BrandTV, on_delete=models.DO_NOTHING, null=True)
+    #Выберите наиболее подходящий тип товара. По типам товары распределяются по категориям на сайте Ozon. 
+    #Если тип указан неправильно, товар попадет в неверную категорию. Чтобы правильно указать тип, найдите
+    #на сайте Ozon товары, похожие на ваш, и посмотрите, какой тип у них указан. 8229; is_required,
     type_tv = models.ForeignKey(TypeTV, on_delete=models.SET_NULL, null=True)#8229
     warranty_period = models.ForeignKey(WarrantyPeriod, on_delete=models.DO_NOTHING, null=True)
     tv_tuner = models.ManyToManyField(TVTuner, null=True)
@@ -179,7 +182,6 @@ class TV (models.Model):
     smart_tv = models.ForeignKey(SmartTV, on_delete=models.DO_NOTHING, null=True, blank=True)
     tv_colour = models.ManyToManyField(TVColour, blank=True)#10096
     width = models.ForeignKey(Width, on_delete=models.DO_NOTHING, null=True, blank=True)
-    vesa_fixture = models.ManyToManyField(VESAFixture, blank=True)
     wireless_interface = models.ManyToManyField(WirelessInterface, blank=True)
     tv_curved_screen = models.ForeignKey(TVCurvedScreen, on_delete=models.DO_NOTHING, null=True, blank=True)
     subwoofer = models.ForeignKey(Subwoofer, on_delete=models.DO_NOTHING, null=True, blank=True)
@@ -200,10 +202,6 @@ class TV (models.Model):
     #И по разному, чтобы разъединить. Объединение через данный атрибут произойдет только если товары имеют одинаковый Тип и Бренд
     model_name = models.ForeignKey(ModelName, on_delete=models.DO_NOTHING, null=True)#9048
     part_number = models.ForeignKey(PartNumber, on_delete=models.DO_NOTHING, null=True)
-    #Выберите наиболее подходящий тип товара. По типам товары распределяются по категориям на сайте Ozon. 
-    #Если тип указан неправильно, товар попадет в неверную категорию. Чтобы правильно указать тип, найдите
-    #на сайте Ozon товары, похожие на ваш, и посмотрите, какой тип у них указан. 8229; is_required,
-    type = models.ForeignKey(TypeMonitor, on_delete=models.SET_NULL, null=True)#8229
     #Название пишется по принципу:\nТип + Бренд + Модель (серия + пояснение) + Артикул производителя + , 
     #(запятая) + Атрибут\nНазвание не пишется большими буквами (не используем caps lock).\n
     #Перед атрибутом ставится запятая. Если атрибутов несколько, они так же разделяются запятыми.\n

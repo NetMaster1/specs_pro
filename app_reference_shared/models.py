@@ -12,7 +12,173 @@ class OzonCategory (models.Model):
     
     def __str__(self):
         return self.type_name
+    
+class TVTuner (models.Model):
+    attribute_name = models.CharField(max_length=50, default='ТВ-тюнер' )
+    attribute_id = models.CharField(max_length=50, default='5519')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=True)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=True)
+    def __str__(self):
+        return self.value
+    
+class RefreshRate (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Частота обновления' )
+    attribute_id = models.CharField(max_length=50, default='5753')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class TVInterface (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Интерфейсы' )
+    attribute_id = models.CharField(max_length=50, default='11528')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=True)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=True)
+    def __str__(self):
+        return self.value
+    
+class TVLightningType (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Тип подсветки' )
+    attribute_id = models.CharField(max_length=50, default='11533')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=True)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class SupportSize (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Размер без подставки (ШxВxГ), мм' )
+    attribute_id = models.CharField(max_length=50, default='11535')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=True)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class TVPowerConsumption (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Мощность, Вт' )
+    attribute_id = models.CharField(max_length=50, default='4851')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class AudioDecoder (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Декодеры звука' )
+    attribute_id = models.CharField(max_length=50, default='5179')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class WifiFrequency (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Частоты Wi-Fi' )
+    attribute_id = models.CharField(max_length=50, default='5736')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=True)
+    def __str__(self):
+        return self.value
+    
+class AudioSystemPower (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Мощность аудиосистемы, Вт' )
+    attribute_id = models.CharField(max_length=50, default='5754')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=True)
+    def __str__(self):
+        return self.value
+    
+class Height (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Высота, см' )
+    attribute_id = models.CharField(max_length=50, default='8414')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class TVScreenSize (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Диагональ экрана, см' )
+    attribute_id = models.CharField(max_length=50, default='9227')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class Width (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Ширина, см' )
+    attribute_id = models.CharField(max_length=50, default='10175')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class TVAlternativeModes (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Доп. режимы телевизора' )
+    attribute_id = models.CharField(max_length=50, default='11524')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=False)
+    def __str__(self):
+        return self.value
+    
+class Recording (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Запись эфира' )
+    attribute_id = models.CharField(max_length=50, default='11525')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=True)
+    def __str__(self):
+        return self.value
+    
+class TVControl (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Управление телевизором' )
+    attribute_id = models.CharField(max_length=50, default='11527')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+    is_collection = models.BooleanField(default=True)
+    def __str__(self):
+        return self.value
 
+#===========================================================
 class ProcessorModelNotebook (models.Model):
     attribute_name = models.CharField(max_length=50, default='Модель процессора' )
     attribute_id = models.CharField(max_length=50, default='10316')
