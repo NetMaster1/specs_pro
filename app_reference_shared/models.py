@@ -68,7 +68,7 @@ class SupportSize (models.Model):
     def __str__(self):
         return self.value
     
-class TVPowerConsumption (models.Model):
+class PowerConsumption (models.Model):
     attribute_name = models.CharField(max_length=50, default='Мощность, Вт' )
     attribute_id = models.CharField(max_length=50, default='4851')
     value = models.CharField(max_length=100, blank=True)

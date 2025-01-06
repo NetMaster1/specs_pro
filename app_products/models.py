@@ -127,7 +127,7 @@ from app_reference_shared.models import (
     TVInterface,
     TVLightningType,
     SupportSize,
-    TVPowerConsumption,
+    PowerConsumption,
     AudioDecoder,
     WifiFrequency,
     AudioSystemPower,
@@ -163,6 +163,86 @@ from app_tv_reference.models import(BrandTV, TypeTV, TVResolution, TVHDRTechnolo
     TVColour, TVCurvedScreen, Subwoofer, MediaPlayer, InteriorTVSet,             
     )
 
+class VideoCard (models.Model):
+    #Дополнительное поле. Не входит в attributes for smartphone. Использую просто для связи с таблицей категории.
+    category_name = models.ForeignKey(OzonCategory, on_delete=models.DO_NOTHING, null=True)
+    created = models.DateTimeField(auto_now=True)
+    #В справочнике Ozon отсутствуют такие бренды как, Xiaomi, Redmi, Honor, Honor, Poco
+    #Есть такие бренды как, Samsung
+    #=================================================================
+    #Каталожный номер изделия или детали. Is_required=True. Можно использовать EAN
+    #Не можем использовать IMEI телефона, так как они разные у одного SKU
+    brand_video_card = models.ForeignKey(VideoCardBrand, on_delete=models.DO_NOTHING, null=True)
+    #Выберите наиболее подходящий тип товара. По типам товары распределяются по категориям на сайте Ozon. 
+    #Если тип указан неправильно, товар попадет в неверную категорию. Чтобы правильно указать тип, найдите
+    #на сайте Ozon товары, похожие на ваш, и посмотрите, какой тип у них указан. 8229; is_required,
+    type_video_card = models.ForeignKey(TypeVideoCard, on_delete=models.SET_NULL, null=True)#8229
+    
+
+    shader_version = models.ForeignKey(ShaderVersion, on_delete=models.DO_NOTHING, null=True, blank=True)
+    lhr = models.ForeignKey(LHR, on_delete=models.DO_NOTHING, null=True, blank=True)
+    storage_bus_frequency = models.ForeignKey(StorageBusFrequency, on_delete=models.DO_NOTHING, null=True, blank=True)
+    video_card_storage = models.ForeignKey(VideoCardStorage, on_delete=models.DO_NOTHING, null=True, blank=True)
+    number_of_supported_monitors = models.ForeignKey(NumberOfSupportedMonitors, on_delete=models.DO_NOTHING, null=True, blank=True)
+    number_of_fans = models.ForeignKey(NumberOfFans, on_delete=models.DO_NOTHING, null=True, blank=True)
+    size = models.ForeignKey(Size, on_delete=models.DO_NOTHING, null=True, blank=True)#4382
+    warranty_period = models.ForeignKey(WarrantyPeriod, on_delete=models.DO_NOTHING, null=True)
+    active_cooling = models.ForeignKey(ActiveCooling, on_delete=models.DO_NOTHING, null=True)
+    graphics_processor_frequency = models.ForeignKey(GraphicsProcessorFrequency, on_delete=models.DO_NOTHING, null=True)
+    cooling_type = models.ForeignKey(CoolingType, on_delete=models.DO_NOTHING, null=True)
+    dvi = models.ForeignKey(DVI, on_delete=models.DO_NOTHING, null=True)
+    video_card_colour = models.ManyToManyField(VideoCardColour, blank=True)#10096
+    raster_block = models.ForeignKey(RasterBlock, on_delete=models.DO_NOTHING, null=True)
+    max_resolution = models.ForeignKey(MaxResolution, on_delete=models.DO_NOTHING, null=True)
+    storage_bus_width = models.ForeignKey(StorageBusWidth, on_delete=models.DO_NOTHING, null=True)
+    #(для объединения в одну карточку)
+    #Укажите название модели товара. Не указывайте в этом поле тип и бренд.
+    #Заполните данное поле любым одинаковым значением у товаров, которые хотите объединить. 
+    #И по разному, чтобы разъединить. Объединение через данный атрибут произойдет только если товары имеют одинаковый Тип и Бренд
+    model_name = models.ForeignKey(ModelName, on_delete=models.DO_NOTHING, null=True)#9048
+    video_card_interface = models.ManyToManyField(VideoCardInterface, blank=True)
+    product_set = models.ForeignKey(ProductSet, on_delete=models.DO_NOTHING, null=True, blank=True)#11529
+    video_card_storage_type = models.ManyToManyField(VideoCardStorageType, blank=True)
+    length = models.ForeignKey(Length, on_delete=models.DO_NOTHING, null=True, blank=True)
+    module_height = models.ForeignKey(ModuleHeight, on_delete=models.DO_NOTHING, null=True, blank=True)
+    bus_type = models.ForeignKey(BusType, on_delete=models.DO_NOTHING, null=True, blank=True)
+    video_card_processor_brand = models.ForeignKey(VideoCardProcessorBrand, on_delete=models.DO_NOTHING, null=True, blank=True)#22409
+    texture_unit = models.ForeignKey(TextureUnit, on_delete=models.DO_NOTHING, null=True, blank=True)
+    video_card_processor_family = models.ForeignKey(VideoCardProcessorFamily, on_delete=models.DO_NOTHING, null=True, blank=True)#5141
+    video_card_display_port = models.ForeignKey(VideoCardDisplayPort, on_delete=models.DO_NOTHING, null=True, blank=True)#6067
+    supported_api = models.ManyToManyField(SupportedAPI, blank=True)
+    technology = models.ManyToManyField(Technology, blank=True)
+    life_span = models.ForeignKey(LifeSpan, on_delete=models.DO_NOTHING, null=True, blank=True)
+    country_of_manufacture = models.ManyToManyField(CountryOfManufacture, blank=True)
+    number_of_slots = models.ForeignKey(NumberOfSlots, on_delete=models.DO_NOTHING, null=True, blank=True)
+    tv_power_consumption = models.ForeignKey(PowerConsumption, on_delete=models.DO_NOTHING, null=True, blank=True)
+    number_of_universal_processors = models.ForeignKey(NumberOfUniversalProcessors, on_delete=models.DO_NOTHING, null=True, blank=True)
+    recommended_power_supply = models.ForeignKey(RecommendedPowerSupply, on_delete=models.DO_NOTHING, null=True, blank=True)
+    #Название пишется по принципу:\nТип + Бренд + Модель (серия + пояснение) + Артикул производителя + , 
+    #(запятая) + Атрибут\nНазвание не пишется большими буквами (не используем caps lock).\n
+    #Перед атрибутом ставится запятая. Если атрибутов несколько, они так же разделяются запятыми.\n
+    # Если какой-то составной части названия нет - пропускаем её.\nАтрибутом может быть: цвет, вес, объём, 
+    # количество штук в упаковке и т.д.\nЦвет пишется с маленькой буквы, в мужском роде, единственном числе.\n
+    # Слово цвет в названии не пишем.\nТочка в конце не ставится.\nНикаких знаков препинания, кроме запятой, не используем.\n
+    # Кавычки используем только для названий на русском языке.\nПримеры корректных названий:\nСмартфон Apple iPhone XS MT572RU/A, 
+    # space black \nКеды Dr. Martens Киноклассика, бело-черные, размер 43\nСтиральный порошок Ariel Магия белого с мерной ложкой, 
+    # 15 кг\nСоус Heinz Xtreme Tabasco суперострый, 10 мл\nИгрушка для животных Четыре лапы \"Бегающая мышка\" БММ, белый
+    name = models.ForeignKey(Name, on_delete=models.DO_NOTHING, null=True, blank=True)#4180
+    weight = models.ForeignKey(Weight, on_delete=models.DO_NOTHING, null=True, blank=True)#4383
+    video_processor_max_frequency = models.ForeignKey(VideoProcessorMaxFrequency, on_delete=models.DO_NOTHING, null=True, blank=True)#22296
+    additional_power_supply_connector = models.ManyToManyField(AdditionalPowerSupplyConnector, blank=True)
+    video_card_hdmi_connector = models.ForeignKey(VideoCardHDMIConnector, on_delete=models.DO_NOTHING, null=True, blank=True)#6065
+    VGA_connector = models.ForeignKey(VGAConnector, on_delete=models.DO_NOTHING, null=True, blank=True)#6065
+    part_number = models.ForeignKey(PartNumber, on_delete=models.DO_NOTHING, null=True)
+    description = models.ForeignKey(Description, on_delete=models.DO_NOTHING, null=True, blank=True)
+    #======================dictionary_id > 0==================================================
+    video_url = models.URLField(blank=True)
+    image_1 = models.URLField(blank=True)
+    image_2 = models.URLField(blank=True)
+    image_3 = models.URLField(blank=True)
+    image_4 = models.URLField(blank=True)
+    image_5 = models.URLField(blank=True)
+
 class TV (models.Model):
     #Дополнительное поле. Не входит в attributes for smartphone. Использую просто для связи с таблицей категории.
     category_name = models.ForeignKey(OzonCategory, on_delete=models.DO_NOTHING, null=True)
@@ -193,7 +273,7 @@ class TV (models.Model):
     tv_ram = models.ForeignKey(TVRAM, on_delete=models.DO_NOTHING, null=True)
     hdmi_port = models.ForeignKey(HDMIPort, on_delete=models.DO_NOTHING, null=True)
     tv_data_storag = models.ForeignKey(TVDataStorage, on_delete=models.DO_NOTHING, null=True)
-    tv_power_consumption = models.ForeignKey(TVPowerConsumption, on_delete=models.DO_NOTHING, null=True)#4851
+    tv_power_consumption = models.ForeignKey(PowerConsumption, on_delete=models.DO_NOTHING, null=True)#4851
     audio_decoder = models.ManyToManyField(AudioDecoder, blank=True)
     tv_usb = models.ForeignKey(TVUsb, on_delete=models.DO_NOTHING, null=True)#5523
     wifi_frequency = models.ManyToManyField(WifiFrequency, blank=True)
