@@ -117,18 +117,49 @@ from app_notebook_reference.models import (
 #from django.http import HttpResponse
 import requests
 
-def upload_type_nb(request):
+# def upload_type_nb(request):
+#     headers = {
+#         "Client-Id": "867100",
+#         "Api-Key": '6bbf7175-6585-4c35-8314-646f7253bef6'
+#     }
+#     task = {
+#     "attribute_id": 8229,
+#     "description_category_id": 17028619,
+#     "language": "DEFAULT",
+#     "last_value_id": 0,
+#     "limit": 5000,
+#     "type_id": 91477
+#     }
+#     response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+#     status_code=response.status_code
+#     json=response.json()
+#     array=json['result']
+#     for i in array:
+#         try:
+#             item=TypeNotebook.objects.get(dictionary_value_id=i['id'])
+#         except TypeNotebook.DoesNotExist:
+#             item= TypeNotebook.objects.create(
+#                 value=i['value'],
+#                 dictionary_value_id=i['id'],
+#                 attribute_id='8229',
+#                 attribute_name='Тип',
+#                 is_collection=False,
+#                 is_required=True,
+#                 category_dependent=True
+#             )
+
+def upload_tv(request):
     headers = {
         "Client-Id": "867100",
         "Api-Key": '6bbf7175-6585-4c35-8314-646f7253bef6'
     }
     task = {
-    "attribute_id": 8229,
-    "description_category_id": 17028619,
+    "attribute_id": 85,
+    "description_category_id": 17028640,
     "language": "DEFAULT",
     "last_value_id": 0,
     "limit": 5000,
-    "type_id": 91477
+    "type_id": 94988
     }
     response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
     status_code=response.status_code
@@ -136,9 +167,35 @@ def upload_type_nb(request):
     array=json['result']
     for i in array:
         try:
-            item=TypeNotebook.objects.get(dictionary_value_id=i['id'])
-        except TypeNotebook.DoesNotExist:
-            item= TypeNotebook.objects.create(
+            item=BrandTV.objects.get(dictionary_value_id=i['id'])
+        except BrandTV.DoesNotExist:
+            item= BrandTV.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='85',
+                attribute_name='Бренд',
+                is_collection=False,
+                is_required=True,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 8229,
+    "description_category_id": 17028640,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 94988
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=TypeTV.objects.get(dictionary_value_id=i['id'])
+        except TypeTV.DoesNotExist:
+            item= TypeTV.objects.create(
                 value=i['value'],
                 dictionary_value_id=i['id'],
                 attribute_id='8229',
@@ -147,6 +204,713 @@ def upload_type_nb(request):
                 is_required=True,
                 category_dependent=True
             )
+    #========================================================
+    task = {
+    "attribute_id": 5519,
+    "description_category_id": 17028640,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 94988
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=TVTuner.objects.get(dictionary_value_id=i['id'])
+        except TVTuner.DoesNotExist:
+            item= TVTuner.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='5519',
+                attribute_name='ТВ-тюнер',
+                is_collection=True,
+                is_required=True,
+                category_dependent=False
+            )
+    #========================================================
+    task = {
+    "attribute_id": 5592,
+    "description_category_id": 17028640,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 94988
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=TVResolution.objects.get(dictionary_value_id=i['id'])
+        except TVResolution.DoesNotExist:
+            item= TVResolution.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='5592',
+                attribute_name='Разрешение',
+                is_collection=False,
+                is_required=True,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 5753,
+    "description_category_id": 17028640,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 94988
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=RefreshRate.objects.get(dictionary_value_id=i['id'])
+        except RefreshRate.DoesNotExist:
+            item= RefreshRate.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='5753',
+                attribute_name='Частота обновления',
+                is_collection=False,
+                is_required=True,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 11528,
+    "description_category_id": 17028640,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 94988
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=TVInterface.objects.get(dictionary_value_id=i['id'])
+        except TVInterface.DoesNotExist:
+            item= TVInterface.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='11528',
+                attribute_name='Интерфейсы',
+                is_collection=True,
+                is_required=True,
+                category_dependent=False
+            )
+    #========================================================
+    task = {
+    "attribute_id": 11529,
+    "description_category_id": 17028640,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 94988
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=TVHDRTechnology.objects.get(dictionary_value_id=i['id'])
+        except TVHDRTechnology.DoesNotExist:
+            item= TVHDRTechnology.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='11529',
+                attribute_name='Технология HDR',
+                is_collection=False,
+                is_required=True,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 11533,
+    "description_category_id": 17028640,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 94988
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=TVLightningType.objects.get(dictionary_value_id=i['id'])
+        except TVLightningType.DoesNotExist:
+            item= TVLightningType.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='11533',
+                attribute_name='Тип подсветки',
+                is_collection=False,
+                is_required=True,
+                category_dependent=False
+            )
+    #========================================================
+    task = {
+    "attribute_id": 4443,
+    "description_category_id": 17028640,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 94988
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=TVRAM.objects.get(dictionary_value_id=i['id'])
+        except TVRAM.DoesNotExist:
+            item= TVRAM.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='4443',
+                attribute_name='Оперативная память',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 4482,
+    "description_category_id": 17028640,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 94988
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=TVDataStorage.objects.get(dictionary_value_id=i['id'])
+        except TVDataStorage.DoesNotExist:
+            item= TVDataStorage.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='4482',
+                attribute_name='Объем встроенной памяти',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 5179,
+    "description_category_id": 17028640,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 94988
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=AudioDecoder.objects.get(dictionary_value_id=i['id'])
+        except AudioDecoder.DoesNotExist:
+            item= AudioDecoder.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='5179',
+                attribute_name='Декодеры звука',
+                is_collection=True,
+                is_required=False,
+                category_dependent=False
+            )
+    #========================================================
+    task = {
+    "attribute_id": 5523,
+    "description_category_id": 17028640,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 94988
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=TVUsb.objects.get(dictionary_value_id=i['id'])
+        except TVUsb.DoesNotExist:
+            item= TVUsb.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='5523',
+                attribute_name='Количество разъемов USB',
+                is_collection=True,
+                is_required=False,
+                category_dependent=False
+            )
+    #========================================================
+    task = {
+    "attribute_id": 5179,
+    "description_category_id": 17028640,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 94988
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=AudioDecoder.objects.get(dictionary_value_id=i['id'])
+        except AudioDecoder.DoesNotExist:
+            item= AudioDecoder.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='5179',
+                attribute_name='Декодеры звука',
+                is_collection=True,
+                is_required=False,
+                category_dependent=False
+            )
+    #========================================================
+    task = {
+    "attribute_id": 5736,
+    "description_category_id": 17028640,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 94988
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=WifiFrequency.objects.get(dictionary_value_id=i['id'])
+        except WifiFrequency.DoesNotExist:
+            item= WifiFrequency.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='5736',
+                attribute_name='Частоты Wi-Fi',
+                is_collection=True,
+                is_required=False,
+                category_dependent=False
+            )
+    #========================================================
+    task = {
+    "attribute_id": 9579,
+    "description_category_id": 17028640,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 94988
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=SmartTV.objects.get(dictionary_value_id=i['id'])
+        except SmartTV.DoesNotExist:
+            item= SmartTV.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='9579',
+                attribute_name='Smart TV',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 10096,
+    "description_category_id": 17028640,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 94988
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=TVColour.objects.get(dictionary_value_id=i['id'])
+        except TVColour.DoesNotExist:
+            item= TVColour.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='10096',
+                attribute_name='Цвет товара',
+                is_collection=True,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 10760,
+    "description_category_id": 17028640,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 94988
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=TVCurvedScreen.objects.get(dictionary_value_id=i['id'])
+        except TVCurvedScreen.DoesNotExist:
+            item= TVCurvedScreen.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='10760',
+                attribute_name='Изогнутый экран',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 11523,
+    "description_category_id": 17028640,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 94988
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=Subwoofer.objects.get(dictionary_value_id=i['id'])
+        except Subwoofer.DoesNotExist:
+            item= Subwoofer.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='11523',
+                attribute_name='Сабвуфер',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 11524,
+    "description_category_id": 17028640,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 94988
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=TVAlternativeModes.objects.get(dictionary_value_id=i['id'])
+        except TVAlternativeModes.DoesNotExist:
+            item= TVAlternativeModes.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='11524',
+                attribute_name='Доп. режимы телевизора',
+                is_collection=True,
+                is_required=False,
+                category_dependent=False
+            )
+    #========================================================
+    task = {
+    "attribute_id": 11525,
+    "description_category_id": 17028640,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 94988
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=Recording.objects.get(dictionary_value_id=i['id'])
+        except Recording.DoesNotExist:
+            item= Recording.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='11525',
+                attribute_name='Запись эфира',
+                is_collection=True,
+                is_required=False,
+                category_dependent=False
+            )
+    #========================================================
+    task = {
+    "attribute_id": 11526,
+    "description_category_id": 17028640,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 94988
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=MediaPlayer.objects.get(dictionary_value_id=i['id'])
+        except MediaPlayer.DoesNotExist:
+            item= MediaPlayer.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='11526',
+                attribute_name='Встроенный медиаплеер',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+    task = {
+    "attribute_id": 11527,
+    "description_category_id": 17028640,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 94988
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=TVControl.objects.get(dictionary_value_id=i['id'])
+        except TVControl.DoesNotExist:
+            item= TVControl.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='11527',
+                attribute_name='Управление телевизором',
+                is_collection=False,
+                is_required=False,
+                category_dependent=False
+            )
+    #========================================================
+    task = {
+    "attribute_id": 11530,
+    "description_category_id": 17028640,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 94988
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=Network.objects.get(dictionary_value_id=i['id'])
+        except Network.DoesNotExist:
+            item= Network.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='11530',
+                attribute_name='Сетевые возможности',
+                is_collection=True,
+                is_required=False,
+                category_dependent=False
+            )
+    #========================================================
+    task = {
+    "attribute_id": 11531,
+    "description_category_id": 17028640,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 94988
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=TVOperationSystem.objects.get(dictionary_value_id=i['id'])
+        except TVOperationSystem.DoesNotExist:
+            item= TVOperationSystem.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='11531',
+                attribute_name='Операционная система ТВ',
+                is_collection=False,
+                is_required=False,
+                category_dependent=False
+            )
+    #========================================================
+    task = {
+    "attribute_id": 11532,
+    "description_category_id": 17028640,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 94988
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=TVMatrixType.objects.get(dictionary_value_id=i['id'])
+        except TVMatrixType.DoesNotExist:
+            item= TVMatrixType.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='11532',
+                attribute_name='Технология матрицы ТВ',
+                is_collection=False,
+                is_required=False,
+                category_dependent=False
+            )
+    #========================================================
+    task = {
+    "attribute_id": 11534,
+    "description_category_id": 17028640,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 94988
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=ResolutionStandard.objects.get(dictionary_value_id=i['id'])
+        except ResolutionStandard.DoesNotExist:
+            item= ResolutionStandard.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='11534',
+                attribute_name='Стандарт разрешения',
+                is_collection=False,
+                is_required=False,
+                category_dependent=False
+            )
+    #========================================================
+    task = {
+    "attribute_id": 11633,
+    "description_category_id": 17028640,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 94988
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=ScreenTechnology.objects.get(dictionary_value_id=i['id'])
+        except ScreenTechnology.DoesNotExist:
+            item= ScreenTechnology.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='11633',
+                attribute_name='Технология экрана',
+                is_collection=False,
+                is_required=False,
+                category_dependent=False
+            )
+    #========================================================
+    task = {
+    "attribute_id": 11972,
+    "description_category_id": 17028640,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 94988
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=HDMIVersion.objects.get(dictionary_value_id=i['id'])
+        except HDMIVersion.DoesNotExist:
+            item= HDMIVersion.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='11972',
+                attribute_name='Версия HDMI',
+                is_collection=True,
+                is_required=False,
+                category_dependent=False
+            )
+    #========================================================
+    task = {
+    "attribute_id": 20133,
+    "description_category_id": 17028640,
+    "language": "DEFAULT",
+    "last_value_id": 0,
+    "limit": 5000,
+    "type_id": 94988
+    }
+    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
+    status_code=response.status_code
+    json=response.json()
+    array=json['result']
+    for i in array:
+        try:
+            item=InteriorTVSet.objects.get(dictionary_value_id=i['id'])
+        except InteriorTVSet.DoesNotExist:
+            item= InteriorTVSet.objects.create(
+                value=i['value'],
+                dictionary_value_id=i['id'],
+                attribute_id='20133',
+                attribute_name='Интерьерный телевизор',
+                is_collection=False,
+                is_required=False,
+                category_dependent=True
+            )
+    #========================================================
+
+
+
+
 
 
 def upload_notebook(request):
@@ -3199,10 +3963,6 @@ def upload_json (request):
         )
     
     return render (request, 'products.html')
-
-
-def upload_tv_brands(request):
-    pass
 
 def delete_tables (request):
     tables=Brand.objects.all()
