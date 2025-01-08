@@ -1,6 +1,12 @@
 from django.contrib import admin
-from . models import Smartphone, Monitor, Notebook, TV
+from . models import Smartphone, Monitor, Notebook, TV, VideoCardProduct
 
+
+class VideoCardProductAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name')  
+    #list_filter = ('name',)
+    #list_editable= ('processor', 'authentification', )
+    search_fields = ('model_name', )
 
 class TVAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')  
@@ -33,6 +39,7 @@ class MonitorAdmin(admin.ModelAdmin):
 #     #list_editable= ('processor', 'authentification', )
 #     #search_fields = ('imei', )
 
+admin.site.register(VideoCardProduct, VideoCardProductAdmin)
 admin.site.register(TV, TVAdmin)
 admin.site.register(Notebook, NotebookAdmin)
 admin.site.register(Smartphone, SmartphoneAdmin)

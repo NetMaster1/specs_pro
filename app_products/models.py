@@ -1,148 +1,25 @@
 from django.db import models
 
 from app_reference_shared.models import (
-    OzonCategory, 
-    Authentication, 
-    HardDrive, 
-    CountryOfManufacture, 
-    MatrixType, 
-    CardType, 
-    BluetoothType, 
-    NavigationType, 
-    Sensor,
-    SimType,
-    WifiType,
-    VideoProcessorBrand,
-    GadgetSerie,
-    CameraFunction,
-    HazardGrade,
-    VideoProcessor,
-    ProcessorBrand,
-    ProcessorModel,
-    WirelessInterface,
-    CaseMaterial,
-    OSMobile,
-    AndroidVersion,
-    Interface,
-    CommunicationStandard,
-    SpecialFeature,
-    ChargingFunction,
-    Stabilization,
-    IOSVersion,
-    ESimSupport,
-    RamSmartphone,
-    PublishingYear,
-    SmartphoneVersion,
-    WarrantyPeriod,
-    ModelName,
-    CardTitleModelName,
-    PartNumber,
-    Weight,
-    Size,
-    ProductSet,
-    FrontCamerResolution,
-    BasicCamerResolution,
-    BatteryCapacity,
-    StandByPeriod,
-    WorkPeriod,
-    RecordMaxSpeed,
-    LifeSpan,
-    ScreenSize,
-    SellerCode,
-    MarketingColour,
-    ProcessorFrequency,
-    Name,
-    Description,
-    KeyWord,
-    MaxCardVolume,
-    LightningType,
-    ScreenCoating,
-    HDMIPort,
-    Adjustment,
-    PixelSize,
-    Ratio,
-    MaxScreenFrequency,
-    Brightness,
-    Contrast,
-    DynamicContrast,
-    LookAngle,
-    HorizontalFrequency,
-    VerticalFrequency,
-    WebCamera,
-    StandAdjustment,
-    PowerCapacity,
-    VESAFixture,
-    PixelPerInch,
-    MonitorInstallation,
-    DesignFeature,
-    ResponseTime,
-    MonitorMatrix,
-    MonitorApplication,
-    MonitorConnector,
-    HDRStandard,
-    SpecialFeatureSmartphone,
-    ProcessorModelNotebook,
-    PortQntyUSB,
-    PowerOffWorkTime,
-    NotebookBatteryCapacity,
-    PortQntyUSB3Gen1,
-    NotebookFormFactor,
-    Chipset,
-    RAMFormFactor,
-    PortQntyUSB3Gen2,
-    DVDrive,
-    VideoCardType,
-    SoundConfig,
-    ManualInputDevice,
-    ManualInputDeviceFeature,
-    LANCard,
-    BuiltInDevice,
-    WebCamResolution,
-    CaseCoating,
-    PortQntyThunderbolt,
-    DisplayPort,
-    BatteryType,
-    PowerSupplyVoltage,
-    MaxScreenFrequency,
-    CardReader,
-    NotebookWeight,
-    TotalDiskVolume,
-    TotalHDDVolume,
-    TotalSSDVolume,
-    ScreenSize,
-    PortQntyTypeC,
-    Configuration,
-    NotebookProcessor,
-    NotebookProcessorBrand,
-    NotebookVideoProcessorBrand,
-    OperationSystem,
-    VideoProcessorFamily,
-    NotebookMatrixType,
-    WindowsVersion,
-    MacOSVersion,
-    KeyboardLayout,
-    WebCamShutter,
-    TVTuner,
-    RefreshRate,
-    TVInterface,
-    TVLightningType,
-    SupportSize,
-    PowerConsumption,
-    AudioDecoder,
-    WifiFrequency,
-    AudioSystemPower,
-    Height,
-    TVScreenSize,
-    Width,
-    Recording,
-    TVAlternativeModes,
-    TVControl,
-    Network,
-    TVOperationSystem,
-    TVMatrixType,
-    ResolutionStandard,
-    ScreenTechnology,
-    HDMIVersion,
+    OzonCategory, Authentication, HardDrive, CountryOfManufacture, MatrixType, CardType, BluetoothType, NavigationType, Sensor,
+    SimType,WifiType,VideoProcessorBrand,GadgetSerie,CameraFunction,HazardGrade,VideoProcessor,ProcessorBrand,ProcessorModel,WirelessInterface,
+    CaseMaterial,OSMobile,AndroidVersion,Interface,CommunicationStandard,SpecialFeature,ChargingFunction,Stabilization,IOSVersion,ESimSupport,
+    RamSmartphone,PublishingYear,SmartphoneVersion,WarrantyPeriod,ModelName,CardTitleModelName,PartNumber,Weight,Size,ProductSet,
+    FrontCamerResolution,BasicCamerResolution,BatteryCapacity,StandByPeriod,WorkPeriod,RecordMaxSpeed,LifeSpan,ScreenSize,SellerCode,
+    MarketingColour,ProcessorFrequency,Name,Description,KeyWord,MaxCardVolume,LightningType,ScreenCoating,HDMIPort,Adjustment,
+    PixelSize,Ratio,MaxScreenFrequency,Brightness,Contrast,DynamicContrast,LookAngle,HorizontalFrequency,VerticalFrequency,WebCamera,
+    StandAdjustment,PowerCapacity,VESAFixture,PixelPerInch,MonitorInstallation,DesignFeature,ResponseTime,MonitorMatrix,MonitorApplication,
+    MonitorConnector,HDRStandard,SpecialFeatureSmartphone,ProcessorModelNotebook,PortQntyUSB,PowerOffWorkTime,NotebookBatteryCapacity,PortQntyUSB3Gen1,
+    NotebookFormFactor,Chipset,RAMFormFactor,PortQntyUSB3Gen2,DVDrive,VideoCardType,SoundConfig,ManualInputDevice,ManualInputDeviceFeature,LANCard,
+    BuiltInDevice,WebCamResolution,CaseCoating,PortQntyThunderbolt,DisplayPort,BatteryType,PowerSupplyVoltage,MaxScreenFrequency,CardReader,
+    NotebookWeight,TotalDiskVolume,TotalHDDVolume,TotalSSDVolume,ScreenSize,PortQntyTypeC,Configuration,NotebookProcessor,NotebookProcessorBrand,
+    NotebookVideoProcessorBrand,OperationSystem,VideoProcessorFamily,NotebookMatrixType,WindowsVersion,MacOSVersion,KeyboardLayout,
+    WebCamShutter,TVTuner,RefreshRate,TVInterface,TVLightningType,SupportSize,PowerConsumption,AudioDecoder,WifiFrequency,AudioSystemPower,
+    Height,TVScreenSize,Width,Recording,TVAlternativeModes,TVControl,Network,TVOperationSystem,TVMatrixType,ResolutionStandard,ScreenTechnology,
+    HDMIVersion,ShaderVersion,LHR,StorageBusFrequency,NumberOfSupportedMonitors,ActiveCooling,GraphicsProcessorFrequency,CoolingType,
+    DVI,RasterBlock,MaxResolution,StorageBusWidth,Length,ModuleHeight,BusType,VideoCardProcessorBrand,TextureUnit,VideoCardProcessorFamily,
+    VideoCardDisplayPort,SupportedAPI,Technology,NumberOfUniversalProcessors,RecommendedPowerSupply,VideoProcessorMaxFrequency,
+    AdditionalPowerSupplyConnector,VideoCardHDMIConnector,VGAConnector
 )
 
 from app_notebook_reference.models import (BrandNotebook, HDDQnty, RAMNotebook, NotebookRAMType, NotebookMaxRAM, RAMExtraSlot, SSDQnty,
@@ -163,7 +40,11 @@ from app_tv_reference.models import(BrandTV, TypeTV, TVResolution, TVHDRTechnolo
     TVColour, TVCurvedScreen, Subwoofer, MediaPlayer, InteriorTVSet,             
     )
 
-class VideoCard (models.Model):
+from app_videocard_reference.models import(VideoCardStorage, VideoCardBrand, NumberOfFans, VideoCardColour, VideoCardInterface,
+    VideoCardStorageType, NumberOfSlots, TypeVideoCard,                                
+    )
+
+class VideoCardProduct (models.Model):
     #Дополнительное поле. Не входит в attributes for smartphone. Использую просто для связи с таблицей категории.
     category_name = models.ForeignKey(OzonCategory, on_delete=models.DO_NOTHING, null=True)
     created = models.DateTimeField(auto_now=True)
@@ -177,8 +58,11 @@ class VideoCard (models.Model):
     #Если тип указан неправильно, товар попадет в неверную категорию. Чтобы правильно указать тип, найдите
     #на сайте Ozon товары, похожие на ваш, и посмотрите, какой тип у них указан. 8229; is_required,
     type_video_card = models.ForeignKey(TypeVideoCard, on_delete=models.SET_NULL, null=True)#8229
-    
-
+    #(для объединения в одну карточку)
+    #Укажите название модели товара. Не указывайте в этом поле тип и бренд.
+    #Заполните данное поле любым одинаковым значением у товаров, которые хотите объединить. 
+    #И по разному, чтобы разъединить. Объединение через данный атрибут произойдет только если товары имеют одинаковый Тип и Бренд
+    model_name = models.ForeignKey(ModelName, on_delete=models.DO_NOTHING, null=True)#9048
     shader_version = models.ForeignKey(ShaderVersion, on_delete=models.DO_NOTHING, null=True, blank=True)
     lhr = models.ForeignKey(LHR, on_delete=models.DO_NOTHING, null=True, blank=True)
     storage_bus_frequency = models.ForeignKey(StorageBusFrequency, on_delete=models.DO_NOTHING, null=True, blank=True)
@@ -195,13 +79,8 @@ class VideoCard (models.Model):
     raster_block = models.ForeignKey(RasterBlock, on_delete=models.DO_NOTHING, null=True)
     max_resolution = models.ForeignKey(MaxResolution, on_delete=models.DO_NOTHING, null=True)
     storage_bus_width = models.ForeignKey(StorageBusWidth, on_delete=models.DO_NOTHING, null=True)
-    #(для объединения в одну карточку)
-    #Укажите название модели товара. Не указывайте в этом поле тип и бренд.
-    #Заполните данное поле любым одинаковым значением у товаров, которые хотите объединить. 
-    #И по разному, чтобы разъединить. Объединение через данный атрибут произойдет только если товары имеют одинаковый Тип и Бренд
-    model_name = models.ForeignKey(ModelName, on_delete=models.DO_NOTHING, null=True)#9048
     video_card_interface = models.ManyToManyField(VideoCardInterface, blank=True)
-    product_set = models.ForeignKey(ProductSet, on_delete=models.DO_NOTHING, null=True, blank=True)#11529
+    product_set = models.ForeignKey(ProductSet, on_delete=models.DO_NOTHING, null=True, blank=True)#4384
     video_card_storage_type = models.ManyToManyField(VideoCardStorageType, blank=True)
     length = models.ForeignKey(Length, on_delete=models.DO_NOTHING, null=True, blank=True)
     module_height = models.ForeignKey(ModuleHeight, on_delete=models.DO_NOTHING, null=True, blank=True)
