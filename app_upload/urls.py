@@ -55,6 +55,7 @@ urlpatterns = [
 
     path ('upload_notebook', views.upload_notebook, name='upload_notebook'),
     path ('upload_tv', views.upload_tv, name='upload_tv'),
+    path ('upload_videocard', views.upload_videocard, name='upload_videocard'),
 
     #path ('upload_type_nb', views.upload_type_nb, name='upload_type_nb'),
 
