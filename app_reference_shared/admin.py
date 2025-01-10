@@ -12,7 +12,9 @@ from .models import (SmartphoneVersion, PublishingYear, RamSmartphone, ESimSuppo
     ManualInputDeviceFeature, LANCard, WebCamResolution, PortQntyThunderbolt, DisplayPort, PowerSupplyVoltage, NotebookWeight, TotalDiskVolume,
     TotalHDDVolume, TotalSSDVolume, PortQntyTypeC, NotebookProcessor, BatteryType, BuiltInDevice, CardReader, CaseCoating, Configuration,
     NotebookProcessorBrand, NotebookVideoProcessorBrand, OperationSystem, VideoProcessorFamily, NotebookMatrixType, WindowsVersion, MacOSVersion, 
-    KeyboardLayout, WebCamShutter, NotebookBatteryCapacity
+    KeyboardLayout, WebCamShutter, NotebookBatteryCapacity, TVTuner,RefreshRate,TVInterface,TVLightningType,SupportSize,PowerConsumption,
+    AudioDecoder,WifiFrequency,AudioSystemPower,Height,TVScreenSize,Width,TVAlternativeModes,Recording,TVControl,Network,TVOperationSystem,
+    TVMatrixType,ResolutionStandard,ScreenTechnology,HDMIVersion
     )
 
 class OzonCategoryAdmin(admin.ModelAdmin):
@@ -22,6 +24,154 @@ class OzonCategoryAdmin(admin.ModelAdmin):
     list_per_page=100
     search_fields = ('type_name', )
     list_editable=('activated', )
+#==================================================================
+
+class HDMIVersionAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class ScreenTechnologyAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class ResolutionStandardAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class TVMatrixTypeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class TVOperationSystemAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class NetworkAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class TVControlAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class RecordingAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+    
+class TVAlternativeModesAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class WidthAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class TVScreenSizeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class HeightAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class AudioSystemPowerAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class WifiFrequencyAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class AudioDecoderAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class PowerConsumptionAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class SupportSizeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class TVLightningTypeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class TVInterfaceAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class RefreshRateAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
+
+class TVTunerAdmin(admin.ModelAdmin):
+    list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
+    list_filter = ('value',)
+    ordering = ('value',)
+    list_per_page=100
+    search_fields = ('value', )
 
 class ManualInputDeviceAdmin(admin.ModelAdmin):
     list_display = ('id', 'attribute_name', 'attribute_id', 'value', 'dictionary_value_id', 'is_required')  
@@ -860,7 +1010,29 @@ class HDRStandardAdmin(admin.ModelAdmin):
     list_per_page=100
     search_fields = ('value', )
 
-#==========================Notebook=====================================
+#==========================TV=====================================
+admin.site.register(TVTuner, TVTunerAdmin)
+admin.site.register(RefreshRate, RefreshRateAdmin)
+admin.site.register(TVInterface, TVInterfaceAdmin)
+admin.site.register(TVLightningType, TVLightningTypeAdmin)
+admin.site.register(SupportSize, SupportSizeAdmin)
+admin.site.register(PowerConsumption, PowerConsumptionAdmin)
+admin.site.register(AudioDecoder, AudioDecoderAdmin)
+admin.site.register(WifiFrequency, WifiFrequencyAdmin)
+admin.site.register(AudioSystemPower, AudioSystemPowerAdmin)
+admin.site.register(Height, HeightAdmin)
+admin.site.register(TVScreenSize, TVScreenSizeAdmin)
+admin.site.register(Width, WidthAdmin)
+admin.site.register(TVAlternativeModes, TVAlternativeModesAdmin)
+admin.site.register(Recording, RecordingAdmin)
+admin.site.register(TVControl, TVControlAdmin)
+admin.site.register(Network, NetworkAdmin)
+admin.site.register(TVOperationSystem, TVOperationSystemAdmin)
+admin.site.register(TVMatrixType, TVMatrixTypeAdmin)
+admin.site.register(ResolutionStandard, ResolutionStandardAdmin)
+admin.site.register(ScreenTechnology, ScreenTechnologyAdmin)
+admin.site.register(HDMIVersion, HDMIVersionAdmin)
+#====================Notebook====================================
 admin.site.register(ManualInputDeviceFeature, ManualInputDeviceFeatureAdmin)
 admin.site.register(ManualInputDevice, ManualInputDeviceAdmin)
 admin.site.register(KeyboardLayout, KeyboardLayoutAdmin)

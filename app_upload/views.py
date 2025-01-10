@@ -104,6 +104,10 @@ from app_reference_shared.models import (
     MacOSVersion,
     KeyboardLayout,
     WebCamShutter,
+    TVTuner,
+    RefreshRate,TVInterface,TVLightningType,AudioDecoder,WifiFrequency,TVAlternativeModes,Recording,TVControl,Network,TVOperationSystem,TVMatrixType,ResolutionStandard,ScreenTechnology,
+    HDMIVersion,
+    
 )
 from app_monitor_reference.models import (
     Resolution, TypeMonitor, USBPort, BuiltinSpeaker, CurvedDispaly, HDR, Brand_Monitor, EuroAsianCodeMonitor, ColourMonitor,
@@ -113,7 +117,12 @@ from app_notebook_reference.models import (
     NotebookInterfacesConnector, BatteryElementQnty, NotebookScreenResolution, HDDFormFactor, SSDFormFactor, StorageType, VideoCard, VRSupport,
     NotebookColour, TouchScreen, NotebookProcessorCoreQnty, KeyboardLightning, MobileCommsModule, 
 )
-
+from app_tv_reference.models import (
+BrandTV,TypeTV,TVResolution,TVHDRTechnology,
+TVRAM,TVDataStorage,TVUsb,SmartTV,
+TVColour,TVCurvedScreen,Subwoofer,MediaPlayer,
+InteriorTVSet
+)
 #from django.http import HttpResponse
 import requests
 
@@ -460,32 +469,6 @@ def upload_tv(request):
                 dictionary_value_id=i['id'],
                 attribute_id='5523',
                 attribute_name='Количество разъемов USB',
-                is_collection=True,
-                is_required=False,
-                category_dependent=False
-            )
-    #========================================================
-    task = {
-    "attribute_id": 5179,
-    "description_category_id": 17028640,
-    "language": "DEFAULT",
-    "last_value_id": 0,
-    "limit": 5000,
-    "type_id": 94988
-    }
-    response=requests.post('https://api-seller.ozon.ru/v1/description-category/attribute/values', json=task, headers=headers) 
-    status_code=response.status_code
-    json=response.json()
-    array=json['result']
-    for i in array:
-        try:
-            item=AudioDecoder.objects.get(dictionary_value_id=i['id'])
-        except AudioDecoder.DoesNotExist:
-            item= AudioDecoder.objects.create(
-                value=i['value'],
-                dictionary_value_id=i['id'],
-                attribute_id='5179',
-                attribute_name='Декодеры звука',
                 is_collection=True,
                 is_required=False,
                 category_dependent=False
