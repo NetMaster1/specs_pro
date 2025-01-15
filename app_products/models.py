@@ -69,10 +69,16 @@ class Camera (models.Model):
     network_protocol = models.ManyToManyField(NetworkProtocol, blank=True)
     infrared_range = models.ForeignKey(InfraredLightingRange, on_delete=models.DO_NOTHING, null=True, blank=True)
     video_file_format = models.ManyToManyField(VideoFileFormat, blank=True)
-    minimum_work_temp = models.ForeignKey(MinimunWorkTemp, on_delete=models.DO_NOTHING, null=True, blank=True)
+    min_work_temp = models.ForeignKey(MinWorkTemp, on_delete=models.DO_NOTHING, null=True, blank=True)
     camera_security_grade = models.ManyToManyField(CameraSecurityGrade, blank=True)
     camera_sensor = models.ManyToManyField(CameraSensor, blank=True)
     camera_view_angle = models.ForeignKey(CameraViewAngle, on_delete=models.DO_NOTHING, null=True, blank=True)
+    file_compression_format = models.ManyToManyField(FileCompressionFormat, blank=True)
+    video_protocol_support = models.ManyToManyField(VideoProtocolSupport, blank=True)
+    dome_material = models.ForeignKey(DomeMaterial, on_delete=models.DO_NOTHING, null=True, blank=True)
+    camera_interface = models.ManyToManyField(CameraIntreface, blank=True)
+    warranty_period = models.ForeignKey(WarrantyPeriod, on_delete=models.DO_NOTHING, null=True)
+    max_work_tem = models.ForeignKey(MaxWorkTemp, on_delete=models.DO_NOTHING, null=True, blank=True)
 
 
     lhr = models.ForeignKey(LHR, on_delete=models.DO_NOTHING, null=True, blank=True)
@@ -81,7 +87,7 @@ class Camera (models.Model):
     number_of_supported_monitors = models.ForeignKey(NumberOfSupportedMonitors, on_delete=models.DO_NOTHING, null=True, blank=True)
     number_of_fans = models.ForeignKey(NumberOfFans, on_delete=models.DO_NOTHING, null=True, blank=True)
     size = models.ForeignKey(Size, on_delete=models.DO_NOTHING, null=True, blank=True)#4382
-    warranty_period = models.ForeignKey(WarrantyPeriod, on_delete=models.DO_NOTHING, null=True)
+   
     active_cooling = models.ForeignKey(ActiveCooling, on_delete=models.DO_NOTHING, null=True)
     graphics_processor_frequency = models.ForeignKey(GraphicsProcessorFrequency, on_delete=models.DO_NOTHING, null=True)
     cooling_type = models.ForeignKey(CoolingType, on_delete=models.DO_NOTHING, null=True)
