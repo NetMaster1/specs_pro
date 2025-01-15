@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'app_notebook_reference',
     'app_tv_reference',
     'app_videocard_reference',
+    'app_camera_reference',
 ]
 
 MIDDLEWARE = [
