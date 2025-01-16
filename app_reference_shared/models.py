@@ -14,6 +14,20 @@ class OzonCategory (models.Model):
         return self.type_name
 #=======================================================================
 
+class MaxWorkTemp (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Макс. температура эксплуатации, С°' )
+    attribute_id = models.CharField(max_length=50, default='8676')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_collection = models.BooleanField(default=False)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+   
+    def __str__(self):
+        return self.value
+    
+
+
 class DomeMaterial (models.Model):
     attribute_name = models.CharField(max_length=50, default='Материал купола' )
     attribute_id = models.CharField(max_length=50, default='5271')
@@ -26,7 +40,6 @@ class DomeMaterial (models.Model):
     def __str__(self):
         return self.value
     
-
 class VideoProtocolSupport (models.Model):
     attribute_name = models.CharField(max_length=50, default='Поддержка видеопротоколов' )
     attribute_id = models.CharField(max_length=50, default='22417')
