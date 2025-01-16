@@ -12,7 +12,118 @@ class OzonCategory (models.Model):
     
     def __str__(self):
         return self.type_name
+#=======================================================================
 
+class DomeMaterial (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Материал купола' )
+    attribute_id = models.CharField(max_length=50, default='5271')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_collection = models.BooleanField(default=False)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+   
+    def __str__(self):
+        return self.value
+    
+
+class VideoProtocolSupport (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Поддержка видеопротоколов' )
+    attribute_id = models.CharField(max_length=50, default='22417')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_collection = models.BooleanField(default=True)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+   
+    def __str__(self):
+        return self.value
+    
+class FileCompressionFormat (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Формат сжатия файлов' )
+    attribute_id = models.CharField(max_length=50, default='22416')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_collection = models.BooleanField(default=True)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+   
+    def __str__(self):
+        return self.value
+    
+class CameraViewAngle (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Угол обзора, градусов' )
+    attribute_id = models.CharField(max_length=50, default='6073')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_collection = models.BooleanField(default=False)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+   
+    def __str__(self):
+        return self.value
+    
+class CameraSensor (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Датчики' )
+    attribute_id = models.CharField(max_length=50, default='22414')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_collection = models.BooleanField(default=True)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+   
+    def __str__(self):
+        return self.value
+    
+class MinWorkTemp (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Мин. температура эксплуатации, °С' )
+    attribute_id = models.CharField(max_length=50, default='6085')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_collection = models.BooleanField(default=False)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+   
+    def __str__(self):
+        return self.value
+        
+class InfraredLightRange (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Дальность ИК-подсветки, м' )
+    attribute_id = models.CharField(max_length=50, default='6078')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=0)
+    is_collection = models.BooleanField(default=False)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+   
+    def __str__(self):
+        return self.value
+
+class NetworkProtocol (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Сетевые протоколы' )
+    attribute_id = models.CharField(max_length=50, default='5268')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_collection = models.BooleanField(default=True)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+   
+    def __str__(self):
+        return self.value
+    
+class CommunicationType (models.Model):
+    attribute_name = models.CharField(max_length=50, default='Тип связи' )
+    attribute_id = models.CharField(max_length=50, default='5857')
+    value = models.CharField(max_length=100, blank=True)
+    dictionary_value_id = models.CharField(max_length=20, default=1)
+    is_collection = models.BooleanField(default=True)
+    is_required = models.BooleanField(default=False)
+    category_dependent = models.BooleanField(default=False)
+   
+    def __str__(self):
+        return self.value
+
+#=================================================================
 class ShaderVersion (models.Model):
     attribute_name = models.CharField(max_length=50, default='Версия шейдеров' )
     attribute_id = models.CharField(max_length=50, default='10546')

@@ -64,10 +64,10 @@ class Camera (models.Model):
     #И по разному, чтобы разъединить. Объединение через данный атрибут произойдет только если товары имеют одинаковый Тип и Бренд
     model_name = models.ForeignKey(ModelName, on_delete=models.DO_NOTHING, null=True)#9048
     camera_resolution = models.ForeignKey(CameraResolution, on_delete=models.DO_NOTHING, null=True, blank=True)
-    connection_type = models.ManyToManyField(ConnectionType, blank=True)
+    communication_type = models.ManyToManyField(CommunicationType, blank=True)
     life_span = models.ForeignKey(LifeSpan, on_delete=models.DO_NOTHING, null=True, blank=True)
     network_protocol = models.ManyToManyField(NetworkProtocol, blank=True)
-    infrared_range = models.ForeignKey(InfraredLightingRange, on_delete=models.DO_NOTHING, null=True, blank=True)
+    infrared_range = models.ForeignKey(InfraredLightRange, on_delete=models.DO_NOTHING, null=True, blank=True)
     video_file_format = models.ManyToManyField(VideoFileFormat, blank=True)
     min_work_temp = models.ForeignKey(MinWorkTemp, on_delete=models.DO_NOTHING, null=True, blank=True)
     camera_security_grade = models.ManyToManyField(CameraSecurityGrade, blank=True)
@@ -78,42 +78,17 @@ class Camera (models.Model):
     dome_material = models.ForeignKey(DomeMaterial, on_delete=models.DO_NOTHING, null=True, blank=True)
     camera_interface = models.ManyToManyField(CameraIntreface, blank=True)
     warranty_period = models.ForeignKey(WarrantyPeriod, on_delete=models.DO_NOTHING, null=True)
-    max_work_tem = models.ForeignKey(MaxWorkTemp, on_delete=models.DO_NOTHING, null=True, blank=True)
-
-
-    lhr = models.ForeignKey(LHR, on_delete=models.DO_NOTHING, null=True, blank=True)
-    storage_bus_frequency = models.ForeignKey(StorageBusFrequency, on_delete=models.DO_NOTHING, null=True, blank=True)
-    video_card_storage = models.ForeignKey(VideoCardStorage, on_delete=models.DO_NOTHING, null=True, blank=True)
-    number_of_supported_monitors = models.ForeignKey(NumberOfSupportedMonitors, on_delete=models.DO_NOTHING, null=True, blank=True)
-    number_of_fans = models.ForeignKey(NumberOfFans, on_delete=models.DO_NOTHING, null=True, blank=True)
-    size = models.ForeignKey(Size, on_delete=models.DO_NOTHING, null=True, blank=True)#4382
-   
-    active_cooling = models.ForeignKey(ActiveCooling, on_delete=models.DO_NOTHING, null=True)
-    graphics_processor_frequency = models.ForeignKey(GraphicsProcessorFrequency, on_delete=models.DO_NOTHING, null=True)
-    cooling_type = models.ForeignKey(CoolingType, on_delete=models.DO_NOTHING, null=True)
-    dvi = models.ForeignKey(DVI, on_delete=models.DO_NOTHING, null=True)
-    video_card_colour = models.ManyToManyField(VideoCardColour, blank=True)#10096
-    raster_block = models.ForeignKey(RasterBlock, on_delete=models.DO_NOTHING, null=True)
-    max_resolution = models.ForeignKey(MaxResolution, on_delete=models.DO_NOTHING, null=True)
-    storage_bus_width = models.ForeignKey(StorageBusWidth, on_delete=models.DO_NOTHING, null=True)
-    video_card_interface = models.ManyToManyField(VideoCardInterface, blank=True)
-    product_set = models.ForeignKey(ProductSet, on_delete=models.DO_NOTHING, null=True, blank=True)#4384
-    video_card_storage_type = models.ManyToManyField(VideoCardStorageType, blank=True)
-    length = models.ForeignKey(Length, on_delete=models.DO_NOTHING, null=True, blank=True)
-    module_height = models.ForeignKey(ModuleHeight, on_delete=models.DO_NOTHING, null=True, blank=True)
-    bus_type = models.ForeignKey(BusType, on_delete=models.DO_NOTHING, null=True, blank=True)
-    video_card_processor_brand = models.ForeignKey(VideoCardProcessorBrand, on_delete=models.DO_NOTHING, null=True, blank=True)#22409
-    texture_unit = models.ForeignKey(TextureUnit, on_delete=models.DO_NOTHING, null=True, blank=True)
-    video_card_processor_family = models.ForeignKey(VideoCardProcessorFamily, on_delete=models.DO_NOTHING, null=True, blank=True)#5141
-    video_card_display_port = models.ForeignKey(VideoCardDisplayPort, on_delete=models.DO_NOTHING, null=True, blank=True)#6067
-    supported_api = models.ManyToManyField(SupportedAPI, blank=True)
-    technology = models.ManyToManyField(Technology, blank=True)
-    
-    country_of_manufacture = models.ManyToManyField(CountryOfManufacture, blank=True)
-    number_of_slots = models.ForeignKey(NumberOfSlots, on_delete=models.DO_NOTHING, null=True, blank=True)
-    tv_power_consumption = models.ForeignKey(PowerConsumption, on_delete=models.DO_NOTHING, null=True, blank=True)
-    number_of_universal_processors = models.ForeignKey(NumberOfUniversalProcessors, on_delete=models.DO_NOTHING, null=True, blank=True)
-    recommended_power_supply = models.ForeignKey(RecommendedPowerSupply, on_delete=models.DO_NOTHING, null=True, blank=True)
+    max_work_temp = models.ForeignKey(MaxWorkTemp, on_delete=models.DO_NOTHING, null=True, blank=True)
+    camera_family = models.ManyToManyField(CameraFamily, blank=True)
+    camera_feature = models.ManyToManyField(CameraFeature, blank=True)
+    camera_case_material = models.ForeignKey(CameraCaseMaterial, on_delete=models.DO_NOTHING, null=True, blank=True)
+    camera_colour = models.ManyToManyField(CameraColour, blank=True)
+    camera_matrix_type = models.ForeignKey(CameraMatrixType, on_delete=models.DO_NOTHING, null=True, blank=True)
+    max_input_voltage = models.ForeignKey(MaxInputVoltage, on_delete=models.DO_NOTHING, null=True, blank=True)
+    max_resolution_recording = models.ForeignKey(MaxResolutionRecording, on_delete=models.DO_NOTHING, null=True, blank=True)
+    auto_recording = models.ManyToManyField(AutoRecording, blank=True)
+    camera_installation_location = models.ForeignKey(CameraInstallationLocation, on_delete=models.DO_NOTHING, null=True, blank=True)
+    focus_type = models.ForeignKey(FocusType, on_delete=models.DO_NOTHING, null=True, blank=True)
     #Название пишется по принципу:\nТип + Бренд + Модель (серия + пояснение) + Артикул производителя + , 
     #(запятая) + Атрибут\nНазвание не пишется большими буквами (не используем caps lock).\n
     #Перед атрибутом ставится запятая. Если атрибутов несколько, они так же разделяются запятыми.\n
@@ -124,13 +99,27 @@ class Camera (models.Model):
     # space black \nКеды Dr. Martens Киноклассика, бело-черные, размер 43\nСтиральный порошок Ariel Магия белого с мерной ложкой, 
     # 15 кг\nСоус Heinz Xtreme Tabasco суперострый, 10 мл\nИгрушка для животных Четыре лапы \"Бегающая мышка\" БММ, белый
     name = models.ForeignKey(Name, on_delete=models.DO_NOTHING, null=True, blank=True)#4180
-    weight = models.ForeignKey(Weight, on_delete=models.DO_NOTHING, null=True, blank=True)#4383
-    video_processor_max_frequency = models.ForeignKey(VideoProcessorMaxFrequency, on_delete=models.DO_NOTHING, null=True, blank=True)#22296
-    additional_power_supply_connector = models.ManyToManyField(AdditionalPowerSupplyConnector, blank=True)
-    video_card_hdmi_connector = models.ForeignKey(VideoCardHDMIConnector, on_delete=models.DO_NOTHING, null=True, blank=True)#6065
-    VGA_connector = models.ForeignKey(VGAConnector, on_delete=models.DO_NOTHING, null=True, blank=True)#6065
-    part_number = models.ForeignKey(PartNumber, on_delete=models.DO_NOTHING, null=True)
+    rotation_control = models.ForeignKey(RotationControl, on_delete=models.DO_NOTHING, null=True, blank=True)
+    serial_name = models.ForeignKey(SerialName, on_delete=models.DO_NOTHING, null=True, blank=True)
+    vad_assistant = models.ManyToManyField(VADAssistant, blank=True)
+    total_pixel = models.ForeignKey(TotalPixel, on_delete=models.DO_NOTHING, null=True, blank=True)
+    colour_reference = models.ForeignKey(ColourReference, on_delete=models.DO_NOTHING, null=True, blank=True)
+    ir_light = models.ForeignKey(IRLight, on_delete=models.DO_NOTHING, null=True, blank=True)
+    storage_card_type = models.ManyToManyField(StorageCardType, blank=True)
+    country_of_manufacture = models.ManyToManyField(CountryOfManufacture, blank=True)
+    camera_make = models.ForeignKey(CameraMake, on_delete=models.DO_NOTHING, null=True, blank=True)
+    product_set = models.ForeignKey(ProductSet, on_delete=models.DO_NOTHING, null=True, blank=True)
+    focal_distance = models.ForeignKey(FocalDistance, on_delete=models.DO_NOTHING, null=True, blank=True)
+    video_signal_system = models.ManyToManyField(VideoSignalSystem, blank=True)
+    smart_house_system = models.ManyToManyField(SmartHouseSystem, blank=True)
+    camera_size = models.ForeignKey(CameraSize, on_delete=models.DO_NOTHING, null=True, blank=True)
+    auto_surveillance = models.ForeignKey(AutoSurveillance, on_delete=models.DO_NOTHING, null=True, blank=True)
+    output_voltage = models.ForeignKey(OutputVoltage, on_delete=models.DO_NOTHING, null=True, blank=True)
+    camera_video_quality = models.ForeignKey(CameraVideoQuality, on_delete=models.DO_NOTHING, null=True, blank=True)
     description = models.ForeignKey(Description, on_delete=models.DO_NOTHING, null=True, blank=True)
+    camera_weight = models.ForeignKey(Weight, on_delete=models.DO_NOTHING, null=True, blank=True)
+    emergency_power_supply = models.ForeignKey(EmergencyPowerSupply, on_delete=models.DO_NOTHING, null=True, blank=True)
+    part_number = models.ForeignKey(PartNumber, on_delete=models.DO_NOTHING, null=True)
     #======================dictionary_id > 0==================================================
     video_url = models.URLField(blank=True)
     image_1 = models.URLField(blank=True)
